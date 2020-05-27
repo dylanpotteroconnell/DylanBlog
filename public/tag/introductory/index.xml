@@ -5,12 +5,240 @@
     <link>/tag/introductory/</link>
       <atom:link href="/tag/introductory/index.xml" rel="self" type="application/rss+xml" />
     <description>introductory</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Thu, 08 Nov 2018 00:00:00 +0000</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Wed, 27 May 2020 00:00:00 +0000</lastBuildDate>
     <image>
       <url>/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_512x512_fill_lanczos_center_2.png</url>
       <title>introductory</title>
       <link>/tag/introductory/</link>
     </image>
+    
+    <item>
+      <title>The Perils of Overly Local Optimization</title>
+      <link>/post/local-optimization/</link>
+      <pubDate>Wed, 27 May 2020 00:00:00 +0000</pubDate>
+      <guid>/post/local-optimization/</guid>
+      <description>
+
+
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(tidyverse)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Registered S3 method overwritten by &amp;#39;rvest&amp;#39;:
+##   method            from
+##   read_xml.response xml2&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## ── Attaching packages ───────────────────────────── tidyverse 1.2.1 ──&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## ✓ ggplot2 3.2.1     ✓ purrr   0.3.4
+## ✓ tibble  2.1.1     ✓ dplyr   0.8.3
+## ✓ tidyr   0.8.3     ✓ stringr 1.4.0
+## ✓ readr   1.3.1     ✓ forcats 0.4.0&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Warning: package &amp;#39;purrr&amp;#39; was built under R version 3.6.2&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## ── Conflicts ──────────────────────────────── tidyverse_conflicts() ──
+## x dplyr::filter() masks stats::filter()
+## x dplyr::lag()    masks stats::lag()&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(gganimate)
+library(transformr)
+library(gifski)
+### Maybe it&amp;#39;s best to first start one-dimensional, before biting off more 
+# than I can chew...
+
+
+location.params &amp;lt;- c(-10, 0, 10)
+scale.params &amp;lt;- c(3.5, 3, 4)
+weights &amp;lt;- c(.2, .4, .4)
+
+CauchyMixtureDensity &amp;lt;- function(x,
+                                 location.params,
+                                 shape.params,
+                                 weights) {
+  densities &amp;lt;- map2(location.params, 
+                    scale.params, 
+                    function(.loc, .scale) dcauchy(x,
+                                                   location = .loc, 
+                                                   scale = .scale)) 
+  return(do.call(cbind, densities) %*% weights)
+}
+
+
+DerivCauchy &amp;lt;- function(x, location, scale) {
+  2*(location-x)/(scale^3*pi*(1+(-location+x)^2/scale^2)^2)
+}
+
+CauchyMixtureDerivative &amp;lt;- function(x,
+                                    location.params,
+                                    shape.params,
+                                    weights) {
+  densities &amp;lt;- map2(location.params, 
+                    scale.params, 
+                    function(.loc, .scale) DerivCauchy(x,
+                                                       location = .loc, 
+                                                       scale = .scale)) 
+  return(do.call(cbind, densities) %*% weights)
+}
+
+# Scalar for gradient ascent
+x.init &amp;lt;- 18
+
+GradientAscentStep &amp;lt;- function(x, 
+                               eta, 
+                               location.params, 
+                               scale.params, 
+                               weights,
+                               type = &amp;quot;Gradient Ascent&amp;quot;) {
+  deriv &amp;lt;- CauchyMixtureDerivative(x, 
+                                   location.params, 
+                                   scale.params, 
+                                   weights) %&amp;gt;% 
+    as.numeric()
+  xprime &amp;lt;- x + eta*deriv + ifelse(type == &amp;quot;Noisy Ascent&amp;quot;, 
+                                   rnorm(1, 0, .5), 
+                                   0)
+  return(xprime)
+}
+
+
+
+RunGradientAscent &amp;lt;- function(x.init, 
+                              location.params,
+                              scale.params,
+                              weights,
+                              eta,
+                              type = &amp;quot;Gradient&amp;quot;) {
+  max.iter &amp;lt;- 10000
+  ascent.seq &amp;lt;- c(x.init)
+  converged &amp;lt;- FALSE
+  i &amp;lt;- 1
+  while (! converged &amp;amp;&amp;amp; i &amp;lt; max.iter) {
+    ascent.seq[i+1] &amp;lt;- GradientAscentStep(ascent.seq[i],
+                                          eta,
+                                          location.params,
+                                          scale.params,
+                                          weights,
+                                          type)
+    i &amp;lt;- i + 1
+    if (abs(ascent.seq[i] - ascent.seq[i-1])*100 &amp;lt; 10^(-4)) {
+      converged &amp;lt;- TRUE
+    }
+  }
+  return(ascent.seq)
+}
+
+
+
+
+###########
+tb.dens.grid &amp;lt;- tibble(x = seq(-20, 20, .1)) %&amp;gt;%
+  mutate(y = as.numeric(CauchyMixtureDensity(x, 
+                                             location.params, 
+                                             scale.params, 
+                                             weights)))
+eta.grad.ascent &amp;lt;- 100
+grad.ascent.seq &amp;lt;- RunGradientAscent(x.init, 
+                                     location.params,
+                                     scale.params,
+                                     weights,
+                                     eta = eta.grad.ascent, 
+                                     type = &amp;quot;Gradient Ascent&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;tb.grad.ascent &amp;lt;- tibble(x = grad.ascent.seq,
+                         iter = seq_along(grad.ascent.seq)) %&amp;gt;%
+  arrange(iter) %&amp;gt;%
+  # mutate(x.next = lead(x, n = 1, default = NA)) %&amp;gt;%
+  mutate(y = as.numeric(CauchyMixtureDensity(x, 
+                                             location.params, 
+                                             scale.params, 
+                                             weights)),
+         # y.next = as.numeric(CauchyMixtureDensity(x.next, 
+         #                                          location.params, 
+         #                                          scale.params, 
+         #                                          weights)),
+         grad = as.numeric(CauchyMixtureDerivative(x, 
+                                                   location.params, 
+                                                   scale.params, 
+                                                   weights)),
+         x.next = x + eta.grad.ascent*grad,
+         y.next = as.numeric(CauchyMixtureDensity(x.next, 
+                                                  location.params, 
+                                                  scale.params, 
+                                                  weights)))
+p.ascent &amp;lt;- ggplot(tb.dens.grid, aes(x = x, y = y)) + 
+  geom_line() +
+  geom_point(data = tb.grad.ascent, 
+             col = &amp;quot;red&amp;quot;, size = 1) +
+  geom_segment(data = tb.grad.ascent,
+               aes(x = x, y = y, xend = x.next, yend = y.next),
+               col = &amp;quot;red&amp;quot;, size = .25,
+               arrow = arrow(length = unit(.2, &amp;quot;cm&amp;quot;), type = &amp;quot;closed&amp;quot;))  
+p.ascent&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2020-05-27-local-optimization.en/index_files/figure-html/unnamed-chunk-2-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;anim.ascent &amp;lt;- p.ascent + transition_states(iter,
+                                            transition_length = 1,
+                                            state_length = 1)
+animate(anim.ascent, 
+        nframes = 10 + max(tb.grad.ascent$iter),
+        renderer = gifski_renderer(&amp;quot;test_grad_ascent_anim.gif&amp;quot;))&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2020-05-27-local-optimization.en/index_files/figure-html/unnamed-chunk-2-1.gif&#34; /&gt;&lt;!-- --&gt;
+&lt;img src=&#34;test_grad_ascent_anim.gif&#34; /&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;eta.noisy.ascent &amp;lt;- 25
+noisy.ascent.seq &amp;lt;- RunGradientAscent(x.init, 
+                                      location.params,
+                                      scale.params,
+                                      weights,
+                                      eta = eta.noisy.ascent, 
+                                      type = &amp;quot;Noisy Ascent&amp;quot;)
+
+
+tb.noisy.ascent &amp;lt;- tibble(x = noisy.ascent.seq,
+                          iter = seq_along(noisy.ascent.seq)) %&amp;gt;%
+  arrange(iter) %&amp;gt;%
+  # mutate(x.next = lead(x, n = 1, default = NA)) %&amp;gt;%
+  mutate(y = as.numeric(CauchyMixtureDensity(x, 
+                                             location.params, 
+                                             scale.params, 
+                                             weights)),
+         # y.next = as.numeric(CauchyMixtureDensity(x.next, 
+         #                                          location.params, 
+         #                                          scale.params, 
+         #                                          weights)),
+         grad = CauchyMixtureDerivative(x, 
+                                        location.params, 
+                                        scale.params, 
+                                        weights),
+         x.next = x + eta.grad.ascent*grad,
+         y.next = as.numeric(CauchyMixtureDensity(x.next, 
+                                                  location.params, 
+                                                  scale.params, 
+                                                  weights)))
+# For now, only plot until it finds the max
+true.max &amp;lt;- max(tb.noisy.ascent$y)
+first.time.max &amp;lt;- tb.noisy.ascent %&amp;gt;% 
+  filter(y &amp;gt; .99*true.max) %&amp;gt;%
+  arrange(iter) %&amp;gt;%
+  slice(1) %&amp;gt;%
+  pull(iter)
+tb.noisy.ascent &amp;lt;- tb.noisy.ascent %&amp;gt;%
+  slice(1:first.time.max)
+
+
+
+
+p.noisy &amp;lt;- ggplot(tb.dens.grid, aes(x = x, y = y)) + 
+  geom_line() +
+  geom_point(data = tb.noisy.ascent, 
+             col = &amp;quot;red&amp;quot;, size = 1) +
+  geom_segment(data = tb.noisy.ascent,
+               aes(x = x, y = y, xend = x.next, yend = y.next),
+               # aes(x = x, y = y, xend = x.next, yend = y.next),
+               col = &amp;quot;red&amp;quot;, size = .25,
+               arrow = arrow(length = unit(.2, &amp;quot;cm&amp;quot;), type = &amp;quot;closed&amp;quot;)) 
+p.noisy&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2020-05-27-local-optimization.en/index_files/figure-html/unnamed-chunk-3-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;anim.noisy &amp;lt;- p.noisy + transition_states(iter,
+                                          transition_length = 1,
+                                          state_length = 1)
+animate(anim.noisy, 
+        nframes = 10 + max(tb.noisy.ascent$iter),
+        renderer = gifski_renderer(&amp;quot;test_noisy_ascent_anim.gif&amp;quot;))&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/2020-05-27-local-optimization.en/index_files/figure-html/unnamed-chunk-3-1.gif&#34; /&gt;&lt;!-- --&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;test_noisy_ascent_anim.gif&#34; /&gt;&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>A Gentle Introduction to Parlays and Independence </title>
