@@ -51,11 +51,319 @@
     </item>
     
     <item>
-      <title>Winning a Debate: Insights from Intelligence Squared</title>
-      <link>/post/2018-07-29-winning-debate.en/winning-debate/</link>
+      <title>Winning a Debate: Insights from &#34;Intelligence Squared&#34;</title>
+      <link>/post/winning-debate/</link>
       <pubDate>Sun, 29 Jul 2018 00:00:00 +0000</pubDate>
-      <guid>/post/2018-07-29-winning-debate.en/winning-debate/</guid>
-      <description></description>
+      <guid>/post/winning-debate/</guid>
+      <description>
+
+
+&lt;p&gt;How does one measure the winner of a debate? If the debate itself is the focus, it’s wholly unsatisfying to just tally up the opinions of the viewers, as that solely reflects the prior beliefs of the audience. “Intelligence Squared” is an excellent podcast which teaches policy through moderated debate. A resolution is proposed (e.g. “Affirmative Action does more harm than good”), and two teams of two experts argue the issue in a structured setting. Many other programs aim for balance with a halfhearted attempt to pay lip service to the opposing side (without truly believing it), so it’s refreshing to hear passionate and informed argument from both sides of the aisle. If one side cites a misleading statistic, their opponents are ready to actually call them out on it, penalizing the lazy rhetorical tactics that plague discourse in an echo chamber.&lt;/p&gt;
+&lt;p&gt;The focus of the program is the debate itself, but some nominal winner must still be declared. This is determined using a simple formula. The audience is polled before and after the debate (For, Against, or Undecided on the issue), and the side which gains the most votes is the winner. To be clear, I do not think that this method of declaring a winner is a particularly important to the show, nor do I think any listeners actually consider the swings of audience opinion to be the final say on the matter. But it’s still interesting to consider whether or not this is a reasonable way to declare a debate winner. And more broadly, what can the results of a debate tell us about the way that people make up their minds on polarizing issues? Much has been written about the politically charged climate of the present, and the ways in which the media we consume is entrenching us in our positions, leading to static and polarized political views.&lt;/p&gt;
+&lt;p&gt;It turns out that Intelligence Squared doesn’t just measure the change in support for each side before and after the debate, for events since 2012 it also measured the individual shifts between each category (i.e. “Undecided before and For after”, or “For before and Against after”). This provides a small but insightful dataset looking at the ways in which minds can change on a polarizing issue in the course of an hour.&lt;/p&gt;
+&lt;div id=&#34;what-does-it-mean-to-win-a-debate&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;What does it mean to “win” a debate?&lt;/h3&gt;
+&lt;p&gt;Intelligence Squared declares their nominal winner with a simple metric, measuring whether the For or Against side had the largest absolute percentage point shift in support from the pre debate to the post debate audience poll. Thus, if the For side originally had 40% support and the Against side 35% support before the debate, and after the debate the For side had 45% support and the Against side had 43% support, the 8 percentage point increase of the Against side trumps the 5 percentage point increase of the For side, and the Against side wins the night. We will refer to this method for determining a victory as the ISM (Intelligence Squared Metric).&lt;/p&gt;
+&lt;p&gt;The problem with this approach stems from the fact that &lt;em&gt;there are a variety of ways that opinions could shift between the three camps&lt;/em&gt;. This is related to both its usage of absolute percentage point change (with no reference to the relative switch), as well as the presence of the undecided voters.&lt;/p&gt;
+&lt;p&gt;I stumbled upon &lt;a href=&#34;https://stats.stackexchange.com/a/94742&#34;&gt;this&lt;/a&gt; excellent post by &lt;em&gt;whuber&lt;/em&gt; on StackExchange. I have the pleasure of knowing &lt;em&gt;whuber&lt;/em&gt; in person, and in characteristic fashion he gives a thorough and insightful analysis of the ways in which we can have different shifts in support (among the different groups) for the same absolute result, in ways that make determining the winner quite difficult. We cite a simple example proposed by &lt;em&gt;whuber&lt;/em&gt; in this post.&lt;/p&gt;
+&lt;p&gt;Consider a situation where originally 20% are For, 60% are Against, and 20% are undecided (we will write this as a vector &lt;span class=&#34;math inline&#34;&gt;\((.2, .6, .2)\)&lt;/span&gt;). After the debate, the vector of support is &lt;span class=&#34;math inline&#34;&gt;\((.3, .4, .3)\)&lt;/span&gt;. Under the ISM, this is a clear and decisive win for the For side, as they gained 10 percentage points of support, while the Against side lost 20 percentage points. However, there are a variety of between-group opinion switches that could lead to this result. &lt;em&gt;whuber&lt;/em&gt; suggests that we write these between-group switches in a 3x3 transition matrix, where the &lt;span class=&#34;math inline&#34;&gt;\(ij\)&lt;/span&gt;th element represents the percent of the original supporters for the &lt;span class=&#34;math inline&#34;&gt;\(i\)&lt;/span&gt;th camp before the debate are supporters of the &lt;span class=&#34;math inline&#34;&gt;\(j\)&lt;/span&gt;th camp after the debate (with For as 1, Against as 2, and Undecided as 3). Then, this represents a plausible transition matrix for our final result.&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[
+\mathbb{A} = \left(
+\begin{array}{ccc}
+ 0.32 &amp;amp; 0.29 &amp;amp; 0.32 \\
+ 0.36 &amp;amp; 0.42 &amp;amp; 0.36 \\
+ 0.32 &amp;amp; 0.29 &amp;amp; 0.32 \\
+\end{array}
+\right).
+\]&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;As &lt;em&gt;whuber&lt;/em&gt; explains,&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Here, 36% of the “Fors” changed to the other side while only 29% of the “Against” changed to the opposite opinion. Moreover, slightly more of the undecideds (36%) vs 32%) came out “against” rather than for. Although their numbers in this audience decreased, we have a situation (reminiscent of Simpson’s Paradox) in which the “Against” faction clearly won the debate!&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;We have a possible outcome where Intelligence Squared would declare the “For” side a decisive winner, but in terms of percentage shifts, the “Against” side was more persuasive at both convincing Undecideds to join their side, &lt;em&gt;and&lt;/em&gt; convincing those with a prior opinion to change their viewpoint. This clarifies the challenge inherent in determining the winner of a debate. When one side is initially quite unpopular, they have a larger population of possible voters that they can woo, which makes their proportional gains much higher in absolute terms. There’s certainly a plausible argument that absolute shifts in support should be the most important factor in determining a winner, but this does make the situation more complex. And it gets even messier in cases where the sub-group switches don’t necessarily agree. We might see one side sway a much larger proportion of the Undecided voters, while being less successful at convincing those from the other side to switch. This could leave us without a conclusive winner.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;how-has-this-worked-in-practice&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;How has this worked in practice?&lt;/h3&gt;
+&lt;p&gt;Looking at the results of the Intelligence Squared debates in reality, we see that the majority of results are uncontroversial. and there is little doubt which side was more convincing. In total, we gather the results from 88 debates from the Intelligence Squared &lt;a href=&#34;https://www.intelligencesquaredus.org/debates&#34;&gt;website&lt;/a&gt;, with the process described &lt;a href=&#34;https://dylanpotteroconnell.github.io/debateresults2/&#34;&gt;here&lt;/a&gt;, and the unpolished scraped dataset &lt;a href=&#34;https://github.com/dylanpotteroconnell/IntelSquaredProject/blob/master/votingresultsfinal.csv&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;The first winning metric we consider is the Intelligence Squared Metric (ISM), which measures shift in absolute percentage of support. We next consider the Undisputed Metric (UDM), which uses the proportional switching outlined above, and only assigns a winner when one side &lt;em&gt;both&lt;/em&gt; convinces a greater proportion of Undecided voters to join their side, as well as a greater proportion of the other side to switch their opinion. In cases when these do not agree, no winner is declared.&lt;/p&gt;
+&lt;p&gt;Thus the first question is whether there are cases where the UDM declares a winner which is the reverse of the ISM, like the toy example outlined above by &lt;em&gt;whuber&lt;/em&gt;. It turns out that this is &lt;em&gt;not&lt;/em&gt; an idle concern, and in fact there have been six debates with this conflicting result.&lt;/p&gt;
+&lt;!-- \begin{table}[h] --&gt;
+&lt;!--     \centering --&gt;
+&lt;!--     \begin{tabular}{|l|l|l|l|l|l|l|l|l|} --&gt;
+&lt;!--     \hline --&gt;
+&lt;!--         Title &amp; Date &amp; Pre \%: For &amp; Pre \%: Against &amp; Pre \%: Undecided &amp; Abs. \% \$$\backslash$Delta\$: For &amp; Abs. \% \$$\backslash$Delta\$: Against &amp; ISM Winner &amp; UDM Winner \\ \hline --&gt;
+&lt;!--         Trigger Warning: Safe Spaces Are Dangerous &amp; 06/23/2018 &amp; 57 &amp; 25 &amp; 18 &amp; -1 &amp; 10 &amp; Against &amp; For \\ \hline --&gt;
+&lt;!--         Preserve Net Neutrality: All Data is Created Equal &amp; 04/17/2018 &amp; 60 &amp; 23 &amp; 17 &amp; 0 &amp; 8 &amp; Against &amp; For \\ \hline --&gt;
+&lt;!--         Legalize Assisted Suicide &amp; 11/03/2014 &amp; 63 &amp; 11 &amp; 26 &amp; 4 &amp; 11 &amp; Against &amp; For \\ \hline --&gt;
+&lt;!--         Break up the Big Banks &amp; 10/16/2013 &amp; 35 &amp; 19 &amp; 46 &amp; 13 &amp; 20 &amp; Against &amp; For \\ \hline --&gt;
+&lt;!--         Cutting the Pentagon&#39;s Budget is a Gift to our Enemies &amp; 06/19/2013 &amp; 20 &amp; 58 &amp; 22 &amp; 9 &amp; 8 &amp; For &amp; Against \\ \hline --&gt;
+&lt;!--         The GOP must Seize the Center or Die &amp; 04/17/2013 &amp; 63 &amp; 14 &amp; 23 &amp; 2 &amp; 14 &amp; Against &amp; For \\ \hline --&gt;
+&lt;!--     \end{tabular} --&gt;
+&lt;!-- \end{table} --&gt;
+&lt;style type=&#34;text/css&#34;&gt;
+.tg  {border-collapse:collapse;border-spacing:0;border-color:#ccc;}
+.tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:#ccc;color:#333;background-color:#fff;}
+.tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:#ccc;color:#333;background-color:#f0f0f0;}
+.tg .tg-yp4a{border-color:#333333;vertical-align:top}
+.tg .tg-us36{border-color:inherit;vertical-align:top}
+.tg .tg-fraq{color:#333333;border-color:#000000;vertical-align:top}
+.tg .tg-dvpl{border-color:inherit;text-align:right;vertical-align:top}
+&lt;/style&gt;
+&lt;table class=&#34;tg&#34;&gt;
+&lt;tr&gt;
+&lt;th class=&#34;tg-us36&#34;&gt;
+Title
+&lt;/th&gt;
+&lt;th class=&#34;tg-us36&#34;&gt;
+Date
+&lt;/th&gt;
+&lt;th class=&#34;tg-yp4a&#34;&gt;
+Pre %: For
+&lt;/th&gt;
+&lt;th class=&#34;tg-fraq&#34;&gt;
+Pre %: Against
+&lt;/th&gt;
+&lt;th class=&#34;tg-yp4a&#34;&gt;
+Pre %: Undecided
+&lt;/th&gt;
+&lt;th class=&#34;tg-dvpl&#34;&gt;
+Abs. % &lt;span class=&#34;math inline&#34;&gt;\(\Delta\)&lt;/span&gt;: For
+&lt;/th&gt;
+&lt;th class=&#34;tg-dvpl&#34;&gt;
+Abs. % &lt;span class=&#34;math inline&#34;&gt;\(\Delta\)&lt;/span&gt;: Against
+&lt;/th&gt;
+&lt;th class=&#34;tg-us36&#34;&gt;
+ISM Winner
+&lt;/th&gt;
+&lt;th class=&#34;tg-us36&#34;&gt;
+UDM Winner
+&lt;/th&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&#34;tg-us36&#34;&gt;
+Trigger Warning: Safe Spaces Are Dangerous
+&lt;/td&gt;
+&lt;td class=&#34;tg-us36&#34;&gt;
+06/23/2018
+&lt;/td&gt;
+&lt;td class=&#34;tg-yp4a&#34;&gt;
+57
+&lt;/td&gt;
+&lt;td class=&#34;tg-fraq&#34;&gt;
+25
+&lt;/td&gt;
+&lt;td class=&#34;tg-yp4a&#34;&gt;
+18
+&lt;/td&gt;
+&lt;td class=&#34;tg-dvpl&#34;&gt;
+-1
+&lt;/td&gt;
+&lt;td class=&#34;tg-dvpl&#34;&gt;
+10
+&lt;/td&gt;
+&lt;td class=&#34;tg-us36&#34;&gt;
+Against
+&lt;/td&gt;
+&lt;td class=&#34;tg-us36&#34;&gt;
+For
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&#34;tg-us36&#34;&gt;
+Preserve Net Neutrality: All Data is Created Equal
+&lt;/td&gt;
+&lt;td class=&#34;tg-us36&#34;&gt;
+04/17/2018
+&lt;/td&gt;
+&lt;td class=&#34;tg-yp4a&#34;&gt;
+60
+&lt;/td&gt;
+&lt;td class=&#34;tg-fraq&#34;&gt;
+23
+&lt;/td&gt;
+&lt;td class=&#34;tg-yp4a&#34;&gt;
+17
+&lt;/td&gt;
+&lt;td class=&#34;tg-dvpl&#34;&gt;
+0
+&lt;/td&gt;
+&lt;td class=&#34;tg-dvpl&#34;&gt;
+8
+&lt;/td&gt;
+&lt;td class=&#34;tg-us36&#34;&gt;
+Against
+&lt;/td&gt;
+&lt;td class=&#34;tg-us36&#34;&gt;
+For
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&#34;tg-us36&#34;&gt;
+Legalize Assisted Suicide
+&lt;/td&gt;
+&lt;td class=&#34;tg-us36&#34;&gt;
+11/03/2014
+&lt;/td&gt;
+&lt;td class=&#34;tg-yp4a&#34;&gt;
+63
+&lt;/td&gt;
+&lt;td class=&#34;tg-fraq&#34;&gt;
+11
+&lt;/td&gt;
+&lt;td class=&#34;tg-yp4a&#34;&gt;
+26
+&lt;/td&gt;
+&lt;td class=&#34;tg-dvpl&#34;&gt;
+4
+&lt;/td&gt;
+&lt;td class=&#34;tg-dvpl&#34;&gt;
+11
+&lt;/td&gt;
+&lt;td class=&#34;tg-us36&#34;&gt;
+Against
+&lt;/td&gt;
+&lt;td class=&#34;tg-us36&#34;&gt;
+For
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&#34;tg-us36&#34;&gt;
+Break up the Big Banks
+&lt;/td&gt;
+&lt;td class=&#34;tg-us36&#34;&gt;
+10/16/2013
+&lt;/td&gt;
+&lt;td class=&#34;tg-yp4a&#34;&gt;
+35
+&lt;/td&gt;
+&lt;td class=&#34;tg-fraq&#34;&gt;
+19
+&lt;/td&gt;
+&lt;td class=&#34;tg-yp4a&#34;&gt;
+46
+&lt;/td&gt;
+&lt;td class=&#34;tg-dvpl&#34;&gt;
+13
+&lt;/td&gt;
+&lt;td class=&#34;tg-dvpl&#34;&gt;
+20
+&lt;/td&gt;
+&lt;td class=&#34;tg-us36&#34;&gt;
+Against
+&lt;/td&gt;
+&lt;td class=&#34;tg-us36&#34;&gt;
+For
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&#34;tg-us36&#34;&gt;
+Cutting the Pentagon’s Budget is a Gift to our Enemies
+&lt;/td&gt;
+&lt;td class=&#34;tg-us36&#34;&gt;
+06/19/2013
+&lt;/td&gt;
+&lt;td class=&#34;tg-yp4a&#34;&gt;
+20
+&lt;/td&gt;
+&lt;td class=&#34;tg-fraq&#34;&gt;
+58
+&lt;/td&gt;
+&lt;td class=&#34;tg-yp4a&#34;&gt;
+22
+&lt;/td&gt;
+&lt;td class=&#34;tg-dvpl&#34;&gt;
+9
+&lt;/td&gt;
+&lt;td class=&#34;tg-dvpl&#34;&gt;
+8
+&lt;/td&gt;
+&lt;td class=&#34;tg-us36&#34;&gt;
+For
+&lt;/td&gt;
+&lt;td class=&#34;tg-us36&#34;&gt;
+Against
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&#34;tg-us36&#34;&gt;
+The GOP must Seize the Center or Die
+&lt;/td&gt;
+&lt;td class=&#34;tg-us36&#34;&gt;
+04/17/2013
+&lt;/td&gt;
+&lt;td class=&#34;tg-yp4a&#34;&gt;
+63
+&lt;/td&gt;
+&lt;td class=&#34;tg-fraq&#34;&gt;
+14
+&lt;/td&gt;
+&lt;td class=&#34;tg-yp4a&#34;&gt;
+23
+&lt;/td&gt;
+&lt;td class=&#34;tg-dvpl&#34;&gt;
+2
+&lt;/td&gt;
+&lt;td class=&#34;tg-dvpl&#34;&gt;
+14
+&lt;/td&gt;
+&lt;td class=&#34;tg-us36&#34;&gt;
+Against
+&lt;/td&gt;
+&lt;td class=&#34;tg-us36&#34;&gt;
+For
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;p&gt;This is not surprising when the absolute percentage changes are so close (such as in “Cutting the Pentagon’s budget…”), but the other debates show some wildly divergent results. We even see an example of &lt;em&gt;whuber&lt;/em&gt;’s hypothesized situation. In the “Trigger Warnings” debate on 06/23/2018, we see the For camp lose support, the Against camp gain support, and yet we see that the For camp was declared the winner by the UDM. The transition matrix for this debate is shown here&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[
+\text{Trigger Warnings Debate: }\left(
+\begin{array}{ccc}
+0.67 &amp;amp; 0.44 &amp;amp; 0.39 \\ 
+0.26 &amp;amp; 0.56 &amp;amp; 0.33 \\ 
+0.07 &amp;amp; 0.00 &amp;amp; 0.28 \\ 
+\end{array}
+\right).
+\]&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;The For camp was able to lure 39% of the Undecided voters, compared to only 33% by the Against camp. And the For side was able to convince 44% of the Against camp to change their minds, while the Against camp convinced only 26% of the For camp to swap. And yet the For camp &lt;em&gt;lost&lt;/em&gt; support, while the Against camp gained support. This can easily be explained by the initial disparity in popularity. The For side began with 57% of the vote, so while they convinced a larger proportion of Undecided and Against voters to change their view, they had a minority of the audience who were even available to sway.&lt;/p&gt;
+&lt;p&gt;This is a perfect example of the issue, because it feels fundamentally wrong to declare the winner of the debate to be a side that &lt;em&gt;lost&lt;/em&gt; popularity during the course of the night. This cousin of Simpson’s Paradox defies our intuition, where we want relative and absolute changes to point in the same direction. I think there’s an argument for both sides. The issue with using the UDM (with subgroup proportional shifts) is that there’s an inherent expectation that a debate will shift opinions towards the center. If one group starts overwhelmingly popular, and both sides sway the proportional amount of people to their side, then that side will tend to lose share. It doesn’t make much sense that we would expect any evenly matched debate to bring public opinion towards a 50/50 split, but a series of dead even debates (as measured by the UDM) would push the audience towards that equilibrium point. And yet, we think of the goal of debates as being one of persuasion. And so it makes little sense to declare one side the winner because they had a larger possible audience to persuade, even if their marginal rate of persuasion was inferior.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;are-there-obvious-issues-in-the-original-metric&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Are there obvious issues in the original metric?&lt;/h3&gt;
+&lt;p&gt;There is no singular way to measure the efficacy of these metrics, and it ultimately comes down to our subjective intuition about what it means to “win” a debate. However, we can reasonably agree on some criteria that we intuitively find “fair”. Generally, we want a debate to be a plausibly even playing field from the start. An even more intuitive metric would simply be the popularity of each motion after the debate (which we refer to as the Final Popularity Metric [FPM]), but we reject this approach because it so obviously favors the side that is initially popular with the audience. It’s then worth it to consider whether the ISM is biased in ways that clash with our intuition.&lt;/p&gt;
+&lt;p&gt;The most obvious plausible bias is that of the initial popularity of each position. In fact, this is why we do not simply use the FPM , so it is perhaps instructive to consider what such bias looks like. We plot the initial popularity of the For and Against positions below, and use color to denote the final winner by the FPM (i.e. which position was ultimately more popular with the audience). Exactly as we’d expect, there is a heavy bias to the initial starting positions. There are a few instances where a particularly large swing allows for the initially unfavorable position to pull out a win, but generally the winner is determined simply by initial popularity, and the processs of the debate itself is largely irrelevant.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;IQ2_FPresults.png&#34; /&gt;&lt;/p&gt;
+&lt;!-- ![OriginalResults]({{ &#34;/images/IQ2_FPresults.png&#34;}}) --&gt;
+&lt;p&gt;When we consider the same plot colored by the standard ISM results, we see a much more promising picture. On first glance, this adjustment does a plausible job of removing the bias from initial popularity. We theorized that the ISM might be punishing to sides that begin with overwhelming popularity, becuase they have so many fewer people that they can convert to their side (and an increase from 90 to 95 percent popularity might only be 5 percentage points, but represents a massive 50% decrease in those who don’t support that side). However, in practice, most positions start at a popularity between 20% and 50%, so those extreme examples just aren’t as concerning. And within that range, the naked eye doesn’t detect any overwhelming patterns of bias.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;IQ2_winnerorigresults.png&#34; /&gt;&lt;/p&gt;
+&lt;!-- ![OriginalResults]({{ &#34;/images/IQ2_winnerorigresults.png&#34;}}) --&gt;
+&lt;p&gt;One plausible trend that might stand out lies in the bottom right of the chart, where we do note that debates with an initially extremely high For share tended to be won by the Against side. Of the seven debates where the For side began with at least 60% vote share, the Against side won six contests and For won only one. This is a very small sample, but it does fit our intuition, and thus the lack of bias might simply stem from the fact that it is only observed in the extreme starting positions, which occur rarely. We do note that the reverse extreme (where the Against side has initally dominant popularity) does not show any such obvious trend, which makes this slightly less troubling.&lt;/p&gt;
+&lt;p&gt;The prior plot only considers the binary outcome under the ISM, but we are not solely concerned with the effect on the binary result, but rather the effect on percentage point change, which can manifest in a shift of binary result. Thus, it must be more illsutrative to break down the effect further. We create 4 bins of debates based on a partition of the initial popularity of the For camp. For each bin, we consider a box plot of the percentage change that the debate creates for the For camp along with the percentage change for the Against camp, which provides a more precise analysis. As before, the picture is muddled until we consider the final bin (debates where the For side enjoyed a 55% or more share of the support), where almost all of the changes to the For side were lesser than the changes for the Against side. This is a much more persuasively troubling result than the simple results observed above, but the sample remains small (only 11).&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;IQ2_partitionvotechange.png&#34; /&gt;&lt;/p&gt;
+&lt;!-- ![PartitionVoteShare]({{ &#34;/images/IQ2_partitionvotechange.png&#34;}}) --&gt;
+&lt;p&gt;We observe a peculiar result, but are unsure whether it could simply result from random chance. This question of statistical significance is at the heart of the study of statistics. However, it is not immediately clear to me which tool is suited to the situation. A simple comparison of the mean changes of these different bins seems deeply problematic. It is unclear that we can make any plausible assumptions about the distribution of the changes of votes. Crucially, the changes to the For vote share are &lt;em&gt;not&lt;/em&gt; independent to the changes to the Against vote share. And there is a clear confounding variable, where change to For vote share is going to be effected not simply by initial For vote, but by the initial number of undecideds (we certainly have not proven this, but common sense says that an undecided voter is easier to persuade than one who believes in the opposing viewpoint). More broadly, any such test from here is problematic in the way that Exploratory Data Analysis tends to be. We have not rigorously predefined our research question based on a scientific hypothesis, we are simply confirming our vague intuition that starting vote share introduces bias. Thus, a test based on this particular binning creates some form of bias. If we explored deep enough into the data, eventualy we must have found something similarly intriguing.&lt;/p&gt;
+&lt;p&gt;We can use a nonparametric test to examine the implausibility of the observed trend, but we must keep the bias mentioned above closely in mind. Exploratory data analysis minimizes this problem by relying on standardized statistical tests which answer broad questions. A nonparametric test that examines the statistical implausibility of the difference observed in the arbitrary binning we have chosen above is far less robust. An example statistical test is the &lt;a href=&#34;https://en.wikipedia.org/wiki/Wilcoxon_signed-rank_test&#34;&gt;Kruskal-Wallis Rank test&lt;/a&gt;. This nonparametric test simply considers the ranked values of the observed data, and considers the statistical probability that we might observe such an extreme disparity as what occurs in our sample. This provides a statistically rigorous result without reliance on assumptions, but the issue is that it provides such an answer to a deeply narrow &lt;em&gt;question&lt;/em&gt;. In our case, we could consider the Kruskal-Wallis test with the changes to the For vote for two groups: those with initial share of 55+%, and those with lesser initial share. In this case, we observe a test statistic of 8.1929, and a p-value of 0.42%. Phrased in statistical language, this means that if our two groups generated changes to the For vote share with the same distribution, there would be less than a one in two hundred chance that we observe at least as large a disaparity in the ranks of the observed values.&lt;/p&gt;
+&lt;p&gt;The problem is that the question this answers is deceptively narrow. It cannot make any bold claims about &lt;em&gt;any&lt;/em&gt; debates that begin with 55+% vote share or fewer, but only the ones which we observe. If we had an ideal sample of such debates, and considered those above and below this threshold, then such a statement would be extremely powerful. Instead, our initial sample size of 11 debates means it is quite plausible that there are other fundamental differences in these samples.&lt;/p&gt;
+&lt;p&gt;In short, the Kruskal-Wallis test demonstrates the statistical significance in the difference of the distribution of these samples, but makes no claim as to why. And we have little conclusive proof that it is the prior vote share of the For side that creates this disparity, it could be any number of differences between the populations that provides the root cause.&lt;/p&gt;
+&lt;!--
+We can stick to a nonparametric test to sidestep of our lack of reasonable assumptions, but we must keep the above concerns closely in mind during this work. This will provide a useful benchmark for the improbability of the observed result, but there will be subjective choices made in the construction of our test (as there is no singular way to formulate our hypothesis). We must simply make reasonable choices, and keep this issue in mind (an issue at the heart of any statistical test conducted after exploratory data analysis, albeit one that is significantly less concerning when the test being used is cookie cutter and not subjectively defined by the examiner). Such 
+--&gt;
+&lt;p&gt;This is an obviously unsatisfying result, but in the name of intellectual honesty I hesitate to any bolder claim. Qualitatively, I do think that the sum of this analysis makes it very likely that our intuition that those with an initially high For vote share experience notable disadvantage for winning the debate under the metric used by Intelligence Squared. However, these extreme cases come up very rarely, and the ISM seems quite defensible for the purposes of the podcast.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;alternative-metrics&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Alternative Metrics&lt;/h3&gt;
+&lt;p&gt;It is of course interesting to consider other metrics that one could use. Outlined above, we consider the Undisputed Metric (UDM), which instead considers the percentage that switch between each camp during the debate. The UDM declares a winner if that side converts both a greater percentage of the other side to swap, as well a greater percentage of the Undecided camp to join theirs. In cases where there is disagreement (e.g. the For side convinces a greater proportion of Against voters to join their side than vice versa, but the Against side convinces a greater proportion of Undecided voters), the UDM simply declares that there is no clear winner. The UDM operates under a fundamentally different mindset: that what matters is not the percentage point change, but the proportion of voters who you sway. As noted above, it is perfectly possible for the UDM to declare the opposite winner to the ISM (this is particularly likely to happen in those cases where one side has initially extreme vote share). We first consider another plot of the debate result under the UDM compared to the initial For and Against vote shares.&lt;/p&gt;
+&lt;!-- ![UDM Box Plot](IQ2_winnerUDMresults.png) --&gt;
+&lt;p&gt;&lt;img src=&#34;IQ2_winnerUDMresults.png&#34; /&gt;&lt;/p&gt;
+&lt;!-- ![]({{ &#34;/images/IQ2_winnerUDMresults.png&#34;}}) --&gt;
+&lt;p&gt;Similar to the ISM, under the UDM it seems the initial popularities are overly determinative of the final result. But we do observe something of a reverse trend: if an initial side has at least 50% share of the starting vote, now they nearly always win. We again break down this effect by considering the voting shifts for debates binned by their initial For vote share. Now, our object of interest is not simply the percentage point change, but a variety of changes (in this plot, we consider the proportion of initially Against voters who shift to For, Undecided persuaded to join the For camp, and initially For voters who defect to the against side). Note that the coloring is done using our initial For popularity partition, unlike above.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;IQ2_UDMboxplots.png&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;This reflects the effects expected from our initial results. Initially high For popularity tends to imply that they will persuade a higher proportion of Against voters, and that a lower proportion of For voters will defect to Against, while the results for Undecided voters are decidedly muddled. This is what we would expect. A high initial For vote share implies a lower Against vote share, so converting a small number of Against voters shows a lower percentage point change, but a large proportional change. The movement of undecided voters does not follow this pattern.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;summary&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Summary&lt;/h3&gt;
+&lt;p&gt;The question of which side is the winner in a debate is far from straightforward. Our intuition tells us that it should depend on the performance of the debaters, and not simply reflect the initial position of the audience. This is why we do not conduct a simple exit poll on the popularity of each side, which the data shows is massively biased towards the initial popularity of the sides. Unsurprisingly, audience members have extremely strong priors on these hotly contested issues, and an hour of debate does not ovewhelm a lifetime of thought on the matter. Intelligence Squared adjusts for this bias by polling the audience before the debate, and considering the percentage point change that each side observe. We hypothesize that this may instead be biased to disfavor initially popular sides. This appears to occur in the observed data, but extreme initial popularity is relatively rare, so it is hard to precisely prove the magnitude of this effect. In fact, the data shows that this metric seems to be a reasonably fair benchmark in practice. We outline one alternative for determining the winner, which is to consider the proportional changes among each sides. Counterintuitively, it is perfectly possible for one side in a debate to lose under the Intelligence Squared system, and yet persuade a greater proportion of both Undecideds and the other side to defect. In fact, we observe this scenario in a number of debates that occur. In practice, following this metric appears to bias results in the opposite manner, where initially popular sides are again favored (although in a similarly plausibly fair way in all but extreme cases). It is worth keeping in mind that the metric used by Intelligence Squared is but one reasonable choice, and while it serves their purposes well, it should not be considered the ultimate determination of efficacy in debate. Luckily, no one would doubt that the experience of the debate is what matters, and the mark of a winner is simply a superficial afterthought.&lt;/p&gt;
+&lt;/div&gt;
+</description>
     </item>
     
     <item>
@@ -79,6 +387,234 @@
 &lt;p&gt;where we identify the numbers that we’re interested in. With the numbers compiled into one large data frame (which can be viewed in raw form 
 &lt;a href=&#34;https://github.com/dylanpotteroconnell/IntelSquaredProject/blob/master/votingresultsfinal.csv&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;here&lt;/a&gt;, for those interested in examining the data themselves). In total, there are 88 debates stretching back to 2012 which have all the information needed. The program itself stretches back further, but they only began tracking the subgroup movements more recently.&lt;/p&gt;
 &lt;p&gt;In the next post, we can actually dive into the data itself.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>OddsConverter Part 3: Uploading to the Chrome Store</title>
+      <link>/post/oddsconverter-part3/</link>
+      <pubDate>Thu, 01 Mar 2018 00:00:00 +0000</pubDate>
+      <guid>/post/oddsconverter-part3/</guid>
+      <description>&lt;p&gt;Brief update to the 
+&lt;a href=&#34;https://dylanpotteroconnell.github.io/bettingextension2/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;past post&lt;/a&gt;. I knew a few people who wanted to try the extension, so I thought it’d be a fun exercise to go through the process of uploading it to the Chrome store. You can view and add the extension to your own browser 
+&lt;a href=&#34;https://chrome.google.com/webstore/detail/odds-converter/klechkhopfnjihobbcfeheooaigjjgdg&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;here&lt;/a&gt;. This is far from a polished state, given that it was meant to be a quick way to explore something new. However, I do find myself using the finished product a surprising amount, so I thought it was worth keeping on the Webstore. And it’s nice to see how easy Google makes it to upload a simple app.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Odds Converter Part 2: Conversion Webpage</title>
+      <link>/post/oddsconverter-part2/</link>
+      <pubDate>Thu, 25 Jan 2018 00:00:00 +0000</pubDate>
+      <guid>/post/oddsconverter-part2/</guid>
+      <description>&lt;h2 id=&#34;opening-a-new-page&#34;&gt;Opening a New Page&lt;/h2&gt;
+&lt;p&gt;Our simple extension from 
+&lt;a href=&#34;https://dylanpotteroconnell.github.io/bettingextension/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;last time&lt;/a&gt; works quite well to replace text on a page, but whenever text isn&amp;rsquo;t displayed in a nice format (which is true for many mdoern websites), it won&amp;rsquo;t do much good. The hope is to add functionality to it so that the user can easily and manually input the odds that they need. My vision was to let the user right click, and open up a page that lets them impute the odds to convert in a more detailed format.&lt;/p&gt;
+&lt;p&gt;As before, I don&amp;rsquo;t know enough about Javascript to start from scratch, so I borrow and adapt from some others online. 
+&lt;a href=&#34;https://stackoverflow.com/questions/4376167/text-selection-and-display-in-context-menu-chrome-extension&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;This StackOverflow answer&lt;/a&gt; provides an example of creating a context menu upon a user right click that is the right structure. Importantly, this also provides a framework for storing any selected text that the user right clicks. The end goal is to let them auto populate our odds converter page, so we leave in that functionality.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;\\ rightClick.js
+var selection_callbacks = [];
+function getSelection(callback) {
+ selection_callbacks.push(callback);
+    chrome.tabs.executeScript(null, { file:&amp;quot;selection.js&amp;quot; });
+  };
+  chrome.extension.onRequest.addListener(function (request) {
+    var callback = selection_callbacks.shift();
+    callback(request);
+  });
+
+function openConverter(selectedText) {
+  var serviceCall = &#39;converter.html&#39;
+  chrome.tabs.create({ url: serviceCall });
+}
+var tx = getSelection();
+var title = &amp;quot;Convert: &#39;&amp;quot; + tx + &amp;quot;&#39; title&amp;quot;;
+var id = chrome.contextMenus.create({
+    title: &amp;quot;Convert Odds?&amp;quot;,
+    contexts:[&amp;quot;selection&amp;quot;],
+    onclick: function(info, tab) {
+        openConverter(info.selectionText);
+    }
+});
+console.log(&amp;quot;selection item:&amp;quot; + id);
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;\\ selection.js
+chrome.extension.sendResponse(convert(window.getSelection().toString()));
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;This is pretty rote, with small changes from the linked work (and final code 
+&lt;a href=&#34;https://github.com/dylanpotteroconnell/oddsextension/blob/master/replaceScript.js&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;here&lt;/a&gt;). Initially, I hoped to perform some calculations with the selected text, and then display the result in the context menu itself. After some trial and error, it seems that this is quite a bit more complicated than it would seem. While you can reference the text in the selection using &amp;ldquo;%s&amp;rdquo;, the issue is that this is passed through our function as the literal string &amp;ldquo;%s&amp;rdquo;, and not the selection itself, until it is displayed (at which point it is replaced by tthe selection). This means we can&amp;rsquo;t easily perform a calculation with it. The underlying challenge is that Chrome wants to display the text on the context menu immediately, so we would need to manually program in a structure that lets it wait for us to convert the text. For now, we instead focusing on simply opening the useful HTML page &amp;ldquo;oddsconverter.html&amp;rdquo;.&lt;/p&gt;
+&lt;h2 id=&#34;odds-converter-html-page&#34;&gt;Odds Converter HTML Page&lt;/h2&gt;
+&lt;p&gt;We want an HTML page that neatly converts between each sort of odds. For a rough idea of the base template, we borrow 
+&lt;a href=&#34;https://www.daniweb.com/programming/web-development/threads/468068/auto-calculate-two-textfields&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;this&lt;/a&gt; guide. While their goal is quite unrelated, this form has the neat feature where it calculates its result after &lt;em&gt;each&lt;/em&gt; keystroke. I want this extension to be light and nimble, so I like the idea of it constantly updating based on new input.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-html&#34;&gt;&amp;lt;!doctype html&amp;gt;
+&amp;lt;html&amp;gt;
+&amp;lt;!-- https://www.daniweb.com/programming/web-development/threads/468068/auto-calculate-two-textfields --&amp;gt;
+&amp;lt;head&amp;gt;
+&amp;lt;script src=&amp;quot;converter.js&amp;quot;&amp;gt;&amp;lt;/script&amp;gt;
+
+&amp;lt;/head&amp;gt;
+&amp;lt;form name=&amp;quot;convert&amp;quot; action=&amp;quot;&amp;quot; id=&amp;quot;convert&amp;quot; &amp;gt;
+    &amp;lt;span id=&amp;quot;update&amp;quot;&amp;gt;Odds Converter&amp;lt;/span&amp;gt;
+    &amp;lt;p&amp;gt;&amp;lt;input type=&amp;quot;text&amp;quot; id=&amp;quot;ml&amp;quot; name=&amp;quot;ml&amp;quot; onkeyup=&amp;quot;convML(this)&amp;quot;/&amp;gt; Money Line &amp;lt;/p&amp;gt;
+    &amp;lt;p&amp;gt;&amp;lt;input type=&amp;quot;text&amp;quot; id=&amp;quot;frac&amp;quot; name=&amp;quot;frac&amp;quot; onkeyup=&amp;quot;convFrac(this)&amp;quot;/&amp;gt; Fractional Odds &amp;lt;/p&amp;gt;
+    &amp;lt;p&amp;gt;&amp;lt;input type=&amp;quot;text&amp;quot; id=&amp;quot;ip&amp;quot; name=&amp;quot;ip&amp;quot; onkeyup=&amp;quot;convIP(this)&amp;quot;/&amp;gt; Implied Probability &amp;lt;/p&amp;gt;
+    &amp;lt;input type=&amp;quot;hidden&amp;quot; id=&amp;quot;total&amp;quot; name=&amp;quot;total&amp;quot; value=&amp;quot;0&amp;quot; /&amp;gt;
+&amp;lt;/form&amp;gt;
+&amp;lt;/body&amp;gt;
+&amp;lt;/html&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The heavy lifting is of course done by the functions stored in the javascript file &amp;ldquo;converter.js&amp;rdquo;.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;function convML(obj) {
+  if(/^[\+|-] ?[0-9]+$/.test(obj.value)){
+    var pattern = /([+|-]) ?([0-9]+)/;
+    var newIP = obj.value.replace(pattern,
+      function(fm,$1,$2)
+      {
+        if ($1==&amp;quot;+&amp;quot;)
+        {
+          return(Math.round(100.0/(100.0+parseInt($2))*1000)/10.0)
+        } else
+        {
+          return(Math.round(parseInt($2)/(100.0+parseInt($2))*1000)/10.0)
+        }
+      });
+     var newFrac = String(Math.round(100/(newIP/100.0)-100)/100)+&amp;quot;/&amp;quot;+&amp;quot;1&amp;quot;;
+     document.getElementById(&#39;ip&#39;).value = newIP;
+     document.getElementById(&#39;frac&#39;).value = newFrac;
+  }
+}
+
+function convFrac(obj) {
+  document.getElementById(&#39;ip&#39;).value = obj.value;
+// Add decimals
+
+  if(/^[0-9]+\.?[0-9]*\/[0-9]+\.?[0-9]*$/.test(obj.value)){
+    var pattern = /([0-9]+\.?[0-9]*)\/([0-9]+\.?[0-9]*)/;
+    var newIP  = obj.value.replace(pattern,
+                                          function(fm,$1,$2)
+                                          {
+                                             return(Math.round(1000*parseFloat($2)/(parseFloat($2)+parseFloat($1)))/10.0)
+                                          }
+                                    );
+     document.getElementById(&#39;ip&#39;).value = newIP;
+     document.getElementById(&#39;ml&#39;).value = IPtoML(parseFloat(newIP)/100.0);
+  }
+}
+  if(/^[0-9]+\.?[0-9]*$/.test(obj.value)){
+    document.getElementById(&#39;ml&#39;).value = IPtoML(parseFloat(obj.value)/100.0);
+  }
+}
+
+function IPtoML(IP) {
+  if (IP &amp;gt; .5) {
+    return(&amp;quot;-&amp;quot; + String(Math.round(100.0*IP/(1-IP))))
+  } else if (IP &amp;lt;= .5) {
+    return(&amp;quot;+&amp;quot;+String(Math.round(100.0/IP - 100)))
+  }
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Each of the conversion functions follows the same format: after each keystroke in the text box, check if the given input is of the correct form, and if it is, upate the other two text boxes with the converted odds. The functionality is very limited, but it fulfills our purposes for now. Converting moneyline odds and implied probability to fractional odds is a tougher challenge, so for now we simiply display them as decimals with a denominator of one (while there is no straightforward one to one mapping to fractional odds, it&amp;rsquo;s possible to write an algorithm to make an educated guess as to what whole number odds are closest, but for now we keep it simple).&lt;/p&gt;
+&lt;p&gt;When we open up this HTML page, it works as desired, but when we load it into our extension, it opens up and&amp;hellip; does nothing. None of the fields update themselves, no matter howm much you try. A quick Google search determines that we are barking right up the wrong tree. A few years ago, 
+&lt;a href=&#34;https://developer.chrome.com/extensions/contentSecurityPolicy#JSExecution&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Chrome banned all inline Javascript&lt;/a&gt; from its extension pages. I have no doubt that they had good security related reasons to do so, but it means that our page as written is quite useless.&lt;/p&gt;
+&lt;h2 id=&#34;removing-inline-javascript&#34;&gt;Removing Inline Javascript&lt;/h2&gt;
+&lt;p&gt;It turns out that for simple HTML forms like this, the switch is relatively painless. We remove the function calls from the HTML file, so &lt;code&gt;&amp;lt;input type=&amp;quot;text&amp;quot; id=&amp;quot;ml&amp;quot; name=&amp;quot;ml&amp;quot; onkeyup=&amp;quot;convML(this)&amp;quot;/&amp;gt;&lt;/code&gt; becomes &lt;code&gt;&amp;lt;input type=&amp;quot;text&amp;quot; id=&amp;quot;ml&amp;quot; name=&amp;quot;ml&amp;quot;/&amp;gt;&lt;/code&gt;. Then, in our &amp;ldquo;converter.js&amp;rdquo; file, we need to add an EventListener function to process each of these events, based on their ID.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;document.addEventListener(&amp;quot;DOMContentLoaded&amp;quot;, function(event) {
+  document.getElementById(&amp;quot;ml&amp;quot;).addEventListener(&amp;quot;keyup&amp;quot;, function() {
+        convML(document.getElementById(&#39;ml&#39;));
+     });
+  document.getElementById(&amp;quot;frac&amp;quot;).addEventListener(&amp;quot;keyup&amp;quot;, function() {
+        convFrac(document.getElementById(&#39;frac&#39;));
+     });
+  document.getElementById(&amp;quot;ip&amp;quot;).addEventListener(&amp;quot;keyup&amp;quot;, function() {
+        convIP(document.getElementById(&#39;ip&#39;));
+     });
+});
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The rest of our code can stay the exact same. Once we use the EventListener format, our other Javascript functions work just fine.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>OddsConverter Part 1: Converting Plaintext</title>
+      <link>/post/oddsconverter-part1/</link>
+      <pubDate>Mon, 22 Jan 2018 00:00:00 +0000</pubDate>
+      <guid>/post/oddsconverter-part1/</guid>
+      <description>&lt;p&gt;The same betting odds are often displayed in disparate ways, depending on the context. In America, normally in terms of a Moneyline, where +200 is shorthand for &amp;ldquo;if you bet $100, you can win an additional $200&amp;rdquo;. In other contexts, we generally see the tradition &amp;ldquo;X/Y&amp;rdquo; fractional odds. Both of these have clear mathematical meanings, but for inexperienced bettors, they tend to be poor conveyors of intuitive meaning. We can quickly estimate what &amp;ldquo;+350&amp;rdquo; implies, but for most people, it takes a mental calculation to do so. The most useful intuitive information about betting odds comes from the &amp;ldquo;Implied Probability&amp;rdquo;, which is the probability of the event necessary for you to &amp;ldquo;break even&amp;rdquo; on the bet. Betting sites don&amp;rsquo;t particularly like Implied Probability because it makes the cut they take more obvious (when mutually exclusive and complete events have probabilities that sum up to greater than one), and more intuitively accurate information for bettors can make them realize how daunting it is to actually keep up a positive expected value.&lt;/p&gt;
+&lt;p&gt;As someone without the perfect intuition needed to convert these odds in my head, I got tired of glancing at a table of odds and trying to work out their precise value one by one. I thought it would be nice to have a very simple Google Chrome extension that could do it for me. The initial functionality is simple: click on the icon, and it converts any odds it can find on the page into Implied Probability. Click on it again, and it converts back. The challenge is that I have zero knowledge of JavaScript. Luckily, this task was simple enough that it could be cobbled together in the style of Frankenstein&amp;rsquo;s monster, with some slight modifications.&lt;/p&gt;
+&lt;h2 id=&#34;click-icon-replace-text&#34;&gt;Click Icon, Replace Text&lt;/h2&gt;
+&lt;p&gt;The first feature necessary is simple an extension that runs a script when the icon is clicked. We find a 
+&lt;a href=&#34;https://stackoverflow.com/questions/7168362/run-script-each-time-chrome-extension-icon-clicked&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Stack Overflow question&lt;/a&gt; (which will be the source of the code for most of the extension) with this very task. Every Chrome Extension begins with a manifest.json file, which gives an overview of the permissions and structure of the extension. I grab their initial suggested manifest.json, and make a number of modifications which will become necessary later. The &amp;ldquo;contextmenus&amp;rdquo; under permissions is only necessary to activate context menus within Chrome, which seems like a useful feature but is not yet crucial to the Extension&amp;rsquo;s functionality. I also made a set of three simple icons in GIMP, so that it looks natural in the browser. The key parts here are the two scripts under &amp;ldquo;background&amp;rdquo;. &amp;ldquo;rightclick.js&amp;rdquo; provides instructions for how to create a context menu upon right click, which we ignore for now (I played with it, but it&amp;rsquo;s still a work in progress). However, &amp;ldquo;background.js&amp;rdquo; is the script that tells our&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;
+{
+  &amp;quot;manifest_version&amp;quot;: 2,
+
+  &amp;quot;name&amp;quot;: &amp;quot;Convert Odds into Implied Probability&amp;quot;,
+  &amp;quot;description&amp;quot;: &amp;quot;Click this icon to convert moneyline odds into implied probability, and vice versa.&amp;quot;,
+  &amp;quot;version&amp;quot;: &amp;quot;1.0&amp;quot;,
+  &amp;quot;background&amp;quot; : {
+    &amp;quot;scripts&amp;quot; : [&amp;quot;background.js&amp;quot;, &amp;quot;rightclick.js&amp;quot;]
+  },
+  &amp;quot;icons&amp;quot;: { &amp;quot;16&amp;quot;: &amp;quot;icon16.png&amp;quot;,
+             &amp;quot;48&amp;quot;: &amp;quot;icon48.png&amp;quot;,
+             &amp;quot;128&amp;quot;: &amp;quot;icon128.png&amp;quot; },
+
+  &amp;quot;browser_action&amp;quot;: {
+    &amp;quot;default_icon&amp;quot;: &amp;quot;icon48.png&amp;quot;,
+    &amp;quot;default_title&amp;quot;: &amp;quot;Convert Odds&amp;quot;
+  },
+  &amp;quot;permissions&amp;quot;: [
+    &amp;quot;activeTab&amp;quot;,
+    &amp;quot;contextMenus&amp;quot;
+  ]
+}
+
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The key parts here are the two scripts under &amp;ldquo;background&amp;rdquo;: &amp;ldquo;rightclick.js&amp;rdquo; provides instructions for how to create a context menu upon right click, which we ignore for now (I played with it, but it&amp;rsquo;s still a work in progress), and &amp;ldquo;background.js&amp;rdquo; is a script that calls our text replace script when the Extension icon is clicked.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;chrome.browserAction.onClicked.addListener(function(tab) {
+   chrome.tabs.executeScript(null, {file: &amp;quot;replaceScript.js&amp;quot;});
+});
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&amp;ldquo;replaceScript.js&amp;rdquo; is the script that  runs a text replacement that converts anything that &amp;ldquo;looks like&amp;rdquo; odds into implied probabilities (and you can view the final script 
+&lt;a href=&#34;https://github.com/dylanpotteroconnell/oddsextension/blob/master/replaceScript.js&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;here&lt;/a&gt;). Being totally unfamiliar with JavaScript, I grab code from an Extension that performs a 
+&lt;a href=&#34;https://9to5google.com/2015/06/14/how-to-make-a-chrome-extensions/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;simple text replace for each webpage&lt;/a&gt;. The base structure is as follows.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;var elements = document.getElementsByTagName(&#39;*&#39;);
+for (var i = 0; i &amp;lt; elements.length; i++) {
+    var element = elements[i];
+    for (var j = 0; j &amp;lt; element.childNodes.length; j++) {
+        var node = element.childNodes[j];
+        if (node.nodeType === 3) {
+            var pattern = /abc/gi;
+            var text = node.nodeValue;
+            var replacedText = text.replace(pattern, &#39;def&#39;);
+            if (replacedText !== text) {
+                element.replaceChild(document.createTextNode(replacedText), node);
+            }
+        }
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 id=&#34;detect-patterns-calculate-conversions&#34;&gt;Detect Patterns, Calculate Conversions&lt;/h2&gt;
+&lt;p&gt;Next, we can use Regular Expressions to only replace certain structures of characters, rather than just one static string. To start, we want to try and identify sequences of exactly a plus or minus sign, followed by at least one digit (e.g. &amp;ldquo;-220&amp;rdquo;). The parentheses &amp;ldquo;capture&amp;rdquo; the characters inside, as we need to not just find these patterns, but extract the numbers. We want to find the end of the digits, but we want to leave the following character in the page&amp;rsquo;s HTML, so we &amp;ldquo;grab&amp;rdquo; the first nondigit character (the [^0-9), but only if it exists (the &amp;ldquo;?&amp;quot;) using &amp;ldquo;([^0-9]?)&amp;quot;, so that we can place that character after our converted expression, &lt;code&gt;var pattern = /([+|-])([0-9]+)([^0-9]?)/gi;&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;Now, the challenge is that we want to perform a small calculation using the number provided. That means we need to be able to feed captured characters (preferably, the numbers and the +/- sign) as inputs into a function that determines the output of the replace function of text. I don&amp;rsquo;t know of the optimal way to do this in JavaScript, but with a Google search we find a way to do just that 
+&lt;a href=&#34;https://www.bennadel.com/blog/55-using-methods-in-javascript-replace-method.htm&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;We can replace the previous string used for our pattern with a lambda function. Note that the link provided is inaccurate in its description of the inputs to the lambda function, and this is corrected to the comments. The inputs to the dummy function here are always &amp;ldquo;the full match, $1, $2, $3, &amp;hellip;&amp;rdquo; (where $X refers to the xth capture element), while in the linked tutorial they use &amp;ldquo;$1$&amp;rdquo; in the function input to refer to the full text. We can adapt their function to convert an American moneyline into its implied odds as follows.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-javascript&#34;&gt;
+var replacedText = text.replace(pattern,
+                                function(fm,$1,$2,$3)
+				    {
+				      if ($1==&amp;quot;+&amp;quot;)
+				      {
+					return(&amp;quot;|&amp;quot;+String(Math.round(100.0/(100.0+parseInt($2))*1000)/10.0)+&amp;quot;\%&amp;quot;+&amp;quot;|&amp;quot;+$3)
+				      } else
+				      {
+					return(&amp;quot;|&amp;quot;+String(Math.round(parseInt($2)/(100.0+parseInt($2))*1000)/10.0)
+						 +&amp;quot;\%&amp;quot;+&amp;quot;|&amp;quot;+$3)
+				      }
+				    });
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;It&amp;rsquo;s worth breaking this into parts. The inputs to our function are the full text (&amp;lsquo;fm&amp;rsquo;, which we do not use here, but I was not aware of how to suppress this input), and the three strings &amp;lsquo;captured&amp;rsquo; from our regex matching (where $1 refers to the +/- sign, $2 is the number of the line, and $3 is the trailing character). We compute the simple formula to go from a moneyline bet to its implied odds. For a moneyline of +$X, we earn $X+$100 on a win. Thus, the odds (O) needed to break even are $100=0*($X+$100), so O=$100/($X+$100). Similarly, for a moneyline of -$X, we bet $X to win $100, and the implied odds are O=$X/($X+$100). The final return statement is simply cobbled together from some JavaScript documentation. ParseInt turns the &amp;lsquo;$2&amp;rsquo; input into an integer, we then multiply by 1000, and divide by 10 to get the result in the form of a percentage with a single decimal place.&lt;/p&gt;
+&lt;p&gt;We repeat this process with two other conversions: 2. Fractional Odds (i.e. &amp;ldquo;3/1&amp;rdquo;) to Implied Probability, and 3. &amp;ldquo;Undoing&amp;rdquo; our first conversion, converting implied probabilities back into moneyline odds. We do not include a separate &amp;ldquo;undo&amp;rdquo; conversion for Fractional Odds, because I wanted to keep this extension very minimal, and detecting the most accurate Fractional Odds to a rounded decimal percentage is a less straightforward conversion.&lt;/p&gt;
+&lt;h2 id=&#34;next&#34;&gt;Next&amp;hellip;&lt;/h2&gt;
+&lt;p&gt;This results in a simple but effective Chrome Extension that can save quite a bit of time. When on a page with odds in HTML text, you tap the button and can quickly see them replaced by their Implied Probabilities. The major downside is that more complex websites don&amp;rsquo;t always show their odds in such simple HTML text, and learning to detect them for the major bookmakers would be a more substantial challenge. However, most people encounter odds referenced in articles or text discussions, where this Extension works quite cleanly.&lt;/p&gt;
 </description>
     </item>
     

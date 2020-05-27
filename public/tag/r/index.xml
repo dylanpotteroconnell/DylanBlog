@@ -13,11 +13,319 @@
     </image>
     
     <item>
-      <title>Winning a Debate: Insights from Intelligence Squared</title>
-      <link>/post/2018-07-29-winning-debate.en/winning-debate/</link>
+      <title>Winning a Debate: Insights from &#34;Intelligence Squared&#34;</title>
+      <link>/post/winning-debate/</link>
       <pubDate>Sun, 29 Jul 2018 00:00:00 +0000</pubDate>
-      <guid>/post/2018-07-29-winning-debate.en/winning-debate/</guid>
-      <description></description>
+      <guid>/post/winning-debate/</guid>
+      <description>
+
+
+&lt;p&gt;How does one measure the winner of a debate? If the debate itself is the focus, it’s wholly unsatisfying to just tally up the opinions of the viewers, as that solely reflects the prior beliefs of the audience. “Intelligence Squared” is an excellent podcast which teaches policy through moderated debate. A resolution is proposed (e.g. “Affirmative Action does more harm than good”), and two teams of two experts argue the issue in a structured setting. Many other programs aim for balance with a halfhearted attempt to pay lip service to the opposing side (without truly believing it), so it’s refreshing to hear passionate and informed argument from both sides of the aisle. If one side cites a misleading statistic, their opponents are ready to actually call them out on it, penalizing the lazy rhetorical tactics that plague discourse in an echo chamber.&lt;/p&gt;
+&lt;p&gt;The focus of the program is the debate itself, but some nominal winner must still be declared. This is determined using a simple formula. The audience is polled before and after the debate (For, Against, or Undecided on the issue), and the side which gains the most votes is the winner. To be clear, I do not think that this method of declaring a winner is a particularly important to the show, nor do I think any listeners actually consider the swings of audience opinion to be the final say on the matter. But it’s still interesting to consider whether or not this is a reasonable way to declare a debate winner. And more broadly, what can the results of a debate tell us about the way that people make up their minds on polarizing issues? Much has been written about the politically charged climate of the present, and the ways in which the media we consume is entrenching us in our positions, leading to static and polarized political views.&lt;/p&gt;
+&lt;p&gt;It turns out that Intelligence Squared doesn’t just measure the change in support for each side before and after the debate, for events since 2012 it also measured the individual shifts between each category (i.e. “Undecided before and For after”, or “For before and Against after”). This provides a small but insightful dataset looking at the ways in which minds can change on a polarizing issue in the course of an hour.&lt;/p&gt;
+&lt;div id=&#34;what-does-it-mean-to-win-a-debate&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;What does it mean to “win” a debate?&lt;/h3&gt;
+&lt;p&gt;Intelligence Squared declares their nominal winner with a simple metric, measuring whether the For or Against side had the largest absolute percentage point shift in support from the pre debate to the post debate audience poll. Thus, if the For side originally had 40% support and the Against side 35% support before the debate, and after the debate the For side had 45% support and the Against side had 43% support, the 8 percentage point increase of the Against side trumps the 5 percentage point increase of the For side, and the Against side wins the night. We will refer to this method for determining a victory as the ISM (Intelligence Squared Metric).&lt;/p&gt;
+&lt;p&gt;The problem with this approach stems from the fact that &lt;em&gt;there are a variety of ways that opinions could shift between the three camps&lt;/em&gt;. This is related to both its usage of absolute percentage point change (with no reference to the relative switch), as well as the presence of the undecided voters.&lt;/p&gt;
+&lt;p&gt;I stumbled upon &lt;a href=&#34;https://stats.stackexchange.com/a/94742&#34;&gt;this&lt;/a&gt; excellent post by &lt;em&gt;whuber&lt;/em&gt; on StackExchange. I have the pleasure of knowing &lt;em&gt;whuber&lt;/em&gt; in person, and in characteristic fashion he gives a thorough and insightful analysis of the ways in which we can have different shifts in support (among the different groups) for the same absolute result, in ways that make determining the winner quite difficult. We cite a simple example proposed by &lt;em&gt;whuber&lt;/em&gt; in this post.&lt;/p&gt;
+&lt;p&gt;Consider a situation where originally 20% are For, 60% are Against, and 20% are undecided (we will write this as a vector &lt;span class=&#34;math inline&#34;&gt;\((.2, .6, .2)\)&lt;/span&gt;). After the debate, the vector of support is &lt;span class=&#34;math inline&#34;&gt;\((.3, .4, .3)\)&lt;/span&gt;. Under the ISM, this is a clear and decisive win for the For side, as they gained 10 percentage points of support, while the Against side lost 20 percentage points. However, there are a variety of between-group opinion switches that could lead to this result. &lt;em&gt;whuber&lt;/em&gt; suggests that we write these between-group switches in a 3x3 transition matrix, where the &lt;span class=&#34;math inline&#34;&gt;\(ij\)&lt;/span&gt;th element represents the percent of the original supporters for the &lt;span class=&#34;math inline&#34;&gt;\(i\)&lt;/span&gt;th camp before the debate are supporters of the &lt;span class=&#34;math inline&#34;&gt;\(j\)&lt;/span&gt;th camp after the debate (with For as 1, Against as 2, and Undecided as 3). Then, this represents a plausible transition matrix for our final result.&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[
+\mathbb{A} = \left(
+\begin{array}{ccc}
+ 0.32 &amp;amp; 0.29 &amp;amp; 0.32 \\
+ 0.36 &amp;amp; 0.42 &amp;amp; 0.36 \\
+ 0.32 &amp;amp; 0.29 &amp;amp; 0.32 \\
+\end{array}
+\right).
+\]&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;As &lt;em&gt;whuber&lt;/em&gt; explains,&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Here, 36% of the “Fors” changed to the other side while only 29% of the “Against” changed to the opposite opinion. Moreover, slightly more of the undecideds (36%) vs 32%) came out “against” rather than for. Although their numbers in this audience decreased, we have a situation (reminiscent of Simpson’s Paradox) in which the “Against” faction clearly won the debate!&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;We have a possible outcome where Intelligence Squared would declare the “For” side a decisive winner, but in terms of percentage shifts, the “Against” side was more persuasive at both convincing Undecideds to join their side, &lt;em&gt;and&lt;/em&gt; convincing those with a prior opinion to change their viewpoint. This clarifies the challenge inherent in determining the winner of a debate. When one side is initially quite unpopular, they have a larger population of possible voters that they can woo, which makes their proportional gains much higher in absolute terms. There’s certainly a plausible argument that absolute shifts in support should be the most important factor in determining a winner, but this does make the situation more complex. And it gets even messier in cases where the sub-group switches don’t necessarily agree. We might see one side sway a much larger proportion of the Undecided voters, while being less successful at convincing those from the other side to switch. This could leave us without a conclusive winner.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;how-has-this-worked-in-practice&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;How has this worked in practice?&lt;/h3&gt;
+&lt;p&gt;Looking at the results of the Intelligence Squared debates in reality, we see that the majority of results are uncontroversial. and there is little doubt which side was more convincing. In total, we gather the results from 88 debates from the Intelligence Squared &lt;a href=&#34;https://www.intelligencesquaredus.org/debates&#34;&gt;website&lt;/a&gt;, with the process described &lt;a href=&#34;https://dylanpotteroconnell.github.io/debateresults2/&#34;&gt;here&lt;/a&gt;, and the unpolished scraped dataset &lt;a href=&#34;https://github.com/dylanpotteroconnell/IntelSquaredProject/blob/master/votingresultsfinal.csv&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;The first winning metric we consider is the Intelligence Squared Metric (ISM), which measures shift in absolute percentage of support. We next consider the Undisputed Metric (UDM), which uses the proportional switching outlined above, and only assigns a winner when one side &lt;em&gt;both&lt;/em&gt; convinces a greater proportion of Undecided voters to join their side, as well as a greater proportion of the other side to switch their opinion. In cases when these do not agree, no winner is declared.&lt;/p&gt;
+&lt;p&gt;Thus the first question is whether there are cases where the UDM declares a winner which is the reverse of the ISM, like the toy example outlined above by &lt;em&gt;whuber&lt;/em&gt;. It turns out that this is &lt;em&gt;not&lt;/em&gt; an idle concern, and in fact there have been six debates with this conflicting result.&lt;/p&gt;
+&lt;!-- \begin{table}[h] --&gt;
+&lt;!--     \centering --&gt;
+&lt;!--     \begin{tabular}{|l|l|l|l|l|l|l|l|l|} --&gt;
+&lt;!--     \hline --&gt;
+&lt;!--         Title &amp; Date &amp; Pre \%: For &amp; Pre \%: Against &amp; Pre \%: Undecided &amp; Abs. \% \$$\backslash$Delta\$: For &amp; Abs. \% \$$\backslash$Delta\$: Against &amp; ISM Winner &amp; UDM Winner \\ \hline --&gt;
+&lt;!--         Trigger Warning: Safe Spaces Are Dangerous &amp; 06/23/2018 &amp; 57 &amp; 25 &amp; 18 &amp; -1 &amp; 10 &amp; Against &amp; For \\ \hline --&gt;
+&lt;!--         Preserve Net Neutrality: All Data is Created Equal &amp; 04/17/2018 &amp; 60 &amp; 23 &amp; 17 &amp; 0 &amp; 8 &amp; Against &amp; For \\ \hline --&gt;
+&lt;!--         Legalize Assisted Suicide &amp; 11/03/2014 &amp; 63 &amp; 11 &amp; 26 &amp; 4 &amp; 11 &amp; Against &amp; For \\ \hline --&gt;
+&lt;!--         Break up the Big Banks &amp; 10/16/2013 &amp; 35 &amp; 19 &amp; 46 &amp; 13 &amp; 20 &amp; Against &amp; For \\ \hline --&gt;
+&lt;!--         Cutting the Pentagon&#39;s Budget is a Gift to our Enemies &amp; 06/19/2013 &amp; 20 &amp; 58 &amp; 22 &amp; 9 &amp; 8 &amp; For &amp; Against \\ \hline --&gt;
+&lt;!--         The GOP must Seize the Center or Die &amp; 04/17/2013 &amp; 63 &amp; 14 &amp; 23 &amp; 2 &amp; 14 &amp; Against &amp; For \\ \hline --&gt;
+&lt;!--     \end{tabular} --&gt;
+&lt;!-- \end{table} --&gt;
+&lt;style type=&#34;text/css&#34;&gt;
+.tg  {border-collapse:collapse;border-spacing:0;border-color:#ccc;}
+.tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:#ccc;color:#333;background-color:#fff;}
+.tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:#ccc;color:#333;background-color:#f0f0f0;}
+.tg .tg-yp4a{border-color:#333333;vertical-align:top}
+.tg .tg-us36{border-color:inherit;vertical-align:top}
+.tg .tg-fraq{color:#333333;border-color:#000000;vertical-align:top}
+.tg .tg-dvpl{border-color:inherit;text-align:right;vertical-align:top}
+&lt;/style&gt;
+&lt;table class=&#34;tg&#34;&gt;
+&lt;tr&gt;
+&lt;th class=&#34;tg-us36&#34;&gt;
+Title
+&lt;/th&gt;
+&lt;th class=&#34;tg-us36&#34;&gt;
+Date
+&lt;/th&gt;
+&lt;th class=&#34;tg-yp4a&#34;&gt;
+Pre %: For
+&lt;/th&gt;
+&lt;th class=&#34;tg-fraq&#34;&gt;
+Pre %: Against
+&lt;/th&gt;
+&lt;th class=&#34;tg-yp4a&#34;&gt;
+Pre %: Undecided
+&lt;/th&gt;
+&lt;th class=&#34;tg-dvpl&#34;&gt;
+Abs. % &lt;span class=&#34;math inline&#34;&gt;\(\Delta\)&lt;/span&gt;: For
+&lt;/th&gt;
+&lt;th class=&#34;tg-dvpl&#34;&gt;
+Abs. % &lt;span class=&#34;math inline&#34;&gt;\(\Delta\)&lt;/span&gt;: Against
+&lt;/th&gt;
+&lt;th class=&#34;tg-us36&#34;&gt;
+ISM Winner
+&lt;/th&gt;
+&lt;th class=&#34;tg-us36&#34;&gt;
+UDM Winner
+&lt;/th&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&#34;tg-us36&#34;&gt;
+Trigger Warning: Safe Spaces Are Dangerous
+&lt;/td&gt;
+&lt;td class=&#34;tg-us36&#34;&gt;
+06/23/2018
+&lt;/td&gt;
+&lt;td class=&#34;tg-yp4a&#34;&gt;
+57
+&lt;/td&gt;
+&lt;td class=&#34;tg-fraq&#34;&gt;
+25
+&lt;/td&gt;
+&lt;td class=&#34;tg-yp4a&#34;&gt;
+18
+&lt;/td&gt;
+&lt;td class=&#34;tg-dvpl&#34;&gt;
+-1
+&lt;/td&gt;
+&lt;td class=&#34;tg-dvpl&#34;&gt;
+10
+&lt;/td&gt;
+&lt;td class=&#34;tg-us36&#34;&gt;
+Against
+&lt;/td&gt;
+&lt;td class=&#34;tg-us36&#34;&gt;
+For
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&#34;tg-us36&#34;&gt;
+Preserve Net Neutrality: All Data is Created Equal
+&lt;/td&gt;
+&lt;td class=&#34;tg-us36&#34;&gt;
+04/17/2018
+&lt;/td&gt;
+&lt;td class=&#34;tg-yp4a&#34;&gt;
+60
+&lt;/td&gt;
+&lt;td class=&#34;tg-fraq&#34;&gt;
+23
+&lt;/td&gt;
+&lt;td class=&#34;tg-yp4a&#34;&gt;
+17
+&lt;/td&gt;
+&lt;td class=&#34;tg-dvpl&#34;&gt;
+0
+&lt;/td&gt;
+&lt;td class=&#34;tg-dvpl&#34;&gt;
+8
+&lt;/td&gt;
+&lt;td class=&#34;tg-us36&#34;&gt;
+Against
+&lt;/td&gt;
+&lt;td class=&#34;tg-us36&#34;&gt;
+For
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&#34;tg-us36&#34;&gt;
+Legalize Assisted Suicide
+&lt;/td&gt;
+&lt;td class=&#34;tg-us36&#34;&gt;
+11/03/2014
+&lt;/td&gt;
+&lt;td class=&#34;tg-yp4a&#34;&gt;
+63
+&lt;/td&gt;
+&lt;td class=&#34;tg-fraq&#34;&gt;
+11
+&lt;/td&gt;
+&lt;td class=&#34;tg-yp4a&#34;&gt;
+26
+&lt;/td&gt;
+&lt;td class=&#34;tg-dvpl&#34;&gt;
+4
+&lt;/td&gt;
+&lt;td class=&#34;tg-dvpl&#34;&gt;
+11
+&lt;/td&gt;
+&lt;td class=&#34;tg-us36&#34;&gt;
+Against
+&lt;/td&gt;
+&lt;td class=&#34;tg-us36&#34;&gt;
+For
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&#34;tg-us36&#34;&gt;
+Break up the Big Banks
+&lt;/td&gt;
+&lt;td class=&#34;tg-us36&#34;&gt;
+10/16/2013
+&lt;/td&gt;
+&lt;td class=&#34;tg-yp4a&#34;&gt;
+35
+&lt;/td&gt;
+&lt;td class=&#34;tg-fraq&#34;&gt;
+19
+&lt;/td&gt;
+&lt;td class=&#34;tg-yp4a&#34;&gt;
+46
+&lt;/td&gt;
+&lt;td class=&#34;tg-dvpl&#34;&gt;
+13
+&lt;/td&gt;
+&lt;td class=&#34;tg-dvpl&#34;&gt;
+20
+&lt;/td&gt;
+&lt;td class=&#34;tg-us36&#34;&gt;
+Against
+&lt;/td&gt;
+&lt;td class=&#34;tg-us36&#34;&gt;
+For
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&#34;tg-us36&#34;&gt;
+Cutting the Pentagon’s Budget is a Gift to our Enemies
+&lt;/td&gt;
+&lt;td class=&#34;tg-us36&#34;&gt;
+06/19/2013
+&lt;/td&gt;
+&lt;td class=&#34;tg-yp4a&#34;&gt;
+20
+&lt;/td&gt;
+&lt;td class=&#34;tg-fraq&#34;&gt;
+58
+&lt;/td&gt;
+&lt;td class=&#34;tg-yp4a&#34;&gt;
+22
+&lt;/td&gt;
+&lt;td class=&#34;tg-dvpl&#34;&gt;
+9
+&lt;/td&gt;
+&lt;td class=&#34;tg-dvpl&#34;&gt;
+8
+&lt;/td&gt;
+&lt;td class=&#34;tg-us36&#34;&gt;
+For
+&lt;/td&gt;
+&lt;td class=&#34;tg-us36&#34;&gt;
+Against
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&#34;tg-us36&#34;&gt;
+The GOP must Seize the Center or Die
+&lt;/td&gt;
+&lt;td class=&#34;tg-us36&#34;&gt;
+04/17/2013
+&lt;/td&gt;
+&lt;td class=&#34;tg-yp4a&#34;&gt;
+63
+&lt;/td&gt;
+&lt;td class=&#34;tg-fraq&#34;&gt;
+14
+&lt;/td&gt;
+&lt;td class=&#34;tg-yp4a&#34;&gt;
+23
+&lt;/td&gt;
+&lt;td class=&#34;tg-dvpl&#34;&gt;
+2
+&lt;/td&gt;
+&lt;td class=&#34;tg-dvpl&#34;&gt;
+14
+&lt;/td&gt;
+&lt;td class=&#34;tg-us36&#34;&gt;
+Against
+&lt;/td&gt;
+&lt;td class=&#34;tg-us36&#34;&gt;
+For
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;p&gt;This is not surprising when the absolute percentage changes are so close (such as in “Cutting the Pentagon’s budget…”), but the other debates show some wildly divergent results. We even see an example of &lt;em&gt;whuber&lt;/em&gt;’s hypothesized situation. In the “Trigger Warnings” debate on 06/23/2018, we see the For camp lose support, the Against camp gain support, and yet we see that the For camp was declared the winner by the UDM. The transition matrix for this debate is shown here&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[
+\text{Trigger Warnings Debate: }\left(
+\begin{array}{ccc}
+0.67 &amp;amp; 0.44 &amp;amp; 0.39 \\ 
+0.26 &amp;amp; 0.56 &amp;amp; 0.33 \\ 
+0.07 &amp;amp; 0.00 &amp;amp; 0.28 \\ 
+\end{array}
+\right).
+\]&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;The For camp was able to lure 39% of the Undecided voters, compared to only 33% by the Against camp. And the For side was able to convince 44% of the Against camp to change their minds, while the Against camp convinced only 26% of the For camp to swap. And yet the For camp &lt;em&gt;lost&lt;/em&gt; support, while the Against camp gained support. This can easily be explained by the initial disparity in popularity. The For side began with 57% of the vote, so while they convinced a larger proportion of Undecided and Against voters to change their view, they had a minority of the audience who were even available to sway.&lt;/p&gt;
+&lt;p&gt;This is a perfect example of the issue, because it feels fundamentally wrong to declare the winner of the debate to be a side that &lt;em&gt;lost&lt;/em&gt; popularity during the course of the night. This cousin of Simpson’s Paradox defies our intuition, where we want relative and absolute changes to point in the same direction. I think there’s an argument for both sides. The issue with using the UDM (with subgroup proportional shifts) is that there’s an inherent expectation that a debate will shift opinions towards the center. If one group starts overwhelmingly popular, and both sides sway the proportional amount of people to their side, then that side will tend to lose share. It doesn’t make much sense that we would expect any evenly matched debate to bring public opinion towards a 50/50 split, but a series of dead even debates (as measured by the UDM) would push the audience towards that equilibrium point. And yet, we think of the goal of debates as being one of persuasion. And so it makes little sense to declare one side the winner because they had a larger possible audience to persuade, even if their marginal rate of persuasion was inferior.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;are-there-obvious-issues-in-the-original-metric&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Are there obvious issues in the original metric?&lt;/h3&gt;
+&lt;p&gt;There is no singular way to measure the efficacy of these metrics, and it ultimately comes down to our subjective intuition about what it means to “win” a debate. However, we can reasonably agree on some criteria that we intuitively find “fair”. Generally, we want a debate to be a plausibly even playing field from the start. An even more intuitive metric would simply be the popularity of each motion after the debate (which we refer to as the Final Popularity Metric [FPM]), but we reject this approach because it so obviously favors the side that is initially popular with the audience. It’s then worth it to consider whether the ISM is biased in ways that clash with our intuition.&lt;/p&gt;
+&lt;p&gt;The most obvious plausible bias is that of the initial popularity of each position. In fact, this is why we do not simply use the FPM , so it is perhaps instructive to consider what such bias looks like. We plot the initial popularity of the For and Against positions below, and use color to denote the final winner by the FPM (i.e. which position was ultimately more popular with the audience). Exactly as we’d expect, there is a heavy bias to the initial starting positions. There are a few instances where a particularly large swing allows for the initially unfavorable position to pull out a win, but generally the winner is determined simply by initial popularity, and the processs of the debate itself is largely irrelevant.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;IQ2_FPresults.png&#34; /&gt;&lt;/p&gt;
+&lt;!-- ![OriginalResults]({{ &#34;/images/IQ2_FPresults.png&#34;}}) --&gt;
+&lt;p&gt;When we consider the same plot colored by the standard ISM results, we see a much more promising picture. On first glance, this adjustment does a plausible job of removing the bias from initial popularity. We theorized that the ISM might be punishing to sides that begin with overwhelming popularity, becuase they have so many fewer people that they can convert to their side (and an increase from 90 to 95 percent popularity might only be 5 percentage points, but represents a massive 50% decrease in those who don’t support that side). However, in practice, most positions start at a popularity between 20% and 50%, so those extreme examples just aren’t as concerning. And within that range, the naked eye doesn’t detect any overwhelming patterns of bias.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;IQ2_winnerorigresults.png&#34; /&gt;&lt;/p&gt;
+&lt;!-- ![OriginalResults]({{ &#34;/images/IQ2_winnerorigresults.png&#34;}}) --&gt;
+&lt;p&gt;One plausible trend that might stand out lies in the bottom right of the chart, where we do note that debates with an initially extremely high For share tended to be won by the Against side. Of the seven debates where the For side began with at least 60% vote share, the Against side won six contests and For won only one. This is a very small sample, but it does fit our intuition, and thus the lack of bias might simply stem from the fact that it is only observed in the extreme starting positions, which occur rarely. We do note that the reverse extreme (where the Against side has initally dominant popularity) does not show any such obvious trend, which makes this slightly less troubling.&lt;/p&gt;
+&lt;p&gt;The prior plot only considers the binary outcome under the ISM, but we are not solely concerned with the effect on the binary result, but rather the effect on percentage point change, which can manifest in a shift of binary result. Thus, it must be more illsutrative to break down the effect further. We create 4 bins of debates based on a partition of the initial popularity of the For camp. For each bin, we consider a box plot of the percentage change that the debate creates for the For camp along with the percentage change for the Against camp, which provides a more precise analysis. As before, the picture is muddled until we consider the final bin (debates where the For side enjoyed a 55% or more share of the support), where almost all of the changes to the For side were lesser than the changes for the Against side. This is a much more persuasively troubling result than the simple results observed above, but the sample remains small (only 11).&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;IQ2_partitionvotechange.png&#34; /&gt;&lt;/p&gt;
+&lt;!-- ![PartitionVoteShare]({{ &#34;/images/IQ2_partitionvotechange.png&#34;}}) --&gt;
+&lt;p&gt;We observe a peculiar result, but are unsure whether it could simply result from random chance. This question of statistical significance is at the heart of the study of statistics. However, it is not immediately clear to me which tool is suited to the situation. A simple comparison of the mean changes of these different bins seems deeply problematic. It is unclear that we can make any plausible assumptions about the distribution of the changes of votes. Crucially, the changes to the For vote share are &lt;em&gt;not&lt;/em&gt; independent to the changes to the Against vote share. And there is a clear confounding variable, where change to For vote share is going to be effected not simply by initial For vote, but by the initial number of undecideds (we certainly have not proven this, but common sense says that an undecided voter is easier to persuade than one who believes in the opposing viewpoint). More broadly, any such test from here is problematic in the way that Exploratory Data Analysis tends to be. We have not rigorously predefined our research question based on a scientific hypothesis, we are simply confirming our vague intuition that starting vote share introduces bias. Thus, a test based on this particular binning creates some form of bias. If we explored deep enough into the data, eventualy we must have found something similarly intriguing.&lt;/p&gt;
+&lt;p&gt;We can use a nonparametric test to examine the implausibility of the observed trend, but we must keep the bias mentioned above closely in mind. Exploratory data analysis minimizes this problem by relying on standardized statistical tests which answer broad questions. A nonparametric test that examines the statistical implausibility of the difference observed in the arbitrary binning we have chosen above is far less robust. An example statistical test is the &lt;a href=&#34;https://en.wikipedia.org/wiki/Wilcoxon_signed-rank_test&#34;&gt;Kruskal-Wallis Rank test&lt;/a&gt;. This nonparametric test simply considers the ranked values of the observed data, and considers the statistical probability that we might observe such an extreme disparity as what occurs in our sample. This provides a statistically rigorous result without reliance on assumptions, but the issue is that it provides such an answer to a deeply narrow &lt;em&gt;question&lt;/em&gt;. In our case, we could consider the Kruskal-Wallis test with the changes to the For vote for two groups: those with initial share of 55+%, and those with lesser initial share. In this case, we observe a test statistic of 8.1929, and a p-value of 0.42%. Phrased in statistical language, this means that if our two groups generated changes to the For vote share with the same distribution, there would be less than a one in two hundred chance that we observe at least as large a disaparity in the ranks of the observed values.&lt;/p&gt;
+&lt;p&gt;The problem is that the question this answers is deceptively narrow. It cannot make any bold claims about &lt;em&gt;any&lt;/em&gt; debates that begin with 55+% vote share or fewer, but only the ones which we observe. If we had an ideal sample of such debates, and considered those above and below this threshold, then such a statement would be extremely powerful. Instead, our initial sample size of 11 debates means it is quite plausible that there are other fundamental differences in these samples.&lt;/p&gt;
+&lt;p&gt;In short, the Kruskal-Wallis test demonstrates the statistical significance in the difference of the distribution of these samples, but makes no claim as to why. And we have little conclusive proof that it is the prior vote share of the For side that creates this disparity, it could be any number of differences between the populations that provides the root cause.&lt;/p&gt;
+&lt;!--
+We can stick to a nonparametric test to sidestep of our lack of reasonable assumptions, but we must keep the above concerns closely in mind during this work. This will provide a useful benchmark for the improbability of the observed result, but there will be subjective choices made in the construction of our test (as there is no singular way to formulate our hypothesis). We must simply make reasonable choices, and keep this issue in mind (an issue at the heart of any statistical test conducted after exploratory data analysis, albeit one that is significantly less concerning when the test being used is cookie cutter and not subjectively defined by the examiner). Such 
+--&gt;
+&lt;p&gt;This is an obviously unsatisfying result, but in the name of intellectual honesty I hesitate to any bolder claim. Qualitatively, I do think that the sum of this analysis makes it very likely that our intuition that those with an initially high For vote share experience notable disadvantage for winning the debate under the metric used by Intelligence Squared. However, these extreme cases come up very rarely, and the ISM seems quite defensible for the purposes of the podcast.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;alternative-metrics&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Alternative Metrics&lt;/h3&gt;
+&lt;p&gt;It is of course interesting to consider other metrics that one could use. Outlined above, we consider the Undisputed Metric (UDM), which instead considers the percentage that switch between each camp during the debate. The UDM declares a winner if that side converts both a greater percentage of the other side to swap, as well a greater percentage of the Undecided camp to join theirs. In cases where there is disagreement (e.g. the For side convinces a greater proportion of Against voters to join their side than vice versa, but the Against side convinces a greater proportion of Undecided voters), the UDM simply declares that there is no clear winner. The UDM operates under a fundamentally different mindset: that what matters is not the percentage point change, but the proportion of voters who you sway. As noted above, it is perfectly possible for the UDM to declare the opposite winner to the ISM (this is particularly likely to happen in those cases where one side has initially extreme vote share). We first consider another plot of the debate result under the UDM compared to the initial For and Against vote shares.&lt;/p&gt;
+&lt;!-- ![UDM Box Plot](IQ2_winnerUDMresults.png) --&gt;
+&lt;p&gt;&lt;img src=&#34;IQ2_winnerUDMresults.png&#34; /&gt;&lt;/p&gt;
+&lt;!-- ![]({{ &#34;/images/IQ2_winnerUDMresults.png&#34;}}) --&gt;
+&lt;p&gt;Similar to the ISM, under the UDM it seems the initial popularities are overly determinative of the final result. But we do observe something of a reverse trend: if an initial side has at least 50% share of the starting vote, now they nearly always win. We again break down this effect by considering the voting shifts for debates binned by their initial For vote share. Now, our object of interest is not simply the percentage point change, but a variety of changes (in this plot, we consider the proportion of initially Against voters who shift to For, Undecided persuaded to join the For camp, and initially For voters who defect to the against side). Note that the coloring is done using our initial For popularity partition, unlike above.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;IQ2_UDMboxplots.png&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;This reflects the effects expected from our initial results. Initially high For popularity tends to imply that they will persuade a higher proportion of Against voters, and that a lower proportion of For voters will defect to Against, while the results for Undecided voters are decidedly muddled. This is what we would expect. A high initial For vote share implies a lower Against vote share, so converting a small number of Against voters shows a lower percentage point change, but a large proportional change. The movement of undecided voters does not follow this pattern.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;summary&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Summary&lt;/h3&gt;
+&lt;p&gt;The question of which side is the winner in a debate is far from straightforward. Our intuition tells us that it should depend on the performance of the debaters, and not simply reflect the initial position of the audience. This is why we do not conduct a simple exit poll on the popularity of each side, which the data shows is massively biased towards the initial popularity of the sides. Unsurprisingly, audience members have extremely strong priors on these hotly contested issues, and an hour of debate does not ovewhelm a lifetime of thought on the matter. Intelligence Squared adjusts for this bias by polling the audience before the debate, and considering the percentage point change that each side observe. We hypothesize that this may instead be biased to disfavor initially popular sides. This appears to occur in the observed data, but extreme initial popularity is relatively rare, so it is hard to precisely prove the magnitude of this effect. In fact, the data shows that this metric seems to be a reasonably fair benchmark in practice. We outline one alternative for determining the winner, which is to consider the proportional changes among each sides. Counterintuitively, it is perfectly possible for one side in a debate to lose under the Intelligence Squared system, and yet persuade a greater proportion of both Undecideds and the other side to defect. In fact, we observe this scenario in a number of debates that occur. In practice, following this metric appears to bias results in the opposite manner, where initially popular sides are again favored (although in a similarly plausibly fair way in all but extreme cases). It is worth keeping in mind that the metric used by Intelligence Squared is but one reasonable choice, and while it serves their purposes well, it should not be considered the ultimate determination of efficacy in debate. Luckily, no one would doubt that the experience of the debate is what matters, and the mark of a winner is simply a superficial afterthought.&lt;/p&gt;
+&lt;/div&gt;
+</description>
     </item>
     
     <item>

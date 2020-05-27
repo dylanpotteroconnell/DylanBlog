@@ -27,10 +27,10 @@
   
     
   
-  <meta name="description" content="This is a brief companion to the post analyzing the methods of assigning a winner to a debate, using the Intelligence Squared dataset. I will briefly outline here how I assemble that dataset, for trasparency.">
+  <meta name="description" content="The same betting odds are often displayed in disparate ways, depending on the context. In America, normally in terms of a Moneyline, where &#43;200 is shorthand for &ldquo;if you bet $100, you can win an additional $200&rdquo;.">
 
   
-  <link rel="alternate" hreflang="en-us" href="/post/scraping-is2/">
+  <link rel="alternate" hreflang="en-us" href="/post/2018-01-22-oddsconverter-part1.en/oddsconverter-part1/">
 
   
 
@@ -220,7 +220,7 @@
   <link rel="icon" type="image/png" href="/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_32x32_fill_lanczos_center_2.png">
   <link rel="apple-touch-icon" type="image/png" href="/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_192x192_fill_lanczos_center_2.png">
 
-  <link rel="canonical" href="/post/scraping-is2/">
+  <link rel="canonical" href="/post/2018-01-22-oddsconverter-part1.en/oddsconverter-part1/">
 
   
   
@@ -236,15 +236,15 @@
   <meta property="twitter:card" content="summary">
   
   <meta property="og:site_name" content="Dylan&#39;s Blog">
-  <meta property="og:url" content="/post/scraping-is2/">
-  <meta property="og:title" content="Scraping the &#34;Intelligence Squared&#34; Debate Results | Dylan&#39;s Blog">
-  <meta property="og:description" content="This is a brief companion to the post analyzing the methods of assigning a winner to a debate, using the Intelligence Squared dataset. I will briefly outline here how I assemble that dataset, for trasparency."><meta property="og:image" content="/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_512x512_fill_lanczos_center_2.png">
+  <meta property="og:url" content="/post/2018-01-22-oddsconverter-part1.en/oddsconverter-part1/">
+  <meta property="og:title" content="OddsConverter Part 1: Converting Plaintext | Dylan&#39;s Blog">
+  <meta property="og:description" content="The same betting odds are often displayed in disparate ways, depending on the context. In America, normally in terms of a Moneyline, where &#43;200 is shorthand for &ldquo;if you bet $100, you can win an additional $200&rdquo;."><meta property="og:image" content="/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_512x512_fill_lanczos_center_2.png">
   <meta property="twitter:image" content="/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_512x512_fill_lanczos_center_2.png"><meta property="og:locale" content="en-us">
   
     
-      <meta property="article:published_time" content="2018-07-26T00:00:00&#43;00:00">
+      <meta property="article:published_time" content="2018-01-22T00:00:00&#43;00:00">
     
-    <meta property="article:modified_time" content="2020-05-27T16:25:53-04:00">
+    <meta property="article:modified_time" content="2020-05-27T17:04:30-04:00">
   
 
   
@@ -268,12 +268,12 @@
   "@type": "BlogPosting",
   "mainEntityOfPage": {
     "@type": "WebPage",
-    "@id": "/post/scraping-is2/"
+    "@id": "/post/2018-01-22-oddsconverter-part1.en/oddsconverter-part1/"
   },
-  "headline": "Scraping the \"Intelligence Squared\" Debate Results",
+  "headline": "OddsConverter Part 1: Converting Plaintext",
   
-  "datePublished": "2018-07-26T00:00:00Z",
-  "dateModified": "2020-05-27T16:25:53-04:00",
+  "datePublished": "2018-01-22T00:00:00Z",
+  "dateModified": "2020-05-27T17:04:30-04:00",
   
   "author": {
     "@type": "Person",
@@ -288,7 +288,7 @@
       "url": "/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_192x192_fill_lanczos_center_2.png"
     }
   },
-  "description": "This is a brief companion to the post analyzing the methods of assigning a winner to a debate, using the Intelligence Squared dataset. I will briefly outline here how I assemble that dataset, for trasparency."
+  "description": "The same betting odds are often displayed in disparate ways, depending on the context. In America, normally in terms of a Moneyline, where +200 is shorthand for \u0026ldquo;if you bet $100, you can win an additional $200\u0026rdquo;."
 }
 </script>
 
@@ -306,7 +306,7 @@
 
 
 
-  <title>Scraping the &#34;Intelligence Squared&#34; Debate Results | Dylan&#39;s Blog</title>
+  <title>OddsConverter Part 1: Converting Plaintext | Dylan&#39;s Blog</title>
 
 </head>
 
@@ -484,7 +484,7 @@
   
   
 <div class="article-container pt-3">
-  <h1>Scraping the &#34;Intelligence Squared&#34; Debate Results</h1>
+  <h1>OddsConverter Part 1: Converting Plaintext</h1>
 
   
 
@@ -514,7 +514,7 @@
   
   <span class="middot-divider"></span>
   <span class="article-reading-time">
-    2 min read
+    7 min read
   </span>
   
 
@@ -550,22 +550,83 @@
   <div class="article-container">
 
     <div class="article-style">
-      <p>This is a brief companion to the 
-<a href="https://dylanpotteroconnell.github.io/debatefinalsummary/" target="_blank" rel="noopener">post</a> analyzing the methods of assigning a winner to a debate, using the Intelligence Squared dataset. I will briefly outline here how I assemble that dataset, for trasparency.</p>
-<h3 id="compiling-the-pages">Compiling the Pages</h3>
-<p>The results from each Intelligence Squared debate are posted online in pages such as 
-<a href="https://www.intelligencesquaredus.org/debates/globalization-has-undermined-americas-working-class" target="_blank" rel="noopener">this</a>, including video of the debate, a description of the major positions of each side, the qualifications of the debaters, and most importantly, the results of the audience polling. Unfortunately, there doesn’t seem to be a central hub page that neatly lists all the URLs. However, the desired dataset isn’t huge (about 90 total debates), so there’s no substitute for the occasional work simply manually trawling through the website, and recording the date, name, and URL of each debate in question.</p>
-<h3 id="scraping-the-numbers">Scraping the numbers</h3>
-<p>Once we have a full list of all the relevant URLs, luckily, the results themselves are generally presented in a consistent format. Thus,  some simple work with regular expressions gathers the data that we need. One such example.</p>
-<pre><code>debate_vote_results={&quot;live&quot;:{&quot;pre&quot;:{&quot;f&quot;:36,&quot;a&quot;:45,&quot;u&quot;:19,&quot;w&quot;:&quot;a&quot;},&quot;post&quot;:{&quot;f&quot;:32,&quot;a&quot;:61,&quot;u&quot;:7,&quot;w&quot;:&quot;a&quot;},&quot;s&quot;:41,&quot;t&quot;:100,&quot;f&quot;:{&quot;f&quot;:18,&quot;a&quot;:15,&quot;u&quot;:3},&quot;a&quot;:{&quot;f&quot;:6,&quot;a&quot;:38,&quot;u&quot;:1},&quot;u&quot;:{&quot;f&quot;:8,&quot;a&quot;:8,&quot;u&quot;:3}},&quot;online&quot;:{&quot;t&quot;:100,&quot;pre&quot;:{&quot;f&quot;:50,&quot;a&quot;:35,&quot;u&quot;:15,&quot;w&quot;:&quot;&quot;},&quot;post&quot;:{&quot;f&quot;:44,&quot;a&quot;:50,&quot;u&quot;:6,&quot;w&quot;:&quot;&quot;},&quot;f&quot;:{&quot;f&quot;:35,&quot;a&quot;:13,&quot;u&quot;:2},&quot;a&quot;:{&quot;f&quot;:4,&quot;a&quot;:27,&quot;u&quot;:4},&quot;u&quot;:{&quot;f&quot;:6,&quot;a&quot;:10,&quot;u&quot;:0}}};
+      <p>The same betting odds are often displayed in disparate ways, depending on the context. In America, normally in terms of a Moneyline, where +200 is shorthand for &ldquo;if you bet $100, you can win an additional $200&rdquo;. In other contexts, we generally see the tradition &ldquo;X/Y&rdquo; fractional odds. Both of these have clear mathematical meanings, but for inexperienced bettors, they tend to be poor conveyors of intuitive meaning. We can quickly estimate what &ldquo;+350&rdquo; implies, but for most people, it takes a mental calculation to do so. The most useful intuitive information about betting odds comes from the &ldquo;Implied Probability&rdquo;, which is the probability of the event necessary for you to &ldquo;break even&rdquo; on the bet. Betting sites don&rsquo;t particularly like Implied Probability because it makes the cut they take more obvious (when mutually exclusive and complete events have probabilities that sum up to greater than one), and more intuitively accurate information for bettors can make them realize how daunting it is to actually keep up a positive expected value.</p>
+<p>As someone without the perfect intuition needed to convert these odds in my head, I got tired of glancing at a table of odds and trying to work out their precise value one by one. I thought it would be nice to have a very simple Google Chrome extension that could do it for me. The initial functionality is simple: click on the icon, and it converts any odds it can find on the page into Implied Probability. Click on it again, and it converts back. The challenge is that I have zero knowledge of JavaScript. Luckily, this task was simple enough that it could be cobbled together in the style of Frankenstein&rsquo;s monster, with some slight modifications.</p>
+<h2 id="click-icon-replace-text">Click Icon, Replace Text</h2>
+<p>The first feature necessary is simple an extension that runs a script when the icon is clicked. We find a 
+<a href="https://stackoverflow.com/questions/7168362/run-script-each-time-chrome-extension-icon-clicked" target="_blank" rel="noopener">Stack Overflow question</a> (which will be the source of the code for most of the extension) with this very task. Every Chrome Extension begins with a manifest.json file, which gives an overview of the permissions and structure of the extension. I grab their initial suggested manifest.json, and make a number of modifications which will become necessary later. The &ldquo;contextmenus&rdquo; under permissions is only necessary to activate context menus within Chrome, which seems like a useful feature but is not yet crucial to the Extension&rsquo;s functionality. I also made a set of three simple icons in GIMP, so that it looks natural in the browser. The key parts here are the two scripts under &ldquo;background&rdquo;. &ldquo;rightclick.js&rdquo; provides instructions for how to create a context menu upon right click, which we ignore for now (I played with it, but it&rsquo;s still a work in progress). However, &ldquo;background.js&rdquo; is the script that tells our</p>
+<pre><code class="language-javascript">
+{
+  &quot;manifest_version&quot;: 2,
+
+  &quot;name&quot;: &quot;Convert Odds into Implied Probability&quot;,
+  &quot;description&quot;: &quot;Click this icon to convert moneyline odds into implied probability, and vice versa.&quot;,
+  &quot;version&quot;: &quot;1.0&quot;,
+  &quot;background&quot; : {
+    &quot;scripts&quot; : [&quot;background.js&quot;, &quot;rightclick.js&quot;]
+  },
+  &quot;icons&quot;: { &quot;16&quot;: &quot;icon16.png&quot;,
+             &quot;48&quot;: &quot;icon48.png&quot;,
+             &quot;128&quot;: &quot;icon128.png&quot; },
+
+  &quot;browser_action&quot;: {
+    &quot;default_icon&quot;: &quot;icon48.png&quot;,
+    &quot;default_title&quot;: &quot;Convert Odds&quot;
+  },
+  &quot;permissions&quot;: [
+    &quot;activeTab&quot;,
+    &quot;contextMenus&quot;
+  ]
+}
+
 </code></pre>
-<p>In case anyone wants to borrow this sort of simple scrape for their own projects, you can find the code 
-<a href="https://github.com/dylanpotteroconnell/IntelSquaredProject/blob/master/intelsquareddata.R" target="_blank" rel="noopener">here</a>, although the approach is extremely messy. Luckily, with R it’s more important to be fast than it is to be clean, and you can use very awkward code as long as you find it readable and clear. Regular expressions like this can grab the relevant numbers that we need, and we store it in one large data frame.</p>
-<pre><code class="language-R">gsub(&quot;.*\&quot;f\&quot;:\\{\&quot;f\&quot;:(\\d+\\.*\\d*),\&quot;a\&quot;:(\\d+\\.*\\d*),\&quot;u\&quot;:(\\d+\\.*\\d*).*&quot;, &quot;\\1 \\2 \\3&quot;, post)
+<p>The key parts here are the two scripts under &ldquo;background&rdquo;: &ldquo;rightclick.js&rdquo; provides instructions for how to create a context menu upon right click, which we ignore for now (I played with it, but it&rsquo;s still a work in progress), and &ldquo;background.js&rdquo; is a script that calls our text replace script when the Extension icon is clicked.</p>
+<pre><code class="language-javascript">chrome.browserAction.onClicked.addListener(function(tab) {
+   chrome.tabs.executeScript(null, {file: &quot;replaceScript.js&quot;});
+});
 </code></pre>
-<p>where we identify the numbers that we’re interested in. With the numbers compiled into one large data frame (which can be viewed in raw form 
-<a href="https://github.com/dylanpotteroconnell/IntelSquaredProject/blob/master/votingresultsfinal.csv" target="_blank" rel="noopener">here</a>, for those interested in examining the data themselves). In total, there are 88 debates stretching back to 2012 which have all the information needed. The program itself stretches back further, but they only began tracking the subgroup movements more recently.</p>
-<p>In the next post, we can actually dive into the data itself.</p>
+<p>&ldquo;replaceScript.js&rdquo; is the script that  runs a text replacement that converts anything that &ldquo;looks like&rdquo; odds into implied probabilities (and you can view the final script 
+<a href="https://github.com/dylanpotteroconnell/oddsextension/blob/master/replaceScript.js" target="_blank" rel="noopener">here</a>). Being totally unfamiliar with JavaScript, I grab code from an Extension that performs a 
+<a href="https://9to5google.com/2015/06/14/how-to-make-a-chrome-extensions/" target="_blank" rel="noopener">simple text replace for each webpage</a>. The base structure is as follows.</p>
+<pre><code class="language-javascript">var elements = document.getElementsByTagName('*');
+for (var i = 0; i &lt; elements.length; i++) {
+    var element = elements[i];
+    for (var j = 0; j &lt; element.childNodes.length; j++) {
+        var node = element.childNodes[j];
+        if (node.nodeType === 3) {
+            var pattern = /abc/gi;
+            var text = node.nodeValue;
+            var replacedText = text.replace(pattern, 'def');
+            if (replacedText !== text) {
+                element.replaceChild(document.createTextNode(replacedText), node);
+            }
+        }
+    }
+}
+</code></pre>
+<h2 id="detect-patterns-calculate-conversions">Detect Patterns, Calculate Conversions</h2>
+<p>Next, we can use Regular Expressions to only replace certain structures of characters, rather than just one static string. To start, we want to try and identify sequences of exactly a plus or minus sign, followed by at least one digit (e.g. &ldquo;-220&rdquo;). The parentheses &ldquo;capture&rdquo; the characters inside, as we need to not just find these patterns, but extract the numbers. We want to find the end of the digits, but we want to leave the following character in the page&rsquo;s HTML, so we &ldquo;grab&rdquo; the first nondigit character (the [^0-9), but only if it exists (the &ldquo;?&quot;) using &ldquo;([^0-9]?)&quot;, so that we can place that character after our converted expression, <code>var pattern = /([+|-])([0-9]+)([^0-9]?)/gi;</code>.</p>
+<p>Now, the challenge is that we want to perform a small calculation using the number provided. That means we need to be able to feed captured characters (preferably, the numbers and the +/- sign) as inputs into a function that determines the output of the replace function of text. I don&rsquo;t know of the optimal way to do this in JavaScript, but with a Google search we find a way to do just that 
+<a href="https://www.bennadel.com/blog/55-using-methods-in-javascript-replace-method.htm" target="_blank" rel="noopener">here</a>.</p>
+<p>We can replace the previous string used for our pattern with a lambda function. Note that the link provided is inaccurate in its description of the inputs to the lambda function, and this is corrected to the comments. The inputs to the dummy function here are always &ldquo;the full match, $1, $2, $3, &hellip;&rdquo; (where $X refers to the xth capture element), while in the linked tutorial they use &ldquo;$1$&rdquo; in the function input to refer to the full text. We can adapt their function to convert an American moneyline into its implied odds as follows.</p>
+<pre><code class="language-javascript">
+var replacedText = text.replace(pattern,
+                                function(fm,$1,$2,$3)
+				    {
+				      if ($1==&quot;+&quot;)
+				      {
+					return(&quot;|&quot;+String(Math.round(100.0/(100.0+parseInt($2))*1000)/10.0)+&quot;\%&quot;+&quot;|&quot;+$3)
+				      } else
+				      {
+					return(&quot;|&quot;+String(Math.round(parseInt($2)/(100.0+parseInt($2))*1000)/10.0)
+						 +&quot;\%&quot;+&quot;|&quot;+$3)
+				      }
+				    });
+</code></pre>
+<p>It&rsquo;s worth breaking this into parts. The inputs to our function are the full text (&lsquo;fm&rsquo;, which we do not use here, but I was not aware of how to suppress this input), and the three strings &lsquo;captured&rsquo; from our regex matching (where $1 refers to the +/- sign, $2 is the number of the line, and $3 is the trailing character). We compute the simple formula to go from a moneyline bet to its implied odds. For a moneyline of +$X, we earn $X+$100 on a win. Thus, the odds (O) needed to break even are $100=0*($X+$100), so O=$100/($X+$100). Similarly, for a moneyline of -$X, we bet $X to win $100, and the implied odds are O=$X/($X+$100). The final return statement is simply cobbled together from some JavaScript documentation. ParseInt turns the &lsquo;$2&rsquo; input into an integer, we then multiply by 1000, and divide by 10 to get the result in the form of a percentage with a single decimal place.</p>
+<p>We repeat this process with two other conversions: 2. Fractional Odds (i.e. &ldquo;3/1&rdquo;) to Implied Probability, and 3. &ldquo;Undoing&rdquo; our first conversion, converting implied probabilities back into moneyline odds. We do not include a separate &ldquo;undo&rdquo; conversion for Fractional Odds, because I wanted to keep this extension very minimal, and detecting the most accurate Fractional Odds to a rounded decimal percentage is a less straightforward conversion.</p>
+<h2 id="next">Next&hellip;</h2>
+<p>This results in a simple but effective Chrome Extension that can save quite a bit of time. When on a page with odds in HTML text, you tap the button and can quickly see them replaced by their Implied Probabilities. The major downside is that more complex websites don&rsquo;t always show their odds in such simple HTML text, and learning to detect them for the major bookmakers would be a more substantial challenge. However, most people encounter odds referenced in articles or text discussions, where this Extension works quite cleanly.</p>
 
     </div>
 
@@ -577,11 +638,9 @@
 
 <div class="article-tags">
   
-  <a class="badge badge-light" href="/tag/introductory/">introductory</a>
+  <a class="badge badge-light" href="/tag/betting/">betting</a>
   
-  <a class="badge badge-light" href="/tag/r/">R</a>
-  
-  <a class="badge badge-light" href="/tag/web_scraping/">web_scraping</a>
+  <a class="badge badge-light" href="/tag/javascript/">javascript</a>
   
 </div>
 
@@ -598,7 +657,7 @@
       
       
       <li>
-        <a href="https://twitter.com/intent/tweet?url=/post/scraping-is2/&amp;text=Scraping%20the%20&amp;#34;Intelligence%20Squared&amp;#34;%20Debate%20Results" target="_blank" rel="noopener" class="share-btn-twitter">
+        <a href="https://twitter.com/intent/tweet?url=/post/2018-01-22-oddsconverter-part1.en/oddsconverter-part1/&amp;text=OddsConverter%20Part%201:%20Converting%20Plaintext" target="_blank" rel="noopener" class="share-btn-twitter">
           <i class="fab fa-twitter"></i>
         </a>
       </li>
@@ -611,7 +670,7 @@
       
       
       <li>
-        <a href="https://www.facebook.com/sharer.php?u=/post/scraping-is2/&amp;t=Scraping%20the%20&amp;#34;Intelligence%20Squared&amp;#34;%20Debate%20Results" target="_blank" rel="noopener" class="share-btn-facebook">
+        <a href="https://www.facebook.com/sharer.php?u=/post/2018-01-22-oddsconverter-part1.en/oddsconverter-part1/&amp;t=OddsConverter%20Part%201:%20Converting%20Plaintext" target="_blank" rel="noopener" class="share-btn-facebook">
           <i class="fab fa-facebook"></i>
         </a>
       </li>
@@ -624,7 +683,7 @@
       
       
       <li>
-        <a href="mailto:?subject=Scraping%20the%20&amp;#34;Intelligence%20Squared&amp;#34;%20Debate%20Results&amp;body=/post/scraping-is2/" target="_blank" rel="noopener" class="share-btn-email">
+        <a href="mailto:?subject=OddsConverter%20Part%201:%20Converting%20Plaintext&amp;body=/post/2018-01-22-oddsconverter-part1.en/oddsconverter-part1/" target="_blank" rel="noopener" class="share-btn-email">
           <i class="fas fa-envelope"></i>
         </a>
       </li>
@@ -637,7 +696,7 @@
       
       
       <li>
-        <a href="https://www.linkedin.com/shareArticle?url=/post/scraping-is2/&amp;title=Scraping%20the%20&amp;#34;Intelligence%20Squared&amp;#34;%20Debate%20Results" target="_blank" rel="noopener" class="share-btn-linkedin">
+        <a href="https://www.linkedin.com/shareArticle?url=/post/2018-01-22-oddsconverter-part1.en/oddsconverter-part1/&amp;title=OddsConverter%20Part%201:%20Converting%20Plaintext" target="_blank" rel="noopener" class="share-btn-linkedin">
           <i class="fab fa-linkedin-in"></i>
         </a>
       </li>
@@ -650,7 +709,7 @@
       
       
       <li>
-        <a href="whatsapp://send?text=Scraping%20the%20&amp;#34;Intelligence%20Squared&amp;#34;%20Debate%20Results%20/post/scraping-is2/" target="_blank" rel="noopener" class="share-btn-whatsapp">
+        <a href="whatsapp://send?text=OddsConverter%20Part%201:%20Converting%20Plaintext%20/post/2018-01-22-oddsconverter-part1.en/oddsconverter-part1/" target="_blank" rel="noopener" class="share-btn-whatsapp">
           <i class="fab fa-whatsapp"></i>
         </a>
       </li>
@@ -663,7 +722,7 @@
       
       
       <li>
-        <a href="https://service.weibo.com/share/share.php?url=/post/scraping-is2/&amp;title=Scraping%20the%20&amp;#34;Intelligence%20Squared&amp;#34;%20Debate%20Results" target="_blank" rel="noopener" class="share-btn-weibo">
+        <a href="https://service.weibo.com/share/share.php?url=/post/2018-01-22-oddsconverter-part1.en/oddsconverter-part1/&amp;title=OddsConverter%20Part%201:%20Converting%20Plaintext" target="_blank" rel="noopener" class="share-btn-weibo">
           <i class="fab fa-weibo"></i>
         </a>
       </li>
@@ -782,8 +841,6 @@
     <ul>
       
       <li><a href="/post/parlays-independence/">A Gentle Introduction to Parlays and Independence </a></li>
-      
-      <li><a href="/post/winning-debate/">Winning a Debate: Insights from &#34;Intelligence Squared&#34;</a></li>
       
     </ul>
   </div>
