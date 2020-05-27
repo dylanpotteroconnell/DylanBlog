@@ -1,2 +1,0 @@
-# DylanBlog
-Miscellaneous Writing Storage
