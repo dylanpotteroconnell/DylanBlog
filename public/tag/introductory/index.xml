@@ -50,5 +50,29 @@
 </description>
     </item>
     
+    <item>
+      <title>Scraping the &#34;Intelligence Squared&#34; Debate Results</title>
+      <link>/post/scraping-is2/</link>
+      <pubDate>Thu, 26 Jul 2018 00:00:00 +0000</pubDate>
+      <guid>/post/scraping-is2/</guid>
+      <description>&lt;p&gt;This is a brief companion to the 
+&lt;a href=&#34;https://dylanpotteroconnell.github.io/debatefinalsummary/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;post&lt;/a&gt; analyzing the methods of assigning a winner to a debate, using the Intelligence Squared dataset. I will briefly outline here how I assemble that dataset, for trasparency.&lt;/p&gt;
+&lt;h3 id=&#34;compiling-the-pages&#34;&gt;Compiling the Pages&lt;/h3&gt;
+&lt;p&gt;The results from each Intelligence Squared debate are posted online in pages such as 
+&lt;a href=&#34;https://www.intelligencesquaredus.org/debates/globalization-has-undermined-americas-working-class&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;this&lt;/a&gt;, including video of the debate, a description of the major positions of each side, the qualifications of the debaters, and most importantly, the results of the audience polling. Unfortunately, there doesn’t seem to be a central hub page that neatly lists all the URLs. However, the desired dataset isn’t huge (about 90 total debates), so there’s no substitute for the occasional work simply manually trawling through the website, and recording the date, name, and URL of each debate in question.&lt;/p&gt;
+&lt;h3 id=&#34;scraping-the-numbers&#34;&gt;Scraping the numbers&lt;/h3&gt;
+&lt;p&gt;Once we have a full list of all the relevant URLs, luckily, the results themselves are generally presented in a consistent format. Thus,  some simple work with regular expressions gathers the data that we need. One such example.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;debate_vote_results={&amp;quot;live&amp;quot;:{&amp;quot;pre&amp;quot;:{&amp;quot;f&amp;quot;:36,&amp;quot;a&amp;quot;:45,&amp;quot;u&amp;quot;:19,&amp;quot;w&amp;quot;:&amp;quot;a&amp;quot;},&amp;quot;post&amp;quot;:{&amp;quot;f&amp;quot;:32,&amp;quot;a&amp;quot;:61,&amp;quot;u&amp;quot;:7,&amp;quot;w&amp;quot;:&amp;quot;a&amp;quot;},&amp;quot;s&amp;quot;:41,&amp;quot;t&amp;quot;:100,&amp;quot;f&amp;quot;:{&amp;quot;f&amp;quot;:18,&amp;quot;a&amp;quot;:15,&amp;quot;u&amp;quot;:3},&amp;quot;a&amp;quot;:{&amp;quot;f&amp;quot;:6,&amp;quot;a&amp;quot;:38,&amp;quot;u&amp;quot;:1},&amp;quot;u&amp;quot;:{&amp;quot;f&amp;quot;:8,&amp;quot;a&amp;quot;:8,&amp;quot;u&amp;quot;:3}},&amp;quot;online&amp;quot;:{&amp;quot;t&amp;quot;:100,&amp;quot;pre&amp;quot;:{&amp;quot;f&amp;quot;:50,&amp;quot;a&amp;quot;:35,&amp;quot;u&amp;quot;:15,&amp;quot;w&amp;quot;:&amp;quot;&amp;quot;},&amp;quot;post&amp;quot;:{&amp;quot;f&amp;quot;:44,&amp;quot;a&amp;quot;:50,&amp;quot;u&amp;quot;:6,&amp;quot;w&amp;quot;:&amp;quot;&amp;quot;},&amp;quot;f&amp;quot;:{&amp;quot;f&amp;quot;:35,&amp;quot;a&amp;quot;:13,&amp;quot;u&amp;quot;:2},&amp;quot;a&amp;quot;:{&amp;quot;f&amp;quot;:4,&amp;quot;a&amp;quot;:27,&amp;quot;u&amp;quot;:4},&amp;quot;u&amp;quot;:{&amp;quot;f&amp;quot;:6,&amp;quot;a&amp;quot;:10,&amp;quot;u&amp;quot;:0}}};
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;In case anyone wants to borrow this sort of simple scrape for their own projects, you can find the code 
+&lt;a href=&#34;https://github.com/dylanpotteroconnell/IntelSquaredProject/blob/master/intelsquareddata.R&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;here&lt;/a&gt;, although the approach is extremely messy. Luckily, with R it’s more important to be fast than it is to be clean, and you can use very awkward code as long as you find it readable and clear. Regular expressions like this can grab the relevant numbers that we need, and we store it in one large data frame.&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-R&#34;&gt;gsub(&amp;quot;.*\&amp;quot;f\&amp;quot;:\\{\&amp;quot;f\&amp;quot;:(\\d+\\.*\\d*),\&amp;quot;a\&amp;quot;:(\\d+\\.*\\d*),\&amp;quot;u\&amp;quot;:(\\d+\\.*\\d*).*&amp;quot;, &amp;quot;\\1 \\2 \\3&amp;quot;, post)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;where we identify the numbers that we’re interested in. With the numbers compiled into one large data frame (which can be viewed in raw form 
+&lt;a href=&#34;https://github.com/dylanpotteroconnell/IntelSquaredProject/blob/master/votingresultsfinal.csv&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;here&lt;/a&gt;, for those interested in examining the data themselves). In total, there are 88 debates stretching back to 2012 which have all the information needed. The program itself stretches back further, but they only began tracking the subgroup movements more recently.&lt;/p&gt;
+&lt;p&gt;In the next post, we can actually dive into the data itself.&lt;/p&gt;
+</description>
+    </item>
+    
   </channel>
 </rss>
