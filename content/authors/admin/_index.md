@@ -2,7 +2,6 @@
 authors:
 - admin
 bio: 
-  matter.
 education:
   courses:
   - course: Ph.D in Statistics and Data Science 
@@ -22,13 +21,13 @@ role: Ph.D Candidate
 social:
 - icon: envelope
   icon_pack: fas
-  link: '#contact'
+  link: mailto:dylan.oconnell@yale.edu 
 - icon: twitter
   icon_pack: fab
   link: https://twitter.com/DylanPOConnell
-- icon: google-scholar
-  icon_pack: ai
-  link: 
+#- icon: google-scholar
+#  icon_pack: ai
+#  link: 
 - icon: github
   icon_pack: fab
   link: https://github.com/dylan.potter.oconnell
