@@ -4,7 +4,7 @@ authors:
 bio: 
 education:
   courses:
-  - course: Ph.D in Statistics and Data Science 
+  - course: Ph.D Candidate in Statistics and Data Science 
     institution: Yale University
     year: 2016 - Present
   - course: BS in Mathematics
@@ -13,11 +13,11 @@ education:
 email: ""
 interests:
 - Nonconvex Sampling 
-- Mixture Models
+- Gaussian Mixture Models
 organizations:
 - name: Yale University
   url: ""
-role: Ph.D Candidate
+role: 
 social:
 - icon: envelope
   icon_pack: fas
