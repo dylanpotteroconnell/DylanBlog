@@ -24,7 +24,7 @@ projects: []
 
 # Introduction
 
-In this tutorial, I'll provide an introduction to the construction of Bayesian structural time series (BSTS) models, using Steve Scott's ![bsts package](https://cran.r-project.org/web/packages/bsts/bsts.pdf), applied to the total weekly box office gross (i.e. ticket sales) of American movie theaters. This is meant as a proof of concept and introduction (for myself, I'm making sure I understand the material), albeit geared at those already comfortable with statistics and R (I'll be explaining the parts unique to this application, but not any background). 
+In this tutorial, I'll provide an introduction to the construction of Bayesian structural time series (BSTS) models, using Steve Scott's [bsts package](https://cran.r-project.org/web/packages/bsts/bsts.pdf), applied to the total weekly box office gross (i.e. ticket sales) of American movie theaters. This is meant as a proof of concept and introduction (for myself, I'm making sure I understand the material), albeit geared at those already comfortable with statistics and R (I'll be explaining the parts unique to this application, but not any background). 
 
 As we'll see, the class of models are likely not a particularly apt fit to the domain in question. This doesn't mean that there's no inferential value in the final result, but it does mean we have to be very conservative about what inferences we draw. BSTS models are exactly the sort of flexible structure that can provide alluringly useful accurate fits in certain contexts, only for the model to totally fall apart when stretched too far. This result is mostly due to my choice of data set (which I picked without careful consideration for its final use), but I think it's an illustrative example, because it can feel very natural to apply these models in ways which may not be theoretically sound (and they still might provide some insight in those cases, if used with appropriate caution). Above all, this is simply an opportunity for me to dip my toes into an unfamiliar topic, and I'm using this post as an excuse to articulate my own understanding of the topic, and make sure I'm comfortable with the basics.
 
@@ -36,7 +36,7 @@ library(bsts)
 library(lubridate)
 ``` 
 
-Our data is drawn from ![Box Office Mojo](https://www.boxofficemojo.com/weekly/), and it tallies the total dollar gross for each week of a given year. We will consider all weeks dating back to 1993.^[I.e. my lifetime.]
+Our data is drawn from [Box Office Mojo]("https://www.boxofficemojo.com/weekly/"), and it tallies the total dollar gross for each week of a given year. We will consider all weeks dating back to 1993.^[I.e. my lifetime.]
 
 Box Office Mojo also tracks a few , like "Releases",^{The total number of distinct movies which grossed money that week.},"Top Release", and whether or not it is a long weekend. 
 
@@ -72,7 +72,7 @@ weekly.tb %>%
 
 
 # Bayesian Structural Time Series Model
-For this introduction, we will cite a Bayesian Structural Time Series (BSTS) model. We can take this piece by piece. A "Time Series" is a sequence of data points which are indexed by time. It's a particular category of statistics, because it fundamentally violates the core "independent and identically distributed" assumption that underpins much of statistical inference. While that renders many classical statistical procedures infeasible, the temporal relationship amongst the data is the whole point! We want to understand this evolution, which means that we must rely on a model which leverages this index on time. For notation, we write $y_1, \ldot, y_T$ for the response variables of interest (in this case, the log gross).
+For this introduction, we will cite a Bayesian Structural Time Series (BSTS) model. We can take this piece by piece. A "Time Series" is a sequence of data points which are indexed by time. It's a particular category of statistics, because it fundamentally violates the core "independent and identically distributed" assumption that underpins much of statistical inference. While that renders many classical statistical procedures infeasible, the temporal relationship amongst the data is the whole point! We want to understand this evolution, which means that we must rely on a model which leverages this index on time. For notation, we write $y_1, \ldots, y_T$ for the response variables of interest (in this case, the log gross).
 
 "Bayesian" follows its standard applied definition, as our objective is not a hypothesis test of point estimate with some desirable properties, but rather a posterior distribution on the parameters of interest (the parameters which describe our time series model). These parameters are determined by the "Structural" part of the model, whcih requires a careful definition. 
 
@@ -80,34 +80,78 @@ For this introduction, we will cite a Bayesian Structural Time Series (BSTS) mod
 
 A "structural time series" is a model of response data indexed by time, whose temporal relationship is defined by the interplay of two equations. First, we have the *transition* equation, which models how a latent (i.e. unobserved state) $\alpha_t$ evolves over time. 
 \begin{align}
-\alpha_{t+1} &= T_t \alpha_t + R_t \eta_t, ~~~~~~ \eta_t &\sim N(0, Q_t)\label{eqn:bsts_transition}
-\intertext{Before we explain any of these pieces, it's best to introduce the second part, the *observation* equation, which models how the observed response $y_t$ is generated using the state variable, $\alpha_t$.}
-y_{t} &= Z_t^T \alpha_t + \epsilon_t, ~~~~~~ \epsilon_t &\sim N(0, H_t).\label{eqn:bsts_observation}
+\alpha_{t+1} &= T_t \alpha_t + R_t \eta_t, ~~~~~~ \eta_t \sim N(0, Q_t)\label{eqn:bsts_transition}
+\end{align}
+Before we explain any of these pieces, it's best to introduce the second part, the \emph{observation} equation, which models how the observed response $y_t$ is generated using the state variable, $\alpha_t$.
+\begin{align}
+y_{t} &= Z_t^T \alpha_t + \epsilon_t, ~~~~~~ \epsilon_t \sim N(0, H_t).\label{eqn:bsts_observation}
 \end{align}
 Thus, while a classic time series might model the relationship between $y_t$ and $y_{t+1}$ directly, a *structural* time series model instead links them through some latent, unobserved state, $\alpha_t$, which evolves underneath unseen, and influences the observed $y_t$ values. 
 
 This is a sensible setup because often time series are understood to be random observations of some underlying "state" in our system, which we cannot observe directly. If you conduct monthly opinion polling with a relatively small sample, this can readily be understood as a structural time series, because the target of interest is the underlying latent state (the public's opinion on a particular issue), while the observations are noisy datum which are heavily influenced by that latent state. Thus, it makes sense for us to model our understanding of the latent state itself, rather than the latest noisy observation.^[Not classical time series don't have good ways of handling this problem too! While it would indeed be foolish to consider the prior observation, the sole piece of information denoting the current state, time series models have a rich array of tools to handle these complex forms of autocorrelation.]
 
+With this understanding, the rest of the terms fall into place. $Z_t$ is the *observation* vector, whose coefficients define the relationship between the latent state and the response (subject to the noise, $\epsilon_t$). $T_t$ is the *state transition matrix*, which determines the evolution of the latent state, along with the noise $\eta_t$ (with state-diffusion matrix $Q_t$). 
+
+This is the most general statement, and it covers a vast array of potential models. In particular, the allure of this structure is that these models are naturally *additive*, which makes for easy modular construction. In this brief introduction, I won't go into much detail about its potential. 
+
+Before we proceed to fitting the data itself, a brief note about the normal errors, $\eta_t$ and $\epsilon_t$. The particular computational appeal of this model is that the additive composition of these normal errors allows the posterior distributions to be normal themselves. This structure allows for the use of the Kalman filter introduction quite clear.] to compute the estimate the distributions of $\alpha_t$ and $y_t$. 
+
+The construction of the Kalman filter (and smoother) is a bit tricky to explain, so it is ommitted here,^[I found [this](https://eml.berkeley.edu/~rothenbe/Fall2007/kalman.pdf) but the important punchline is that this model requires normally distributed errors. There is no particular reason to assume that the errors of weekly box office gross should be normally distributed! We will investigate this further, but in the use of these models, often far too little attention is paid to the model specification (as we will see that we obtain some sensible results, even with a poorly fitting model). 
+
+## Computation
+
+The [bsts package](https://cran.r-project.org/web/packages/bsts/bsts.pdf) is developed by Steve Scott, and provides a host of tools to make ABDDF. His specific approach, combining the Kalman filter with a spike-and-slab prior, was introduced in a [neat paper](https://www.nber.org/chapters/c12995) showing how search trends could be used to "Nowcast".^[Forecasting an unobserved response occurring in the given moment] The bsts package allows for the quick construction of common BSTS models with minimal effort, and provides a host of tools for their analysis.
+
+It's worth noting that Tensorflow has its own package for Bayesian structural time series modeling ([tfp.sts](https://www.tensorflow.org/probability/api_docs/python/tfp/sts)), which provides a useful alternative. 
+
+
+# An Initial Model
+
+As we select an initial model, it's worth giving some thought to the theory of the data. First, we start with the *limits* of this exercise. Intuitively, the most important factor in determining the weekly box office gross has nothing to do with the general "state of the movie business", and it has everything to do with *what movie was just released*. This presents a significant impediment to our modeling. We have an intuitive grasp of the theory, but it's not something that can easily be modeled! Of course, you *can* model the ticket sales of the biggest new release, but that's a separate challenge, and has little to do with this time series. 
+
+In an ideal world, every modeling challenge would aim to perfectly capture the theory of the setting. In practice, we often work in situations like these. This post aims to analyze the *limits* of such an appraoch. How "far" can a BSTS model get us, even when we know that it is not a perfect fit for the setting? Reading about people practicing these models online, it's common to find settings with such a theoretical mismatch.
+
+Now, assuming that we don't have prescience about the release of "Avengers: Endgame", what are some reasonable theoretical assumptions we can make? Well, first, we might expect the continuity of which movies are in theaters to provide us with a natural form of autocorrelation. The rate of decline in a movie's second week at the same theater is a [widely studied](https://en.wikipedia.org/wiki/Second_weekend_in_box_office_performance) phenomenom, and it is consistently between 40 and 60 percent. Now, there are dozens of movies contributing to the total weekly gross, so the relationship won't be nearly so tidy, but this still provides a clear form of autocorrelation.^[Later, we will consider an attempt to capture this an expected reversion to normalcy after a huge opening weekend.]
+
+Second, we would expect there to be seasonaly weekly effects. Box office grosses are commonly compared to the same weeks in previous years, because of the assumption of consistent patterns. It is understood that over Christmas, many people go to the movies, whereas the theaters are comparatively dry throughout February.
+
+These insights (some weekly trend based on the continuity of which movies are in theaters, and seasonal weekly effects), provide two separate modular components to our model. We can begin with the weekly trend. This could be included in many ways. We begin with a local linear trend, because of its flexibility. However, we will see later that this may be too aggressively flexible, given the situation. In short, a local linear trend assumes that both the mean, the trend (i.e. the slope) of the latent state evolution are drawn from a random walk. That is, if $\mu$ is the mean of the latent state (see Equation \ref{eqn:bsts_transition}).^[Most of this is grabbed right from the bsts manual, whose documentation is very helpful.]
+\begin{align*}
+\mu_{t+1} = \mu_t + \delta_t + \epsilon_{\mu, t},
+\end{align*}
+where $\epsilon_{\mu,t} \sim N(0, \sigma_\mu^2)$ is our random walk. Then, the evolution of the slope is similarly given by 
+\begin{align*}
+\delta_{t+1} = \delta_t + \delta_t + \epsilon_{\delta, t},
+\end{align*}
+where $\epsilon_{\delta,t} \sim N(0, \sigma_\mu^2)$ is another random walk. How these terms relate to our overall transition and observation equations will be clear once they are combined. 
+
+Next, we consider the seasonal model. 
+<!-- \begin{align*} -->
+<!-- \gamma_{t+1, s} = -1*\sum_{s=1}^t + \epsilon_(0,\gamma) -->
+<!-- \end{align*} -->
+
+TO BE CONTINUED 
 
 
 
+# Further Thoughts
 
+Using time series for forecasting is an exceptionally tricky endeavor, and this post is just a brief introduction as I dip my toe into the field. Looking at how time series are used publicly online can often give you the sense that it's a matter of plugging the data into a flexible model, fitting the curve, and hoping for the best. However, it's important to be precise about the inferential goals of this analysis.
 
+The punch line from this analysis might simply be "don't cite a Bayesian time series when the specified joint probability model doesn't naturally reflect our best understanding of the underlying process". And that might be fair, outside of an introductory context I would be hesitant to say much of anything about such a tenuous approaach to modeling (I'd probably tell my boss just to take a look at the movies that are coming out, and see if he recognizes the names, before I try and use past data to predict the weekly box office gross!). But these models are often applied in imperfect ways, and I've found it illustrative to work carefully through one such example, and try and understand the mechanics of the model under the hood. 
 
-The ![bsts package](https://cran.r-project.org/web/packages/bsts/bsts.pdf) is developed by Steve Scott, and provides a host of tools to make ABDDF. His specific approach, combining the Kalman filter with a spike-and-slab prior, was introduced in a ![neat paper](https://www.nber.org/chapters/c12995) showing how search trends could be used to "Nowcast".^[Forecasting an unobserved response occurring in the given moment]
-
-
-Equation \ref{eqn:bsts_transition}.
+Eric Tassone & Farzan Rohani provide an insightful [blog post](http://www.unofficialgoogledatascience.com/2017/04/our-quest-for-robust-time-series.html) examining the way that time series forecasting can and should cite ensemble averaging.
 
 
 # Sources
 
-* The ![bsts package](https://cran.r-project.org/web/packages/bsts/bsts.pdf)
-* ![Scott & Varian (2014)](https://www.nber.org/chapters/c12995)
-* !["Fitting Bayesian structural time series with the bsts R package
-, by Scott Varian, on the Google Unoficial Data Science Blog](http://www.unofficialgoogledatascience.com/2017/07/fitting-bayesian-structural-time-series.html)
-* !["Sorry ARIMA, but I’m Going Bayesian
-", by Kim Larsen](https://multithreaded.stitchfix.com/blog/2016/04/21/forget-arima/)
+* The [bsts package](https://cran.r-project.org/web/packages/bsts/bsts.pdf).
+* [Scott & Varian (2014)](https://www.nber.org/chapters/c12995)
+* ["Fitting Bayesian structural time series with the bsts R package"](http://www.unofficialgoogledatascience.com/2017/07/fitting-bayesian-structural-time-series.html) by Scott Varian, on the Google Unoficial Data Science Blog.
+* ["Sorry ARIMA, but I’m Going Bayesian
+"](https://multithreaded.stitchfix.com/blog/2016/04/21/forget-arima/), by Kim Larsen.
+* Thomas Rothenberg's [notes on the Kalman Filter](https://eml.berkeley.edu/~rothenbe/Fall2007/kalman.pdf).
+* ["Our quest for robust time series at scale"](http://www.unofficialgoogledatascience.com/2017/04/our-quest-for-robust-time-series.html), by Tassone & Rohani on the Google Unofficial Data Science Blog.
 
 
 

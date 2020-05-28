@@ -27,8 +27,7 @@
   
     
   
-  <meta name="description" content="abc
-## Registered S3 method overwritten by &#39;rvest&#39;: ## method from ## read_xml.response xml2 ## ── Attaching packages ────────────────────────────────── tidyverse 1.2.1 ── ## ✓ ggplot2 3.2.1 ✓ purrr 0.3.4 ## ✓ tibble 2.">
+  <meta name="description" content="Introduction In this tutorial, I’ll provide an introduction to the construction of Bayesian structural time series (BSTS) models, using Steve Scott’s bsts package, applied to the total weekly box office gross (i.">
 
   
   <link rel="alternate" hreflang="en-us" href="/post/bsts-boxofice/">
@@ -238,9 +237,8 @@
   
   <meta property="og:site_name" content="Dylan&#39;s Blog">
   <meta property="og:url" content="/post/bsts-boxofice/">
-  <meta property="og:title" content="Bayesian Time Series Intro: Weekly Box Office | Dylan&#39;s Blog">
-  <meta property="og:description" content="abc
-## Registered S3 method overwritten by &#39;rvest&#39;: ## method from ## read_xml.response xml2 ## ── Attaching packages ────────────────────────────────── tidyverse 1.2.1 ── ## ✓ ggplot2 3.2.1 ✓ purrr 0.3.4 ## ✓ tibble 2."><meta property="og:image" content="/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_512x512_fill_lanczos_center_2.png">
+  <meta property="og:title" content="Bayesian Structural Time Series: Weekly Box Office | Dylan&#39;s Blog">
+  <meta property="og:description" content="Introduction In this tutorial, I’ll provide an introduction to the construction of Bayesian structural time series (BSTS) models, using Steve Scott’s bsts package, applied to the total weekly box office gross (i."><meta property="og:image" content="/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_512x512_fill_lanczos_center_2.png">
   <meta property="twitter:image" content="/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_512x512_fill_lanczos_center_2.png"><meta property="og:locale" content="en-us">
   
     
@@ -272,7 +270,7 @@
     "@type": "WebPage",
     "@id": "/post/bsts-boxofice/"
   },
-  "headline": "Bayesian Time Series Intro: Weekly Box Office",
+  "headline": "Bayesian Structural Time Series: Weekly Box Office",
   
   "datePublished": "2020-05-28T00:00:00Z",
   "dateModified": "2020-05-28T13:54:36-04:00",
@@ -290,7 +288,7 @@
       "url": "/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_192x192_fill_lanczos_center_2.png"
     }
   },
-  "description": "abc\n## Registered S3 method overwritten by \u0026#39;rvest\u0026#39;: ## method from ## read_xml.response xml2 ## ── Attaching packages ────────────────────────────────── tidyverse 1.2.1 ── ## ✓ ggplot2 3.2.1 ✓ purrr 0.3.4 ## ✓ tibble 2."
+  "description": "Introduction In this tutorial, I’ll provide an introduction to the construction of Bayesian structural time series (BSTS) models, using Steve Scott’s bsts package, applied to the total weekly box office gross (i."
 }
 </script>
 
@@ -308,7 +306,7 @@
 
 
 
-  <title>Bayesian Time Series Intro: Weekly Box Office | Dylan&#39;s Blog</title>
+  <title>Bayesian Structural Time Series: Weekly Box Office | Dylan&#39;s Blog</title>
 
 </head>
 
@@ -486,7 +484,7 @@
   
   
 <div class="article-container pt-3">
-  <h1>Bayesian Time Series Intro: Weekly Box Office</h1>
+  <h1>Bayesian Structural Time Series: Weekly Box Office</h1>
 
   
 
@@ -516,7 +514,7 @@
   
   <span class="middot-divider"></span>
   <span class="article-reading-time">
-    3 min read
+    7 min read
   </span>
   
 
@@ -555,99 +553,93 @@
       
 
 
-<p>abc</p>
-<pre><code>## Registered S3 method overwritten by &#39;rvest&#39;:
-##   method            from
-##   read_xml.response xml2</code></pre>
-<pre><code>## ── Attaching packages ────────────────────────────────── tidyverse 1.2.1 ──</code></pre>
-<pre><code>## ✓ ggplot2 3.2.1     ✓ purrr   0.3.4
-## ✓ tibble  2.1.1     ✓ dplyr   0.8.3
-## ✓ tidyr   0.8.3     ✓ stringr 1.4.0
-## ✓ readr   1.3.1     ✓ forcats 0.4.0</code></pre>
-<pre><code>## Warning: package &#39;purrr&#39; was built under R version 3.6.2</code></pre>
-<pre><code>## ── Conflicts ───────────────────────────────────── tidyverse_conflicts() ──
-## x dplyr::filter() masks stats::filter()
-## x dplyr::lag()    masks stats::lag()</code></pre>
-<pre><code>## Warning: package &#39;bsts&#39; was built under R version 3.6.2</code></pre>
-<pre><code>## Loading required package: BoomSpikeSlab</code></pre>
-<pre><code>## Warning: package &#39;BoomSpikeSlab&#39; was built under R version 3.6.2</code></pre>
-<pre><code>## Loading required package: Boom</code></pre>
-<pre><code>## Warning: package &#39;Boom&#39; was built under R version 3.6.2</code></pre>
-<pre><code>## Loading required package: MASS</code></pre>
-<pre><code>## 
-## Attaching package: &#39;MASS&#39;</code></pre>
-<pre><code>## The following object is masked from &#39;package:dplyr&#39;:
-## 
-##     select</code></pre>
-<pre><code>## 
-## Attaching package: &#39;Boom&#39;</code></pre>
-<pre><code>## The following object is masked from &#39;package:stats&#39;:
-## 
-##     rWishart</code></pre>
-<pre><code>## 
-## Attaching package: &#39;BoomSpikeSlab&#39;</code></pre>
-<pre><code>## The following object is masked from &#39;package:stats&#39;:
-## 
-##     knots</code></pre>
-<pre><code>## Loading required package: zoo</code></pre>
-<pre><code>## Warning: package &#39;zoo&#39; was built under R version 3.6.2</code></pre>
-<pre><code>## 
-## Attaching package: &#39;zoo&#39;</code></pre>
-<pre><code>## The following objects are masked from &#39;package:base&#39;:
-## 
-##     as.Date, as.Date.numeric</code></pre>
-<pre><code>## Loading required package: xts</code></pre>
-<pre><code>## 
-## Attaching package: &#39;xts&#39;</code></pre>
-<pre><code>## The following objects are masked from &#39;package:dplyr&#39;:
-## 
-##     first, last</code></pre>
-<pre><code>## 
-## Attaching package: &#39;bsts&#39;</code></pre>
-<pre><code>## The following object is masked from &#39;package:BoomSpikeSlab&#39;:
-## 
-##     SuggestBurn</code></pre>
-<pre><code>## 
-## Attaching package: &#39;lubridate&#39;</code></pre>
-<pre><code>## The following object is masked from &#39;package:base&#39;:
-## 
-##     date</code></pre>
-<div id="setup" class="section level1">
-<h1>Setup</h1>
-<p>We have a .csv file containing the weekly</p>
-<pre class="r"><code>weekly.tb &lt;- read_csv(&quot;weekly_gross.csv&quot;)</code></pre>
-<pre><code>## Parsed with column specification:
-## cols(
-##   year = col_double(),
-##   week = col_double(),
-##   gross = col_double(),
-##   top_release = col_character(),
-##   releases = col_double(),
-##   long_weekend = col_logical()
-## )</code></pre>
-<pre class="r"><code>select &lt;- dplyr::select
-weekly.tb</code></pre>
-<pre><code>## # A tibble: 2,067 x 6
-##     year  week    gross top_release                        releases long_weekend
-##    &lt;dbl&gt; &lt;dbl&gt;    &lt;dbl&gt; &lt;chr&gt;                                 &lt;dbl&gt; &lt;lgl&gt;       
-##  1  1980     1  7614000 Kramer vs. Kramer                         1 FALSE       
-##  2  1980     3  9970342 Kramer vs. Kramer                         3 FALSE       
-##  3  1980     4  8295181 Kramer vs. Kramer                         2 FALSE       
-##  4  1980     5 26605665 American Gigolo                           3 FALSE       
-##  5  1980     6 24424638 Hero at Large                             4 FALSE       
-##  6  1980     7 12312572 The Last Married Couple in America        2 FALSE       
-##  7  1980     9 19702207 Kramer vs. Kramer                         2 FALSE       
-##  8  1980    10  8879852 Coal Miner&#39;s Daughter                     2 FALSE       
-##  9  1980    11  4276651 Kramer vs. Kramer                         2 FALSE       
-## 10  1980    12  7686531 Hide in Plain Sight                       3 FALSE       
-## # … with 2,057 more rows</code></pre>
+<div id="introduction" class="section level1">
+<h1>Introduction</h1>
+<p>In this tutorial, I’ll provide an introduction to the construction of Bayesian structural time series (BSTS) models, using Steve Scott’s <a href="https://cran.r-project.org/web/packages/bsts/bsts.pdf">bsts package</a>, applied to the total weekly box office gross (i.e. ticket sales) of American movie theaters. This is meant as a proof of concept and introduction (for myself, I’m making sure I understand the material), albeit geared at those already comfortable with statistics and R (I’ll be explaining the parts unique to this application, but not any background).</p>
+<p>As we’ll see, the class of models are likely not a particularly apt fit to the domain in question. This doesn’t mean that there’s no inferential value in the final result, but it does mean we have to be very conservative about what inferences we draw. BSTS models are exactly the sort of flexible structure that can provide alluringly useful accurate fits in certain contexts, only for the model to totally fall apart when stretched too far. This result is mostly due to my choice of data set (which I picked without careful consideration for its final use), but I think it’s an illustrative example, because it can feel very natural to apply these models in ways which may not be theoretically sound (and they still might provide some insight in those cases, if used with appropriate caution). Above all, this is simply an opportunity for me to dip my toes into an unfamiliar topic, and I’m using this post as an excuse to articulate my own understanding of the topic, and make sure I’m comfortable with the basics.</p>
+</div>
+<div id="the-data" class="section level1">
+<h1>The Data</h1>
+<p>Our data is drawn from <a href="%22https://www.boxofficemojo.com/weekly/%22">Box Office Mojo</a>, and it tallies the total dollar gross for each week of a given year. We will consider all weeks dating back to 1993.<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a></p>
+<p>Box Office Mojo also tracks a few , like “Releases”,^{The total number of distinct movies which grossed money that week.},“Top Release”, and whether or not it is a long weekend.</p>
+<pre class="r"><code>weekly.tb &lt;- read_csv(&quot;weekly_gross.csv&quot;)
+select &lt;- dplyr::select
+weekly.tb %&gt;% names()</code></pre>
+<pre><code>## [1] &quot;year&quot;         &quot;week&quot;         &quot;gross&quot;        &quot;top_release&quot;  &quot;releases&quot;    
+## [6] &quot;long_weekend&quot;</code></pre>
 <pre class="r"><code>weekly.tb &lt;- weekly.tb %&gt;%
   as_tibble() %&gt;%
-  filter(year &gt;= 1993) %&gt;%
+  filter(year &gt;= 1993) 
+weekly.tb %&gt;% head(3)</code></pre>
+<pre><code>## # A tibble: 3 x 6
+##    year  week     gross top_release    releases long_weekend
+##   &lt;dbl&gt; &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt;             &lt;dbl&gt; &lt;lgl&gt;       
+## 1  1993     1 104886500 Aladdin              20 FALSE       
+## 2  1993     2  78995731 A Few Good Men       23 FALSE       
+## 3  1993     3  97233042 Aladdin              26 FALSE</code></pre>
+<p>We will fit our model onto the log of the box office gross (using base 10, rather than the typical <span class="math inline">\(e\)</span>, as this has a more intuitive numerical conversion for these large decimals). Intuitively, box office cannot be negative, so if we are fitting models which assume some sort of normality, this conversion is natural. Of course, we will see that while such a conversion fixes the most glaring violation of the assumptions, that does not automatically mean that the model fits! In fact, in this exploration we will see just how difficult it is to find a tidy model for box office gross.</p>
+<pre class="r"><code>weekly.tb &lt;- weekly.tb %&gt;%
   mutate(time = year + (week-1)/52,
          log_gross = log10(gross),
          date = date_decimal(time)) %&gt;%
   dplyr::select(date, time, gross, log_gross, releases, everything())</code></pre>
+<p>However, for the sake of clarity, we often will plot the model on the regular scale (without the log transformation), we simply note that below we fit the model to the logarithm of the gross as our response.</p>
+<pre class="r"><code>weekly.tb %&gt;%
+  ggplot(aes(x = time, y = gross)) + 
+  geom_line() + 
+  xlab(&quot;Year&quot;) + 
+  ylab(&quot;Gross ($)&quot;) + 
+  ggtitle(&quot;Weekly (American) Box Office Gross&quot;) </code></pre>
+<p><img src="/post/2020-05-28-bsts-boxofice.en/index_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+</div>
+<div id="bayesian-structural-time-series-model" class="section level1">
+<h1>Bayesian Structural Time Series Model</h1>
+<p>For this introduction, we will cite a Bayesian Structural Time Series (BSTS) model. We can take this piece by piece. A “Time Series” is a sequence of data points which are indexed by time. It’s a particular category of statistics, because it fundamentally violates the core “independent and identically distributed” assumption that underpins much of statistical inference. While that renders many classical statistical procedures infeasible, the temporal relationship amongst the data is the whole point! We want to understand this evolution, which means that we must rely on a model which leverages this index on time. For notation, we write <span class="math inline">\(y_1, \ldots, y_T\)</span> for the response variables of interest (in this case, the log gross).</p>
+<p>“Bayesian” follows its standard applied definition, as our objective is not a hypothesis test of point estimate with some desirable properties, but rather a posterior distribution on the parameters of interest (the parameters which describe our time series model). These parameters are determined by the “Structural” part of the model, whcih requires a careful definition.</p>
+<div id="the-structural-model" class="section level2">
+<h2>The “Structural” Model</h2>
+<p>A “structural time series” is a model of response data indexed by time, whose temporal relationship is defined by the interplay of two equations. First, we have the <em>transition</em> equation, which models how a latent (i.e. unobserved state) <span class="math inline">\(\alpha_t\)</span> evolves over time.
+<span class="math display">\[\begin{align}
+\alpha_{t+1} &amp;= T_t \alpha_t + R_t \eta_t, ~~~~~~ \eta_t \sim N(0, Q_t)\label{eqn:bsts_transition}
+\end{align}\]</span>
+Before we explain any of these pieces, it’s best to introduce the second part, the  equation, which models how the observed response <span class="math inline">\(y_t\)</span> is generated using the state variable, <span class="math inline">\(\alpha_t\)</span>.
+<span class="math display">\[\begin{align}
+y_{t} &amp;= Z_t^T \alpha_t + \epsilon_t, ~~~~~~ \epsilon_t \sim N(0, H_t).\label{eqn:bsts_observation}
+\end{align}\]</span>
+Thus, while a classic time series might model the relationship between <span class="math inline">\(y_t\)</span> and <span class="math inline">\(y_{t+1}\)</span> directly, a <em>structural</em> time series model instead links them through some latent, unobserved state, <span class="math inline">\(\alpha_t\)</span>, which evolves underneath unseen, and influences the observed <span class="math inline">\(y_t\)</span> values.</p>
+<p>This is a sensible setup because often time series are understood to be random observations of some underlying “state” in our system, which we cannot observe directly. If you conduct monthly opinion polling with a relatively small sample, this can readily be understood as a structural time series, because the target of interest is the underlying latent state (the public’s opinion on a particular issue), while the observations are noisy datum which are heavily influenced by that latent state. Thus, it makes sense for us to model our understanding of the latent state itself, rather than the latest noisy observation.<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a></p>
+<p>With this understanding, the rest of the terms fall into place. <span class="math inline">\(Z_t\)</span> is the <em>observation</em> vector, whose coefficients define the relationship between the latent state and the response (subject to the noise, <span class="math inline">\(\epsilon_t\)</span>). <span class="math inline">\(T_t\)</span> is the <em>state transition matrix</em>, which determines the evolution of the latent state, along with the noise <span class="math inline">\(\eta_t\)</span> (with state-diffusion matrix <span class="math inline">\(Q_t\)</span>).</p>
+<p>This is the most general statement, and it covers a vast array of potential models. In particular, the allure of this structure is that these models are naturally <em>additive</em>, which makes for easy modular construction. In this brief introduction, I won’t go into much detail about its potential.</p>
+<p>Before we proceed to fitting the data itself, a brief note about the normal errors, <span class="math inline">\(\eta_t\)</span> and <span class="math inline">\(\epsilon_t\)</span>. The particular computational appeal of this model is that the additive composition of these normal errors allows the posterior distributions to be normal themselves. This structure allows for the use of the Kalman filter introduction quite clear.] to compute the estimate the distributions of <span class="math inline">\(\alpha_t\)</span> and <span class="math inline">\(y_t\)</span>.</p>
+<p>The construction of the Kalman filter (and smoother) is a bit tricky to explain, so it is ommitted here,^[I found <a href="https://eml.berkeley.edu/~rothenbe/Fall2007/kalman.pdf">this</a> but the important punchline is that this model requires normally distributed errors. There is no particular reason to assume that the errors of weekly box office gross should be normally distributed! We will investigate this further, but in the use of these models, often far too little attention is paid to the model specification (as we will see that we obtain some sensible results, even with a poorly fitting model).</p>
+</div>
+<div id="computation" class="section level2">
+<h2>Computation</h2>
+<p>The <a href="https://cran.r-project.org/web/packages/bsts/bsts.pdf">bsts package</a> is developed by Steve Scott, and provides a host of tools to make ABDDF. His specific approach, combining the Kalman filter with a spike-and-slab prior, was introduced in a <a href="https://www.nber.org/chapters/c12995">neat paper</a> showing how search trends could be used to “Nowcast”.<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a> The bsts package allows for the quick construction of common BSTS models with minimal effort, and provides a host of tools for their analysis.</p>
+<p>It’s worth noting that Tensorflow has its own package for Bayesian structural time series modeling (<a href="https://www.tensorflow.org/probability/api_docs/python/tfp/sts">tfp.sts</a>), which provides a useful alternative.</p>
+</div>
+</div>
+<div id="an-initial-model" class="section level1">
+<h1>An Initial Model</h1>
+<p>As we select an initial model, it’s worth giving some thought to the theory of the data. First, we might expect We would certainly eff</p>
+</div>
+<div id="sources" class="section level1">
+<h1>Sources</h1>
+<ul>
+<li>The <a href="https://cran.r-project.org/web/packages/bsts/bsts.pdf">bsts package</a>.</li>
+<li><a href="https://www.nber.org/chapters/c12995">Scott &amp; Varian (2014)</a></li>
+<li><a href="http://www.unofficialgoogledatascience.com/2017/07/fitting-bayesian-structural-time-series.html">“Fitting Bayesian structural time series with the bsts R package”</a> by Scott Varian, on the Google Unoficial Data Science Blog.</li>
+<li><a href="https://multithreaded.stitchfix.com/blog/2016/04/21/forget-arima/">“Sorry ARIMA, but I’m Going Bayesian”</a>, by Kim Larsen</li>
+<li>Thomas Rothenberg’s <a href="https://eml.berkeley.edu/~rothenbe/Fall2007/kalman.pdf">notes on the Kalman Filter</a>.</li>
+</ul>
+</div>
+<div class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p>I.e. my lifetime.<a href="#fnref1" class="footnote-back">↩</a></p></li>
+<li id="fn2"><p>Not classical time series don’t have good ways of handling this problem too! While it would indeed be foolish to consider the prior observation, the sole piece of information denoting the current state, time series models have a rich array of tools to handle these complex forms of autocorrelation.<a href="#fnref2" class="footnote-back">↩</a></p></li>
+<li id="fn3"><p>Forecasting an unobserved response occurring in the given moment<a href="#fnref3" class="footnote-back">↩</a></p></li>
+</ol>
 </div>
 
     </div>
@@ -679,7 +671,7 @@ weekly.tb</code></pre>
       
       
       <li>
-        <a href="https://twitter.com/intent/tweet?url=/post/bsts-boxofice/&amp;text=Bayesian%20Time%20Series%20Intro:%20Weekly%20Box%20Office" target="_blank" rel="noopener" class="share-btn-twitter">
+        <a href="https://twitter.com/intent/tweet?url=/post/bsts-boxofice/&amp;text=Bayesian%20Structural%20Time%20Series:%20Weekly%20Box%20Office" target="_blank" rel="noopener" class="share-btn-twitter">
           <i class="fab fa-twitter"></i>
         </a>
       </li>
@@ -692,7 +684,7 @@ weekly.tb</code></pre>
       
       
       <li>
-        <a href="https://www.facebook.com/sharer.php?u=/post/bsts-boxofice/&amp;t=Bayesian%20Time%20Series%20Intro:%20Weekly%20Box%20Office" target="_blank" rel="noopener" class="share-btn-facebook">
+        <a href="https://www.facebook.com/sharer.php?u=/post/bsts-boxofice/&amp;t=Bayesian%20Structural%20Time%20Series:%20Weekly%20Box%20Office" target="_blank" rel="noopener" class="share-btn-facebook">
           <i class="fab fa-facebook"></i>
         </a>
       </li>
@@ -705,7 +697,7 @@ weekly.tb</code></pre>
       
       
       <li>
-        <a href="mailto:?subject=Bayesian%20Time%20Series%20Intro:%20Weekly%20Box%20Office&amp;body=/post/bsts-boxofice/" target="_blank" rel="noopener" class="share-btn-email">
+        <a href="mailto:?subject=Bayesian%20Structural%20Time%20Series:%20Weekly%20Box%20Office&amp;body=/post/bsts-boxofice/" target="_blank" rel="noopener" class="share-btn-email">
           <i class="fas fa-envelope"></i>
         </a>
       </li>
@@ -718,7 +710,7 @@ weekly.tb</code></pre>
       
       
       <li>
-        <a href="https://www.linkedin.com/shareArticle?url=/post/bsts-boxofice/&amp;title=Bayesian%20Time%20Series%20Intro:%20Weekly%20Box%20Office" target="_blank" rel="noopener" class="share-btn-linkedin">
+        <a href="https://www.linkedin.com/shareArticle?url=/post/bsts-boxofice/&amp;title=Bayesian%20Structural%20Time%20Series:%20Weekly%20Box%20Office" target="_blank" rel="noopener" class="share-btn-linkedin">
           <i class="fab fa-linkedin-in"></i>
         </a>
       </li>
@@ -731,7 +723,7 @@ weekly.tb</code></pre>
       
       
       <li>
-        <a href="whatsapp://send?text=Bayesian%20Time%20Series%20Intro:%20Weekly%20Box%20Office%20/post/bsts-boxofice/" target="_blank" rel="noopener" class="share-btn-whatsapp">
+        <a href="whatsapp://send?text=Bayesian%20Structural%20Time%20Series:%20Weekly%20Box%20Office%20/post/bsts-boxofice/" target="_blank" rel="noopener" class="share-btn-whatsapp">
           <i class="fab fa-whatsapp"></i>
         </a>
       </li>
@@ -744,7 +736,7 @@ weekly.tb</code></pre>
       
       
       <li>
-        <a href="https://service.weibo.com/share/share.php?url=/post/bsts-boxofice/&amp;title=Bayesian%20Time%20Series%20Intro:%20Weekly%20Box%20Office" target="_blank" rel="noopener" class="share-btn-weibo">
+        <a href="https://service.weibo.com/share/share.php?url=/post/bsts-boxofice/&amp;title=Bayesian%20Structural%20Time%20Series:%20Weekly%20Box%20Office" target="_blank" rel="noopener" class="share-btn-weibo">
           <i class="fab fa-weibo"></i>
         </a>
       </li>
