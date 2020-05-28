@@ -79,20 +79,25 @@ For this introduction, we will cite a Bayesian Structural Time Series (BSTS) mod
 ## The "Structural" Model
 
 A "structural time series" is a model of response data indexed by time, whose temporal relationship is defined by the interplay of two equations. First, we have the *transition* equation, which models how a latent (i.e. unobserved state) $\alpha_t$ evolves over time. 
-\begin{align*}
-\alpha_{t+1} &= T_t \alpha_t + R_t \eta_t, ~~~~~~ \eta_t &\sim N(0, Q_t)
+\begin{align}
+\alpha_{t+1} &= T_t \alpha_t + R_t \eta_t, ~~~~~~ \eta_t &\sim N(0, Q_t)\label{eqn:bsts_transition}
 \intertext{Before we explain any of these pieces, it's best to introduce the second part, the *observation* equation, which models how the observed response $y_t$ is generated using the state variable, $\alpha_t$.}
-y_{t} &= Z_t^T \alpha_t + \epsilon_t, ~~~~~~ \epsilon_t &\sim N(0, H_t).
-\end{align*}
-Thus, while a classic time series might model the relationship between $y_t$ and $y_{t+1}$ directly, a *structural* time series model instead links them through some latent, unobserved state, $\alpha_t$, which evolves underneath underneath 
+y_{t} &= Z_t^T \alpha_t + \epsilon_t, ~~~~~~ \epsilon_t &\sim N(0, H_t).\label{eqn:bsts_observation}
+\end{align}
+Thus, while a classic time series might model the relationship between $y_t$ and $y_{t+1}$ directly, a *structural* time series model instead links them through some latent, unobserved state, $\alpha_t$, which evolves underneath unseen, and influences the observed $y_t$ values. 
+
+This is a sensible setup because often time series are understood to be random observations of some underlying "state" in our system, which we cannot observe directly. If you conduct monthly opinion polling with a relatively small sample, this can readily be understood as a structural time series, because the target of interest is the underlying latent state (the public's opinion on a particular issue), while the observations are noisy datum which are heavily influenced by that latent state. Thus, it makes sense for us to model our understanding of the latent state itself, rather than the latest noisy observation.^[Not classical time series don't have good ways of handling this problem too! While it would indeed be foolish to consider the prior observation, the sole piece of information denoting the current state, time series models have a rich array of tools to handle these complex forms of autocorrelation.]
 
 
 
 
 
-The ![bsts package](https://cran.r-project.org/web/packages/bsts/bsts.pdf) is developed by Steve Scott, and provides a host of tools to make ABDDF. His specific approach, combining the Kalman filter with a spike-and-slab prior, was introduced in a ![neat paper](https://www.nber.org/chapters/c12995) showing how search trends could be used to "Nowcast".^[Forecasting an unobserved response occurring in teh given moment]
 
 
+The ![bsts package](https://cran.r-project.org/web/packages/bsts/bsts.pdf) is developed by Steve Scott, and provides a host of tools to make ABDDF. His specific approach, combining the Kalman filter with a spike-and-slab prior, was introduced in a ![neat paper](https://www.nber.org/chapters/c12995) showing how search trends could be used to "Nowcast".^[Forecasting an unobserved response occurring in the given moment]
+
+
+Equation \ref{eqn:bsts_transition}.
 
 
 # Sources
@@ -101,6 +106,8 @@ The ![bsts package](https://cran.r-project.org/web/packages/bsts/bsts.pdf) is de
 * ![Scott & Varian (2014)](https://www.nber.org/chapters/c12995)
 * !["Fitting Bayesian structural time series with the bsts R package
 , by Scott Varian, on the Google Unoficial Data Science Blog](http://www.unofficialgoogledatascience.com/2017/07/fitting-bayesian-structural-time-series.html)
+* !["Sorry ARIMA, but I’m Going Bayesian
+", by Kim Larsen](https://multithreaded.stitchfix.com/blog/2016/04/21/forget-arima/)
 
 
 
