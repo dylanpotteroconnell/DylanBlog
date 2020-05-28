@@ -1,5 +1,5 @@
 ---
-title: 'Bayesian Structural Time Series: Weekly Box Office'
+title: 'Bayesian Structural Time Series, and Movie Ticket Sales Sales'
 author: Dylan O'Connell
 date: '2020-05-28'
 slug: bsts-boxofice
