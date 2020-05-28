@@ -1,0 +1,99 @@
+---
+title: 'Bayesian Structural Time Series: Weekly Box Office'
+author: Dylan O'Connell
+date: '2020-05-28'
+slug: bsts-boxofice
+categories: []
+tags:
+  - bayesian
+  - R
+subtitle: ''
+summary: ''
+authors: []
+lastmod: '2020-05-28T13:54:36-04:00'
+featured: no
+image:
+  caption: ''
+  focal_point: ''
+  preview_only: no
+projects: []
+---
+
+
+
+
+# Introduction
+
+In this tutorial, I'll provide an introduction to the construction of Bayesian structural time series (BSTS) models, using Steve Scott's ![bsts package](https://cran.r-project.org/web/packages/bsts/bsts.pdf), applied to the total weekly box office gross (i.e. ticket sales) of American movie theaters. This is meant as a proof of concept and introduction (for myself, I'm making sure I understand the material), albeit geared at those already comfortable with statistics and R (I'll be explaining the parts unique to this application, but not any background). 
+
+As we'll see, the class of models are likely not a particularly apt fit to the domain in question. This doesn't mean that there's no inferential value in the final result, but it does mean we have to be very conservative about what inferences we draw. BSTS models are exactly the sort of flexible structure that can provide alluringly useful accurate fits in certain contexts, only for the model to totally fall apart when stretched too far. This result is mostly due to my choice of data set (which I picked without careful consideration for its final use), but I think it's an illustrative example, because it can feel very natural to apply these models in ways which may not be theoretically sound (and they still might provide some insight in those cases, if used with appropriate caution). Above all, this is simply an opportunity for me to dip my toes into an unfamiliar topic, and I'm using this post as an excuse to articulate my own understanding of the topic, and make sure I'm comfortable with the basics.
+
+# The Data
+
+```{r, echo = FALSE}
+library(tidyverse)
+library(bsts)
+library(lubridate)
+``` 
+
+Our data is drawn from ![Box Office Mojo](https://www.boxofficemojo.com/weekly/), and it tallies the total dollar gross for each week of a given year. We will consider all weeks dating back to 1993.^[I.e. my lifetime.]
+
+Box Office Mojo also tracks a few , like "Releases",^{The total number of distinct movies which grossed money that week.},"Top Release", and whether or not it is a long weekend. 
+
+```{r}
+weekly.tb <- read_csv("weekly_gross.csv")
+select <- dplyr::select
+weekly.tb %>% names()
+weekly.tb <- weekly.tb %>%
+  as_tibble() %>%
+  filter(year >= 1993) 
+weekly.tb %>% head(3)
+```
+
+We will fit our model onto the log of the box office gross (using base 10, rather than the typical $e$, as this has a more intuitive numerical conversion for these large decimals). Intuitively, box office cannot be negative, so if we are fitting models which assume some sort of normality, this conversion is natural. Of course, we will see that while such a conversion fixes the most glaring violation of the assumptions, that does not automatically mean that the model fits! In fact, in this exploration we will see just how difficult it is to find a tidy model for box office gross.
+
+```{r}
+weekly.tb <- weekly.tb %>%
+  mutate(time = year + (week-1)/52,
+         log_gross = log10(gross),
+         date = date_decimal(time)) %>%
+  dplyr::select(date, time, gross, log_gross, releases, everything())
+```
+
+
+```{r}
+weekly.tb %>%
+  ggplot(aes(x= time, y = log_gross)) + 
+  geom_line() + 
+  xlab("Year") + 
+  ylab("Log Gross") + 
+  ggtitle("Weekly (American) Log Box Office Gross")
+```
+
+
+# Bayesian Structural Time Series Model
+For this introduction, we will cite a Bayesian Structural Time Series (BSTS) model. We can take this piece by piece. A "Time Series" is a sequence of data points which are indexed by time. It's a particular category of statistics, because it fundamentally violates the core "independent and identically distributed" assumption that underpins much of statistical inference. While that renders many classical statistical procedures infeasible, the temporal relationship amongst the data is the whole point! We want to understand this evolution, which means that we must rely on a model which leverages this index on time. For notation, we write $y_1, \ldot, y_T$ for the response variables of interest (in this case, the log gross).
+
+"Bayesian" follows its standard applied definition, as our objective is not a hypothesis test of point estimate with some desirable properties, but rather a posterior distribution on the parameters of interest (the parameters which describe our time series model). These parameters are determined by the "Structural" part of the model, whcih requires a careful definition. 
+
+## The "Structural" Model
+
+A "structural time series" is a model of response data indexed by time, whose temporal relationship is defined by the interplay of two equations. First, we have the transition equation, which models how a latent (i.e. unobserved state) evolves over time. 
+\begin{align*}
+
+
+
+The ![bsts package](https://cran.r-project.org/web/packages/bsts/bsts.pdf) is developed by Steve Scott, and provides a host of tools to make ABDDF. His specific approach, combining the Kalman filter with a spike-and-slab prior, was introduced in a ![neat paper](https://www.nber.org/chapters/c12995) showing how search trends could be used to "Nowcast".^[Forecasting an unobserved response occurring in teh given moment]
+
+
+
+
+# Sources
+
+* The ![bsts package](https://cran.r-project.org/web/packages/bsts/bsts.pdf)
+* ![Scott & Varian (2014)](https://www.nber.org/chapters/c12995)
+* 
+
+
+
+

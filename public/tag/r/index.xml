@@ -5,12 +5,117 @@
     <link>/tag/r/</link>
       <atom:link href="/tag/r/index.xml" rel="self" type="application/rss+xml" />
     <description>R</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Wed, 27 May 2020 00:00:00 +0000</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Thu, 28 May 2020 00:00:00 +0000</lastBuildDate>
     <image>
       <url>/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_512x512_fill_lanczos_center_2.png</url>
       <title>R</title>
       <link>/tag/r/</link>
     </image>
+    
+    <item>
+      <title>Bayesian Time Series Intro: Weekly Box Office</title>
+      <link>/post/bsts-boxofice/</link>
+      <pubDate>Thu, 28 May 2020 00:00:00 +0000</pubDate>
+      <guid>/post/bsts-boxofice/</guid>
+      <description>
+
+
+&lt;p&gt;abc&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;## Registered S3 method overwritten by &amp;#39;rvest&amp;#39;:
+##   method            from
+##   read_xml.response xml2&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## ── Attaching packages ────────────────────────────────── tidyverse 1.2.1 ──&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## ✓ ggplot2 3.2.1     ✓ purrr   0.3.4
+## ✓ tibble  2.1.1     ✓ dplyr   0.8.3
+## ✓ tidyr   0.8.3     ✓ stringr 1.4.0
+## ✓ readr   1.3.1     ✓ forcats 0.4.0&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Warning: package &amp;#39;purrr&amp;#39; was built under R version 3.6.2&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## ── Conflicts ───────────────────────────────────── tidyverse_conflicts() ──
+## x dplyr::filter() masks stats::filter()
+## x dplyr::lag()    masks stats::lag()&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Warning: package &amp;#39;bsts&amp;#39; was built under R version 3.6.2&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Loading required package: BoomSpikeSlab&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Warning: package &amp;#39;BoomSpikeSlab&amp;#39; was built under R version 3.6.2&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Loading required package: Boom&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Warning: package &amp;#39;Boom&amp;#39; was built under R version 3.6.2&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Loading required package: MASS&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## 
+## Attaching package: &amp;#39;MASS&amp;#39;&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## The following object is masked from &amp;#39;package:dplyr&amp;#39;:
+## 
+##     select&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## 
+## Attaching package: &amp;#39;Boom&amp;#39;&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## The following object is masked from &amp;#39;package:stats&amp;#39;:
+## 
+##     rWishart&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## 
+## Attaching package: &amp;#39;BoomSpikeSlab&amp;#39;&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## The following object is masked from &amp;#39;package:stats&amp;#39;:
+## 
+##     knots&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Loading required package: zoo&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Warning: package &amp;#39;zoo&amp;#39; was built under R version 3.6.2&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## 
+## Attaching package: &amp;#39;zoo&amp;#39;&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## The following objects are masked from &amp;#39;package:base&amp;#39;:
+## 
+##     as.Date, as.Date.numeric&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Loading required package: xts&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## 
+## Attaching package: &amp;#39;xts&amp;#39;&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## The following objects are masked from &amp;#39;package:dplyr&amp;#39;:
+## 
+##     first, last&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## 
+## Attaching package: &amp;#39;bsts&amp;#39;&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## The following object is masked from &amp;#39;package:BoomSpikeSlab&amp;#39;:
+## 
+##     SuggestBurn&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## 
+## Attaching package: &amp;#39;lubridate&amp;#39;&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## The following object is masked from &amp;#39;package:base&amp;#39;:
+## 
+##     date&lt;/code&gt;&lt;/pre&gt;
+&lt;div id=&#34;setup&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Setup&lt;/h1&gt;
+&lt;p&gt;We have a .csv file containing the weekly&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;weekly.tb &amp;lt;- read_csv(&amp;quot;weekly_gross.csv&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Parsed with column specification:
+## cols(
+##   year = col_double(),
+##   week = col_double(),
+##   gross = col_double(),
+##   top_release = col_character(),
+##   releases = col_double(),
+##   long_weekend = col_logical()
+## )&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;select &amp;lt;- dplyr::select
+weekly.tb&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## # A tibble: 2,067 x 6
+##     year  week    gross top_release                        releases long_weekend
+##    &amp;lt;dbl&amp;gt; &amp;lt;dbl&amp;gt;    &amp;lt;dbl&amp;gt; &amp;lt;chr&amp;gt;                                 &amp;lt;dbl&amp;gt; &amp;lt;lgl&amp;gt;       
+##  1  1980     1  7614000 Kramer vs. Kramer                         1 FALSE       
+##  2  1980     3  9970342 Kramer vs. Kramer                         3 FALSE       
+##  3  1980     4  8295181 Kramer vs. Kramer                         2 FALSE       
+##  4  1980     5 26605665 American Gigolo                           3 FALSE       
+##  5  1980     6 24424638 Hero at Large                             4 FALSE       
+##  6  1980     7 12312572 The Last Married Couple in America        2 FALSE       
+##  7  1980     9 19702207 Kramer vs. Kramer                         2 FALSE       
+##  8  1980    10  8879852 Coal Miner&amp;#39;s Daughter                     2 FALSE       
+##  9  1980    11  4276651 Kramer vs. Kramer                         2 FALSE       
+## 10  1980    12  7686531 Hide in Plain Sight                       3 FALSE       
+## # … with 2,057 more rows&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;weekly.tb &amp;lt;- weekly.tb %&amp;gt;%
+  as_tibble() %&amp;gt;%
+  filter(year &amp;gt;= 1993) %&amp;gt;%
+  mutate(time = year + (week-1)/52,
+         log_gross = log10(gross),
+         date = date_decimal(time)) %&amp;gt;%
+  dplyr::select(date, time, gross, log_gross, releases, everything())&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+</description>
+    </item>
     
     <item>
       <title>The Perils of Overly Local Optimization</title>
