@@ -237,7 +237,7 @@
   
   <meta property="og:site_name" content="Dylan&#39;s Blog">
   <meta property="og:url" content="/post/bsts-boxofice/">
-  <meta property="og:title" content="Bayesian Structural Time Series: Weekly Box Office | Dylan&#39;s Blog">
+  <meta property="og:title" content="Bayesian Structural Time Series, and Movie Ticket Sales Sales | Dylan&#39;s Blog">
   <meta property="og:description" content="Introduction In this tutorial, I’ll provide an introduction to the construction of Bayesian structural time series (BSTS) models, using Steve Scott’s bsts package, applied to the total weekly box office gross (i."><meta property="og:image" content="/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_512x512_fill_lanczos_center_2.png">
   <meta property="twitter:image" content="/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_512x512_fill_lanczos_center_2.png"><meta property="og:locale" content="en-us">
   
@@ -270,7 +270,7 @@
     "@type": "WebPage",
     "@id": "/post/bsts-boxofice/"
   },
-  "headline": "Bayesian Structural Time Series: Weekly Box Office",
+  "headline": "Bayesian Structural Time Series, and Movie Ticket Sales Sales",
   
   "datePublished": "2020-05-28T00:00:00Z",
   "dateModified": "2020-05-28T13:54:36-04:00",
@@ -306,7 +306,7 @@
 
 
 
-  <title>Bayesian Structural Time Series: Weekly Box Office | Dylan&#39;s Blog</title>
+  <title>Bayesian Structural Time Series, and Movie Ticket Sales Sales | Dylan&#39;s Blog</title>
 
 </head>
 
@@ -484,7 +484,7 @@
   
   
 <div class="article-container pt-3">
-  <h1>Bayesian Structural Time Series: Weekly Box Office</h1>
+  <h1>Bayesian Structural Time Series, and Movie Ticket Sales Sales</h1>
 
   
 
@@ -514,7 +514,7 @@
   
   <span class="middot-divider"></span>
   <span class="article-reading-time">
-    7 min read
+    11 min read
   </span>
   
 
@@ -621,7 +621,30 @@ Thus, while a classic time series might model the relationship between <span cla
 </div>
 <div id="an-initial-model" class="section level1">
 <h1>An Initial Model</h1>
-<p>As we select an initial model, it’s worth giving some thought to the theory of the data. First, we might expect We would certainly eff</p>
+<p>As we select an initial model, it’s worth giving some thought to the theory of the data. First, we start with the <em>limits</em> of this exercise. Intuitively, the most important factor in determining the weekly box office gross has nothing to do with the general “state of the movie business”, and it has everything to do with <em>what movie was just released</em>. This presents a significant impediment to our modeling. We have an intuitive grasp of the theory, but it’s not something that can easily be modeled! Of course, you <em>can</em> model the ticket sales of the biggest new release, but that’s a separate challenge, and has little to do with this time series.</p>
+<p>In an ideal world, every modeling challenge would aim to perfectly capture the theory of the setting. In practice, we often work in situations like these. This post aims to analyze the <em>limits</em> of such an appraoch. How “far” can a BSTS model get us, even when we know that it is not a perfect fit for the setting? Reading about people practicing these models online, it’s common to find settings with such a theoretical mismatch.</p>
+<p>Now, assuming that we don’t have prescience about the release of “Avengers: Endgame”, what are some reasonable theoretical assumptions we can make? Well, first, we might expect the continuity of which movies are in theaters to provide us with a natural form of autocorrelation. The rate of decline in a movie’s second week at the same theater is a <a href="https://en.wikipedia.org/wiki/Second_weekend_in_box_office_performance">widely studied</a> phenomenom, and it is consistently between 40 and 60 percent. Now, there are dozens of movies contributing to the total weekly gross, so the relationship won’t be nearly so tidy, but this still provides a clear form of autocorrelation.<a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a></p>
+<p>Second, we would expect there to be seasonaly weekly effects. Box office grosses are commonly compared to the same weeks in previous years, because of the assumption of consistent patterns. It is understood that over Christmas, many people go to the movies, whereas the theaters are comparatively dry throughout February.</p>
+<p>These insights (some weekly trend based on the continuity of which movies are in theaters, and seasonal weekly effects), provide two separate modular components to our model. We can begin with the weekly trend. This could be included in many ways. We begin with a local linear trend, because of its flexibility. However, we will see later that this may be too aggressively flexible, given the situation. In short, a local linear trend assumes that both the mean, the trend (i.e. the slope) of the latent state evolution are drawn from a random walk. That is, if <span class="math inline">\(\mu\)</span> is the mean of the latent state (see Equation ).<a href="#fn5" class="footnote-ref" id="fnref5"><sup>5</sup></a>
+<span class="math display">\[\begin{align*}
+\mu_{t+1} = \mu_t + \delta_t + \epsilon_{\mu, t},
+\end{align*}\]</span>
+where <span class="math inline">\(\epsilon_{\mu,t} \sim N(0, \sigma_\mu^2)\)</span> is our random walk. Then, the evolution of the slope is similarly given by
+<span class="math display">\[\begin{align*}
+\delta_{t+1} = \delta_t + \delta_t + \epsilon_{\delta, t},
+\end{align*}\]</span>
+where <span class="math inline">\(\epsilon_{\delta,t} \sim N(0, \sigma_\mu^2)\)</span> is another random walk. How these terms relate to our overall transition and observation equations will be clear once they are combined.</p>
+<p>Next, we consider the seasonal model.
+<!-- \begin{align*} -->
+<!-- \gamma_{t+1, s} = -1*\sum_{s=1}^t + \epsilon_(0,\gamma) -->
+<!-- \end{align*} --></p>
+<p>TO BE CONTINUED</p>
+</div>
+<div id="further-thoughts" class="section level1">
+<h1>Further Thoughts</h1>
+<p>Using time series for forecasting is an exceptionally tricky endeavor, and this post is just a brief introduction as I dip my toe into the field. Looking at how time series are used publicly online can often give you the sense that it’s a matter of plugging the data into a flexible model, fitting the curve, and hoping for the best. However, it’s important to be precise about the inferential goals of this analysis.</p>
+<p>The punch line from this analysis might simply be “don’t cite a Bayesian time series when the specified joint probability model doesn’t naturally reflect our best understanding of the underlying process”. And that might be fair, outside of an introductory context I would be hesitant to say much of anything about such a tenuous approaach to modeling (I’d probably tell my boss just to take a look at the movies that are coming out, and see if he recognizes the names, before I try and use past data to predict the weekly box office gross!). But these models are often applied in imperfect ways, and I’ve found it illustrative to work carefully through one such example, and try and understand the mechanics of the model under the hood.</p>
+<p>Eric Tassone &amp; Farzan Rohani provide an insightful <a href="http://www.unofficialgoogledatascience.com/2017/04/our-quest-for-robust-time-series.html">blog post</a> examining the way that time series forecasting can and should cite ensemble averaging.</p>
 </div>
 <div id="sources" class="section level1">
 <h1>Sources</h1>
@@ -629,8 +652,9 @@ Thus, while a classic time series might model the relationship between <span cla
 <li>The <a href="https://cran.r-project.org/web/packages/bsts/bsts.pdf">bsts package</a>.</li>
 <li><a href="https://www.nber.org/chapters/c12995">Scott &amp; Varian (2014)</a></li>
 <li><a href="http://www.unofficialgoogledatascience.com/2017/07/fitting-bayesian-structural-time-series.html">“Fitting Bayesian structural time series with the bsts R package”</a> by Scott Varian, on the Google Unoficial Data Science Blog.</li>
-<li><a href="https://multithreaded.stitchfix.com/blog/2016/04/21/forget-arima/">“Sorry ARIMA, but I’m Going Bayesian”</a>, by Kim Larsen</li>
+<li><a href="https://multithreaded.stitchfix.com/blog/2016/04/21/forget-arima/">“Sorry ARIMA, but I’m Going Bayesian”</a>, by Kim Larsen.</li>
 <li>Thomas Rothenberg’s <a href="https://eml.berkeley.edu/~rothenbe/Fall2007/kalman.pdf">notes on the Kalman Filter</a>.</li>
+<li><a href="http://www.unofficialgoogledatascience.com/2017/04/our-quest-for-robust-time-series.html">“Our quest for robust time series at scale”</a>, by Tassone &amp; Rohani on the Google Unofficial Data Science Blog.</li>
 </ul>
 </div>
 <div class="footnotes">
@@ -639,6 +663,8 @@ Thus, while a classic time series might model the relationship between <span cla
 <li id="fn1"><p>I.e. my lifetime.<a href="#fnref1" class="footnote-back">↩</a></p></li>
 <li id="fn2"><p>Not classical time series don’t have good ways of handling this problem too! While it would indeed be foolish to consider the prior observation, the sole piece of information denoting the current state, time series models have a rich array of tools to handle these complex forms of autocorrelation.<a href="#fnref2" class="footnote-back">↩</a></p></li>
 <li id="fn3"><p>Forecasting an unobserved response occurring in the given moment<a href="#fnref3" class="footnote-back">↩</a></p></li>
+<li id="fn4"><p>Later, we will consider an attempt to capture this an expected reversion to normalcy after a huge opening weekend.<a href="#fnref4" class="footnote-back">↩</a></p></li>
+<li id="fn5"><p>Most of this is grabbed right from the bsts manual, whose documentation is very helpful.<a href="#fnref5" class="footnote-back">↩</a></p></li>
 </ol>
 </div>
 
@@ -671,7 +697,7 @@ Thus, while a classic time series might model the relationship between <span cla
       
       
       <li>
-        <a href="https://twitter.com/intent/tweet?url=/post/bsts-boxofice/&amp;text=Bayesian%20Structural%20Time%20Series:%20Weekly%20Box%20Office" target="_blank" rel="noopener" class="share-btn-twitter">
+        <a href="https://twitter.com/intent/tweet?url=/post/bsts-boxofice/&amp;text=Bayesian%20Structural%20Time%20Series,%20and%20Movie%20Ticket%20Sales%20Sales" target="_blank" rel="noopener" class="share-btn-twitter">
           <i class="fab fa-twitter"></i>
         </a>
       </li>
@@ -684,7 +710,7 @@ Thus, while a classic time series might model the relationship between <span cla
       
       
       <li>
-        <a href="https://www.facebook.com/sharer.php?u=/post/bsts-boxofice/&amp;t=Bayesian%20Structural%20Time%20Series:%20Weekly%20Box%20Office" target="_blank" rel="noopener" class="share-btn-facebook">
+        <a href="https://www.facebook.com/sharer.php?u=/post/bsts-boxofice/&amp;t=Bayesian%20Structural%20Time%20Series,%20and%20Movie%20Ticket%20Sales%20Sales" target="_blank" rel="noopener" class="share-btn-facebook">
           <i class="fab fa-facebook"></i>
         </a>
       </li>
@@ -697,7 +723,7 @@ Thus, while a classic time series might model the relationship between <span cla
       
       
       <li>
-        <a href="mailto:?subject=Bayesian%20Structural%20Time%20Series:%20Weekly%20Box%20Office&amp;body=/post/bsts-boxofice/" target="_blank" rel="noopener" class="share-btn-email">
+        <a href="mailto:?subject=Bayesian%20Structural%20Time%20Series,%20and%20Movie%20Ticket%20Sales%20Sales&amp;body=/post/bsts-boxofice/" target="_blank" rel="noopener" class="share-btn-email">
           <i class="fas fa-envelope"></i>
         </a>
       </li>
@@ -710,7 +736,7 @@ Thus, while a classic time series might model the relationship between <span cla
       
       
       <li>
-        <a href="https://www.linkedin.com/shareArticle?url=/post/bsts-boxofice/&amp;title=Bayesian%20Structural%20Time%20Series:%20Weekly%20Box%20Office" target="_blank" rel="noopener" class="share-btn-linkedin">
+        <a href="https://www.linkedin.com/shareArticle?url=/post/bsts-boxofice/&amp;title=Bayesian%20Structural%20Time%20Series,%20and%20Movie%20Ticket%20Sales%20Sales" target="_blank" rel="noopener" class="share-btn-linkedin">
           <i class="fab fa-linkedin-in"></i>
         </a>
       </li>
@@ -723,7 +749,7 @@ Thus, while a classic time series might model the relationship between <span cla
       
       
       <li>
-        <a href="whatsapp://send?text=Bayesian%20Structural%20Time%20Series:%20Weekly%20Box%20Office%20/post/bsts-boxofice/" target="_blank" rel="noopener" class="share-btn-whatsapp">
+        <a href="whatsapp://send?text=Bayesian%20Structural%20Time%20Series,%20and%20Movie%20Ticket%20Sales%20Sales%20/post/bsts-boxofice/" target="_blank" rel="noopener" class="share-btn-whatsapp">
           <i class="fab fa-whatsapp"></i>
         </a>
       </li>
@@ -736,7 +762,7 @@ Thus, while a classic time series might model the relationship between <span cla
       
       
       <li>
-        <a href="https://service.weibo.com/share/share.php?url=/post/bsts-boxofice/&amp;title=Bayesian%20Structural%20Time%20Series:%20Weekly%20Box%20Office" target="_blank" rel="noopener" class="share-btn-weibo">
+        <a href="https://service.weibo.com/share/share.php?url=/post/bsts-boxofice/&amp;title=Bayesian%20Structural%20Time%20Series,%20and%20Movie%20Ticket%20Sales%20Sales" target="_blank" rel="noopener" class="share-btn-weibo">
           <i class="fab fa-weibo"></i>
         </a>
       </li>

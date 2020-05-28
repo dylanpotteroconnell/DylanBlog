@@ -77,7 +77,7 @@
     </item>
     
     <item>
-      <title>Bayesian Structural Time Series: Weekly Box Office</title>
+      <title>Bayesian Structural Time Series, and Movie Ticket Sales Sales</title>
       <link>/post/bsts-boxofice/</link>
       <pubDate>Thu, 28 May 2020 00:00:00 +0000</pubDate>
       <guid>/post/bsts-boxofice/</guid>
@@ -152,7 +152,30 @@ Thus, while a classic time series might model the relationship between &lt;span 
 &lt;/div&gt;
 &lt;div id=&#34;an-initial-model&#34; class=&#34;section level1&#34;&gt;
 &lt;h1&gt;An Initial Model&lt;/h1&gt;
-&lt;p&gt;As we select an initial model, it’s worth giving some thought to the theory of the data. First, we might expect We would certainly eff&lt;/p&gt;
+&lt;p&gt;As we select an initial model, it’s worth giving some thought to the theory of the data. First, we start with the &lt;em&gt;limits&lt;/em&gt; of this exercise. Intuitively, the most important factor in determining the weekly box office gross has nothing to do with the general “state of the movie business”, and it has everything to do with &lt;em&gt;what movie was just released&lt;/em&gt;. This presents a significant impediment to our modeling. We have an intuitive grasp of the theory, but it’s not something that can easily be modeled! Of course, you &lt;em&gt;can&lt;/em&gt; model the ticket sales of the biggest new release, but that’s a separate challenge, and has little to do with this time series.&lt;/p&gt;
+&lt;p&gt;In an ideal world, every modeling challenge would aim to perfectly capture the theory of the setting. In practice, we often work in situations like these. This post aims to analyze the &lt;em&gt;limits&lt;/em&gt; of such an appraoch. How “far” can a BSTS model get us, even when we know that it is not a perfect fit for the setting? Reading about people practicing these models online, it’s common to find settings with such a theoretical mismatch.&lt;/p&gt;
+&lt;p&gt;Now, assuming that we don’t have prescience about the release of “Avengers: Endgame”, what are some reasonable theoretical assumptions we can make? Well, first, we might expect the continuity of which movies are in theaters to provide us with a natural form of autocorrelation. The rate of decline in a movie’s second week at the same theater is a &lt;a href=&#34;https://en.wikipedia.org/wiki/Second_weekend_in_box_office_performance&#34;&gt;widely studied&lt;/a&gt; phenomenom, and it is consistently between 40 and 60 percent. Now, there are dozens of movies contributing to the total weekly gross, so the relationship won’t be nearly so tidy, but this still provides a clear form of autocorrelation.&lt;a href=&#34;#fn4&#34; class=&#34;footnote-ref&#34; id=&#34;fnref4&#34;&gt;&lt;sup&gt;4&lt;/sup&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;Second, we would expect there to be seasonaly weekly effects. Box office grosses are commonly compared to the same weeks in previous years, because of the assumption of consistent patterns. It is understood that over Christmas, many people go to the movies, whereas the theaters are comparatively dry throughout February.&lt;/p&gt;
+&lt;p&gt;These insights (some weekly trend based on the continuity of which movies are in theaters, and seasonal weekly effects), provide two separate modular components to our model. We can begin with the weekly trend. This could be included in many ways. We begin with a local linear trend, because of its flexibility. However, we will see later that this may be too aggressively flexible, given the situation. In short, a local linear trend assumes that both the mean, the trend (i.e. the slope) of the latent state evolution are drawn from a random walk. That is, if &lt;span class=&#34;math inline&#34;&gt;\(\mu\)&lt;/span&gt; is the mean of the latent state (see Equation ).&lt;a href=&#34;#fn5&#34; class=&#34;footnote-ref&#34; id=&#34;fnref5&#34;&gt;&lt;sup&gt;5&lt;/sup&gt;&lt;/a&gt;
+&lt;span class=&#34;math display&#34;&gt;\[\begin{align*}
+\mu_{t+1} = \mu_t + \delta_t + \epsilon_{\mu, t},
+\end{align*}\]&lt;/span&gt;
+where &lt;span class=&#34;math inline&#34;&gt;\(\epsilon_{\mu,t} \sim N(0, \sigma_\mu^2)\)&lt;/span&gt; is our random walk. Then, the evolution of the slope is similarly given by
+&lt;span class=&#34;math display&#34;&gt;\[\begin{align*}
+\delta_{t+1} = \delta_t + \delta_t + \epsilon_{\delta, t},
+\end{align*}\]&lt;/span&gt;
+where &lt;span class=&#34;math inline&#34;&gt;\(\epsilon_{\delta,t} \sim N(0, \sigma_\mu^2)\)&lt;/span&gt; is another random walk. How these terms relate to our overall transition and observation equations will be clear once they are combined.&lt;/p&gt;
+&lt;p&gt;Next, we consider the seasonal model.
+&lt;!-- \begin{align*} --&gt;
+&lt;!-- \gamma_{t+1, s} = -1*\sum_{s=1}^t + \epsilon_(0,\gamma) --&gt;
+&lt;!-- \end{align*} --&gt;&lt;/p&gt;
+&lt;p&gt;TO BE CONTINUED&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;further-thoughts&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Further Thoughts&lt;/h1&gt;
+&lt;p&gt;Using time series for forecasting is an exceptionally tricky endeavor, and this post is just a brief introduction as I dip my toe into the field. Looking at how time series are used publicly online can often give you the sense that it’s a matter of plugging the data into a flexible model, fitting the curve, and hoping for the best. However, it’s important to be precise about the inferential goals of this analysis.&lt;/p&gt;
+&lt;p&gt;The punch line from this analysis might simply be “don’t cite a Bayesian time series when the specified joint probability model doesn’t naturally reflect our best understanding of the underlying process”. And that might be fair, outside of an introductory context I would be hesitant to say much of anything about such a tenuous approaach to modeling (I’d probably tell my boss just to take a look at the movies that are coming out, and see if he recognizes the names, before I try and use past data to predict the weekly box office gross!). But these models are often applied in imperfect ways, and I’ve found it illustrative to work carefully through one such example, and try and understand the mechanics of the model under the hood.&lt;/p&gt;
+&lt;p&gt;Eric Tassone &amp;amp; Farzan Rohani provide an insightful &lt;a href=&#34;http://www.unofficialgoogledatascience.com/2017/04/our-quest-for-robust-time-series.html&#34;&gt;blog post&lt;/a&gt; examining the way that time series forecasting can and should cite ensemble averaging.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;sources&#34; class=&#34;section level1&#34;&gt;
 &lt;h1&gt;Sources&lt;/h1&gt;
@@ -160,8 +183,9 @@ Thus, while a classic time series might model the relationship between &lt;span 
 &lt;li&gt;The &lt;a href=&#34;https://cran.r-project.org/web/packages/bsts/bsts.pdf&#34;&gt;bsts package&lt;/a&gt;.&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://www.nber.org/chapters/c12995&#34;&gt;Scott &amp;amp; Varian (2014)&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;http://www.unofficialgoogledatascience.com/2017/07/fitting-bayesian-structural-time-series.html&#34;&gt;“Fitting Bayesian structural time series with the bsts R package”&lt;/a&gt; by Scott Varian, on the Google Unoficial Data Science Blog.&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://multithreaded.stitchfix.com/blog/2016/04/21/forget-arima/&#34;&gt;“Sorry ARIMA, but I’m Going Bayesian”&lt;/a&gt;, by Kim Larsen&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://multithreaded.stitchfix.com/blog/2016/04/21/forget-arima/&#34;&gt;“Sorry ARIMA, but I’m Going Bayesian”&lt;/a&gt;, by Kim Larsen.&lt;/li&gt;
 &lt;li&gt;Thomas Rothenberg’s &lt;a href=&#34;https://eml.berkeley.edu/~rothenbe/Fall2007/kalman.pdf&#34;&gt;notes on the Kalman Filter&lt;/a&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://www.unofficialgoogledatascience.com/2017/04/our-quest-for-robust-time-series.html&#34;&gt;“Our quest for robust time series at scale”&lt;/a&gt;, by Tassone &amp;amp; Rohani on the Google Unofficial Data Science Blog.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/div&gt;
 &lt;div class=&#34;footnotes&#34;&gt;
@@ -170,8 +194,22 @@ Thus, while a classic time series might model the relationship between &lt;span 
 &lt;li id=&#34;fn1&#34;&gt;&lt;p&gt;I.e. my lifetime.&lt;a href=&#34;#fnref1&#34; class=&#34;footnote-back&#34;&gt;↩&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
 &lt;li id=&#34;fn2&#34;&gt;&lt;p&gt;Not classical time series don’t have good ways of handling this problem too! While it would indeed be foolish to consider the prior observation, the sole piece of information denoting the current state, time series models have a rich array of tools to handle these complex forms of autocorrelation.&lt;a href=&#34;#fnref2&#34; class=&#34;footnote-back&#34;&gt;↩&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
 &lt;li id=&#34;fn3&#34;&gt;&lt;p&gt;Forecasting an unobserved response occurring in the given moment&lt;a href=&#34;#fnref3&#34; class=&#34;footnote-back&#34;&gt;↩&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li id=&#34;fn4&#34;&gt;&lt;p&gt;Later, we will consider an attempt to capture this an expected reversion to normalcy after a huge opening weekend.&lt;a href=&#34;#fnref4&#34; class=&#34;footnote-back&#34;&gt;↩&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li id=&#34;fn5&#34;&gt;&lt;p&gt;Most of this is grabbed right from the bsts manual, whose documentation is very helpful.&lt;a href=&#34;#fnref5&#34; class=&#34;footnote-back&#34;&gt;↩&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
 &lt;/ol&gt;
 &lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Summary of the Common Philisophical Interpretations of Probability</title>
+      <link>/other_posts/interpreting-probability/</link>
+      <pubDate>Thu, 28 May 2020 00:00:00 +0000</pubDate>
+      <guid>/other_posts/interpreting-probability/</guid>
+      <description>
+
+
+&lt;p&gt;Common interpretations of probability &lt;span class=&#34;math inline&#34;&gt;\(P= 1\)&lt;/span&gt; or &lt;span class=&#34;math inline&#34;&gt;\(P=0\)&lt;/span&gt; that’s IT.&lt;/p&gt;
 </description>
     </item>
     

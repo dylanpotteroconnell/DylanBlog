@@ -43,6 +43,11 @@
   </url>
   
   <url>
+    <loc>/other_posts/</loc>
+    <lastmod>2020-05-28T17:45:25-04:00</lastmod>
+  </url>
+  
+  <url>
     <loc>/post/</loc>
     <lastmod>2020-05-28T13:54:36-04:00</lastmod>
   </url>
@@ -50,6 +55,11 @@
   <url>
     <loc>/tag/r/</loc>
     <lastmod>2020-05-28T13:54:36-04:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/other_posts/interpreting-probability/</loc>
+    <lastmod>2020-05-28T17:45:25-04:00</lastmod>
   </url>
   
   <url>
