@@ -50,20 +50,15 @@ weekly.tb <- weekly.tb %>%
 weekly.tb %>% head(3)
 ```
 
-We will fit our model onto the log of the box office gross (using base 10, rather than the typical $e$, as this has a more intuitive numerical conversion for these large decimals). Intuitively, box office cannot be negative, so if we are fitting models which assume some sort of normality, this conversion is natural. Of course, we will see that while such a conversion fixes the most glaring violation of the assumptions, that does not automatically mean that the model fits! In fact, in this exploration we will see just how difficult it is to find a tidy model for box office gross.
 
 ```{r}
 weekly.tb <- weekly.tb %>%
-  mutate(time = year + (week-1)/52,
-         log_gross = log10(gross),
-         date = date_decimal(time)) %>%
-  dplyr::select(date, time, gross, log_gross, releases, everything())
+  dplyr::select(start_date, gross, log_gross, releases, everything())
 ```
 
-However, for the sake of clarity, we often will plot the model on the regular scale (without the log transformation), we simply note that below we fit the model to the logarithm of the gross as our response.
 ```{r}
 weekly.tb %>%
-  ggplot(aes(x = time, y = gross)) + 
+  ggplot(aes(x = start_date, y = gross)) + 
   geom_line() + 
   xlab("Year") + 
   ylab("Gross ($)") + 
@@ -105,17 +100,273 @@ The [bsts package](https://cran.r-project.org/web/packages/bsts/bsts.pdf) is dev
 It's worth noting that Tensorflow has its own package for Bayesian structural time series modeling ([tfp.sts](https://www.tensorflow.org/probability/api_docs/python/tfp/sts)), which provides a useful alternative. 
 
 
-# An Initial Model
+# Cleaning the Data
 
-As we select an initial model, it's worth giving some thought to the theory of the data. First, we start with the *limits* of this exercise. Intuitively, the most important factor in determining the weekly box office gross has nothing to do with the general "state of the movie business", and it has everything to do with *what movie was just released*. This presents a significant impediment to our modeling. We have an intuitive grasp of the theory, but it's not something that can easily be modeled! Of course, you *can* model the ticket sales of the biggest new release, but that's a separate challenge, and has little to do with this time series. 
 
-In an ideal world, every modeling challenge would aim to perfectly capture the theory of the setting. In practice, we often work in situations like these. This post aims to analyze the *limits* of such an appraoch. How "far" can a BSTS model get us, even when we know that it is not a perfect fit for the setting? Reading about people practicing these models online, it's common to find settings with such a theoretical mismatch.
 
-Now, assuming that we don't have prescience about the release of "Avengers: Endgame", what are some reasonable theoretical assumptions we can make? Well, first, we might expect the continuity of which movies are in theaters to provide us with a natural form of autocorrelation. The rate of decline in a movie's second week at the same theater is a [widely studied](https://en.wikipedia.org/wiki/Second_weekend_in_box_office_performance) phenomenom, and it is consistently between 40 and 60 percent. Now, there are dozens of movies contributing to the total weekly gross, so the relationship won't be nearly so tidy, but this still provides a clear form of autocorrelation.^[Later, we will consider an attempt to capture this an expected reversion to normalcy after a huge opening weekend.]
+## Inflation Adjustment
 
-Second, we would expect there to be seasonaly weekly effects. Box office grosses are commonly compared to the same weeks in previous years, because of the assumption of consistent patterns. It is understood that over Christmas, many people go to the movies, whereas the theaters are comparatively dry throughout February.
+While there's an obvious upward trend in our time series, just about everything has gotten more expensive in the past 30 years, due to inflation. Our first step is to work with the inflation adjusted dollar weekly gross. If this cleaning step is not taken, and a time series is fit blind to the data, you can waste your time chasing after some temporal trend that simply reflects this natural increase in prices. We cite the priceR package, which can download the relevant CPI data and do the work for us. 
 
-These insights (some weekly trend based on the continuity of which movies are in theaters, and seasonal weekly effects), provide two separate modular components to our model. We can begin with the weekly trend. This could be included in many ways. We begin with a local linear trend, because of its flexibility. However, we will see later that this may be too aggressively flexible, given the situation. In short, a local linear trend assumes that both the mean, the trend (i.e. the slope) of the latent state evolution are drawn from a random walk. That is, if $\mu$ is the mean of the latent state (see Equation \ref{eqn:bsts_transition}).^[Most of this is grabbed right from the bsts manual, whose documentation is very helpful.]
+
+```{r}
+library(priceR)
+
+weekly.tb <- weekly.tb %>%
+  mutate(gross_ia = adjust_for_inflation(gross, 
+                                         year, 
+                                         country = "US", 
+                                         to_date = 2019))
+
+```
+
+```{r}
+weekly.tb %>% 
+  group_by(year) %>%
+  summarize(mean_gross = mean(gross),
+            mean_gross_ia = mean(gross_ia)) %>%
+  ungroup() %>%
+  ggplot(aes(x = year)) + 
+  geom_line(aes(y = mean_gross), col = "red") + 
+  geom_line(aes(y = mean_gross_ia), col = "blue")
+# Add labels?
+```
+
+Thus, the underlying trend is still real, and the surge in box office gross from the 90s through the early 2000s appears quite meaningful. But the natural inclusion of inflation does help reduce some of the impact of the trend, which may influence our modeling.^[While this is an incredibly obvious correction, and I left it until now mostly to make a point about an easy but damaging mistake, it's also not quite so apparent that it is a perfect and tidy fix. Between the 90s and today, it likely is sufficient, but there are other notable societal changes that can make comparing ticket sales difficult.]
+
+## The Scale of the Response Variable
+
+We  will fit our model onto the log of the box office gross (using base 10, rather than the typical $e$, as this has a more intuitive numerical conversion for these large decimals). Intuitively, box office cannot be negative, so if we are fitting models which assume some sort of normality, this conversion is natural. Of course, we will see that while such a conversion fixes the most glaring violation of the assumptions, that does not automatically mean that the model fits! In fact, in this exploration we will see just how difficult it is to find a tidy model for box office gross.
+
+
+```{r}
+weekly.tb <- weekly.tb %>% mutate(log_gross_ia = log10(gross_ia))
+
+```
+However, we will plan to *evaluate* the model on the regular scale, as we could imagine that "dollars" tend to mean more to any interested party than "log dollars" (a rather made-up measurement). I'm not sure if there is a rigorous choice here, surely it depends on the setting. But we are choosing the log transformation not because it captures the trend we care about, but because it seems to more plausibly fit the *model* we plan to use. In this case, the model should be evaluated based on the target of interest.^[If we evaluate this transformation, the Mean Absolute Percentage Error becomes nonsensical, where being off by a factor of two leads to only a small penalty.]
+
+# Our Theoretical Model
+
+From here, we could simply fit the time series itself, and look at the results. First, we consider the insights of Tassone & Rohani on the [Google Unofficial Data Science Blog](http://www.unofficialgoogledatascience.com/2017/04/our-quest-for-robust-time-series.html). Their excellent post covers a range of topics regarding the application of time series, with a particular focus on robust systems that can be applied robustly at scale (that is, applied in a wide range of unknown situations, and provide reaonable outcomes). That is, at scale, you often do not have the luxury of considering the underlying mechanism of the time series. They cite the power of aggregating a wide range of models, whose fit onto individual components provides the desired robustness to unknown inputs. 
+
+However, their goal is purely predictive, rather than inferential (i.e. "What happens?" not "Why it happens?").^[In this post, I use "Predictive" to refer to the task of forecasting the future response (including in the very next step), and "Inferential" to refer to understanding trends in the data (e.g. the posterior distribution of the parameters in a sensible Bayesian model should provide useful inference.]  In our case, we have the luxury of thinking about the data setting, and considering what types of models make any sense. Thus, we begin with a discussion of the limits of our inference, before considering several of the tools available, and planning which models we can fit. As we will see, our goals are not necessarily a good fit for a BSTS model! The goal of this post is simply to introduce myself to these tools, and part of that is recognizing these limits. 
+
+## The Limits of Prediction and Inference
+
+It's important to start with the *limits* of the domain. If the goal of our time series was to model the Cosmic Microwave Background noise over time, we can stop right away, because it consists of entirely irreducible uncertainty, and our model has nothing to offer. More commonly, we might not have a *firm* theory of the data, but we have a rough idea of connections which might exist, and we wish to fit some models and see which have predictive and inferential merit. 
+
+There are clear limits to our capabilities given this dataset. Intuitively, the most important factor in determining the weekly box office gross has nothing to do with the general "state of the movie business", and it has everything to do with *what movie was just released*. This presents a significant impediment to our modeling. We have an intuitive grasp of the theory, but it's not something that can easily be modeled! Of course, you *can* model the ticket sales of the biggest new release, but that's a separate challenge, and has little to do with this time series. 
+
+<!-- In an ideal world, every modeling challenge would aim to perfectly capture the theory of the setting. In practice, we often work in situations like these. This post aims to analyze the *limits* of such an appraoch. How "far" can a BSTS model get us, even when we know that it is not a perfect fit for the setting? Reading about people practicing these models online, it's common to find settings with such a theoretical mismatch. -->
+
+Now, assuming that we don't have prescience about the release of "Avengers: Endgame", what are some reasonable theoretical assumptions we can make? Well, first, we might expect the continuity of which movies are in theaters to provide us with a natural form of autocorrelation. The rate of decline in a movie's second week at the same theater is a [widely studied](https://en.wikipedia.org/wiki/Second_weekend_in_box_office_performance) phenomenom, and it is consistently between 40 and 60 percent. Now, there are dozens of movies contributing to the total weekly gross, so the relationship won't be nearly so tidy, but this still provides a clear form of autocorrelation.^[Later, we will consider an attempt to capture this an expected reversion to normalcy after a huge opening weekend.] In the subsequent section, we look at this in some more detail.
+
+More broadly, we might intuitively expect there to be "trends" in the movie industry. The end of the 70s saw the rise of the blockbuster, the grosses of the biggest hits has steadily risen,^[As we will see in a later section, this deserves more careful consideration.], and the relative popularity of different genres is always in flux. We might attempt to capture this with some sort of local slope for the latent state.
+
+Further, we might expect there to be seasonal *weekly* effects. Box office grosses are commonly compared to the same weeks in previous years, because of the assumption of consistent patterns. It is understood that over Christmas, many people go to the movies, whereas the theaters are comparatively dry throughout February.
+
+## Exploring the Autocorrelation
+
+One challenge is that these effects are all closely related. The introduction of regular seasonal effects can mask effects of auto correlation. To be honest, I don't know the best way to solve this. Eventually, the model should be well equipped to sort them out, but in the exploration stage, it's not so clear. For now, I will simply resort to a crude method at de-seasoning the model, by normalizing the grosses by the mean gross for each of the 52 weeks. This should help uncover autocorrelative effects. However, the model itself will be fit on data without this adjustment, because it will apply a more delicate (and Bayesian) treatment to these seasonal terms. I'm curious what the best pratice here would be. 
+
+```{r}
+weekly.tb <- weekly.tb %>% 
+  group_by(week) %>%
+  mutate(week_mean_ia = mean(gross_ia)) %>%
+  ungroup() %>%
+  mutate(gross_ia_week_adj = gross_ia - week_mean_ia + mean(gross_ia))
+```
+
+
+
+```{r}
+library(forecast)
+Acf(weekly.tb$gross_ia)
+```
+
+```{r}
+Acf(weekly.tb$gross_ia_week_adj)
+```
+Now, we apply [differencing](https://otexts.com/fpp2/stationarity.html) 
+
+
+```{r}
+weekly.tb %>%
+  ggplot(aes(x = start_date, y = gross_ia_week_adj)) + 
+  geom_line() + 
+  xlab("Year") + 
+  ylab("Gross ($)") + 
+  ggtitle("Weekly (American) Box Office Gross")
+```
+
+```{r}
+# cbind("Billion kWh" = usmelec,
+#       "Logs" = log(usmelec),
+#       "Seasonally\n differenced logs" =
+#         diff(log(usmelec),12),
+#       "Doubly\n differenced logs" =
+#         diff(diff(log(usmelec),12),1)) %>%
+temp <- weekly.tb %>% 
+  transmute(start_date = start_date,
+            gross_ia = gross_ia,
+            diff_gross_ia = gross_ia - lag(gross_ia),
+            diff2_gross_ia = diff_gross_ia - lag(diff_gross_ia)) 
+
+Acf(temp$gross_ia)
+
+Acf(temp$diff_gross_ia)
+
+Acf(temp$diff2_gross_ia)
+
+
+ggplot(aes(x = start_date)) +
+  geom_line(aes(y = diff2_gross_ia))+
+  xlab("Year") + ylab("") +
+  ggtitle("")
+
+
+```
+
+
+<!-- "If predictor variables are present, the regression coefficients are fixed (as opposed to time varying, -->
+<!-- though time varying coefficients might be added as state component). The predictors and response -->
+<!-- in the formula are contemporaneous, so if you want lags and differences you need to put them in -->
+<!-- the predictor matrix yourself." -bsts Docs -->
+
+```{r}
+ss.season <- AddSeasonal(list(), weekly.tb$log_gross_ia, 
+                         nseasons = 52)
+ss.season <- AddStaticIntercept(ss.season, weekly.tb$log_gross_ia)
+model.season <- bsts(weekly.tb$log_gross_ia, 
+                     state.specification = ss.season,
+                     niter = 500, 
+                     ping = 0, 
+                     seed = 21)
+
+ss.llt <- AddSeasonal(list(), weekly.tb$log_gross_ia, 
+                         nseasons = 52)
+ss.llt <- AddLocalLinearTrend(ss.llt,
+                              weekly.tb$log_gross_ia)
+model.llt <- bsts(weekly.tb$log_gross_ia, 
+                  state.specification = ss.llt,
+                  niter = 500, 
+                  ping = 0, 
+                  seed = 21)
+
+CompareBstsModels(list(Season = model.season, 
+                       LLT = model.llt))
+
+ss.slt <- AddSeasonal(list(), weekly.tb$log_gross_ia, 
+                         nseasons = 52)
+ss.llt <- AddSemilocalLinearTrend(ss.slt,
+                              weekly.tb$log_gross_ia)
+model.llt <- bsts(weekly.tb$log_gross_ia, 
+                  state.specification = ss.slt,
+                  niter = 500, 
+                  ping = 0, 
+                  seed = 21)
+
+CompareBstsModels(list(Season = model.season,
+                       Season2 = model.season))
+```
+
+
+Much of this code is directly taken and modified by Kim Larsen's [excellent blog post](https://multithreaded.stitchfix.com/blog/2016/04/21/forget-arima/).
+```{r}
+
+# Take in a model, and return the one step prediction matrix 
+ComputeOneStepPreds <- function(model, dat, response_var) {
+  burn <- SuggestBurn(0.1, model)
+  response_var <- enquo(response_var)
+  Actual_Log <- dat %>% pull(!! response_var)
+  tb <- tibble(Fitted = 10^(-colMeans(
+    model$one.step.prediction.errors[-(1:burn),])
+    + Actual_Log),
+    Actual = 10^(Actual_Log),
+    Date = dat$start_date)
+  return(tb)
+}
+
+ComputeMAPE <- function(tb) {
+  tb %>% 
+    summarize(MAPE = mean(abs(Actual - Fitted)/Actual))
+}
+
+PlotOneStepPredicted <- function(tb, 
+                                 Response_Label = 
+                                   "Log Inf. Adj. Gross ($)") {
+  MAPE <- ComputeMAPE(tb)
+  tb %>% 
+    ggplot(aes(x = Date)) +
+    geom_line(aes(y = Actual, color = "Actual"), 
+              size = .3) +
+    geom_line(aes(y = Fitted, color = "Fitted"), 
+              size = .3, linetype = 2) +
+    theme_bw() + 
+    theme(legend.title = element_blank()) + 
+    ylab(Response_Label) + xlab("") +
+    geom_vline(xintercept = as.numeric(as.Date("1993-01-01")), 
+               linetype = 2) + 
+    ggtitle(paste0("BSTS -- One-Step MAPE = ", round(100*MAPE,2), "%")) +
+    theme(axis.text.x=element_text(angle = -90, hjust = 0))
+}
+```
+
+```{r}
+tb.llt <- ComputeOneStepPreds(model.llt, weekly.tb, log_gross_ia)
+
+PlotOneStepFitted(tb.llt)
+
+tb.season <- ComputeOneStepPreds(model.season, weekly.tb, log_gross_ia)
+
+PlotOneStepFitted(tb.season)
+```
+
+
+
+
+```{r}
+
+
+# Not sure what's goign on here, reinvestigate
+weekly.tb <- weekly.tb %>%
+  mutate(diff_log_gross_ia = log_gross_ia - lag(log_gross_ia),
+         diff2_log_gross_ia = diff_log_gross_ia -
+           lag(diff_log_gross_ia))
+
+ss.r.diff2 <- AddSeasonal(list(), 
+                          weekly.tb$log_gross_ia, 
+                         nseasons = 52)
+
+model.rdiff2 <- bsts(log_gross_ia ~ diff_log_gross_ia +
+                          diff2_log_gross_ia, 
+                        state.specification = ss.r.diff2,
+                        data = weekly.tb %>% slice(-c(1,2)),
+                        niter = 1000, 
+                        ping = 0, 
+                        seed = 21)
+burn <-  SuggestBurn(0.1, model.rdiff2)
+
+
+os.preds.r.diff2 <- ComputeOneStepPreds(model.rdiff2, 
+                                        weekly.tb %>% slice(-c(1,2)),
+                                        log_gross_ia)
+
+PlotOneStepFitted(os.preds.r.diff2)
+
+
+components <- cbind.data.frame(
+  colMeans(model.regres.diff2$state.contributions[-(1:burn), "trend",]),                               
+  colMeans(bsts.model$state.contributions[-(1:burn), "seasonal.12.1",]),
+  as.Date(time(Y))) 
+
+```
+
+Or can I just use some variant on AddAr()?
+
+# A First Model
+
+Our earlier insights [need to edit this] (some weekly trend based on the continuity of which movies are in theaters, and seasonal weekly effects), provide two separate modular components to our model. We can begin with the weekly trend. This could be included in many ways. We begin with a local linear trend, because of its flexibility. However, we will see later that this may be too aggressively flexible, given the situation. In short, a local linear trend assumes that both the mean, the trend (i.e. the slope) of the latent state evolution are drawn from a random walk. That is, if $\mu$ is the mean of the latent state (see Equation \ref{eqn:bsts_transition}).^[Most of this is grabbed right from the bsts manual, whose documentation is very helpful.]
 \begin{align*}
 \mu_{t+1} = \mu_t + \delta_t + \epsilon_{\mu, t},
 \end{align*}
@@ -134,13 +385,20 @@ TO BE CONTINUED
 
 
 
-# Further Thoughts
+
+
+
+
+
+
+# Final Thoughts
 
 Using time series for forecasting is an exceptionally tricky endeavor, and this post is just a brief introduction as I dip my toe into the field. Looking at how time series are used publicly online can often give you the sense that it's a matter of plugging the data into a flexible model, fitting the curve, and hoping for the best. However, it's important to be precise about the inferential goals of this analysis.
 
 The punch line from this analysis might simply be "don't cite a Bayesian time series when the specified joint probability model doesn't naturally reflect our best understanding of the underlying process". And that might be fair, outside of an introductory context I would be hesitant to say much of anything about such a tenuous approaach to modeling (I'd probably tell my boss just to take a look at the movies that are coming out, and see if he recognizes the names, before I try and use past data to predict the weekly box office gross!). But these models are often applied in imperfect ways, and I've found it illustrative to work carefully through one such example, and try and understand the mechanics of the model under the hood. 
 
 Eric Tassone & Farzan Rohani provide an insightful [blog post](http://www.unofficialgoogledatascience.com/2017/04/our-quest-for-robust-time-series.html) examining the way that time series forecasting can and should cite ensemble averaging.
+
 
 
 # Sources
@@ -152,6 +410,7 @@ Eric Tassone & Farzan Rohani provide an insightful [blog post](http://www.unoffi
 "](https://multithreaded.stitchfix.com/blog/2016/04/21/forget-arima/), by Kim Larsen.
 * Thomas Rothenberg's [notes on the Kalman Filter](https://eml.berkeley.edu/~rothenbe/Fall2007/kalman.pdf).
 * ["Our quest for robust time series at scale"](http://www.unofficialgoogledatascience.com/2017/04/our-quest-for-robust-time-series.html), by Tassone & Rohani on the Google Unofficial Data Science Blog.
+* ["Forecasting: Principles and Practice"](https://otexts.com/fpp2/), by Rob Hyndman and George Athanasopoulos.
 
 
 
