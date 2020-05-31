@@ -27,7 +27,7 @@
   
     
   
-  <meta name="description" content="In progress, this will be a post which aims to explain in layman’s terms the way that the addition of noise can help gradient descent escape spurious optima (and how this has an intuitive interpretation in our own lives)">
+  <meta name="description" content="WORK IN PROGRESS, scattered notes/plots here visualized, will be turned into proper post soon. Aims to explain in layman’s terms the way that the addition of noise can help gradient descent escape spurious optima (and how this has an intuitive interpretation in our own lives)">
 
   
   <link rel="alternate" hreflang="en-us" href="/post/local-optimization/">
@@ -238,7 +238,7 @@
   <meta property="og:site_name" content="Dylan&#39;s Blog">
   <meta property="og:url" content="/post/local-optimization/">
   <meta property="og:title" content="The Perils of Overly Local Optimization | Dylan&#39;s Blog">
-  <meta property="og:description" content="In progress, this will be a post which aims to explain in layman’s terms the way that the addition of noise can help gradient descent escape spurious optima (and how this has an intuitive interpretation in our own lives)"><meta property="og:image" content="/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_512x512_fill_lanczos_center_2.png">
+  <meta property="og:description" content="WORK IN PROGRESS, scattered notes/plots here visualized, will be turned into proper post soon. Aims to explain in layman’s terms the way that the addition of noise can help gradient descent escape spurious optima (and how this has an intuitive interpretation in our own lives)"><meta property="og:image" content="/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_512x512_fill_lanczos_center_2.png">
   <meta property="twitter:image" content="/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_512x512_fill_lanczos_center_2.png"><meta property="og:locale" content="en-us">
   
     
@@ -288,7 +288,7 @@
       "url": "/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_192x192_fill_lanczos_center_2.png"
     }
   },
-  "description": "In progress, this will be a post which aims to explain in layman’s terms the way that the addition of noise can help gradient descent escape spurious optima (and how this has an intuitive interpretation in our own lives)"
+  "description": "WORK IN PROGRESS, scattered notes/plots here visualized, will be turned into proper post soon. Aims to explain in layman’s terms the way that the addition of noise can help gradient descent escape spurious optima (and how this has an intuitive interpretation in our own lives)"
 }
 </script>
 
@@ -514,7 +514,7 @@
   
   <span class="middot-divider"></span>
   <span class="article-reading-time">
-    12 min read
+    14 min read
   </span>
   
 
@@ -553,7 +553,7 @@
       
 
 
-<p>In progress, this will be a post which aims to explain in layman’s terms the way that the addition of noise can help gradient descent escape spurious optima (and how this has an intuitive interpretation in our own lives)</p>
+<p>WORK IN PROGRESS, scattered notes/plots here visualized, will be turned into proper post soon. Aims to explain in layman’s terms the way that the addition of noise can help gradient descent escape spurious optima (and how this has an intuitive interpretation in our own lives)</p>
 <div id="outline" class="section level1">
 <h1>Outline</h1>
 <ul>
@@ -567,23 +567,26 @@
 <ul>
 <li>[rw]My morning routine is perfectly optimized, a blend of art and science. I’ve settled on an order in which to take the ingredients for scrambled eggs, the exact selection of dishes to use to minimize washing, and the fact that my silver bowl has sides just low enough that beaten egg could escape, and that raw eggs go in the red bowl. I didn’t set out to figure this out, I just made scrambled eggs every morning for years, and over time saw tiny choices that make it go a little smoother.</li>
 </ul>
+<p>To add…</p>
 </div>
 <div id="disruption-and-the-london-subway-strike" class="section level1">
 <h1>Disruption, and the London Subway Strike</h1>
 <p>On February 4th, 2014, the workers of the London Tube (their underground subway), went on strike, forcing a number of station closures throughout the city. For three days, a subset of commuters found their usual routes to work blocked, and were forced to find alternatives. After the strike, the stations reopened, and life went back to normal.</p>
-<p>But three economists saw the opportunity for a natural experiment: only certain commuters were disrupted by the closure, and data tracking individual travel ID cards could be used to compare their movements to those who were unaffected. And surprisingly, life <em>didn’t</em> quite go back to normal after the ending of the strike. The ID card data showed that some of the impacted group stuck with their newly discovered routes, and their commuting time decreased as a result.</p>
-<p>They even claim that the strike was a net increase in commute time.<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a></p>
+<p>But three economists saw the opportunity for a natural experiment: only certain commuters were disrupted by the closure, and using the tracking data collected by the Tube, their movements could be compared to the unaffected group. And surprisingly, life <em>didn’t</em> go right back to normal after the ending of the strike. The ID card data showed that some of the impacted group stuck with their newly discovered routes, and their commuting time decreased as a result.</p>
+<p>The station closures forced commuters to break from their finely tuned routines, but a surprising number found themselves dragged unnwillingly along a route that proved faster than the one they had been taking for years. The economists even claim that on net, the strike decreased the total commuting time.<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a> Even if only a small fraction found new routes, their new route would benefit them for years to come, and taking this chance only required disruption for a couple of days.</p>
+<p>This story provides a neat way to frame the mathematical challenge of optimization, and in particular, why so many optimization algorithms involve <em>random noise</em>, a choice which initially seems bizarre. I’ll begin by describing how to think about optimization in intuitive terms, and then detail how that corresponds with the common mathematical algorithms, and why the London Tube Strike provides a neat analogy to very real mathematical properties.<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a></p>
 </div>
-<div id="mathematical-framework" class="section level1">
-<h1>Mathematical Framework</h1>
-<p>The purpose of this post is to show how this concept can be naturally articulated in a mathematical framework.<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a> We are describing the challenge of optimization. Here’s a sample definition, from the <a href="https://deepai.org/machine-learning-glossary-and-terms/mathematical-optimization">DeepAI website</a>.</p>
+<div id="the-mathematical-framework-of-optimization" class="section level1">
+<h1>The Mathematical Framework of Optimization</h1>
+<!-- This is duplicate with above? -->
+<p>The purpose of this post is to show how this concept can be naturally articulated in a mathematical framework.<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a> We are describing the challenge of optimization. Here’s a sample definition, from the <a href="https://deepai.org/machine-learning-glossary-and-terms/mathematical-optimization">DeepAI website</a>.</p>
 <blockquote>
 <p>Mathematical optimization is the process of maximizing or minimizing an objective function by finding the best available values across a set of inputs.</p>
 </blockquote>
 <ul>
-<li>For London commuters, their “objective function” might be the duration of the commute,<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a>, and the “available values across a set of inputs” might be the route they take.</li>
+<li>For London commuters, their “objective function” might be the duration of the commute,<a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a>, and the “available values across a set of inputs” might be the route they take.</li>
 <li>If we want to find the highest peak in a mountain range (an example we’ll discuss in detail in the next section), the input might be the choice of latitude and longitude, and the objective the elevation at that point.</li>
-<li>When baking chocolate chip cookies, the possible inputs might be the amount of each ingredient, and the order in which they are combined, and the objective function might be the tastiness of the resulting cookie. This isn’t quite a joke, Google once ran a <a href="https://static.googleusercontent.com/media/research.google.com/en//pubs/archive/46507.pdf">cookie optimization experiment</a> along these lines.<a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a></li>
+<li>When baking chocolate chip cookies, the possible inputs might be the amount of each ingredient, and the order in which they are combined, and the objective function might be the tastiness of the resulting cookie. This isn’t quite a joke, Google once ran a <a href="https://static.googleusercontent.com/media/research.google.com/en//pubs/archive/46507.pdf">cookie optimization experiment</a> along these lines.<a href="#fn5" class="footnote-ref" id="fnref5"><sup>5</sup></a></li>
 </ul>
 <p>Optimization is vitally important in applied mathematics and statistics, but it can be quite hard. The vast increase in computational power has broadened our horizons for what optimization challenges are possible, but many useful problems remain out of our reach.</p>
 <p>Generally, in optimization, we assume that we can check the value of the objective function at some chosen input. We can try a certain route on the subway and time the duration, we can bake a batch of cookies and eat them, and we will imagine that we have some computer which takes in latitude and longitude coordinates and spits out the altitude (this is called a “query” to the objective function, or perhaps “oracle”).</p>
@@ -593,13 +596,13 @@
 <!-- * For an example, let's imagine we want to find the highest point in a mountain range. We can check an individual point, and see how high it is. How do we find the highest point? The analogy would be something like, instead of latitude and longitude in a mountain range, in our morning routine it would be that "series of choices for how we get to work".  -->
 <!-- * Now, imagine instead of querying a computer for the height, you yourself were actually in that mountain range. What would you do? Well, you'd look for the peak, but what if you were in a forest? You'd go up. Specifically, you would look at the area around you for *local* guidance. -->
 </div>
-<div id="local-optimizations" class="section level1">
-<h1>Local Optimizations</h1>
+<div id="locality-in-optimization" class="section level1">
+<h1>Locality in Optimization</h1>
 <p>Imagine if we bite into a warm cookie, and the text the texture is just right, but there’s not enough chocolate.(more flowery language here?) We wouldn’t just throw up our hands and start from scratch… we’d add more chocolate! It’s hard to look at a cookie recipe, and imagine what the result will taste like. But we <em>can</em> taste a recipe, and imagine what a small tweak would taste like.</p>
 <p>The “locality” in optimization refers to “closeness” in the input space. In latitude and longitude, this would be literal distance, while the definitions are a bit less cookie in the space of cookie ingredients and subway commutes. Broadly, we are pretty good at understanding. If we increase the amount of chocolate, we now they’ll taste a bit more chocolate-y than they do now. If we increase the amounts of chocolate, butter, baking soda, reduce the amount of flour, and tweak the balance between brown and cane sugar, are we confident we know what the result will taste like?</p>
 <p>In the London Tube experiment, the researchers place some of the blame on the “stylized nature” of the Tube map displayed to commuters. Its spatial distortions make it difficult to spot major inefficiencies in their route, without some external push. By comparison, we can usually estimate the impact of these “local” changes by ourselves. If we get off one stop earlier, maybe our walk to work increases by a minute but we avoid the wait at a crowded station. These slight changes are a bit like increasing just a single ingredient in a cookie.</p>
-<p><img src="london_tube_map" /></p>
-<p>Personally, this describes my relationship with my own food. fijad</p>
+<p><img src="london_tube_map.jpg" /></p>
+<p>Personally, this describes my relationship with my own food. TO ADD MORE…</p>
 <ul>
 <li>In my own life, I find this with food all the time. I have a set rotation of dishes I love, that fit my criteria (hassle-free ingredients, saves well for leftoers, etc). I’m happy to make small chaanes to what I eat. I recently realized how well a lone, unadorned sweet potato went with some of my staples. That’s a one step addition, and I can evaluate its impact as I walk the aisles of the store. Sure enough, it quickly became a staple.</li>
 <li>However, I’m sure there are many full dishes out there that would be just as good as my current rotation. But to find a new dish is a risk. There’s no way for me to see all the the links in the chain. Will the ingredients be easy to find? Will I find the cooking burdensome? What will the end result taste like? Are my cooking supplies well suited to the task?</li>
@@ -613,60 +616,63 @@
 </div>
 <div id="gradient-ascent" class="section level1">
 <h1>Gradient Ascent</h1>
-<p>This intuitive is called “gradient ascent”. Wherever you are, go up. This is quite literal in the case of our mountain range, This section will provide its mathematical definition, but these details aren’t important, and you can skip the notation and go straight to the visualizations if you’d like.</p>
+<p>This intuitive is called “gradient ascent”. Wherever you are, go up. This is quite literal in the case of our mountain range, This section will provide its mathematical definition, but these details aren’t important, and you can skip the notation and go straight to the visualizations if you’d like. We begin with the intuitive description, and below write the algorithm out mathematically.</p>
+<p>In a bit more detail, we begin at some initial point. We find the direction of steepest ascent from that point, i.e. up the hill (the magnitude and direction of steepest ascent form the “gradient” vector). Then, we walk for a period in that direction (the amount is determined by the “step size”, and how steep the ascent actually is). Once we finish walking, we are at a new point, and we repeat this process again (we determine direction of steepest ascent, and walk in that direction). Once we reach a point that is essentially flat, there is no more direction of steepest ascent to follow, and we are done (this is called “convergence”).</p>
+<p>This is the intuitive definition of what it means to make <em>local</em> changes. Wherever we are, we think “what small change could we make to make this better?” If our cookies are too salty, we add a bit less salt, but we don’t start over from scratch.</p>
 <div id="mathematical-definition" class="section level2">
 <h2>Mathematical Definition</h2>
 <!-- Some explanation of continuous vs discrete space would be nice? -->
 <p>Imagine we are at some point <span class="math inline">\(x \in \mathbb{R}^d\)</span> (meaning, <span class="math inline">\(x\)</span> is a point in <span class="math inline">\(d\)</span>-dimensional space).
 (Maybe in English first?)</p>
-<p>Here’s a mathematical definition of a crude version of gradient descent.<a href="#fn5" class="footnote-ref" id="fnref5"><sup>5</sup></a> I’ll describe it in regular words after.</p>
+<p>Here’s a mathematical definition of a crude version of gradient descent.<a href="#fn6" class="footnote-ref" id="fnref6"><sup>6</sup></a></p>
 <ol style="list-style-type: decimal">
 <li>Let <span class="math inline">\(f: \mathbb{R}^d \to \mathbb{R}\)</span> be our objective function. Let <span class="math inline">\(\eta &gt; 0\)</span> be our scaling constant. We begin at some initial point <span class="math inline">\(x^{(0)} \in \mathbb{R}^d\)</span>. For <span class="math inline">\(k = 0, \ldots,\)</span>, until convergence, repeat steps 2 through 4(?).</li>
 <li>Compute the gradient <span class="math inline">\(\nabla f(x^{(k)})\)</span>.</li>
-<li>Set $x^{(k+1)} x^{(k)} + <span class="math inline">\(\nabla f(x^{(k)})\)</span>.</li>
-<li>If <span class="math inline">\(\nabla f(x^{(k)})\)</span> is sufficiently small, halt the algorithm, and select <span class="math inline">\(x^{(k+1)}\)</span> as our optima. Otherwise, select repeat s</li>
+<li>Set <span class="math inline">\(x^{(k+1)} \leftarrow x^{(k)} + \eta \nabla f(x^{(k)})\)</span>.</li>
+<li>If <span class="math inline">\(\nabla f(x^{(k)})\)</span> is sufficiently small, halt the algorithm, and select <span class="math inline">\(x^{(k+1)}\)</span> as our optima. Otherwise, set <span class="math inline">\(k \leftarrow k+1\)</span>, and repeat steps 2-4.</li>
 </ol>
 <!-- http://timharford.com/2016/10/big-decision-ahead-just-roll-the-dice/ -->
 </div>
-<div id="convex-and-non-convex-optimization" class="section level2">
-<h2>Convex, and Non-convex Optimization</h2>
-<p>*Which optimization challenges are hard? Math draws a fairly simple distinction. <a href="#fn6" class="footnote-ref" id="fnref6"><sup>6</sup></a></p>
-<ul>
-<li><p>In short, in the convex realm, local information provides global guidance. The local slope is pointing us in a direction</p></li>
-<li><p>Description of convex vs non-convex optimization, why they are two fundamentally different challenges.</p></li>
-</ul>
-</div>
 <div id="visualizing-gradient-ascent" class="section level2">
 <h2>Visualizing Gradient Ascent</h2>
-<!-- Need to go through and do better labels/etc for all these visualizations!  -->
-<p>s
-(Show the unimodel 2d case )</p>
-<pre class="r"><code>library(rayshader,)
-library(magick)</code></pre>
-<pre><code>## Linking to ImageMagick 6.9.9.39
-## Enabled features: cairo, fontconfig, freetype, lcms, pango, rsvg, webp
-## Disabled features: fftw, ghostscript, x11</code></pre>
-<pre class="r"><code>grid.count &lt;- 200
-tb.uni &lt;- crossing(x = seq(-2, 2, length.out = grid.count),
-                   y = seq(-2, 2, length.out = grid.count)) %&gt;%
-  mutate(z = apply(dnorm(cbind(x,y)), 1, prod))
+<p>It’s one thing to say that we follow the direction of steepest ascent, but what does that actually look like in practice? Imagine we have to summit a hill. This one is perfectly round, for simplicitly, but pretend we don’t know that, we can only see the local area around us.
+<!-- Need to go through and do better labels/etc for all these visualizations!  -->s
+<!-- (Show the unimodel 2d case ) --></p>
+<p>The following is a contour plot, like what you find on a topographical map.</p>
+<p>It might be more clear if we consider viewing the map at an angle (thanks to the <code>rayshader</code> <a href="https://www.tylermw.com/3d-ggplots-with-rayshader/">package</a>.</p>
+<p><img src="uni_vis_3d.png" /></p>
+<p>Imagine we start at that red dot in the top right. We look around, and see that the direction of steepest ascent is down and to the right.</p>
+<pre class="r"><code>eta.temp &lt;- 30
+grad.first.step &lt;- GradBivarNormal(x.uni.init)
+# Manually compute second step, for visualization
+x.uni.2 &lt;- x.uni.init + eta.temp*grad.first.step
 
-g.uni &lt;- tb.uni %&gt;% 
-  ggplot(aes(x = x, y = y)) +
-  geom_tile(aes(fill = z)) +
-  geom_contour(aes(z = z), bins = 15, color = &quot;black&quot;) +
-  # scale_x_continuous(&quot;x&quot;, expand = c(0, 0)) +
-  # scale_y_continuous(&quot;y&quot;, expand = c(0, 0)) +
-  scale_fill_gradientn(&quot;z&quot;, colours = terrain.colors(10)) +
-  coord_fixed()
-g.uni</code></pre>
-<p><img src="/post/2020-05-27-local-optimization.en/index_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
-<p>Showing gradient ascent</p>
-<p><img src="2d_uni_grad_ascent_anim.gif" /></p>
+g.uni + uni.first.point + 
+  geom_segment(aes(x = x.uni.init[1], y = x.uni.init[1],
+                   xend = x.uni.2[1], yend = x.uni.2[2]),
+               col = &quot;red&quot;, size = .25,
+               arrow = arrow(length = unit(.2, &quot;cm&quot;), type = &quot;closed&quot;))</code></pre>
+<p><img src="/post/2020-05-27-local-optimization.en/index_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+<p>CONSIDER ONE MORE STEP</p>
+<p>Or in 3D…</p>
+<p><img src="uni_vis_3d_step2.png" /></p>
+<p>Below, we can watch a gif of the algorithm in action. Sure enough, in this simple setting, we head right to the top. [rw]</p>
+<!-- ```{r, include = FALSE} -->
+<!-- g.uni <- tb.uni %>%  -->
+<!--   ggplot(aes(x = x, y = y)) + -->
+<!--   geom_tile(aes(fill = z)) + -->
+<!--   geom_contour(aes(z = z), bins = 15, color = "black") + -->
+<!--   scale_fill_gradientn("z", colours = terrain.colors(10)) + -->
+<!--   coord_fixed() -->
+<!-- g.uni -->
+<!-- ``` -->
+<p><img src="2d_uni_grad_ascent_anim.gif" />
+<!-- THIS angle isn't very good, will have to adjust --></p>
 </div>
-<div id="the-perils-of-non-convexity" class="section level2">
-<h2>The Perils of Non-convexity</h2>
-<p>What about the multimodal case?</p>
+</div>
+<div id="not-all-mountains-are-friendly" class="section level1">
+<h1>Not All Mountains Are Friendly</h1>
+<p>In this simple example, our local minimization strategy (“just go up!”) finds the highest peak without any trouble. However, not all mountain ranges are quite so friendly. Imagine there were three different peaks, of differing heights. It’s a bit harder to picture, but there’s a 3D visualization after the contour plot to help.</p>
 <pre class="r"><code># Basic plot of the setup
 g.mix &lt;- tb.grid %&gt;% 
   ggplot(aes(x = x, y = y)) +
@@ -678,17 +684,47 @@ g.mix &lt;- tb.grid %&gt;%
 g.mix</code></pre>
 <pre><code>## Warning: Removed 17500 rows containing non-finite values (stat_contour).</code></pre>
 <pre><code>## Warning: Removed 17500 rows containing missing values (geom_tile).</code></pre>
-<p><img src="/post/2020-05-27-local-optimization.en/index_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
-<p>Hopefully, some sort of 3d visualizatino to help explain the contours.</p>
+<p><img src="/post/2020-05-27-local-optimization.en/index_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+<p><img src="mix_vis_3d.png" /></p>
+<!-- * 3d view, to help get a sense of it. -->
+<!-- ```{r, include = FALSE} -->
+<!-- #par(mfrow = c(1, 2)) -->
+<!-- # plot_gg(g, width = 7, height = 4, raytrace = FALSE, preview = TRUE) -->
+<!-- # plot_gg(g, multicore = TRUE, raytrace = TRUE, width = 7, height = 4,  -->
+<!-- #         scale = 300, windowsize = c(1400, 866),  -->
+<!-- #         zoom = 0.6, phi = 30, theta = 30) -->
+<!-- # plot_gg(g,  -->
+<!-- #         raytrace = FALSE,  -->
+<!-- #         preview = TRUE) -->
+<!-- # plot_gg(g,  -->
+<!-- #         multicore = TRUE,  -->
+<!-- #         raytrace = TRUE, -->
+<!-- #         zoom = 0.6,  -->
+<!-- #         phi = 30,  -->
+<!-- #         theta = 30) -->
+<!-- # render_camera(zoom=0.5,theta=-30,phi=30) -->
+<!-- # render_snapshot(clear = TRUE) -->
+<!-- # Sys.sleep(0.2) -->
+<!-- # render_snapshot(clear = TRUE) -->
+<!-- ``` -->
 <ul>
-<li><p>3d view, to help get a sense of it.</p></li>
-<li><p>Animation, currently on 2d, to show how gradient ascent works</p></li>
+<li>Animation, currently on 2d, to show how gradient ascent works</li>
 </ul>
 <p><img src="2d_mix_grad_ascent_anim.gif" /></p>
+<div id="the-perils-of-nonconvexity" class="section level2">
+<h2>The Perils of “Nonconvexity”</h2>
+<ul>
+<li><p>Which optimization challenges are hard? Math draws a fairly simple distinction. <a href="#fn7" class="footnote-ref" id="fnref7"><sup>7</sup></a></p></li>
+<li><p>In short, in the convex realm, local information provides global guidance. The local slope is pointing us in a direction</p></li>
+<li><p>Description of convex vs non-convex optimization, why they are two fundamentally different challenges.</p></li>
+</ul>
 </div>
 </div>
 <div id="embracing-random-noise" class="section level1">
 <h1>Embracing Random Noise</h1>
+<ul>
+<li>The explanation of the noise step.</li>
+</ul>
 </div>
 <div id="sgd-and-neural-nets" class="section level1">
 <h1>SGD, and Neural Nets</h1>
@@ -698,7 +734,7 @@ g.mix</code></pre>
 <li>Microsoft boasted of a neural network with <a href="https://www.microsoft.com/en-us/research/blog/zero-deepspeed-new-system-optimizations-enable-training-models-with-over-100-billion-parameters/">17 billion(!)</a> parameters, each of which are a dimension to be optimized.</li>
 <li>The result is an enormous amount of potential spurious optima.</li>
 <li>What we’ve found over the past decade, SGD works “unreasonably well”. It’s explicitly an algorithm for convex optimization, and yet it optimizes these deep networks.</li>
-<li>There are a variety of complex answers, depending on who you ask, but the staple reason which dates back <a href="https://leon.bottou.org/publications/pdf/nimes-1991.pdf">decades</a> is that its inherent noisiness allows it to escape spurious local optima.<a href="#fn7" class="footnote-ref" id="fnref7"><sup>7</sup></a> The noisiness comes not fro our explicit introduction, but from the its approximation error.</li>
+<li>There are a variety of complex answers, depending on who you ask, but the staple reason which dates back <a href="https://leon.bottou.org/publications/pdf/nimes-1991.pdf">decades</a> is that its inherent noisiness allows it to escape spurious local optima.<a href="#fn8" class="footnote-ref" id="fnref8"><sup>8</sup></a> The noisiness comes not fro our explicit introduction, but from the its approximation error.</li>
 <li>The noise of SGD has little analogy in our own lives, but the way that noise becomes a tool, not a hindrance, in non-convex optimization, is very real.</li>
 </ul>
 <p>SGD is the staple way to optimize neural networks.</p>
@@ -732,18 +768,20 @@ g.mix</code></pre>
 Evidence from the London Underground Network”</a>, by Larcom, Rauch, &amp; Willems (2017).</li>
 <li>Short <a href="http://cep.lse.ac.uk/pubs/download/cp455.pdf">write-up</a> of the London Tube Strike research.</li>
 <li><a href="https://static.googleusercontent.com/media/research.google.com/en//pubs/archive/46507.pdf">“Bayesian Optimization for a Better Dessert”</a>, by Kochanski et al. (2017).</li>
+<li>The <a href="https://www.rayshader.com/"><code>rayshader</code> package</a>.</li>
 </ul>
 </div>
 <div class="footnotes">
 <hr />
 <ol>
 <li id="fn1"><p>Albeit, this seems much harder to rigorously prove, than to simply cite the study as a neat thought experiment, like I’m doing here.<a href="#fnref1" class="footnote-back">↩</a></p></li>
-<li id="fn2"><p>A rare, and extremely tenuous connection between areas of my research, and reality.<a href="#fnref2" class="footnote-back">↩</a></p></li>
-<li id="fn3"><p>Or you could add in other factors, like cost and pleasantness.<a href="#fnref3" class="footnote-back">↩</a></p></li>
-<li id="fn4"><p>I’ve tasted the resulting cookies, not bad for a cafeteria batch.<a href="#fnref4" class="footnote-back">↩</a></p></li>
-<li id="fn5"><p>This is for an extremely crude version with fixed step size <span class="math inline">\(\eta\)</span>. There is no reason to use fixed step size in practice, but that adjustment isn’t relevant to the demonstration.<a href="#fnref5" class="footnote-back">↩</a></p></li>
-<li id="fn6"><p>Like maximization and minimization, convex and concave will be used interchangeably. The multiplying a convex function by minus <span class="math inline">\(1\)</span> makes it concave. Concave functions are easy to maximize, but we can switch between the two interchangeably.<a href="#fnref6" class="footnote-back">↩</a></p></li>
-<li id="fn7"><p>And “saddle points”, which I am skirting past here, as they are a similar concern for this high level explanation.<a href="#fnref7" class="footnote-back">↩</a></p></li>
+<li id="fn2"><p>I have no personal insight into the rigor of the experiment itself, it’s being used just as a framing device here.<a href="#fnref2" class="footnote-back">↩</a></p></li>
+<li id="fn3"><p>A rare, and extremely tenuous connection between areas of my research, and reality.<a href="#fnref3" class="footnote-back">↩</a></p></li>
+<li id="fn4"><p>Or you could add in other factors, like cost and pleasantness.<a href="#fnref4" class="footnote-back">↩</a></p></li>
+<li id="fn5"><p>I’ve tasted the resulting cookies, not bad for a cafeteria batch.<a href="#fnref5" class="footnote-back">↩</a></p></li>
+<li id="fn6"><p>This is for an extremely crude version with fixed step size <span class="math inline">\(\eta\)</span>. There is no reason to use fixed step size in practice, but that adjustment isn’t relevant to the demonstration.<a href="#fnref6" class="footnote-back">↩</a></p></li>
+<li id="fn7"><p>Like maximization and minimization, convex and concave will be used interchangeably. The multiplying a convex function by minus <span class="math inline">\(1\)</span> makes it concave. Concave functions are easy to maximize, but we can switch between the two interchangeably.<a href="#fnref7" class="footnote-back">↩</a></p></li>
+<li id="fn8"><p>And “saddle points”, which I am skirting past here, as they are a similar concern for this high level explanation.<a href="#fnref8" class="footnote-back">↩</a></p></li>
 </ol>
 </div>
 

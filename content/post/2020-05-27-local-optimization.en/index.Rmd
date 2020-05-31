@@ -12,14 +12,14 @@ subtitle: ''
 summary: ''
 authors: []
 lastmod: '2020-05-27T18:47:28-04:00'
-featured: no
+featured: yes
 image:
   caption: ''
   focal_point: ''
   preview_only: no
 projects: []
 ---
-In progress, this will be a post which aims to explain in layman's terms the way that the addition of noise can help gradient descent escape spurious optima (and how this has an intuitive interpretation in our own lives)
+WORK IN PROGRESS, scattered notes/plots here visualized, will be turned into proper post soon. Aims to explain in layman's terms the way that the addition of noise can help gradient descent escape spurious optima (and how this has an intuitive interpretation in our own lives)
 
 ```{r, include = FALSE, message = FALSE}
 library(tidyverse)
@@ -40,19 +40,20 @@ library(gifski)
 
 * [rw]My morning routine is perfectly optimized, a blend of art and science. I’ve settled on an order in which to take the ingredients for scrambled eggs, the exact selection of dishes to use to minimize washing, and the fact that my silver bowl has sides just low enough that beaten egg could escape, and that raw eggs go in the red bowl. I didn’t set out to figure this out, I just made scrambled eggs every morning for years, and over time saw tiny choices that make it go a little smoother. 
 
-
+To add...
 
 # Disruption, and the London Subway Strike
 
 On February 4th, 2014, the workers of the London Tube (their underground subway), went on strike, forcing a number of station closures throughout the city. For three days, a subset of commuters found their usual routes to work blocked, and were forced to find alternatives. After the strike, the stations reopened, and life went back to normal.
 
-But three economists saw the opportunity for a natural experiment: only certain commuters were disrupted by the closure, and data tracking individual travel ID cards could be used to compare their movements to those who were unaffected. And surprisingly, life *didn't* quite go back to normal after the ending of the strike. The ID card data showed that some of the impacted group stuck with their newly discovered routes, and their commuting time decreased as a result. 
+But three economists saw the opportunity for a natural experiment: only certain commuters were disrupted by the closure, and using the tracking data collected by the Tube, their movements could be compared to the unaffected group. And surprisingly, life *didn't* go right back to normal after the ending of the strike. The ID card data showed that some of the impacted group stuck with their newly discovered routes, and their commuting time decreased as a result. 
 
-They even claim that the strike was a net increase in commute time.^[Albeit, this seems much harder to rigorously prove, than to simply cite the study as a neat thought experiment, like I'm doing here.]
+The station closures forced commuters to break from their finely tuned routines, but a surprising number found themselves dragged unnwillingly along a route that proved faster than the one they had been taking for years. The economists even claim that on net, the strike decreased the total commuting time.^[Albeit, this seems much harder to rigorously prove, than to simply cite the study as a neat thought experiment, like I'm doing here.] Even if only a small fraction found new routes, their new route would benefit them for years to come, and taking this chance only required disruption for a couple of days. 
 
+This story provides a neat way to frame the mathematical challenge of optimization, and in particular, why so many optimization algorithms involve *random noise*, a choice which initially seems bizarre. I'll begin by describing how to think about optimization in intuitive terms, and then detail how that corresponds with the common mathematical algorithms, and why the London Tube Strike provides a neat analogy to very real mathematical properties.^[I have no personal insight into the rigor of the experiment itself, it's being used just as a framing device here.]
 
-# Mathematical Framework 
-
+# The Mathematical Framework of Optimization
+<!-- This is duplicate with above? -->
 The purpose of this post is to show how this concept can be naturally articulated in a mathematical framework.^[A rare, and extremely tenuous connection between areas of my research, and reality.] We are describing the challenge of optimization. Here's a sample definition, from the [DeepAI website](https://deepai.org/machine-learning-glossary-and-terms/mathematical-optimization).
 
 > Mathematical optimization is the process of maximizing or minimizing an objective function by finding the best available values across a set of inputs. 
@@ -75,7 +76,7 @@ We are constantly confronting optimization challenges in our own life, and we ra
 
 <!-- * Now, imagine instead of querying a computer for the height, you yourself were actually in that mountain range. What would you do? Well, you'd look for the peak, but what if you were in a forest? You'd go up. Specifically, you would look at the area around you for *local* guidance. -->
 
-# Local Optimizations
+# Locality in Optimization
 
 Imagine if we bite into a warm cookie, and the text the texture is just right, but there's not enough chocolate.(more flowery language here?) We wouldn't just throw up our hands and start from scratch... we'd add more chocolate! It's hard to look at a cookie recipe, and imagine what the result will taste like. But we *can* taste a recipe, and imagine what a small tweak would taste like.
 
@@ -83,10 +84,9 @@ The "locality" in optimization refers to "closeness" in the input space. In lati
 
 In the London Tube experiment, the researchers place some of the blame on the "stylized nature" of the Tube map displayed to commuters. Its spatial distortions make it difficult to spot major inefficiencies in their route, without some external push. By comparison, we can usually estimate the impact of these "local" changes by ourselves. If we get off one stop earlier, maybe our walk to work increases by a minute but we avoid the wait at a crowded station. These slight changes are a bit like increasing just a single ingredient in a cookie.
 
+![](london_tube_map.jpg)
 
-![](london_tube_map)
-
-Personally, this describes my relationship with my own food. fijad
+Personally, this describes my relationship with my own food. TO ADD MORE...
 
 * In my own life, I find this with food all the time. I have a set rotation of dishes I love, that fit my criteria (hassle-free ingredients, saves well for leftoers, etc). I'm happy to make small chaanes to what I eat. I recently realized how well a lone, unadorned sweet potato went with some of my staples. That's a one step addition, and I can evaluate its impact as I walk the aisles of the store. Sure enough, it quickly became a staple.
 * However, I'm sure there are many full dishes out there that would be just as good as my current rotation. But to find a new dish is a risk. There's no way for me to see all the the links in the chain. Will the ingredients be easy to find? Will I find the cooking burdensome? What will the end result taste like? Are my cooking supplies well suited to the task?
@@ -104,7 +104,11 @@ Before, we imagined a challenge where we tried to find a peak of a mountain rang
 
 # Gradient Ascent
 
-This intuitive is called "gradient ascent". Wherever you are, go up. This is quite literal in the case of our mountain range, This section will provide its mathematical definition, but these details aren't important, and you can skip the notation and go straight to the visualizations if you'd like. 
+This intuitive is called "gradient ascent". Wherever you are, go up. This is quite literal in the case of our mountain range, This section will provide its mathematical definition, but these details aren't important, and you can skip the notation and go straight to the visualizations if you'd like. We begin with the intuitive description, and below write the algorithm out mathematically.  
+
+In a bit more detail, we begin at some initial point. We find the direction of steepest ascent from that point, i.e. up the hill (the magnitude and direction of steepest ascent form the "gradient" vector). Then, we walk for a period in that direction (the amount is determined by the "step size", and how steep the ascent actually is). Once we finish walking, we are at a new point, and we repeat this process again (we determine direction of steepest ascent, and walk in that direction). Once we reach a point that is essentially flat, there is no more direction of steepest ascent to follow, and we are done (this is called "convergence"). 
+
+This is the intuitive definition of what it means to make *local* changes. Wherever we are, we think "what small change could we make to make this better?" If our cookies are too salty, we add a bit less salt, but we don't start over from scratch. 
 
 ## Mathematical Definition
 
@@ -112,34 +116,34 @@ This intuitive is called "gradient ascent". Wherever you are, go up. This is qui
 Imagine we are at some point $x \in \mathbb{R}^d$ (meaning, $x$ is a point in $d$-dimensional space). 
 (Maybe in English first?)
 
-Here's a mathematical definition of a crude version of gradient descent.^[This is for an extremely crude version with fixed step size $\eta$. There is no reason  to use fixed step size in practice, but that adjustment isn't relevant to the demonstration.] I'll describe it in regular words after.
+Here's a mathematical definition of a crude version of gradient descent.^[This is for an extremely crude version with fixed step size $\eta$. There is no reason  to use fixed step size in practice, but that adjustment isn't relevant to the demonstration.] 
 
 1. Let $f: \mathbb{R}^d \to \mathbb{R}$ be our objective function. Let $\eta > 0$ be our scaling constant. We begin at some initial point $x^{(0)} \in \mathbb{R}^d$. For $k = 0, \ldots,$, until convergence, repeat steps 2 through 4(?).
 2. Compute the gradient $\nabla f(x^{(k)})$.
-3. Set $x^{(k+1)} \leftarrow x^{(k)} + \eta $\nabla f(x^{(k)})$.
-4. If $\nabla f(x^{(k)})$ is sufficiently small, halt the algorithm, and select $x^{(k+1)}$ as our optima. Otherwise, select repeat s
-
-
+3. Set $x^{(k+1)} \leftarrow x^{(k)} + \eta \nabla f(x^{(k)})$.
+4. If $\nabla f(x^{(k)})$ is sufficiently small, halt the algorithm, and select $x^{(k+1)}$ as our optima. Otherwise, set $k \leftarrow k+1$, and repeat steps 2-4.
 
 
 <!-- http://timharford.com/2016/10/big-decision-ahead-just-roll-the-dice/ -->
 
-## Convex, and Non-convex Optimization
 
-*Which optimization challenges are hard? Math draws a fairly simple distinction. ^[Like maximization and minimization, convex and concave will be used interchangeably. The multiplying a convex function by minus $1$ makes it concave. Concave functions are easy to maximize, but we can switch between the two interchangeably.]
-
-* In short, in the convex realm, local information provides global guidance. The local slope is pointing us in a direction 
-
-* Description of convex vs non-convex optimization, why they are two fundamentally different challenges. 
 
 ## Visualizing Gradient Ascent
 
+It's one thing to say that we follow the direction of steepest ascent, but what does that actually look like in practice? Imagine we have to summit a hill. This one is perfectly round, for simplicitly, but pretend we don't know that, we can only see the local area around us. 
 <!-- Need to go through and do better labels/etc for all these visualizations!  -->s
-(Show the unimodel 2d case )
+<!-- (Show the unimodel 2d case ) -->
 
-```{r, mesage = FALSE}
-library(rayshader,)
+The following is a contour plot, like what you find on a topographical map. 
+```{r, include = FALSE, mesage = FALSE}
+library(rayshader)
 library(magick)
+
+GradBivarNormal <- function(x){
+  -c(prod(dnorm(x))*x[1], prod(dnorm(x))*x[2])
+}
+
+x.uni.init <- c(1.8, 1.8)
 
 grid.count <- 200
 tb.uni <- crossing(x = seq(-2, 2, length.out = grid.count),
@@ -150,36 +154,99 @@ g.uni <- tb.uni %>%
   ggplot(aes(x = x, y = y)) +
   geom_tile(aes(fill = z)) +
   geom_contour(aes(z = z), bins = 15, color = "black") +
-  # scale_x_continuous("x", expand = c(0, 0)) +
-  # scale_y_continuous("y", expand = c(0, 0)) +
-  scale_fill_gradientn("z", colours = terrain.colors(10)) +
-  coord_fixed()
-g.uni
+  scale_fill_gradientn("Elevation", colours = terrain.colors(10)) +
+  coord_fixed() 
+  
+
+uni.first.point <- geom_point(aes(x = x.uni.init[1], 
+                       y = x.uni.init[2]), 
+                       col = "red", size = 2)  
+g.uni + uni.first.point  
 ```
 
+It might be more clear if we consider viewing the map at an angle (thanks to the `rayshader` [package](https://www.tylermw.com/3d-ggplots-with-rayshader/).
+
 ```{r, include = FALSE}
-plot_gg(g.uni, 
-        multicore = TRUE, 
-        raytrace = TRUE, 
-        width = 7, 
-        height = 4,
-        #      scale = 300, 
-        windowsize = c(1400, 866), 
-        zoom = .3, 
-        phi = 30, 
-        theta = 30)
-render_snapshot(clear = TRUE)
+# # The animations, and the 3D plots, are all slow to run.
+# # It is easier to run them once, and store the images for
+# # display in the RMD file, rather than run them each time
+# # I want to check the look of the post.
+# plot_gg(g.uni + uni.first.point,
+#         multicore = TRUE,
+#         raytrace = TRUE,
+#         width = 7,
+#         height = 4,
+#         scale = 300,
+#         windowsize = c(1400, 866),
+#         zoom = .5,
+#         phi = 30,
+#         theta = 15)
+# render_snapshot(filename = "uni_vis_3d", clear = TRUE)
 ```
 
-Showing gradient ascent
+![](uni_vis_3d.png)
+
+
+Imagine we start at that red dot in the top right. We look around, and see that the direction of steepest ascent is down and to the right. 
+
+```{r}
+eta.temp <- 30
+grad.first.step <- GradBivarNormal(x.uni.init)
+# Manually compute second step, for visualization
+x.uni.2 <- x.uni.init + eta.temp*grad.first.step
+
+g.uni + uni.first.point + 
+  geom_segment(aes(x = x.uni.init[1], y = x.uni.init[1],
+                   xend = x.uni.2[1], yend = x.uni.2[2]),
+               col = "red", size = .25,
+               arrow = arrow(length = unit(.2, "cm"), type = "closed"))
+```
+
+CONSIDER ONE MORE STEP
 ```{r, include = FALSE}
-GradBivarNormal <- function(x){
-  -c(prod(dnorm(x))*x[1], prod(dnorm(x))*x[2])
-}
+grad.second.step <- GradBivarNormal(x.uni.2)
+# This algorithm is modified for visualization purposes...
+# in reality the first step would be much smaller than the second,
+# but we're just trying to give the right intuition here.
+x.uni.3 <- x.uni.2 + (eta.temp/2)*grad.second.step
+
+g.second.step <- g.uni + 
+  geom_point(aes(x = x.uni.2[1], 
+                 y = x.uni.2[2]), col = "red", size = 2) + 
+  geom_segment(aes(x = x.uni.2[1], y = x.uni.2[1],
+                   xend = x.uni.3[1], yend = x.uni.3[2]),
+               col = "red", size = .25,
+               arrow = arrow(length = unit(.2, "cm"), type = "closed"))
+g.second.step
+```
+Or in 3D...
+```{r, include = FALSE}
+# plot_gg(g.second.step,
+#         multicore = TRUE,
+#         raytrace = TRUE,
+#         width = 7,
+#         height = 4,
+#         scale = 300,
+#         windowsize = c(1400, 866),
+#         zoom = .4,
+#         phi = 30,
+#         theta = 15)
+# render_snapshot(filename = "uni_vis_3d_step2", clear = TRUE)
+```
+
+![](uni_vis_3d_step2.png)
+
+
+
+Below, we can watch a gif of the algorithm in action. Sure enough, in this simple setting, we head right to the top.  [rw]
+
+
+```{r, include = FALSE}
+uni.init <- c(1.8, 1.8)
 
 steps <- 50
 x.asc.seq <- matrix(rep(NA, 2*steps), ncol=2)
-x.asc.seq[1,] <- rep(1.8, 2)
+x.asc.seq[1,] <- uni.init
 grad.seq <- matrix(rep(NA, 2*steps), ncol=2)
 eta <- 2
 
@@ -198,20 +265,15 @@ tb.asc <- tibble(x = x.asc.seq[,1],
          y.next = y + grad.y*eta)
 ```
 
-```{r, include = FALSE}
-# now add line segments and etc.
-g.uni <- tb.uni %>% 
-  ggplot(aes(x = x, y = y)) +
-  geom_tile(aes(fill = z)) +
-  geom_contour(aes(z = z), bins = 15, color = "black") +
-#  geom_segment(aes(x = 0, y = 0, xend = 1, yend=1)) +
-  # scale_x_continuous("x", expand = c(0, 0)) +
-  # scale_y_continuous("y", expand = c(0, 0)) +
-  scale_fill_gradientn("z", colours = terrain.colors(10)) +
-  coord_fixed()
-g.uni
-
-```
+<!-- ```{r, include = FALSE} -->
+<!-- g.uni <- tb.uni %>%  -->
+<!--   ggplot(aes(x = x, y = y)) + -->
+<!--   geom_tile(aes(fill = z)) + -->
+<!--   geom_contour(aes(z = z), bins = 15, color = "black") + -->
+<!--   scale_fill_gradientn("z", colours = terrain.colors(10)) + -->
+<!--   coord_fixed() -->
+<!-- g.uni -->
+<!-- ``` -->
 
 ```{r, include = FALSE}
 # p.uni.ascent <- g.uni + 
@@ -231,12 +293,12 @@ g.uni
 #         nframes = 10 + max(tb.asc$iter),
 #         renderer = gifski_renderer("2d_uni_grad_ascent_anim.gif"))
 ```
-
 ![](2d_uni_grad_ascent_anim.gif)
+<!-- THIS angle isn't very good, will have to adjust -->
 
+# Not All Mountains Are Friendly
 
-
-## The Perils of Non-convexity
+In this simple example, our local minimization strategy ("just go up!") finds the highest peak without any trouble. However, not all mountain ranges are quite so friendly. Imagine there were three different peaks, of differing heights. It's a bit harder to picture, but there's a 3D visualization after the contour plot to help.
 
 ```{r, include = FALSE}
 w.2d <- c(1/3, 1/3, 1/3)
@@ -263,7 +325,6 @@ tb.grid <- crossing(x = seq(-10, 10, length.out = grid.count),
 ```
 
 
-What about the multimodal case?
 ```{r}
 # Basic plot of the setup
 g.mix <- tb.grid %>% 
@@ -276,43 +337,45 @@ g.mix <- tb.grid %>%
 g.mix
 ```
 
-Hopefully, some sort of 3d visualizatino to help explain the contours.
 ```{r, include = FALSE}
-# plot_gg(g, 
-#         multicore = TRUE, 
-#         raytrace = FALSE, 
-#         width = 7, 
+# plot_gg(g.mix,
+#         multicore = TRUE,
+#         raytrace = FALSE,
+#         width = 7,
 #         height = 4,
-#         #      scale = 300, 
-#         windowsize = c(1400, 866), 
-#         zoom = .3, 
-#         phi = 30, 
+#         scale = 300,
+#         windowsize = c(1400, 866),
+#         zoom = .3,
+#         phi = 30,
 #         theta = 30)
-# render_snapshot(clear = TRUE)
+# render_snapshot(file = "mix_vis_3d", clear = TRUE)
 ```
 
-* 3d view, to help get a sense of it.
-```{r, include = FALSE}
-#par(mfrow = c(1, 2))
-# plot_gg(g, width = 7, height = 4, raytrace = FALSE, preview = TRUE)
-# plot_gg(g, multicore = TRUE, raytrace = TRUE, width = 7, height = 4, 
-#         scale = 300, windowsize = c(1400, 866), 
-#         zoom = 0.6, phi = 30, theta = 30)
+![](mix_vis_3d.png)
 
-# plot_gg(g, 
-#         raytrace = FALSE, 
-#         preview = TRUE)
-# plot_gg(g, 
-#         multicore = TRUE, 
-#         raytrace = TRUE,
-#         zoom = 0.6, 
-#         phi = 30, 
-#         theta = 30)
-# render_camera(zoom=0.5,theta=-30,phi=30)
-# render_snapshot(clear = TRUE)
-# Sys.sleep(0.2)
-# render_snapshot(clear = TRUE)
-```
+
+<!-- * 3d view, to help get a sense of it. -->
+<!-- ```{r, include = FALSE} -->
+<!-- #par(mfrow = c(1, 2)) -->
+<!-- # plot_gg(g, width = 7, height = 4, raytrace = FALSE, preview = TRUE) -->
+<!-- # plot_gg(g, multicore = TRUE, raytrace = TRUE, width = 7, height = 4,  -->
+<!-- #         scale = 300, windowsize = c(1400, 866),  -->
+<!-- #         zoom = 0.6, phi = 30, theta = 30) -->
+
+<!-- # plot_gg(g,  -->
+<!-- #         raytrace = FALSE,  -->
+<!-- #         preview = TRUE) -->
+<!-- # plot_gg(g,  -->
+<!-- #         multicore = TRUE,  -->
+<!-- #         raytrace = TRUE, -->
+<!-- #         zoom = 0.6,  -->
+<!-- #         phi = 30,  -->
+<!-- #         theta = 30) -->
+<!-- # render_camera(zoom=0.5,theta=-30,phi=30) -->
+<!-- # render_snapshot(clear = TRUE) -->
+<!-- # Sys.sleep(0.2) -->
+<!-- # render_snapshot(clear = TRUE) -->
+<!-- ``` -->
 
 * Animation, currently on 2d, to show how gradient ascent works
 
@@ -322,8 +385,8 @@ Hopefully, some sort of 3d visualizatino to help explain the contours.
 GradMixtureNormal <- function(x) {
   # The densities for each of the three components
   component.probs <- apply(sapply(1:3, function(i) dnorm(x, 
-                                                   means.2d[i,], 
-                                                   sd.2d[i])), 2, prod)
+                                                         means.2d[i,], 
+                                                         sd.2d[i])), 2, prod)
   # Then, each of the three components have their x and y derivative.
   
   # We compute the  six (x-mu_i)/sigma_i^2 parts.
@@ -348,10 +411,10 @@ for (i in 1:(steps-1)) {
 }
 
 tb.mix.asc <- tibble(x = x.asc.seq[,1], 
-                 y = x.asc.seq[,2],
-                 grad.x = grad.seq[,1],
-                 grad.y = grad.seq[,2],
-                 iter = 1:steps) %>% 
+                     y = x.asc.seq[,2],
+                     grad.x = grad.seq[,1],
+                     grad.y = grad.seq[,2],
+                     iter = 1:steps) %>% 
   mutate(x.next = x + grad.x*eta,
          y.next = y + grad.y*eta)
 ```
@@ -379,11 +442,21 @@ tb.mix.asc <- tibble(x = x.asc.seq[,1],
 
 ![](2d_mix_grad_ascent_anim.gif)
 
+## The Perils of "Nonconvexity"
 
 
+* Which optimization challenges are hard? Math draws a fairly simple distinction. ^[Like maximization and minimization, convex and concave will be used interchangeably. The multiplying a convex function by minus $1$ makes it concave. Concave functions are easy to maximize, but we can switch between the two interchangeably.]
+
+* In short, in the convex realm, local information provides global guidance. The local slope is pointing us in a direction 
+
+* Description of convex vs non-convex optimization, why they are two fundamentally different challenges.
 
 
 # Embracing Random Noise
+
+* The explanation of the noise step.
+
+
 
 # SGD, and Neural Nets
 
@@ -623,3 +696,4 @@ grad.ascent.seq <- RunGradientAscent(x.init,
 Evidence from the London Underground Network" ](http://users.ox.ac.uk/~econ0360/FerdinandRauch/Tube.pdf), by Larcom, Rauch, & Willems (2017).
 * Short [write-up](http://cep.lse.ac.uk/pubs/download/cp455.pdf) of the London Tube Strike research. 
 * ["Bayesian Optimization for a Better Dessert"](https://static.googleusercontent.com/media/research.google.com/en//pubs/archive/46507.pdf), by Kochanski et al. (2017). 
+* The [`rayshader` package](https://www.rayshader.com/).
