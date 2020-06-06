@@ -27,8 +27,6 @@ library(transformr)
 library(gifski)
 ```
 
-<!-- ADD IMAGES? -->
-
 # A Clockwork Egg
 <!-- (or "our optimized lives") -->
 
