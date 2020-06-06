@@ -2,24 +2,26 @@
 name = "Dark"
 
 # Is theme light or dark?
-light = false
+light = true
 
 # Primary
-primary = "hsl(339, 90%, 68%)"
+#primary = "#D6D6D2"
+primary = "#E3E3DA"
 #primary = "d4af37"
 
 # Menu
-menu_primary = "rgb(20, 22, 34)"
+menu_primary = "#D9D9D9"
 #menu_primary = "rgb(112, 108, 45)"
 menu_text = "rgb(112, 108, 45)"
 #menu_text = "rgba(255,255,255,0.6)"
 #menu_text_active = "rgba(255,255,255,1)"
 menu_text_active = "#d4af37"
-menu_title = "#C2C2C2"
+menu_title = "rgb(112, 108, 45)"
 #menu_title = "rgb(112, 108, 45)"
 
 # Home sections
-home_section_odd = "hsla(231, 15%, 18%, 1)"
-home_section_even = "hsla(231, 15%, 16%, 1)"
+background = "#E3E3DA"
+home_section_odd = "#E3E3DA"
+home_section_even = "#E3E3DA"
 #home_section_odd = "rgb(112, 108, 45)"
 #home_section_even = "rgb(112, 108, 45)"
