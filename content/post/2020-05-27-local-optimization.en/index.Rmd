@@ -27,18 +27,12 @@ library(transformr)
 library(gifski)
 ```
 
-# Outline
+<!-- ADD IMAGES? -->
 
-* TODO
-
-* Really explain the "elevation computer game" ting in detail.
-* Define spurious optima/maxima/minima, maybe a small terms section.
-* Add many more images, when possible.
-
-# The Perfect Scrambled Eggs 
+# A Clockwork Egg
 <!-- (or "our optimized lives") -->
 
-I find great comfort in routine. Years of repetition have refined my morning scrambled eggs into a precise and rehearsed ritual. If I turn on the burner before I walk to the fridge, the butter will be just starting to bubble when I finish beating the eggs, and I can clean the mixing bowl in the brief pause before before they're sufficiently settled under the heat to be stirred. I never set out to find the right timing, but if you do the same task a thousand times, you learn from the trial and error of random variation which tiny choices make it go just a little smoother. Anyone with a morning commute might undergo the same iterative optimization. Unless, some external shock *forces* them to change.^[*[I want this post to be quite glib/silly, but this opening might be a little much, or maybe I just haven't been able to word it right.]*]
+I find great comfort in routine. Years of repetition have refined my morning scrambled eggs into a precise and rehearsed ritual. If I turn on the burner before I walk to the fridge, the butter will be just starting to bubble when I finish beating the eggs, and I can clean the mixing bowl in the brief pause before they're ready to be stirred. I never set out to find the right timing, but if you do the same task a thousand times, you learn from the trial and error of random variation which tiny choices make it go just a little smoother. Anyone with a morning commute can relate to the same familiar, iterative optimization. That is, until some external shock *forces* them to change.^[*[I want this post to be quite glib/silly, but this opening might be a little much, or maybe I just haven't been able to word it right. Or might be best to just launch into the Londno Subway example.]*]
 
 # Disruption, and the London Subway Strike
 
@@ -46,17 +40,16 @@ On [February 4th, 2014](https://www.independent.co.uk/news/uk/home-news/tube-str
 
 Three economists saw the opportunity for a natural experiment: only certain commuters were disrupted by the closure, and using the subway's tracking data, their movements could be compared to the unaffected group. And surprisingly, life *didn't* quite go back to normal after the ending of the strike. Instead, some of the disrupted group stuck with their newly discovered routes, and their time spent commuting decreased as a result.
 
-The station closures forced commuters to break from their finely tuned routines, but a surprising number found themselves dragged unwillingly along a route that turned out to be *faster* than the one they had been taking for years. The researchers even claim that the time savings from these discoveries were so potent that the strike caused a net *decrease* in time spent commuting, despite the initial disruptions.^[Albeit, this seems much harder to rigorously prove, than to simply cite the study as a neat thought experiment, like I'm doing here.] Even if only a small fraction found new routes, their new route would benefit them for years to come, and taking this chance only required disruption for a couple of days. 
+The station closures forced commuters to break from their finely tuned routines, but a surprising number found themselves dragged unwillingly along a route that turned out to be *faster* than the one they had been taking for years. The researchers even claim that the time savings from these discoveries were so significant that the strike caused a net *decrease* in time spent commuting, despite the initial disruptions.^[This seems much harder to rigorously prove, but this is meant simiply as an informal framing device.] Even if only a small fraction found new routes, the benefits from their new routine would acrrue over years to come, while discovering it only required a disruption for a few days. 
 
-This case study provides an opportunity to frame the mathematical challenge of optimization in real world terms, and it provides particular insight into the counterintuitive fact that many optimization algorithms involve *random noise*. I'll begin by describing mathematical optimization in intuitive terms, and then I'll examine how the London Tube Strike provides a real world analogy for this theoretical challenge.^[*[Not very happy with this transition...]*]^[A rare, and extremely tenuous connection between areas of my research, and reality.] 
+This neat case study provides an opportunity to frame the mathematical challenge of optimization in real world terms, and it gives particular insight into the counterintuitive fact that many optimization algorithms involve *random noise*. I'll begin by describing mathematical optimization in intuitive terms, and then I'll examine how the London Tube Strike provides a real world analogy for this theoretical challenge.^[*[Not very happy with this transition...]*]^[A rare, and extremely tenuous connection between areas of my research, and reality.] 
 
 
 <!-- This story provides a neat way to frame the mathematical challenge of optimization, and in particular, why so many optimization algorithms involve *random noise*, a choice which might initially seem bizarre. I'll begin by describing mathematical optimization in intuitive terms, and then show how the results of the London Tube Strike provides an analogy to very real mathematical properties. -->
 <!-- ^[I have no personal insight into the rigor of the experiment itself, it's being used just as a framing device here.] -->
 
 # The Framework of "Optimization"
-Math always starts with a definition---so what is "mathematical optimization"?
-The [DeepAI website](https://deepai.org/machine-learning-glossary-and-terms/mathematical-optimization) writes,
+Math always starts with a definition---so, what is "mathematical optimization"? The [DeepAI website](https://deepai.org/machine-learning-glossary-and-terms/mathematical-optimization) writes the following.
 
 > Mathematical optimization is the process of maximizing or minimizing an objective function by finding the best available values across a set of inputs.
 
@@ -66,15 +59,16 @@ It's easiest to explain these terms by example.
 * If we want to find the highest peak in a mountain range (an example we'll discuss in detail in the next section), the input would the latitude and longitude of a point on the map, and the objective function would be the elevation at that point.
 *  When baking chocolate chip cookies, the possible inputs might be the amount of each ingredient and the order in which they are combined, and the objective function might be the tastiness of the resulting cookie. This isn't quite a joke, and Google once ran a [cookie optimization experiment](https://static.googleusercontent.com/media/research.google.com/en//pubs/archive/46507.pdf) along these lines.^[I've tasted the resulting cookies, not bad for a cafeteria batch.]
 
+
 Optimization is a central challenge in applied mathematics and statistics, but finding solutions can be hard. The vast increase in computational power has broadened our horizons for what optimization challenges are feasible, but many important problems remain out of our reach.
 
-Generally, in optimization, we can assume that we are able to check the value of the objective function at some chosen input (often called "queries", to the objective function, or perhaps, the "oracle"). For example...
+In the challenge of optimization, we generally assume that we are able to check the value of the objective function at some chosen input (often called "queries" to the objective function, or perhaps, the "oracle"). For example...
 
-* We can take a certain route on the subway and use a stopwatch record the duration of the trip.
+* We can take a certain route on the subway and use our stopwatch record the duration of the trip.
 * We can bake a batch of cookies following a certain recipe, and taste them.
-* We are given ElevationBot 1.0, a rather simple computer which takes in a pair of latitude and longitude coordinates, and spits out the altitude of that point. (This example is most cleanly understood using such a computer, but to guide our intuition we'll often imagine ourselves walking around the slopes with an altimeter in hand.)
+* We buy ElevationBot 1.0, a rather simple computer which takes in a pair of latitude and longitude coordinates, and spits out the altitude of that point. (This example is most cleanly understood using such a computer, but to guide our intuition we'll often imagine ourselves walking around the slopes with an altimeter in hand.)
 
-Our naive optimization strategy might be to just try a bunch of points. For instance, we define a grid of latitude and longitude coordinates, feed these coordinates into ElevationBot 1.0, and use the highest point we find as our answer. But this naive approach only works when the range of potential inputs is sufficiently narrow. In particular, we need to consider the "dimension" of the input space. The number of points within an exhaustive "grid" of inputs grows exponentially with the dimension of the input. Latitude and longitude represent a mere 2 dimensions, so the number of points in our grid is just the square of the number of points on a side. However, the famous [Jacques Torres cookie recipe](https://cooking.nytimes.com/recipes/1015819-chocolate-chip-cookies) has $12$ ingredients. If we wanted to try all combinations at a mere five different amounts of each ingredient, that would be over two hundred thousand possibilities, which is a bit much for even the hungriest baker. 
+Our naive optimization strategy might be to just try a bunch of inputs, and hope that we find a good output. For instance, we define a grid of latitude and longitude coordinates, feed these coordinates into ElevationBot 1.0, and use the highest point we find as our answer. But this naive approach only works when the range of potential inputs is sufficiently narrow. In particular, we need to consider the "dimension" of the input space. The number of points within an exhaustive "grid" of inputs grows exponentially with the dimension of the input. Latitude and longitude represent a mere 2 dimensions, so the number of points in our grid is just the square of the number of points on a side. However, the famous [Jacques Torres cookie recipe](https://cooking.nytimes.com/recipes/1015819-chocolate-chip-cookies) has $12$ ingredients. If we wanted to try all combinations at a mere five different amounts of each ingredient, that would be over two hundred thousand possibilities, which is a bit much for even the hungriest baker. 
 
 In our own lives, we constantly confront similar optimization challenges, but we rarely take this naive approach. Instead, we typically to look around us for small *local* optimizations, whose benefits we can easily identify. 
 
@@ -86,21 +80,23 @@ In our own lives, we constantly confront similar optimization challenges, but we
 
 # Locality in Optimization
 
-Imagine biting into a warm cookie, fresh out of the oven. The rich buttery center has just the right chew, while the edges are lightly crisp. You taste the faintest hints of toffee, butterscotch, and vanilla, and the sprinkle of sea salt on top adds an extra kick. It's almost perfect, but there's not *quite* enough chocolate. 
+Imagine biting into a warm cookie, fresh out of the oven. The rich buttery center has just the right chew, while the edges are lightly crisp. You taste the faintest hints of toffee, butterscotch, and vanilla, and the sprinkle of sea salt on top adds an extra kick. It's almost perfect, but there's not *quite* enough chocolate.
+
+![](choc_chip_cookies.jpg)
 
 We wouldn't just throw up our hands and start from scratch... we'd just add more chocolate! The average baker can't look at a cookie recipe, and imagine exactly what the result will taste like from afar. But we can *taste* a recipe, and imagine what a small specific tweak would do to the result.
 
-"Locality" in optimization refers to "closeness" in the input space. In latitude and longitude, this would be the literal distance, while in the input space of "cookie ingredients" and "subway commuting choices", the definition is a bit less rigorous. Broadly, we can estimate the impacts of a *limited single change* to the input, but not many big ones. If we increase the amount of chocolate, we know they'll taste a bit like before, but more chocolate-y. If we increase the amounts of chocolate, butter, baking soda, reduce the amount of flour, and tweak the balance between brown and cane sugar, can the average home cook really guess what the result will taste like? 
+"Locality" in optimization refers to "closeness" in the input space. In latitude and longitude, this would be the "as the crow flies" distance, while in the input space of "cookie ingredients" and "subway commuting choices", the definition is a bit less rigorous, but we can still imagine what constitutes a "small" change. In general, we can estimate the impacts of a *limited single change* to the input, but not multiple big adjustments If we increase the amount of chocolate, we know they'll taste a bit like before, but more chocolate-y. If we increase the amounts of chocolate, butter, baking soda, cut some flour, and tweak the balance between brown and cane sugar, can the average home cook really guess what the result will taste like? 
 
 In the London Tube experiment, the researchers lay some of the blame on the "stylized nature" of the Tube map displayed to commuters. Its spatial distortions make it difficult to spot major inefficiencies in their route, without some external push. By comparison, we can usually estimate the impact of these "local" changes by ourselves. If we get off one stop earlier, maybe our walk to work increases by a minute, but we avoid the wait at a crowded station. These slight changes are a bit like tweaking just a single ingredient in a cookie, and we might be able to tell whether or not they are worth trying.
 
 ![](london_tube_map.jpg)
 
 
-Personally, this describes my relationship with my own food. TO ADD MORE...
+<!-- Personally, this describes my relationship with my own food. TO ADD MORE... -->
 
-* In my own life, I find this with food all the time. I have a set rotation of dishes I love, that fit my criteria (hassle-free ingredients, saves well for leftoers, etc). I'm happy to make small chaanes to what I eat. I recently realized how well a lone, unadorned sweet potato went with some of my staples. That's a one step addition, and I can evaluate its impact as I walk the aisles of the store. Sure enough, it quickly became a staple.
-* However, I'm sure there are many full dishes out there that would be just as good as my current rotation. But to find a new dish is a risk. There's no way for me to see all the the links in the chain. Will the ingredients be easy to find? Will I find the cooking burdensome? What will the end result taste like? Are my cooking supplies well suited to the task?
+<!-- * In my own life, I find this with food all the time. I have a set rotation of dishes I love, that fit my criteria (hassle-free ingredients, saves well for leftoers, etc). I'm happy to make small chaanes to what I eat. I recently realized how well a lone, unadorned sweet potato went with some of my staples. That's a one step addition, and I can evaluate its impact as I walk the aisles of the store. Sure enough, it quickly became a staple. -->
+<!-- * However, I'm sure there are many full dishes out there that would be just as good as my current rotation. But to find a new dish is a risk. There's no way for me to see all the the links in the chain. Will the ingredients be easy to find? Will I find the cooking burdensome? What will the end result taste like? Are my cooking supplies well suited to the task? -->
 
 <!-- * We provide some new rules of the game. We know not only the value at these points, we know the shape/slope/etc of the area around it. This is a reasonable relaxation, because we can estimate this shape by querying our computer for the values of the areas near our point (are we going up or down). The rule is that we can't look far away to see where the peak is (perhaps we're stuck in the Appalachian forests, and not the sheer granite of the Sierra Nevada).  -->
 
@@ -110,8 +106,6 @@ Personally, this describes my relationship with my own food. TO ADD MORE...
 
 <!-- * Now, I'd wager that generally, we're rather good at making small (later, we will call these "local", due to their geometric interpretation) adjustments. If I realize that by taking a right a few blocks early, I can avoid the long traffic light, I'll often do it.  -->
 <!-- * However, there's a reason these are small changes. We can estimate their impact from where we are. If we considered an entirely new route to work, taking a whole different train line, we would have no way to know what that's like. -->
-
-
 
 Before, we imagined a challenge where we tried to find a peak of a mountain range, using ElevationBot 1.0, which could tell us the elevation of any point defined by its latitude and longitude. Now, let's imagine that there was an upgrade to ElevationBot 2.0, which *also* tells us the slope of the incline of this point (that is, "which direction slopes downward, and how steep is it", often referred to as the gradient). This better reflects our intuition for local optimization in other settings, but it's also not a terribly difficult task for the ElevationBot, as it could always query the elevation at nearby points as estimate the slope for itself.
 
@@ -128,21 +122,20 @@ This isn't some arbitrary example, it's a natural definition of what it means to
 # Visualizing Gradient Ascent
 
 So, we follow the direction of steepest ascent, but what does that look like in practice? We can visualize our challenge of finding the highest point in a very simple mountain range. In fact, simplest of all, imagine a single hill. This one is perfectly round, but we pretend we don't know that, and we can only see the local area around us. 
-<!-- Need to go through and do better labels/etc for all these visualizations!  -->
-<!-- (Show the unimodel 2d case ) -->
 
-The following is a contour plot, like what you find on a topographical map. At the center is the highest point, and it slopes down as you get further away. Our current position is the red dot, in the top right.
+The following is a contour plot, like what you find on a topographical map. At the center is the highest point, and it slopes down as you get further away. Our current position is the red dot, in the southeast.
 ```{r, include = FALSE, mesage = FALSE}
-# library(rayshader)
-# library(magick)
+library(rayshader)
+library(magick)
 
 GradBivarNormal <- function(x){
   -c(prod(dnorm(x))*x[1], prod(dnorm(x))*x[2])
 }
 
-x.uni.init <- c(1.8, 1.8)
+#x.uni.init <- c(1.8, 1.8)
+x.uni.init <- c(1.75, -1.75)
 
-grid.count <- 200
+grid.count <- 1000
 tb.uni <- crossing(x = seq(-2, 2, length.out = grid.count),
                    y = seq(-2, 2, length.out = grid.count)) %>%
   mutate(z = apply(dnorm(cbind(x,y)), 1, prod))
@@ -153,14 +146,16 @@ g.uni <- tb.uni %>%
   geom_contour(aes(z = z), bins = 15, color = "black") +
   scale_fill_gradientn("Elevation", colours = terrain.colors(10)) +
   xlab("East/West") + ylab("North/South")
-  coord_fixed() 
-  
+coord_fixed() 
+
 
 uni.first.point <- geom_point(aes(x = x.uni.init[1], 
-                       y = x.uni.init[2]), 
-                       col = "red", size = 2)  
+                                  y = x.uni.init[2]), 
+                              col = "red", size = 2)  
 g.uni + uni.first.point  
 ```
+
+
 
 It might be more clear if we consider viewing the map at an angle (thanks to the `rayshader` [package](https://www.tylermw.com/3d-ggplots-with-rayshader/).
 
@@ -174,7 +169,7 @@ It might be more clear if we consider viewing the map at an angle (thanks to the
 #         raytrace = TRUE,
 #         width = 7,
 #         height = 4,
-#         scale = 300,
+#         scale = 400,
 #         windowsize = c(1400, 866),
 #         zoom = .5,
 #         phi = 30,
@@ -184,7 +179,8 @@ It might be more clear if we consider viewing the map at an angle (thanks to the
 
 ![](uni_vis_3d.png)
 
-Let's imagine gradient ascent in action. We look around, and see that the direction of steepest ascent is to the southwest, shown by the red arrow.
+
+Let's imagine gradient ascent in action. We look around, and see that the direction of steepest ascent is to the northwest, shown by the red arrow.
 
 ```{r}
 eta.temp <- 30
@@ -193,13 +189,13 @@ grad.first.step <- GradBivarNormal(x.uni.init)
 x.uni.2 <- x.uni.init + eta.temp*grad.first.step
 
 g.uni + uni.first.point + 
-  geom_segment(aes(x = x.uni.init[1], y = x.uni.init[1],
+  geom_segment(aes(x = x.uni.init[1], y = x.uni.init[2],
                    xend = x.uni.2[1], yend = x.uni.2[2]),
                col = "red", size = .25,
                arrow = arrow(length = unit(.2, "cm"), type = "closed"))
 ```
 
-We move that distance up the slope, and look around once again. We see that the direction of steepest ascent is still down and to the left, so we move once more.
+We move that distance up the slope, and look around once again. We see that the direction of steepest ascent is still northwest, so we move once more.
 
 ```{r, include = FALSE}
 grad.second.step <- GradBivarNormal(x.uni.2)
@@ -211,7 +207,7 @@ x.uni.3 <- x.uni.2 + (eta.temp/2)*grad.second.step
 g.second.step <- g.uni + 
   geom_point(aes(x = x.uni.2[1], 
                  y = x.uni.2[2]), col = "red", size = 2) + 
-  geom_segment(aes(x = x.uni.2[1], y = x.uni.2[1],
+  geom_segment(aes(x = x.uni.2[1], y = x.uni.2[2],
                    xend = x.uni.3[1], yend = x.uni.3[2]),
                col = "red", size = .25,
                arrow = arrow(length = unit(.2, "cm"), type = "closed"))
@@ -219,13 +215,12 @@ g.second.step
 ```
 Or, shown in 3D (which is admittedly hard to draw...).
 ```{r, include = FALSE}
-# TRY AND CHANGE THIS ANGLE (and above) or start from btotom right, and reword.
 # plot_gg(g.second.step,
 #         multicore = TRUE,
 #         raytrace = TRUE,
 #         width = 7,
 #         height = 4,
-#         scale = 300,
+#         scale = 400,
 #         windowsize = c(1400, 866),
 #         zoom = .4,
 #         phi = 30,
@@ -237,7 +232,7 @@ Or, shown in 3D (which is admittedly hard to draw...).
 We repeat this process until we look around for that direction of steepest ascent, and see that we're at a point which is basically flat. You can watch the whole process in the gif below. We start in the top right, and climb and climb until we reach the top of the mountain, where we stop.^[The above images took huge step sizes for visual clarity, this shows a more realistic sequence.]
 
 ```{r, include = FALSE}
-uni.init <- c(1.8, 1.8)
+uni.init <- c(1.8, -1.8)
 
 steps <- 50
 x.asc.seq <- matrix(rep(NA, 2*steps), ncol=2)
@@ -260,47 +255,36 @@ tb.asc <- tibble(x = x.asc.seq[,1],
          y.next = y + grad.y*eta)
 ```
 
-<!-- ```{r, include = FALSE} -->
-<!-- g.uni <- tb.uni %>%  -->
-<!--   ggplot(aes(x = x, y = y)) + -->
-<!--   geom_tile(aes(fill = z)) + -->
-<!--   geom_contour(aes(z = z), bins = 15, color = "black") + -->
-<!--   scale_fill_gradientn("z", colours = terrain.colors(10)) + -->
-<!--   coord_fixed() -->
-<!-- g.uni -->
-<!-- ``` -->
-
 ```{r, include = FALSE}
-# Make sure this is redone  with the same matching labels
-# p.uni.ascent <- g.uni + 
+# p.uni.ascent <- g.uni +
 #   geom_point(data = tb.asc,
-#              col = "red", 
+#              col = "red",
 #              size = 1) +
 #   geom_segment(data = tb.asc,
-#                aes(x = x, y = y, 
+#                aes(x = x, y = y,
 #                    xend = x.next, yend = y.next),
 #                col = "red", size = .25,
 #                arrow = arrow(length = unit(.2, "cm"), type = "closed"))
 # 
 # anim.uni.ascent <- p.uni.ascent + transition_states(iter,
-#                                             transition_length = 1,
-#                                             state_length = 1)
+#                                                     transition_length = 1,
+#                                                     state_length = 1)
 # animate(anim.uni.ascent,
 #         nframes = 10 + max(tb.asc$iter),
 #         renderer = gifski_renderer("2d_uni_grad_ascent_anim.gif"))
 ```
 ![](2d_uni_grad_ascent_anim.gif)
-<!-- THIS angle isn't very good, will have to adjust -->
+
 
 # Not All Mountains Are Friendly
 
-In this simple example, our local minimization strategy ("just go up!") finds the highest peak without any trouble. However, not all mountain ranges are quite so easy to navigate. Imagine there were three different peaks, of differing heights. It's a bit harder to picture, but there's a 3D visualization after the contour plot to help.
+In this simple example, our local minimization strategy ("just go up!") finds the highest peak without any trouble. However, imagine there were three different peaks, of differing heights. 
 
 ```{r, include = FALSE}
 w.2d <- c(1/3, 1/3, 1/3)
 means.2d <- rbind(matrix(c(0, 4), nrow = 1),
                   matrix(c(sqrt(25/2), -sqrt(25/2)), nrow = 1),
-                  matrix(c(-sqrt(25/2), -sqrt(25/2)+1), nrow = 1))
+                  matrix(c(-sqrt(25/2), -sqrt(25/2) + 1), nrow = 1))
 # We assume spherical variances
 sd.2d <- c(1.7, 1.5, 2)
 
@@ -314,15 +298,13 @@ NormalMixtureDensity_Vec <- function(x, y) {
   map2_dbl(x, y, function(.x, .y) {NormalMixtureDensity(c(.x,.y))})
 }
 
-grid.count <- 200
+grid.count <- 1000
 tb.grid <- crossing(x = seq(-10, 10, length.out = grid.count),
                     y = seq(-10, 10, length.out = grid.count)) %>%
   mutate(z = NormalMixtureDensity_Vec(x, y))
 ```
 
-
-```{r}
-# Basic plot of the setup
+```{r, include = FALSE}
 g.mix <- tb.grid %>% 
   ggplot(aes(x = x, y = y)) +
   geom_tile(aes(fill = z)) +
@@ -333,11 +315,12 @@ g.mix <- tb.grid %>%
   coord_fixed()
 g.mix
 ```
+It's a bit harder to picture, but a 3D visualization might help picture its shape.
 
 ```{r, include = FALSE}
 # plot_gg(g.mix,
 #         multicore = TRUE,
-#         raytrace = FALSE,
+#         raytrace = TRUE,
 #         width = 7,
 #         height = 4,
 #         scale = 300,
@@ -350,35 +333,10 @@ g.mix
 
 ![](mix_vis_3d.png)
 
-
-<!-- * 3d view, to help get a sense of it. -->
-<!-- ```{r, include = FALSE} -->
-<!-- #par(mfrow = c(1, 2)) -->
-<!-- # plot_gg(g, width = 7, height = 4, raytrace = FALSE, preview = TRUE) -->
-<!-- # plot_gg(g, multicore = TRUE, raytrace = TRUE, width = 7, height = 4,  -->
-<!-- #         scale = 300, windowsize = c(1400, 866),  -->
-<!-- #         zoom = 0.6, phi = 30, theta = 30) -->
-
-<!-- # plot_gg(g,  -->
-<!-- #         raytrace = FALSE,  -->
-<!-- #         preview = TRUE) -->
-<!-- # plot_gg(g,  -->
-<!-- #         multicore = TRUE,  -->
-<!-- #         raytrace = TRUE, -->
-<!-- #         zoom = 0.6,  -->
-<!-- #         phi = 30,  -->
-<!-- #         theta = 30) -->
-<!-- # render_camera(zoom=0.5,theta=-30,phi=30) -->
-<!-- # render_snapshot(clear = TRUE) -->
-<!-- # Sys.sleep(0.2) -->
-<!-- # render_snapshot(clear = TRUE) -->
-<!-- ``` -->
-
 This poses an obvious problem for our algorithm. We hike up until we reach the top of a peak, look around, see that we can't go up any further, and stop. But this could be true of *any* of the three peaks, and only the peak in the southeast is actually highest.
 
 Let's say we start near the center of this region, and follow our algorithm. We climb up south and to the east, and reach that highest peak, just like as we did in the case of a single hill. 
 ```{r, include = FALSE}
-
 # The gradient of the normal w.r.t. x is (x-mu)/sigma^2*density.
 GradMixtureNormal <- function(x) {
   # The densities for each of the three components
@@ -398,14 +356,12 @@ GradMixtureNormal <- function(x) {
 ```
 
 ```{r}
-
 steps <- 130
 x.asc.seq <- matrix(rep(NA, 2*steps), ncol=2)
 # This is the starting position which takes us to the optima
 x.asc.seq[1,] <- c(1, -0.5)
 grad.seq <- matrix(rep(NA, 2*steps), ncol=2)
 eta <- 20
-
 
 for (i in 1:(steps-1)) {
   grad.seq[i,] <- GradMixtureNormal(x.asc.seq[i,])
@@ -423,22 +379,42 @@ tb.mix.asc <- tibble(x = x.asc.seq[,1],
 
 
 ```{r, include = FALSE}
-p.mix.ascent <- g.mix +
-  geom_point(data = tb.mix.asc,
-             col = "red",
-             size = 1) +
-  geom_segment(data = tb.mix.asc,
-               aes(x = x, y = y,
-                   xend = x.next, yend = y.next),
-               col = "red", size = .25,
-               arrow = arrow(length = unit(.2, "cm"), type = "closed"))
+grid.count <- 1000
+tb.grid <- crossing(x = seq(-10, 10, length.out = grid.count),
+                    y = seq(-10, 10, length.out = grid.count)) %>%
+  mutate(z = NormalMixtureDensity_Vec(x, y))
+```
 
-anim.mix.ascent <- p.mix.ascent + transition_states(iter,
-                                            transition_length = 1,
-                                            state_length = 1)
-animate(anim.mix.ascent,
-        nframes = 100 + max(tb.mix.asc$iter),
-        renderer = gifski_renderer("2d_mix_grad_ascent_optima_anim.gif"))
+```{r, include = FALSE}
+# grid.count <- 400
+# tb.grid <- crossing(x = seq(-10, 10, length.out = grid.count),
+#                     y = seq(-10, 10, length.out = grid.count)) %>%
+#   mutate(z = NormalMixtureDensity_Vec(x, y))
+# g.mix <- tb.grid %>% 
+#   ggplot(aes(x = x, y = y)) +
+#   geom_tile(aes(fill = z)) +
+#   geom_contour(aes(z = z), bins = 15, color = "black") +
+#   ylim(-7.5,7.5) + xlim(-7.5, 7.5) +
+#   xlab("East/West") + ylab("North/South") +  
+#   scale_fill_gradientn("Elevation", colours = terrain.colors(10)) +
+#   coord_fixed()
+# 
+# p.mix.ascent <- g.mix +
+#   geom_point(data = tb.mix.asc,
+#              col = "red",
+#              size = 1) +
+#   geom_segment(data = tb.mix.asc,
+#                aes(x = x, y = y,
+#                    xend = x.next, yend = y.next),
+#                col = "red", size = .25,
+#                arrow = arrow(length = unit(.2, "cm"), type = "closed"))
+# 
+# anim.mix.ascent <- p.mix.ascent + transition_states(iter,
+#                                                     transition_length = 1,
+#                                                     state_length = 1)
+# animate(anim.mix.ascent,
+#         nframes = 100 + max(tb.mix.asc$iter),
+#         renderer = gifski_renderer("2d_mix_grad_ascent_optima_anim.gif"))
 ```
 ![](2d_mix_grad_ascent_optima_anim.gif)
 
@@ -468,22 +444,22 @@ tb.mix.asc <- tibble(x = x.asc.seq[,1],
 
 
 ```{r, include = FALSE}
-p.mix.ascent <- g.mix +
-  geom_point(data = tb.mix.asc,
-             col = "red",
-             size = 1) +
-  geom_segment(data = tb.mix.asc,
-               aes(x = x, y = y,
-                   xend = x.next, yend = y.next),
-               col = "red", size = .25,
-               arrow = arrow(length = unit(.2, "cm"), type = "closed"))
-
-anim.mix.ascent <- p.mix.ascent + transition_states(iter,
-                                            transition_length = 1,
-                                            state_length = 1)
-animate(anim.mix.ascent,
-        nframes = 100 + max(tb.mix.asc$iter),
-        renderer = gifski_renderer("2d_mix_grad_ascent_anim.gif"))
+# p.mix.ascent <- g.mix +
+#   geom_point(data = tb.mix.asc,
+#              col = "red",
+#              size = 1) +
+#   geom_segment(data = tb.mix.asc,
+#                aes(x = x, y = y,
+#                    xend = x.next, yend = y.next),
+#                col = "red", size = .25,
+#                arrow = arrow(length = unit(.2, "cm"), type = "closed"))
+# 
+# anim.mix.ascent <- p.mix.ascent + transition_states(iter,
+#                                                     transition_length = 1,
+#                                                     state_length = 1)
+# animate(anim.mix.ascent,
+#         nframes = 100 + max(tb.mix.asc$iter),
+#         renderer = gifski_renderer("2d_mix_grad_ascent_anim.gif"))
 ```
 
 ![](2d_mix_grad_ascent_anim.gif)
@@ -506,9 +482,94 @@ If we are wary of getting stuck at a spurious optima, how can we modify our appr
 Well, we saw above, that certain starting positions were successful, and others lead us astray. What if we simply used our gradient ascent algorithm multiple times, starting from randomly chosen starting points? Then we could check the results of each of our attempts, and pick the highest point we find. The gif below shows what that might look like.^[Only a few starting points shown, to keep the gif short.] If we try a number of randomly chosen points, we are highly likely to find one that leads to the highest peak.
 
 
+
 ```{r, include = FALSE}
-# gif of random restarts for 2d case?
+# # Restarts
+# grid.count <- 400
+# tb.grid.rs <- crossing(x = seq(-10, 10, length.out = grid.count),
+#                        y = seq(-10, 10, length.out = grid.count)) %>%
+#   mutate(z = NormalMixtureDensity_Vec(x, y))
+# g.rs <- tb.grid.rs %>% 
+#   ggplot(aes(x = x, y = y)) +
+#   geom_tile(aes(fill = z)) +
+#   geom_contour(aes(z = z), bins = 15, color = "black") +
+#   ylim(-7.5,7.5) + xlim(-7.5, 7.5) +
+#   xlab("East/West") + ylab("North/South") +  
+#   scale_fill_gradientn("Elevation", colours = terrain.colors(10)) +
+#   coord_fixed()
+# 
+# 
+# 
+# tot.steps <- 600
+# 
+# # Given the precise demands of the visualization, there's no real reason not
+# # to simply hard core the starting points. Otherwise we get stuck at useless places.
+# rs.inits <- as_tibble(t(matrix(c(-5,-5,
+#                                  2, 5,
+#                                  5, -4,
+#                                  6, -2,
+#                                  0, 7,
+#                                  3, 5,
+#                                  0, -2,
+#                                  1, 1,
+#                                  -4, 0,
+#                                  -2, 2), nrow = 2)))
+# names(rs.inits) <- c("x", "y")
+# g.rs + geom_point(data = rs.inits, 
+#                   aes(x = x, 
+#                       y = y),
+#                   col = "red")
+# 
+# x.asc.rs <- matrix(rep(NA, 2*tot.steps + 4), ncol=2)
+# grad.rs <- matrix(rep(NA, 2*tot.steps + 4), ncol=2)
+# eta <- 20
+# i <- 1
+# num.run <- 1
+# while(i <= tot.steps) {
+#   convergence = FALSE
+#   x.asc.rs[i,] <- unlist(rs.inits[num.run, ])
+#   while(! convergence & i <= tot.steps) {
+#     grad.rs[i,] <- GradMixtureNormal(x.asc.rs[i,])
+#     x.asc.rs[i+1,] <-  x.asc.rs[i,] + grad.rs[i,]*eta
+#     i <- i + 1
+#     if (i > 10) {
+#       convergence <- sd(x.asc.rs[(i-10):i, 1]) + 
+#         sd(x.asc.rs[(i-10):i, 2]) < .001
+#     }
+#   }
+#   num.run <- num.run + 1
+# }
+# 
+# 
+# tb.mix.restarts <- tibble(x = x.asc.rs[,1], 
+#                           y = x.asc.rs[,2],
+#                           grad.x = grad.rs[,1],
+#                           grad.y = grad.rs[,2],
+#                           iter = 1:(tot.steps+2)) %>% 
+#   mutate(x.next = x + grad.x*eta,
+#          y.next = y + grad.y*eta)
+# 
+# p.mix.restarts <- g.rs +
+#   geom_point(data = tb.mix.restarts,
+#              col = "red",
+#              size = 1) +
+#   geom_segment(data = tb.mix.restarts,
+#                aes(x = x, y = y,
+#                    xend = x.next, yend = y.next),
+#                col = "red", size = .25,
+#                arrow = arrow(length = unit(.2, "cm"), type = "closed"))
+# 
+# anim.mix.restarts <- p.mix.restarts + 
+#   transition_states(iter,
+#                     transition_length = 1,
+#                     state_length = 1)
+# animate(anim.mix.restarts,
+#         nframes = 100 + max(tb.mix.restarts$iter),
+#         renderer = gifski_renderer("2d_mix_grad_restarts_anim.gif"))
 ```
+![](2d_mix_grad_restarts_anim.gif)
+
+
 
 In a sense, the challenge becomes one of *initialization*. This is common in the optimization literature. Even if the optimization surface is nonconvex, we just need to find a starting point that's reasonably close to the optima (within its "basin of attraction"), and our naive gradient ascent algorithm can do the rest. Countless papers have been written on the topic.
 
@@ -628,36 +689,38 @@ grad.ascent.seq <- RunGradientAscent(x.init,
 
 
 ```{r, include = FALSE}
-# tb.grad.ascent <- tibble(x = grad.ascent.seq,
-#                          iter = seq_along(grad.ascent.seq)) %>%
-#   arrange(iter) %>%
-#   mutate(y = as.numeric(CauchyMixtureDensity(x, 
-#                                              location.params, 
-#                                              scale.params, 
-#                                              weights)),
-#          grad = as.numeric(CauchyMixtureDerivative(x, 
-#                                                    location.params, 
-#                                                    scale.params, 
-#                                                    weights)),
-#          x.next = x + eta.grad.ascent*grad,
-#          y.next = as.numeric(CauchyMixtureDensity(x.next, 
-#                                                   location.params, 
-#                                                   scale.params, 
-#                                                   weights)))
-# p.ascent <- ggplot(tb.dens.grid, aes(x = x, y = y)) + 
+tb.grad.ascent <- tibble(x = grad.ascent.seq,
+                         iter = seq_along(grad.ascent.seq)) %>%
+  arrange(iter) %>%
+  mutate(y = as.numeric(CauchyMixtureDensity(x,
+                                             location.params,
+                                             scale.params,
+                                             weights)),
+         grad = as.numeric(CauchyMixtureDerivative(x,
+                                                   location.params,
+                                                   scale.params,
+                                                   weights)),
+         x.next = x + eta.grad.ascent*grad,
+         y.next = as.numeric(CauchyMixtureDensity(x.next,
+                                                  location.params,
+                                                  scale.params,
+                                                  weights)))
+# p.ascent <- ggplot(tb.dens.grid, aes(x = x, y = y)) +
 #   geom_line() +
-#   geom_point(data = tb.grad.ascent, 
+#   geom_point(data = tb.grad.ascent,
 #              col = "red", size = 1) +
 #   geom_segment(data = tb.grad.ascent,
 #                aes(x = x, y = y, xend = x.next, yend = y.next),
 #                col = "red", size = .25,
-#                arrow = arrow(length = unit(.2, "cm"), type = "closed"))  
+#                arrow = arrow(length = unit(.2, "cm"), type = "closed")) + 
+#   xlab("East/West") + ylab("Elevation")
+# 
 # p.ascent
 # 
 # anim.ascent <- p.ascent + transition_states(iter,
 #                                             transition_length = 1,
 #                                             state_length = 1)
-# animate(anim.ascent, 
+# animate(anim.ascent,
 #         nframes = 10 + max(tb.grad.ascent$iter),
 #         renderer = gifski_renderer("test_grad_ascent_anim.gif"))
 ```
@@ -666,58 +729,60 @@ grad.ascent.seq <- RunGradientAscent(x.init,
 However, if we start from the same place, but add a bit of noise with every step, our path isn't quite so direct. We take a bit longer to reach the top of the low peak, but from there, the random noise gives us a chance to "escape". That is, with each move, we feel a pull back towards the low peak (as that is the direction of ascent). But if we get lucky, and find a sequence of random noise terms that "push" us far enough to the the left, we escape this valley and feel the pull of the highest peak. The addition of random noise allows us to escape eternal mediocrity, stuck at the top of the low peak.
 
 ```{r, include = FALSE}
-# eta.noisy.ascent <- 25
-# noisy.ascent.seq <- RunGradientAscent(x.init, 
-#                                       location.params,
-#                                       scale.params,
-#                                       weights,
-#                                       eta = eta.noisy.ascent, 
-#                                       type = "Noisy Ascent")
+eta.noisy.ascent <- 25
+noisy.ascent.seq <- RunGradientAscent(x.init,
+                                      location.params,
+                                      scale.params,
+                                      weights,
+                                      eta = eta.noisy.ascent,
+                                      type = "Noisy Ascent")
+
+tb.noisy.ascent <- tibble(x = noisy.ascent.seq,
+                          iter = seq_along(noisy.ascent.seq)) %>%
+  arrange(iter) %>%
+  mutate(y = as.numeric(CauchyMixtureDensity(x,
+                                             location.params,
+                                             scale.params,
+                                             weights)),
+         grad = CauchyMixtureDerivative(x,
+                                        location.params,
+                                        scale.params,
+                                        weights),
+         x.next = x + eta.grad.ascent*grad,
+         y.next = as.numeric(CauchyMixtureDensity(x.next,
+                                                  location.params,
+                                                  scale.params,
+                                                  weights)))
+# For now, only plot until it finds the max
+true.max <- max(tb.noisy.ascent$y)
+first.time.max <- tb.noisy.ascent %>%
+  filter(y > .99*true.max) %>%
+  arrange(iter) %>%
+  slice(1) %>%
+  pull(iter)
+tb.noisy.ascent <- tb.noisy.ascent %>%
+  slice(1:first.time.max)
+
+
+
 # 
-# tb.noisy.ascent <- tibble(x = noisy.ascent.seq,
-#                           iter = seq_along(noisy.ascent.seq)) %>%
-#   arrange(iter) %>%
-#   mutate(y = as.numeric(CauchyMixtureDensity(x, 
-#                                              location.params, 
-#                                              scale.params, 
-#                                              weights)),
-#          grad = CauchyMixtureDerivative(x, 
-#                                         location.params, 
-#                                         scale.params, 
-#                                         weights),
-#          x.next = x + eta.grad.ascent*grad,
-#          y.next = as.numeric(CauchyMixtureDensity(x.next, 
-#                                                   location.params, 
-#                                                   scale.params, 
-#                                                   weights)))
-# # For now, only plot until it finds the max
-# true.max <- max(tb.noisy.ascent$y)
-# first.time.max <- tb.noisy.ascent %>% 
-#   filter(y > .99*true.max) %>%
-#   arrange(iter) %>%
-#   slice(1) %>%
-#   pull(iter)
-# tb.noisy.ascent <- tb.noisy.ascent %>%
-#   slice(1:first.time.max)
-# 
-# 
-# 
-# 
-# p.noisy <- ggplot(tb.dens.grid, aes(x = x, y = y)) + 
+# p.noisy <- ggplot(tb.dens.grid, aes(x = x, y = y)) +
 #   geom_line() +
-#   geom_point(data = tb.noisy.ascent, 
+#   geom_point(data = tb.noisy.ascent,
 #              col = "red", size = 1) +
 #   geom_segment(data = tb.noisy.ascent,
 #                aes(x = x, y = y, xend = x.next, yend = y.next),
 #                # aes(x = x, y = y, xend = x.next, yend = y.next),
 #                col = "red", size = .25,
-#                arrow = arrow(length = unit(.2, "cm"), type = "closed")) 
+#                arrow = arrow(length = unit(.2, "cm"), type = "closed")) + 
+#     xlab("East/West") + ylab("Elevation")
+# 
 # p.noisy
 # 
 # anim.noisy <- p.noisy + transition_states(iter,
 #                                           transition_length = 1,
 #                                           state_length = 1)
-# animate(anim.noisy, 
+# animate(anim.noisy,
 #         nframes = 10 + max(tb.noisy.ascent$iter),
 #         renderer = gifski_renderer("test_noisy_ascent_anim.gif"))
 
@@ -732,28 +797,27 @@ Of course, this gif takes a *long* time to run---it requires a very lucky sequen
 
 Simply adding random noise to gradient ascent isn't a "real" algorithm that would be ever used in practice, but it helps illustrate the powerful premise of "stochastic optimization" (i.e. optimization techniques which leverage random chance). Many varieties of stochastic optimization see widespread use,^[[Simulated annealing]() and [parallel tempering]() are two particular favorites of mine.], but here, I'll focus on one particularly relevant example, Stochastic Gradient Descent (SGD).
 
-The premise of Stochastic Gradient Descent is a natural extension of the gradient ascent algorithm we studied above. First, we note again "gradient *ascent*" and "gradient *descent*" are equivalent---you simply take the negative of the gradient to switch between maximization and minimization. Rather, it's the "stochastic" that's new.^[What follows is a bit of a simplification of SGD, but I think it's true to the essence of the algorithm.] In gradient ascent, we needed to compute the slope of the local area (i.e. the gradient) with each step. Let's consider again our ElevationBot 2.0 which takes in latitude and longitude coordinates, and tells us the elevation and local slope of that point. However, we're not the only ones trying to find the highest peak, so we have to wait in a long line before each query. However, nearby is a rusted old ElevationBot 1.0 terminal. We don't have to wait in line to use it, and it tells us the altitude without any issue, but the problem is that it can only give you a rough estimate of the slope at that point (the 2.0 update took its rough approximation, and made it precise). Should we skip the line, and use the faster but less reliable estimates of the 1.0 model? 
+The premise of Stochastic Gradient Descent is a natural extension of the gradient ascent algorithm we studied above. First, we note again "gradient *ascent*" and "gradient *descent*" are equivalent---you simply take the negative of the gradient to switch between maximization and minimization. Rather, it's the "stochastic" that's new.^[What follows is a bit of a simplification of SGD, but I think it's true to the essence of the algorithm.] In gradient ascent, we needed to compute the slope of the local area (i.e. the gradient) with each step. Let's consider again our ElevationBot 2.0 which takes in latitude and longitude coordinates, and tells us the elevation and local slope of that point. However, we're not the only ones trying to play this addictive "find the highest peak" game, so we have to wait in a long line before each query. However, nearby we see a rusted old ElevationBot 1.5 terminal. It's an intermediate model, between version 1.0 (which just computes the altitude) and 2.0 (which also computes the direction of ascent), because it can only *estimate* the direction of ascent, and it's occasionally a bit off. However, there's no one in line to use it, so we can rattle off our queries much faster. Should we skip the line, and use the faster but less reliable estimates of the 1.5 model? 
 
-This somewhat contrived humorous story might make the setting sound overly contrived, but it's actually a very foundational tradeoff.^[Which might be more clear if just stated explicitly...] It is often much faster to compute an *approximate* slope rather than an *exact* one.^[In the case of SGD, the reason this happens is that it estimates the gradient by only using a *subset* of the whole dataset.] This is the premise of Stochastic Gradient Descent---the exact gradient is replaced by a stochastic gradient, which is much faster to compute but is only an approximation of the truth. 
+This silly story might make the setting sound overly contrived, but it's actually a very foundational tradeoff.^[*[Which might be more clear if just stated explicitly... not at all clear to me that this example is clarifying?]*] It is often much faster to compute an *approximate* slope rather than an *exact* one.^[In the case of SGD, the reason this happens is that it estimates the gradient by only using a *subset* of the whole dataset.] This is the premise of Stochastic Gradient Descent---the exact gradient is replaced by a stochastic gradient, which is much faster to compute but is only an approximation of the truth. 
 
-And this is no niche use case. Stochastic Gradient Descent has been the canonical industry standard technique for computing artificial neural nets over the past decade. When you hear about the rise of "deep learning" in the news, Stochastic Gradient Descent is the most reliable and versatile computational tool in the field. The challenge of neural networks is that their optimization space might consist of millions of dimensions (above, we visualized optimizing over a *single* dimension!). In fact, Microsoft recently boasted of a neural network with [17 billion(!)](https://www.microsoft.com/en-us/research/blog/zero-deepspeed-new-system-optimizations-enable-training-models-with-over-100-billion-parameters/) dimensions. The inevitable result of these optimization structures is that there are an enormous number of spurious local optima. 
+And this is no niche use case. Stochastic Gradient Descent has been the canonical industry standard technique for optimizing artificial neural nets for decades. When you hear about the rise of "deep learning" in the news, Stochastic Gradient Descent is the most reliable and versatile computational tool in the field. The challenge of neural networks is that their optimization space might consist of millions of dimensions (above, we visualized optimizing over a *single* dimension!). In fact, Microsoft recently boasted of a neural network with [17 billion (!)](https://www.microsoft.com/en-us/research/blog/zero-deepspeed-new-system-optimizations-enable-training-models-with-over-100-billion-parameters/) dimensions. The inevitable result of these optimization structures is that there are an enormous number of spurious local optima. 
 
-Which begs the natural question---if neural networks are loaded with spurious local optima, and following the gradient will often lead to those spurious points, why does SGD work so "unreasonably well"?^[In the words of [Geoffrey Hinton](https://twitter.com/samcharrington/status/917816482242990080)] There are a variety of answers, depending on who you ask, but the most common reason researchers point to (an explanation dating back  [decades](https://leon.bottou.org/publications/pdf/nimes-1991.pdf)), is that the inherent noise in the imprecise stochastic approximation allows it to escape spurious local optima.^[And "saddle points", which I am skirting past here, as they are a similar concern for this high level explanation.] This is not noise that we added explicitly, it's just approximation error. And yet, these random shocks turn out to be an advantage, rather than a hindrance. Even at the computational cutting edge of the field, random noise can be a powerful force for good. 
-
+Which begs the question---if neural networks are loaded with spurious local optima, and following the gradient will often lead to those spurious points, why does SGD work so "unreasonably well"?^[In the words of [Geoffrey Hinton](https://twitter.com/samcharrington/status/917816482242990080)] There are a variety of answers, depending on who you ask, but the most common reason researchers point to (an explanation dating back  [decades](https://leon.bottou.org/publications/pdf/nimes-1991.pdf)), is that the inherent noise in the imprecise stochastic approximation allows it to escape spurious local optima.^[And "saddle points", which I am skirting past here, as they are a similar concern for this high level explanation.] This is not noise that we added explicitly, it's just the approximation error that arises from not computing the exact gradient. And yet, these random shocks turn out to be an advantage, rather than a hindrance. Even at the computational cutting edge of the field, random noise can be a powerfully helpful force, pushing us away from spurious optima and further towards our goal. 
 
 # Wrapping Up
 
-The informal parallels between mathematical theory and our lived experience are illustrative, but not definitive. I think there is a kernel of a genuine lesson to be found here---we tend towards overly local optimization strategies in our daily lives, and external random shocks can push us to to a better solution. And yet, it's important not to take this too far. In the world of pure mathematical theory, we can carefully study the effects of any potential noise, and calibrate it to fit the situation. In our daily lives, we can't easily assess the impact of this noise, and it could just as easily provide a pointless disruption (indeed, recall the example of the one-dimensional noisy ascent gif, and the long circuitous route it took to reach the top). 
+The informal parallels between mathematical theory and our lived experience are illustrative, but not definitive. I think there is a kernel of a genuine lesson to be found here---we tend towards overly local optimization strategies in our daily lives, and external random shocks can push us to a better solution. And yet, it's important not to take this too far. In the world of pure mathematical theory, we can carefully study the effects of any potential noise, and calibrate it to fit the situation. In our daily lives, we can't easily assess the impact of this noise, and it could just as easily provide a pointless disruption (indeed, recall the example of the one-dimensional noisy ascent gif, and the long circuitous route it took to reach the top!). 
 
-The famed computer scientist Alan Perlis once said "Optimization hinders evolution". In our case, we have to balance the fundamental "explore vs exploit" trade-off. That is, we could spend our energy searching for better strategies ("explore"), or we could focus on deriving the benefit from the currently known optimal strategy ("exploit"). This trade-off appears in almost every application, and it's very hard to get right. My instincts are that our status quo bias and inherently "local" viewpoint means we'll generally err on the side of "too much exploration", but there's no universal rule. 
+Famed computer scientist Alan Perlis once said "Optimization hinders evolution". In our case, this means finding a balance between the fundamental "explore vs exploit" trade-off. That is, we could spend our energy searching for better strategies ("explore"), or we could focus on deriving the benefit from the currently known optimal strategy ("exploit"). This trade-off is omnipresent in the decisions we make, and it's very hard to get right. My instincts are that our [status quo bias](https://link.springer.com/article/10.1007/BF00055564) and inherently "local" perspective means we'll typically err on the side of "too much exploration", but there's no universal rule. 
 
-Perhaps the takeaway is simply one of perspective---rather than resisting every disruption outside of our control, we should welcome it as an opportunity to explore something new. There's no point getting mad at road closure on your commute, the world won't notice.^["Why should we feel anger at the world? As if the world would notice?" is often cited to Marcus Aurelius, although I can't personally find it anywhere.] 
+Perhaps the takeaway is simply one of perspective---rather than resisting every disruption outside of our control, we should welcome it as an opportunity to explore something new. After all, there's no point getting mad at a road closure on your commute, the world won't notice.^["Why should we feel anger at the world? As if the world would notice?" is often cited to Marcus Aurelius, although I can't personally find the source.] 
 
-Scrambled eggs are a wonderful way to start my morning. I doubt I could do much more to optimize the way I make them to my own unique tastes. But I'd be foolish to think that there weren't other breakfast options I might enjoy just as much, even if the first few times I make them they don't go as smoothly as my current ritual. It might just take a leap of faith.^[For full transparency, a few months ago I switched to fried eggs on top of frozen vegetables as my breakfast of choice, so maybe I took this lesson to heart.]
+Scrambled eggs are a wonderful way to start the day, and I doubt I could do much more to optimize the way I make them to my own unique tastes. But I'd be foolish to think that there weren't other breakfast options I might enjoy just as much, even if the first few times I make them they don't go as smoothly as my current ritual. All it takes is accepting the limits of your local perspective, and taking a leap of faith towards that hidden higher peak.^[For full transparency, a few months ago I switched to fried eggs on top of frozen vegetables as my breakfast of choice, so maybe I took this lesson to heart.]
 
 
 # Sources
-* ["Messy"](http://timharford.com/books/messy/), by Tim Harford. Broadly, this whole post was heavily inspired by Tim Harford's writings. I first heard him make the connection between the London Tube experiment and stochastic optimization when I was studying Langevin diffusions, and I have wanted to show some visualizations of the premise ever since. I think this post is sufficiently far from his writings to add something new (he uses the example to make a point about how external shocks pushing us out of equilibrium prompt greater creativity, whereas I'm trying to focus simply on the viewpoint on mathematical optimization). He's a wonderful popular economics communicator, and endlessly fun to read.
+* ["Messy"](http://timharford.com/books/messy/), by Tim Harford. Broadly, this whole post was heavily inspired by Tim Harford's writings on the London Tube experiment. I first read his description when I was studying Langevin diffusions, and I have wanted to show some visualizations of the premise ever since. I think this post is sufficiently far from his writings to add something new (he uses the example to make a point about how external shocks pushing us out of equilibrium prompt greater creativity, whereas I'm trying to focus simply on the viewpoint on mathematical optimization), but the original idea is certainly his.
 * ["The Benefits of Forced Experimentation: Striking
 Evidence from the London Underground Network" ](http://users.ox.ac.uk/~econ0360/FerdinandRauch/Tube.pdf), by Larcom, Rauch, & Willems (2017). Further, a short [write-up](http://cep.lse.ac.uk/pubs/download/cp455.pdf) of the London Tube Strike research. 
 * ["Bayesian Optimization for a Better Dessert"](https://static.googleusercontent.com/media/research.google.com/en//pubs/archive/46507.pdf), by Kochanski et al. (2017). 

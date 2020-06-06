@@ -77,800 +77,6 @@
     </item>
     
     <item>
-      <title>Bayesian Structural Time Series, and Movie Ticket Sales Sales</title>
-      <link>/post/bsts-boxofice/</link>
-      <pubDate>Thu, 28 May 2020 00:00:00 +0000</pubDate>
-      <guid>/post/bsts-boxofice/</guid>
-      <description>
-
-
-&lt;div id=&#34;introduction&#34; class=&#34;section level1&#34;&gt;
-&lt;h1&gt;Introduction&lt;/h1&gt;
-&lt;p&gt;In this post, I’ll describe my introductory exploration of Bayesian structural time series (BSTS) models, using Steve Scott’s &lt;code&gt;bsts&lt;/code&gt; &lt;a href=&#34;https://cran.r-project.org/web/packages/bsts/bsts.pdf&#34;&gt;package&lt;/a&gt;, applied to the total weekly box office gross (i.e. ticket sales) of American movie theaters.&lt;/p&gt;
-&lt;p&gt;This is intended to help me think through and explain the concepts and methods, and is not intended as a case study with a clear goal. In fact, I’ll analyze the ways in which these models do not necessarily fit the data setting, which should highlight potential pitfalls for projects where a powerfully predictive end result is key. My aim is simply to talk through the concepts, start to flesh out my own understanding of a topic I know almost nothing about.&lt;a href=&#34;#fn1&#34; class=&#34;footnote-ref&#34; id=&#34;fnref1&#34;&gt;&lt;sup&gt;1&lt;/sup&gt;&lt;/a&gt; Thus, this is geared at those who are already comfortable with statistics and R. The explanations are for my own benefit, but others might find the explanation of the BSTS models helpful (as well as my assorted musings on theg oals of interest).&lt;/p&gt;
-&lt;p&gt;The outcome of this project is not a tidy and powerfully predictive model for weekly box office gross, the point is the process where we think through the limits of our inference. In fact, I purposefully do not set out a specific goal (be it long term forecasting, or interpreting the industry trends), because I want to consider how these flexible models can provide insight for many different purposes, and how that flexibility can also present subtle difficulties.&lt;/p&gt;
-&lt;p&gt;In particular, we will show how a model with a reasonable short term forecast can provide a disastrously useless long term forecast, and that these are two very distinct challenges. This is just the tip of the iceberg for a much broader idea, but the distinction is not discussed enough. We will see that time series models must be built with their ultimate goal in mind, and different models may serve different purposes.&lt;/p&gt;
-&lt;!-- As we&#39;ll see, the class of models are likely not a particularly apt fit to the domain in question. This doesn&#39;t mean that there&#39;s no inferential value in the final result, but it does mean we have to be very conservative about what inferences we draw. BSTS models are exactly the sort of flexible structure that can provide alluringly useful accurate fits in certain contexts, only for the model to totally fall apart when stretched too far. This result is mostly due to my choice of data set (which I picked without careful consideration for its final use), but I think it&#39;s an illustrative example, because it can feel very natural to apply these models in ways which may not be theoretically sound (and they still might provide some insight in those cases, if used with appropriate caution). Above all, this is simply an opportunity for me to dip my toes into an unfamiliar topic, and I&#39;m using this post as an excuse to articulate my own understanding of the topic, and make sure I&#39;m comfortable with the basics. --&gt;
-&lt;/div&gt;
-&lt;div id=&#34;the-data&#34; class=&#34;section level1&#34;&gt;
-&lt;h1&gt;The Data&lt;/h1&gt;
-&lt;p&gt;The response variable is the weekly total of American theater movie ticket sales, in dollars, as tallied by &lt;a href=&#34;%22https://www.boxofficemojo.com/weekly/%22&#34;&gt;Box Office Mojo&lt;/a&gt;. We consider all weeks dating from 2019 back to 1993.&lt;a href=&#34;#fn2&#34; class=&#34;footnote-ref&#34; id=&#34;fnref2&#34;&gt;&lt;sup&gt;2&lt;/sup&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;Box Office Mojo also lists a few added goodies, like “Releases”,^{The total number of distinct movies which grossed money that week.}, the name of the “Top Release”, and whether or not it is a “Long Weekend”. For this initial exploration, we ignore these covariates, and stick to the date and the weekly gross.&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;weekly.tb &amp;lt;- read_csv(&amp;quot;weekly_gross.csv&amp;quot;)
-select &amp;lt;- dplyr::select
-weekly.tb %&amp;gt;% names()&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## [1] &amp;quot;year&amp;quot;         &amp;quot;week&amp;quot;         &amp;quot;gross&amp;quot;        &amp;quot;top_release&amp;quot;  &amp;quot;releases&amp;quot;    
-## [6] &amp;quot;long_weekend&amp;quot; &amp;quot;dates&amp;quot;        &amp;quot;start_date&amp;quot;&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;weekly.tb &amp;lt;- weekly.tb %&amp;gt;%
-  as_tibble() %&amp;gt;%
-  filter(year &amp;gt;= 1993) 
-weekly.tb %&amp;gt;% head(3)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## # A tibble: 3 x 8
-##    year  week     gross top_release    releases long_weekend dates    start_date
-##   &amp;lt;dbl&amp;gt; &amp;lt;dbl&amp;gt;     &amp;lt;dbl&amp;gt; &amp;lt;chr&amp;gt;             &amp;lt;dbl&amp;gt; &amp;lt;lgl&amp;gt;        &amp;lt;chr&amp;gt;    &amp;lt;date&amp;gt;    
-## 1  1993     1 104886500 Aladdin              20 FALSE        Jan 1-7  1993-01-01
-## 2  1993     2  78995731 A Few Good Men       23 FALSE        Jan 8-14 1993-01-08
-## 3  1993     3  97233042 Aladdin              26 FALSE        Jan 15-… 1993-01-15&lt;/code&gt;&lt;/pre&gt;
-&lt;div id=&#34;cleaning-the-data&#34; class=&#34;section level2&#34;&gt;
-&lt;h2&gt;Cleaning the Data&lt;/h2&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;weekly.tb &amp;lt;- weekly.tb %&amp;gt;%
-  dplyr::select(start_date, gross, releases, everything())
-weekly.tb %&amp;gt;%
-  ggplot(aes(x = start_date, y = gross)) + 
-  geom_line() + 
-  xlab(&amp;quot;Year&amp;quot;) + 
-  ylab(&amp;quot;Gross ($)&amp;quot;) + 
-  ggtitle(&amp;quot;Weekly (American) Box Office Gross&amp;quot;) &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2020-05-28-bsts-boxofice.en/index_files/figure-html/unnamed-chunk-3-1.png&#34; width=&#34;672&#34; /&gt;
-Looking at the time series, we first note that there are enormous week-to-week spikes. As we will discuss in greater detail, this reflects the release of new blockbusters, and it reflects unobserved data (of course, we have some useful approximations, such as the fact that a major blockbuster is often released around Christmas). Intuitively, our lack of access shows that there is probably a great deal of irreducible uncertainty for us in this setting.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div id=&#34;inflation-adjustment&#34; class=&#34;section level2&#34;&gt;
-&lt;h2&gt;Inflation Adjustment&lt;/h2&gt;
-&lt;p&gt;Next, we note that there’s an obvious upward trend in the time series, but that doesn’t tell us much, due to the steady effects of inflation. Of course, we could simply ignore this, and rely on the model to track the effects of inflation. However, this tends to cause problems, because it conflates the trends we might care about, with those that are relatively well understood. Broadly, the interesting temporal trends will be easier to detect if we first control for the &lt;em&gt;uninteresting&lt;/em&gt; trends, like inflation. We cite the &lt;code&gt;blscrapeR&lt;/code&gt; package, and our response variable is instead the weekly gross in terms of adjusted “2019 Dollars”.&lt;/p&gt;
-&lt;!-- but any time series in nominal dollars is bound  but that will be true for almost there&#39;s an obvious upward trend in our time series, just about everything has gotten more expensive in the past 30 years, due to inflation. Our first step is to work with the inflation adjusted dollar weekly gross. If this cleaning step is not taken, and a time series is fit blind to the data, you can waste your time chasing after some temporal trend that simply reflects this natural increase in prices. We cite the priceR package, which can download the relevant CPI data and do the work for us.  --&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(blscrapeR)
-inf_adj &amp;lt;- inflation_adjust(2019)
-weekly.tb &amp;lt;- weekly.tb %&amp;gt;% left_join(inf_adj %&amp;gt;%
-                                       select(year, 
-                                              adj_value) %&amp;gt;%
-                                       mutate(year = as.numeric(year)),
-                                     by = &amp;quot;year&amp;quot;) %&amp;gt;%
-  mutate(gross_ia = gross/adj_value) %&amp;gt;%
-  select(-adj_value)
-
-weekly.tb %&amp;gt;% 
-  group_by(year) %&amp;gt;%
-  summarize(`Nominal` = mean(gross),
-            `Inflation Adjusted` = mean(gross_ia)) %&amp;gt;%
-  ungroup() %&amp;gt;%
-  pivot_longer(-year, names_to = &amp;quot;Type&amp;quot;, values_to = &amp;quot;Mean Yearly Gross ($)&amp;quot;) %&amp;gt;%
-  ggplot(aes(x = year)) +
-  geom_line(aes(y = `Mean Yearly Gross ($)`, 
-                col = Type)) + 
-  xlab(&amp;quot;Year&amp;quot;) + ylab(&amp;quot;Yearly Mean Gross&amp;quot;) +
-  ggtitle(&amp;quot;Yearly Mean Gross: Nominal vs Inflation Adjusted.&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2020-05-28-bsts-boxofice.en/index_files/figure-html/unnamed-chunk-4-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
-&lt;!-- ```{r} --&gt;
-&lt;!-- # library(priceR) --&gt;
-&lt;!-- #  --&gt;
-&lt;!-- # weekly.tb &lt;- weekly.tb %&gt;% --&gt;
-&lt;!-- #   mutate(gross_ia = adjust_for_inflation(gross,  --&gt;
-&lt;!-- #                                          year,  --&gt;
-&lt;!-- #                                          country = &#34;US&#34;,  --&gt;
-&lt;!-- #                                          to_date = 2019)) --&gt;
-&lt;!-- ``` --&gt;
-&lt;p&gt;Thus, the underlying trend is still real, and the surge in box office gross from the 90s through the early 2000s appears quite meaningful. But the natural inclusion of inflation does help reduce some of the impact of the trend, which may influence our modeling.&lt;a href=&#34;#fn3&#34; class=&#34;footnote-ref&#34; id=&#34;fnref3&#34;&gt;&lt;sup&gt;3&lt;/sup&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;/div&gt;
-&lt;div id=&#34;the-scale-of-the-response-variable&#34; class=&#34;section level2&#34;&gt;
-&lt;h2&gt;The Scale of the Response Variable&lt;/h2&gt;
-&lt;p&gt;We will fit our model onto the log of the box office gross (using base 10, rather than the typical &lt;span class=&#34;math inline&#34;&gt;\(e\)&lt;/span&gt;, as this has a more intuitive numerical conversion for these large decimals). Intuitively, box office cannot be negative, so if we are fitting models which assume some sort of normality, this conversion is natural. Of course, we will see that while such a conversion fixes the most glaring violation of the assumptions, that does not automatically mean that the model fits! In fact, in this exploration we will see just how difficult it is to find a tidy model for box office gross.&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;weekly.tb &amp;lt;- weekly.tb %&amp;gt;% 
-  mutate(log_gross_ia = log10(gross_ia),
-         log_gross = log10(gross))&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;However, we will plan to &lt;em&gt;evaluate&lt;/em&gt; the model on the regular scale, as we could imagine that “dollars” tend to mean more to any interested party than “log dollars” (a rather made-up measurement). I’m not sure if there is a rigorous choice here, surely it depends on the setting. But we are choosing the log transformation not because it captures the trend we care about, but because it seems to more plausibly fit the &lt;em&gt;model&lt;/em&gt; we plan to use. In this case, the model should be evaluated based on the target of interest.&lt;a href=&#34;#fn4&#34; class=&#34;footnote-ref&#34; id=&#34;fnref4&#34;&gt;&lt;sup&gt;4&lt;/sup&gt;&lt;/a&gt; Broadly, this provides good practice with how to convert from a model fit on a certain scale, to inferences drawn on another scale.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div id=&#34;bayesian-structural-time-series-model&#34; class=&#34;section level1&#34;&gt;
-&lt;h1&gt;Bayesian Structural Time Series Model&lt;/h1&gt;
-&lt;p&gt;For this introduction, we will cite a Bayesian structural time series (BSTS) model. We can take this piece by piece. A “time series” is a sequence of data points which are indexed by time. It’s a particular category of statistics, because it fundamentally violates the core “independent and identically distributed” assumption that underpins much of statistical inference. While that renders many classical statistical procedures infeasible, the temporal relationship amongst the data is the whole point! We want to understand this evolution, which means that we must rely on a model which leverages this index on time. For notation, we write &lt;span class=&#34;math inline&#34;&gt;\(y_1, \ldots, y_T\)&lt;/span&gt; for the response variables of interest (in this case, the log gross).&lt;/p&gt;
-&lt;p&gt;“Bayesian” follows its standard applied definition, as our objective is not a hypothesis test of point estimate with some desirable properties, but rather a posterior distribution on the parameters of interest (the parameters which describe our time series model). These parameters are determined by the “Structural” part of the model, whcih requires a careful definition.&lt;/p&gt;
-&lt;div id=&#34;the-structural-model&#34; class=&#34;section level2&#34;&gt;
-&lt;h2&gt;The “Structural” Model&lt;/h2&gt;
-&lt;p&gt;A “structural time series” is a model of response data indexed by time, whose temporal relationship is defined by the interplay of two equations. First, we have the &lt;em&gt;transition&lt;/em&gt; equation, which models how a latent (i.e. unobserved state) &lt;span class=&#34;math inline&#34;&gt;\(\alpha_t\)&lt;/span&gt; evolves over time.
-&lt;span class=&#34;math display&#34;&gt;\[\begin{align}
-\alpha_{t+1} &amp;amp;= T_t \alpha_t + R_t \eta_t, ~~~~~~ \eta_t \sim N(0, Q_t)\label{eqn:bsts_transition}
-\end{align}\]&lt;/span&gt;
-Before we explain any of these pieces, it’s best to introduce the second part, the  equation, which models how the observed response &lt;span class=&#34;math inline&#34;&gt;\(y_t\)&lt;/span&gt; is generated using the state variable, &lt;span class=&#34;math inline&#34;&gt;\(\alpha_t\)&lt;/span&gt;.
-&lt;span class=&#34;math display&#34;&gt;\[\begin{align}
-y_{t} &amp;amp;= Z_t^T \alpha_t + \epsilon_t, ~~~~~~ \epsilon_t \sim N(0, H_t).\label{eqn:bsts_observation}
-\end{align}\]&lt;/span&gt;
-Thus, while a classic time series might model the relationship between &lt;span class=&#34;math inline&#34;&gt;\(y_t\)&lt;/span&gt; and &lt;span class=&#34;math inline&#34;&gt;\(y_{t+1}\)&lt;/span&gt; directly, a &lt;em&gt;structural&lt;/em&gt; time series model instead links them through some latent, unobserved state, &lt;span class=&#34;math inline&#34;&gt;\(\alpha_t\)&lt;/span&gt;, which evolves underneath unseen, and influences the observed &lt;span class=&#34;math inline&#34;&gt;\(y_t\)&lt;/span&gt; values.&lt;/p&gt;
-&lt;p&gt;This is a sensible setup because often time series are understood to be random observations of some underlying “state” in our system, which we cannot observe directly. If you conduct monthly opinion polling with a relatively small sample, this can readily be understood as a structural time series, because the target of interest is the underlying latent state (the public’s opinion on a particular issue), while the observations are noisy datum which are heavily influenced by that latent state. Thus, it makes sense for us to model our understanding of the latent state itself, rather than the latest noisy observation.&lt;a href=&#34;#fn5&#34; class=&#34;footnote-ref&#34; id=&#34;fnref5&#34;&gt;&lt;sup&gt;5&lt;/sup&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;With this understanding, the rest of the terms fall into place. &lt;span class=&#34;math inline&#34;&gt;\(Z_t\)&lt;/span&gt; is the &lt;em&gt;observation&lt;/em&gt; vector, whose coefficients define the relationship between the latent state and the response (subject to the noise, &lt;span class=&#34;math inline&#34;&gt;\(\epsilon_t\)&lt;/span&gt;). &lt;span class=&#34;math inline&#34;&gt;\(T_t\)&lt;/span&gt; is the &lt;em&gt;state transition matrix&lt;/em&gt;, which determines the evolution of the latent state, along with the noise &lt;span class=&#34;math inline&#34;&gt;\(\eta_t\)&lt;/span&gt; (with state-diffusion matrix &lt;span class=&#34;math inline&#34;&gt;\(Q_t\)&lt;/span&gt;).&lt;/p&gt;
-&lt;p&gt;This is the most general statement, and it covers a vast array of potential models. In particular, the allure of this structure is that these models are naturally &lt;em&gt;additive&lt;/em&gt;, which makes for easy modular construction. In this brief introduction, I won’t go into much detail about its potential.&lt;/p&gt;
-&lt;p&gt;Before we proceed to fitting the data itself, a brief note about the normal errors, &lt;span class=&#34;math inline&#34;&gt;\(\eta_t\)&lt;/span&gt; and &lt;span class=&#34;math inline&#34;&gt;\(\epsilon_t\)&lt;/span&gt;. The particular computational appeal of this model is that the additive composition of these normal errors allows the posterior distributions to be normal themselves. This structure allows for the use of the Kalman filter introduction quite clear.] to compute the estimate the distributions of &lt;span class=&#34;math inline&#34;&gt;\(\alpha_t\)&lt;/span&gt; and &lt;span class=&#34;math inline&#34;&gt;\(y_t\)&lt;/span&gt;.&lt;/p&gt;
-&lt;p&gt;The construction of the Kalman filter (and smoother) is a bit tricky to explain, so it is ommitted here,&lt;a href=&#34;#fn6&#34; class=&#34;footnote-ref&#34; id=&#34;fnref6&#34;&gt;&lt;sup&gt;6&lt;/sup&gt;&lt;/a&gt; but the important punchline is that this model requires normally distributed errors. There is no particular reason to assume that the errors of weekly box office gross should be normally distributed! We will investigate this further, but in the use of these models, often far too little attention is paid to the model specification (as we will see that we obtain some sensible results, even with a poorly fitting model).&lt;/p&gt;
-&lt;/div&gt;
-&lt;div id=&#34;computation&#34; class=&#34;section level2&#34;&gt;
-&lt;h2&gt;Computation&lt;/h2&gt;
-&lt;p&gt;The &lt;code&gt;bsts&lt;/code&gt; &lt;a href=&#34;https://cran.r-project.org/web/packages/bsts/bsts.pdf&#34;&gt;package&lt;/a&gt; is developed by Steve Scott, and provides a host of tools to make ABDDF. His specific approach, combining the Kalman filter with a spike-and-slab prior, was introduced in a &lt;a href=&#34;https://www.nber.org/chapters/c12995&#34;&gt;neat paper&lt;/a&gt; showing how search trends could be used to “Nowcast”.&lt;a href=&#34;#fn7&#34; class=&#34;footnote-ref&#34; id=&#34;fnref7&#34;&gt;&lt;sup&gt;7&lt;/sup&gt;&lt;/a&gt; The bsts package allows for the quick construction of common BSTS models with minimal effort, and provides a host of tools for their analysis. It’s worth noting that Tensorflow has its own package for Bayesian structural time series modeling (&lt;a href=&#34;https://www.tensorflow.org/probability/api_docs/python/tfp/sts&#34;&gt;tfp.sts&lt;/a&gt;), which provides an alternative, for those comfortable with Tensorflow, and the additional features it offers.&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div id=&#34;our-theoretical-model&#34; class=&#34;section level1&#34;&gt;
-&lt;h1&gt;Our Theoretical Model&lt;/h1&gt;
-&lt;p&gt;From here, we could simply fit the time series itself, and look at the results. First, we consider the insights of Tassone &amp;amp; Rohani on the &lt;a href=&#34;http://www.unofficialgoogledatascience.com/2017/04/our-quest-for-robust-time-series.html&#34;&gt;Google Unofficial Data Science Blog&lt;/a&gt;. Their excellent post covers a range of topics regarding the application of time series, with a particular focus on robust systems that can be applied robustly at scale (that is, applied in a wide range of unknown situations, and provide reaonable outcomes). That is, at scale, you often do not have the luxury of considering the underlying mechanism of the time series. They cite the power of aggregating a wide range of models, whose fit onto individual components provides the desired robustness to unknown inputs.&lt;/p&gt;
-&lt;p&gt;However, their goal is purely predictive, rather than inferential (i.e. “What happens?” not “Why it happens?”).&lt;a href=&#34;#fn8&#34; class=&#34;footnote-ref&#34; id=&#34;fnref8&#34;&gt;&lt;sup&gt;8&lt;/sup&gt;&lt;/a&gt; In our case, we have the luxury of thinking about the data setting, and considering what types of models make any sense. Thus, we begin with a discussion of the limits of our inference, before considering several of the tools available, and planning which models we can fit. As we will see, our goals are not necessarily a good fit for a BSTS model! The goal of this post is simply to introduce myself to these tools, and part of that is recognizing these limits.&lt;/p&gt;
-&lt;div id=&#34;the-limits-of-prediction-and-inference&#34; class=&#34;section level2&#34;&gt;
-&lt;h2&gt;The Limits of Prediction and Inference&lt;/h2&gt;
-&lt;p&gt;It’s important to start with the &lt;em&gt;limits&lt;/em&gt; of the domain. If the goal of our time series was to model the Cosmic Microwave Background noise over time, we can stop right away, because it consists of entirely irreducible uncertainty, and our model has nothing to offer. More commonly, we might not have a &lt;em&gt;firm&lt;/em&gt; theory of the data, but we have a rough idea of connections which might exist, and we wish to fit some models and see which have predictive and inferential merit.&lt;/p&gt;
-&lt;p&gt;There are clear limits to our capabilities given this dataset. Intuitively, the most important factor in determining the weekly box office gross has nothing to do with the general “state of the movie business”, and it has everything to do with &lt;em&gt;what movie was just released&lt;/em&gt;. This presents a significant impediment to our modeling. We have an intuitive grasp of the theory, but it’s not something that can easily be modeled! Of course, you &lt;em&gt;can&lt;/em&gt; model the ticket sales of the biggest new release, but that’s a separate challenge, and has little to do with this time series.&lt;/p&gt;
-&lt;!-- In an ideal world, every modeling challenge would aim to perfectly capture the theory of the setting. In practice, we often work in situations like these. This post aims to analyze the *limits* of such an appraoch. How &#34;far&#34; can a BSTS model get us, even when we know that it is not a perfect fit for the setting? Reading about people practicing these models online, it&#39;s common to find settings with such a theoretical mismatch. --&gt;
-&lt;p&gt;Now, assuming that we don’t have prescience about the release of “Avengers: Endgame”, what are some reasonable theoretical assumptions we can make? Well, first, we might expect the continuity of which movies are in theaters to provide us with a natural form of autocorrelation. The rate of decline in a movie’s second week at the same theater is a &lt;a href=&#34;https://en.wikipedia.org/wiki/Second_weekend_in_box_office_performance&#34;&gt;widely studied&lt;/a&gt; phenomenom, and it is consistently between 40 and 60 percent. Now, there are dozens of movies contributing to the total weekly gross, so the relationship won’t be nearly so tidy, but this still provides a clear form of autocorrelation.&lt;/p&gt;
-&lt;p&gt;More broadly, we might intuitively expect there to be “trends” in the movie industry. The end of the 70s saw the rise of the blockbuster, the grosses of the biggest hits has steadily risen,&lt;a href=&#34;#fn9&#34; class=&#34;footnote-ref&#34; id=&#34;fnref9&#34;&gt;&lt;sup&gt;9&lt;/sup&gt;&lt;/a&gt;, and the relative popularity of different genres is always in flux. We might attempt to capture this with some sort of local slope for the latent state.&lt;/p&gt;
-&lt;p&gt;Further, we might expect there to be seasonal &lt;em&gt;weekly&lt;/em&gt; effects. Box office grosses are commonly compared to the same weeks in previous years, because of the assumption of consistent patterns. It is understood that over Christmas, many people go to the movies, whereas the theaters are comparatively dry throughout February.&lt;/p&gt;
-&lt;p&gt;Finally, we could find a more nuanced understanding of the autocorrelation. By its nature, a BSTS model introduces autocorrelation, because response data which are close in time are linked by the underlying latent state. Given that we expect there to be some degree of continuity movie theaters from week to week (as movies phase in and out slowly, in addition to the aforementioned trends), this is fitting, but the point is that it is possible to be much more precise with how the autocorrelation is modeled (for instance, perhaps a sharp increase in ticket sales in one week implies a sharp drop the next, due to a single huge movie release). The point of this post is for my own education, not to actually produce the most accurate model, so I proceed with a more straightforward BSTS model here, and I will critique it if it appears to be a poor fit.&lt;a href=&#34;#fn10&#34; class=&#34;footnote-ref&#34; id=&#34;fnref10&#34;&gt;&lt;sup&gt;10&lt;/sup&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div id=&#34;initial-models&#34; class=&#34;section level1&#34;&gt;
-&lt;h1&gt;Initial Models&lt;/h1&gt;
-&lt;p&gt;We begin by fitting a few starter models, which we can use to demonstrate the tools to analyze these models. While we will follow our insight above, we will see that without more care, there is little reason to think that these models are a precise fit.&lt;/p&gt;
-&lt;p&gt;We can start with a local linear trend, which provides a common and flexible state space model (this is a useful starting point because of its generality, but that does not guarantee that it reflects the situation). In short, a local linear trend assumes that both the mean, the trend (i.e. the slope) of the latent state evolution are drawn from a random walk. That is, if &lt;span class=&#34;math inline&#34;&gt;\(\mu\)&lt;/span&gt; is the mean of the latent state.&lt;a href=&#34;#fn11&#34; class=&#34;footnote-ref&#34; id=&#34;fnref11&#34;&gt;&lt;sup&gt;11&lt;/sup&gt;&lt;/a&gt;
-&lt;span class=&#34;math display&#34;&gt;\[\begin{align*}
-\mu_{t+1} = \mu_t + \delta_t + \epsilon_{\mu, t},
-\end{align*}\]&lt;/span&gt;
-where &lt;span class=&#34;math inline&#34;&gt;\(\epsilon_{\mu,t} \sim N(0, \sigma_\mu^2)\)&lt;/span&gt; is our random walk. Then, the evolution of the slope is similarly given by
-&lt;span class=&#34;math display&#34;&gt;\[\begin{align*}
-\delta_{t+1} = \delta_t + \epsilon_{\delta, t},
-\end{align*}\]&lt;/span&gt;
-where &lt;span class=&#34;math inline&#34;&gt;\(\epsilon_{\delta,t} \sim N(0, \sigma_\mu^2)\)&lt;/span&gt; is another random walk. How these terms relate to our overall transition and observation equations will be clear once they are combined.&lt;/p&gt;
-&lt;p&gt;Next, we consider the “seasonal” model, that is, any fixed time cycle with &lt;span class=&#34;math inline&#34;&gt;\(S\)&lt;/span&gt; possible states in the cycle). For these &lt;span class=&#34;math inline&#34;&gt;\(S\)&lt;/span&gt; seasons, we create an &lt;span class=&#34;math inline&#34;&gt;\(S-1\)&lt;/span&gt; dimension state vector &lt;span class=&#34;math inline&#34;&gt;\(\gamma_t\)&lt;/span&gt; (as we constrain the coefficients to sum to &lt;span class=&#34;math inline&#34;&gt;\(1\)&lt;/span&gt;) and in essence our model performs regression using these coefficients and dummy variables corresponding to the current season for the given time &lt;span class=&#34;math inline&#34;&gt;\(t\)&lt;/span&gt;. Then, the first element of the season state vector &lt;span class=&#34;math inline&#34;&gt;\(\gamma_t\)&lt;/span&gt; evolves as
-&lt;span class=&#34;math display&#34;&gt;\[\begin{align*}
-\gamma_{t+1, 1} = -1*\sum_{s=2}^S \gamma_{t, s} + \epsilon_(\gamma),
-\end{align*}\]&lt;/span&gt;
-where &lt;span class=&#34;math inline&#34;&gt;\(\epsilon_(\gamma) \sim N(0, \sigma_\gamma^2)\)&lt;/span&gt;.&lt;/p&gt;
-&lt;!-- &#34;If predictor variables are present, the regression coefficients are fixed (as opposed to time varying, --&gt;
-&lt;!-- though time varying coefficients might be added as state component). The predictors and response --&gt;
-&lt;!-- in the formula are contemporaneous, so if you want lags and differences you need to put them in --&gt;
-&lt;!-- the predictor matrix yourself.&#34; -bsts Docs --&gt;
-&lt;p&gt;With these two commponents, we can fit our twin initial models. Our “season” model consists of just the seasonal component, with &lt;span class=&#34;math inline&#34;&gt;\(S=52\)&lt;/span&gt; allowing a regression on every single unique week of the year, and the “LLT” model adding to that a local linear trend. When just using the seasonal model, we need to add to it a static intercept term, so that the mean isn’t wildly off. While the purpose of this is more educational than anything else, it’s useful to be clear on what this could show. Comparing these models essentially takes for granted the folk wisdom that the precise week of the year influences the “state” of ticket sales. Then, comparing these models can help understand if there is some basis for tracing local trends in the movie business, or if that is just overfitting to noise.&lt;a href=&#34;#fn12&#34; class=&#34;footnote-ref&#34; id=&#34;fnref12&#34;&gt;&lt;sup&gt;12&lt;/sup&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;The &lt;code&gt;bsts&lt;/code&gt; package makes fitting these models extremely easy. The “state specification” is a list of state components. We construct a seasonal state space, add a static intercept, and fit the model. This post is meant as a reminder of the underlying theory, so it won’t go into the technical details of what the model produces (which are covered in the documentation), but broadly the model object which results from bsts() contains the relevant parameters and samples from the posterior distribution which we want (with the one technical caveat that it returns all iterations of its posterior sampler, so if you want to access those samples yourself, you need to remove the burn-in segment manually).&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;ss.season &amp;lt;- AddSeasonal(list(), 
-                         weekly.tb$log_gross_ia, 
-                         nseasons = 52)
-ss.season.intercept &amp;lt;- AddStaticIntercept(ss.season,
-                                          weekly.tb$log_gross_ia)
-model.season &amp;lt;- bsts(weekly.tb$log_gross_ia, 
-                     state.specification = ss.season.intercept,
-                     niter = 500, 
-                     ping = 0, 
-                     seed = 21)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;As the models are modular, to create our local linear trend state specification, we simply add the local linear trend to our already specified seasonal component.&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;ss.llt &amp;lt;- AddLocalLinearTrend(ss.season,
-                              weekly.tb$log_gross_ia)
-model.llt &amp;lt;- bsts(weekly.tb$log_gross_ia, 
-                  state.specification = ss.llt,
-                  niter = 500, 
-                  ping = 0, 
-                  seed = 21)&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;div id=&#34;comparing-the-models&#34; class=&#34;section level1&#34;&gt;
-&lt;h1&gt;Comparing the Models&lt;/h1&gt;
-&lt;p&gt;It should first be said that models cannot be analyzed in isolation. In practice, we should begin by specifying our goals, and the costs associated with poor results. Here, we sketch out some relevant tools to analyze these forecasts, recognizing that their actual application is dependent on the specific context.&lt;/p&gt;
-&lt;div id=&#34;the-bsts-package-tools&#34; class=&#34;section level2&#34;&gt;
-&lt;h2&gt;The &lt;code&gt;bsts&lt;/code&gt; Package Tools&lt;/h2&gt;
-&lt;p&gt;The &lt;code&gt;bsts&lt;/code&gt; package comes preloaded with useful functions for analysis of the results. We start with &lt;code&gt;CompareBstsModels()&lt;/code&gt;, which charts the cumulative absolute error of our one-step predictions.&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;CompareBstsModels(list(Seasonal = model.season, 
-                       LLT = model.llt))&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2020-05-28-bsts-boxofice.en/index_files/figure-html/unnamed-chunk-8-1.png&#34; width=&#34;672&#34; /&gt;
-With a single line of code, we can see how the additional flexibility of the local linear trend does indeed make our predictions more accurate.&lt;/p&gt;
-&lt;p&gt;However, if you’re unfamiliar with BSTS models, it’s not immediately clear what exactly this is measuring, and it’s important to be very precise. “Cumulative absolute error” is clear enough, but what errors is it referring to? These are the “one-step-ahead” prediction errors, where the data points are drawn from the posterior computed by the Kalman filter. Unfortunately, we can’t be too rigorous about this description without going into the theoretical details of the filter, but the gist is that the Kalman filter computes the posterior distribution for the next response data point, &lt;span class=&#34;math inline&#34;&gt;\(p(y_t | y_{1:t-1})\)&lt;/span&gt;, recursively through the posterior on the latent state posterior, &lt;span class=&#34;math inline&#34;&gt;\(p(\alpha_t | y_{1:t-1})\)&lt;/span&gt;.&lt;a href=&#34;#fn13&#34; class=&#34;footnote-ref&#34; id=&#34;fnref13&#34;&gt;&lt;sup&gt;13&lt;/sup&gt;&lt;/a&gt; Our model object contains posterior draws (in our case, &lt;span class=&#34;math inline&#34;&gt;\(500\)&lt;/span&gt; of them) for each posterior distribution &lt;span class=&#34;math inline&#34;&gt;\(p(y_t | y_{1:t-1})\)&lt;/span&gt;. The “errors” above are the difference between these posterior samples, and the actual observed data point.&lt;/p&gt;
-&lt;p&gt;This poses a problem for applying this function directly to our setting. The mean absolute prediction errors are computed on the response data, which are logarithms, whereas we are most likely interested in errors on the regular scale. The fix is simply to grab the relevant parts of the &lt;code&gt;CompareBstsModels()&lt;/code&gt; &lt;a href=&#34;https://rdrr.io/cran/bsts/src/R/compare.bsts.models.R&#34;&gt;source code&lt;/a&gt;, and do a bit of surgery until it suits our purpose. We take the one-step errors directly from the model object, and remove the burn-in. Then, we convert from posterior errors in the log scale, to posterior errors on the regular scale. If such a log-scale posterior error is &lt;span class=&#34;math inline&#34;&gt;\(\hat{e}\)&lt;/span&gt;, our response (in regular scale, not log) as &lt;span class=&#34;math inline&#34;&gt;\(y\)&lt;/span&gt;, and our predicted value as &lt;span class=&#34;math inline&#34;&gt;\(\hat{y}\)&lt;/span&gt;, we have &lt;span class=&#34;math inline&#34;&gt;\(\hat{e} = \log_{10} \hat{y} - \log_{10}y\)&lt;/span&gt;. Thus, the errors we want are given by
-&lt;span class=&#34;math display&#34;&gt;\[\begin{align*}
-\hat{e} &amp;amp;= \log_{10} \hat{y} - \log_{10}y\\
-\hat{y} - y &amp;amp;= 10^{\hat{e}}y -y = (10^{\hat{e}}-1)y.
-\end{align*}\]&lt;/span&gt;&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# This is copied directly from the source code, and then with
-# the noted modifications (and some added features ommitted)
-# to fit our purposes.
-# It returns a similar graph to CompareBstsModels(), but once it
-# transforms the observed and fitted values back to the original scale
-# (rather than the log10 scale of the model).
-CompareBstsModelsLog &amp;lt;- function(model.list) {
-  main &amp;lt;- &amp;quot;Cum. One-Step Error&amp;quot;
-  burn &amp;lt;- SuggestBurn(.1, model.list[[1]])
-  model.names &amp;lt;- names(model.list)
-  if (is.null(model.names)) {
-    model.names &amp;lt;- paste(&amp;quot;Model&amp;quot;, 1:length(model.list))
-  }
-  number.of.models &amp;lt;- length(model.list)
-  opar &amp;lt;- par(mfrow = c(2, 1))
-  original.margins &amp;lt;- c(5.1, 4.1, 4.1, 2.1)
-  margins &amp;lt;- original.margins
-  opar$mar &amp;lt;- original.margins
-  margins[1] &amp;lt;- 0
-  par(mar = margins)
-  cumulative.errors &amp;lt;- matrix(nrow = number.of.models, 
-                              ncol = length(model.list[[1]]$original.series))
-  for (i in 1:number.of.models) {
-    # The prediction errors are in the log scale, and we 
-    # grab them directly from the model itself.
-    e.hat.log &amp;lt;- model.list[[i]]$one.step.prediction.errors
-    e.hat.log &amp;lt;- e.hat.log[-(1:burn), , drop = FALSE]
-    # We compute our prediction error as \hat{y} - y = (10^{\hat{e}}-1)y
-    prediction.errors &amp;lt;- (10^e.hat.log - 1)*
-      10^model.list[[1]]$original.series
-    cumulative.errors[i, ] &amp;lt;- cumsum(abs(colMeans(prediction.errors)))
-  }
-  colors &amp;lt;- c(&amp;quot;black&amp;quot;, 
-              rainbow(number.of.models - 1))
-  
-  idx &amp;lt;- model.list[[1]]$timestamp.info$timestamps
-  plot(zoo(cumulative.errors[1, ], 
-           order.by = idx),
-       ylim = range(cumulative.errors),
-       ylab = &amp;quot;cumulative absolute error&amp;quot;,
-       xaxt = &amp;quot;n&amp;quot;,
-       lwd = 2,
-       yaxs = &amp;quot;i&amp;quot;)
-  axis(2)
-  for (i in 2:number.of.models) {
-    lines(zoo(cumulative.errors[i, ], order.by = idx),
-          lty = i,
-          col = colors[i],
-          lwd = 2)
-  }
-  grid()
-  legend(&amp;quot;topleft&amp;quot;,
-         model.names,
-         lty = 1:number.of.models,
-         col = colors,
-         bg  = &amp;quot;white&amp;quot;,
-         lwd = 2)
-  
-  margins &amp;lt;- original.margins
-  margins[3] &amp;lt;- 0
-  par(mar = margins)
-  plot(model.list[[1]]$original.series,
-       main = &amp;quot;&amp;quot;,
-       ylab = &amp;quot;scaled values&amp;quot;,
-       xlab = &amp;quot;Date&amp;quot;,
-       yaxs = &amp;quot;i&amp;quot;)
-  grid()
-  par(opar)
-}
-
-CompareBstsModelsLog(list(Season = model.season, 
-                          LLT = model.llt))&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2020-05-28-bsts-boxofice.en/index_files/figure-html/unnamed-chunk-9-1.png&#34; width=&#34;672&#34; /&gt;
-Of course, this transformation doesn’t radically change the picture, it’s still measuring the same errors. But the units of absolute error are now interpretable, the difference between the two is more clear, and there could be cases where computing the errors based on the logs would lead to unintuitive results.&lt;/p&gt;
-&lt;p&gt;Further, as we keep repeating, one should think carefully about the goals of the analysis. The cumulative error is an intuitive metric, but it’s not particularly Bayesian (as it is computed using a simple point estimate on the posterior). If the ultimate output of the model is a sequence of these point estimates, then it is a sensible place to start. If the goal is to construct a full posterior probability that captures the theoretical situation, it won’t be very meaningful.&lt;/p&gt;
-&lt;p&gt;The &lt;code&gt;bsts&lt;/code&gt; package offers a &lt;a href=&#34;https://rdrr.io/cran/bsts/man/plot.bsts.html&#34;&gt;variety of other plotting tools&lt;/a&gt; (such as &lt;code&gt;PlotBstsComponents()&lt;/code&gt;, &lt;code&gt;PlotBstsForecastDistribution()&lt;/code&gt;, &lt;code&gt;PlotSeasonalEffect()&lt;/code&gt;, and more), but they didn’t appear very informative when applied directly out of the box to this data set. Which isn’t surprising, it’s hard to write general purpose plotting functions. In almost all cases, it’s better to construct your own, to tackle the task at hand.
-&lt;!-- # ```{r} --&gt;
-&lt;!-- # PlotBstsComponents(model.season) --&gt;
-&lt;!-- # ``` --&gt;&lt;/p&gt;
-&lt;!-- ```{r} --&gt;
-&lt;!-- ss.slt &lt;- AddSemilocalLinearTrend(ss.season, --&gt;
-&lt;!--                                   weekly.tb$log_gross_ia) --&gt;
-&lt;!-- model.slt &lt;- bsts(weekly.tb$log_gross_ia,  --&gt;
-&lt;!--                   state.specification = ss.slt, --&gt;
-&lt;!--                   niter = 500,  --&gt;
-&lt;!--                   ping = 0,  --&gt;
-&lt;!--                   seed = 21) --&gt;
-&lt;!-- CompareBstsModels(list(Season = model.season,  --&gt;
-&lt;!--                        LLT = model.llt, --&gt;
-&lt;!--                        SLT = model.slt)) --&gt;
-&lt;!-- ``` --&gt;
-&lt;!-- ```{r} --&gt;
-&lt;!-- ss.slt &lt;- AddSeasonal(list(), weekly.tb$log_gross_ia,  --&gt;
-&lt;!--                       nseasons = 52) --&gt;
-&lt;!-- ss.llt &lt;- AddSemilocalLinearTrend(ss.slt, --&gt;
-&lt;!--                                   weekly.tb$log_gross_ia) --&gt;
-&lt;!-- model.llt &lt;- bsts(weekly.tb$log_gross_ia,  --&gt;
-&lt;!--                   state.specification = ss.slt, --&gt;
-&lt;!--                   niter = 500,  --&gt;
-&lt;!--                   ping = 0,  --&gt;
-&lt;!--                   seed = 21) --&gt;
-&lt;!-- CompareBstsModels(list(Season = model.season, --&gt;
-&lt;!--                        Season2 = model.season)) --&gt;
-&lt;!-- ``` --&gt;
-&lt;/div&gt;
-&lt;div id=&#34;more-specific-tools&#34; class=&#34;section level2&#34;&gt;
-&lt;h2&gt;More Specific Tools&lt;/h2&gt;
-&lt;p&gt;The &lt;code&gt;CompareBstsModels()&lt;/code&gt; function helps compare the cumulative growth of our one-step predictive error, but we might be curious to see what the actual predictive &lt;em&gt;fit&lt;/em&gt; looks lie, visually. We construct a function to create that plot, with much of this code taken directly (with modifications) from Kim Larsen’s &lt;a href=&#34;https://multithreaded.stitchfix.com/blog/2016/04/21/forget-arima/&#34;&gt;excellent blog post&lt;/a&gt;.&lt;/p&gt;
-&lt;!-- ```{r} --&gt;
-&lt;!-- burn &lt;- SuggestBurn(.1, model.season) --&gt;
-&lt;!-- 10^(model.season$one.step.prediction.errors) --&gt;
-&lt;!-- Actual_Log &lt;- weekly.tb$log_gross_ia --&gt;
-&lt;!-- predictions &lt;- 10^(-model.season$one.step.prediction.errors[-(1:burn),] + Actual_Log)  --&gt;
-&lt;!-- pred.quantiles &lt;- as_tibble(t(apply(predictions,  --&gt;
-&lt;!--                                     2,  --&gt;
-&lt;!--                                     function(x) quantile(x,  --&gt;
-&lt;!--                                                          c(.025, --&gt;
-&lt;!--                                                            .975))))) %&gt;% --&gt;
-&lt;!--   mutate(Date = weekly.tb$start_date) --&gt;
-&lt;!-- names(pred.quantiles) &lt;- c(&#34;Date&#34;,&#34;Lower&#34;, &#34;Upper&#34;) --&gt;
-&lt;!-- p.season &lt;- predict(mod) --&gt;
-&lt;!-- predict.bsts(model.season.train,  --&gt;
-&lt;!--                          horizon = weekly.tb %&gt;% nrow() -  --&gt;
-&lt;!--                            train.tb %&gt;% nrow()) --&gt;
-&lt;!-- tb %&gt;%  --&gt;
-&lt;!--   posterior.interval &lt;- cbind.data.frame( --&gt;
-&lt;!--     10^as.numeric(p.season$interval[1,]), --&gt;
-&lt;!--     10^as.numeric(p.season$interval[2,]),  --&gt;
-&lt;!--     subset(tb, year(Date) &gt; cutoff)$Date) --&gt;
-&lt;!-- names(posterior.interval) &lt;- c(&#34;LL&#34;, &#34;UL&#34;, &#34;Date&#34;) --&gt;
-&lt;!-- tb &lt;- left_join(tb,  --&gt;
-&lt;!--                 posterior.interval,  --&gt;
-&lt;!--                 by = &#34;Date&#34;) --&gt;
-&lt;!-- ``` --&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# For a given model, the returned tibble has three columns.
-# Fitted: the mean of the one-step posterior predictions, transformed
-#   back into our original scale.
-# Actual: the original response values.
-# Date: the date.
-ComputeOneStepFitted &amp;lt;- function(model, dat, response_var) {
-  burn &amp;lt;- SuggestBurn(0.1, model)
-  response_var &amp;lt;- enquo(response_var)
-  Actual_Log &amp;lt;- dat %&amp;gt;% pull(!! response_var)
-  tb &amp;lt;- tibble(Fitted = 10^(-colMeans(
-    model$one.step.prediction.errors[-(1:burn),])
-    + Actual_Log),
-    Actual = 10^(Actual_Log),
-    Date = dat$start_date)
-  Actual_Log &amp;lt;- weekly.tb$log_gross_ia
-  
-  predictions &amp;lt;- 10^(-model$one.step.prediction.errors[-(1:burn),] + Actual_Log) 
-  pred.quantiles &amp;lt;- as_tibble(t(apply(predictions, 
-                                      2, 
-                                      function(x) 
-                                        quantile(x, c(.025, .975))))) %&amp;gt;%
-    transmute(Date = dat$start_date,
-              LL = `2.5%`,
-              UU = `97.5%`)
-  tb &amp;lt;- tb %&amp;gt;% left_join(pred.quantiles, by = &amp;quot;Date&amp;quot;)
-  return(tb)
-}
-
-# Given a tibble computed from ComputeOneStepFitted(), this 
-# computes the Mean Absolute Percentage Error, based on these
-# Actual and Fitted results.
-ComputeMAPE &amp;lt;- function(tb) {
-  tb %&amp;gt;% 
-    summarize(MAPE = mean(abs(Actual - Fitted)/Actual))
-}
-
-# Given a tibble computed from ComputeOneStepFitted(), we compute the 
-# 
-PlotOneStepFitted &amp;lt;- function(tb, 
-                              plot_quantiles = FALSE,
-                              Response_Label = 
-                                &amp;quot;Log Inf. Adj. Gross ($)&amp;quot;) {
-  MAPE &amp;lt;- ComputeMAPE(tb)
-  plot.fitted &amp;lt;- tb %&amp;gt;% 
-    ggplot(aes(x = Date)) +
-    geom_line(aes(y = Actual, color = &amp;quot;Actual&amp;quot;), 
-              size = .3) +
-    geom_line(aes(y = Fitted, color = &amp;quot;Fitted&amp;quot;), 
-              size = .3, linetype = 2) +
-    theme_bw() + 
-    theme(legend.title = element_blank()) + 
-    ylab(Response_Label) + xlab(&amp;quot;&amp;quot;) +
-    geom_vline(xintercept = as.numeric(as.Date(&amp;quot;1993-01-01&amp;quot;)), 
-               linetype = 2) + 
-    ggtitle(paste0(&amp;quot;BSTS -- One-Step MAPE = &amp;quot;, round(100*MAPE,2), &amp;quot;%&amp;quot;)) +
-    theme(axis.text.x=element_text(angle = -90, hjust = 0)) + 
-    ylim(c(.9*min(tb$Fitted, tb$Actual), 1.1*max(tb$Fitted, tb$Actual)))
-  if (plot_quantiles) {
-    plot.fitted &amp;lt;- plot.fitted + 
-      geom_ribbon(aes(ymin = LL, 
-                      ymax = UU), 
-                  fill=&amp;quot;grey&amp;quot;, 
-                  alpha=0.5) 
-  }
-  return(plot.fitted)
-}
-
-CheckOneStepCalibration &amp;lt;- function(tb) {
-  tb %&amp;gt;% 
-    mutate(is_below_UU = Actual &amp;lt; UU,
-           is_above_LL = Actual &amp;gt; LL,
-           is_within_interval = is_above_LL &amp;amp; is_below_UU) %&amp;gt;%
-    summarize(`Prop. Above LB` = mean(is_above_LL),
-              `Prop. Below UB` = mean(is_below_UU),
-              `Prop. Within Interval` = mean(is_within_interval)) %&amp;gt;%
-    return()
-}&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;tb.season &amp;lt;- ComputeOneStepFitted(model.season, weekly.tb, log_gross_ia)
-PlotOneStepFitted(tb.season, plot_quantiles = TRUE)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2020-05-28-bsts-boxofice.en/index_files/figure-html/unnamed-chunk-11-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;tb.llt &amp;lt;- ComputeOneStepFitted(model.llt, weekly.tb, log_gross_ia)
-PlotOneStepFitted(tb.llt, plot_quantiles = TRUE)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2020-05-28-bsts-boxofice.en/index_files/figure-html/unnamed-chunk-11-2.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
-&lt;p&gt;Broadly, we can see that the seasonal model is more conservative, and sticks with the broadly known weekly trends. It predicts spikes at major holidays, but otherwise misses on the unexpected micro trends. The LLT model &lt;em&gt;does&lt;/em&gt; make an attempt to predict these large spikes. It’s a very difficult task given the data, so we only see a moderate improvement in the MAPE. They represent two different philosophies, and the choice might depend on the specific goals.&lt;/p&gt;
-&lt;p&gt;However, these are simply fitting point estimates, the means of the one-step posterior predictive distributions. In the tutorials I saw online, this was the the typical example used (with posterior distributions cited for the coefficients themselves), but we do have a full distribution to work with. We consider the rate of coverage for the 95% credible intervals for both distributions.&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;CheckOneStepCalibration(tb.season)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## # A tibble: 1 x 3
-##   `Prop. Above LB` `Prop. Below UB` `Prop. Within Interval`
-##              &amp;lt;dbl&amp;gt;            &amp;lt;dbl&amp;gt;                   &amp;lt;dbl&amp;gt;
-## 1            0.897            0.855                   0.752&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;CheckOneStepCalibration(tb.llt)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## # A tibble: 1 x 3
-##   `Prop. Above LB` `Prop. Below UB` `Prop. Within Interval`
-##              &amp;lt;dbl&amp;gt;            &amp;lt;dbl&amp;gt;                   &amp;lt;dbl&amp;gt;
-## 1            0.839            0.884                   0.722&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;We can see that neither one-step calibration is what we would hope, with only about 75% and 72%, respectively, for the seasonal and LLN model predictions capturing the observed data within their credible interval. We also see that the slight advantage in MAPE for the more flexible model evaporates under this perspective, which makes sense: the more aggressive model sometimes tries to “predict” a release that doesn’t occur. This helps slightly with its MAPE, but means it is more likely to whiff entirely in the credible interval.&lt;/p&gt;
-&lt;p&gt;These credible intervals are not well calibrated, and it is not particularly surprising. We know there is a large amount of irreducible uncertainty in the system that our model does not capture. Ultimately, for a properly calibratd model, we would need to restructure it from these composition of normal models, to something that represents the theory of the system itself. It’s certainly notable that the seasonal effect alone seems to capture most of the variability, and that the addition of a local trend doesn’t appear to be significantly superior (depending on our goals).&lt;/p&gt;
-&lt;p&gt;So, is there any use to these models at all? We might consider the argument by a skeptic, who thinks that the additional assumptions we pose are misguided, and the simplest of models is just as apt. Such a model would consist solely of a static intercept (note, it is not simply a flat model, it still has our composition of normal components, just without a trend).&lt;/p&gt;
-&lt;p&gt;If we follow the same basic evaluative steps as above, we can see that the static intercept model has about 25% MAPE (compared to 16% before), and about 10 percentage point drop in coverage by the credible interval. Clearly, the flexibility afforded by our seasonal modeling adds to the predictive power. However, as we’d expect, the models shown above are quite flawed, and the fact that they are not too many miles ahead of the static model is cause for further scrutiny of our theoretical setup.&lt;/p&gt;
-&lt;!-- I&#39;m still a little uncertain on this part, I actually thought that the mean one-step posterior predictive value of a static model might be fixed, should investigate further. --&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;ss.skeptic &amp;lt;- AddStaticIntercept(list(), 
-                                 weekly.tb$log_gross_ia)
-model.skeptic &amp;lt;- bsts(weekly.tb$log_gross_ia, 
-                      state.specification = ss.skeptic,
-                      niter = 2000, 
-                      ping = 0, 
-                      seed = 21)
-tb.skeptic &amp;lt;- ComputeOneStepFitted(model.skeptic, 
-                                   weekly.tb, 
-                                   log_gross_ia)
-PlotOneStepFitted(tb.skeptic, plot_quantiles = TRUE)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2020-05-28-bsts-boxofice.en/index_files/figure-html/unnamed-chunk-13-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;CheckOneStepCalibration(tb.skeptic)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## # A tibble: 1 x 3
-##   `Prop. Above LB` `Prop. Below UB` `Prop. Within Interval`
-##              &amp;lt;dbl&amp;gt;            &amp;lt;dbl&amp;gt;                   &amp;lt;dbl&amp;gt;
-## 1            0.862            0.799                   0.661&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;div id=&#34;coefficients&#34; class=&#34;section level2&#34;&gt;
-&lt;h2&gt;Coefficients&lt;/h2&gt;
-&lt;p&gt;Of course, predictive power is not the only allure of constructing such a Bayesian model. While not the focus of this exploration, we can also examine the resulting model coefficients. In this case, we take a peak at the seasonal coefficients that result from the pure seasonal model.&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;burn &amp;lt;- SuggestBurn(.1, model.season)
-components &amp;lt;- cbind.data.frame(
-  colMeans(model.season$state.contributions[-(1:burn),&amp;quot;seasonal.52.1&amp;quot;,]),
-  weekly.tb$start_date)  
-names(components) &amp;lt;- c(&amp;quot;Seasonality&amp;quot;, &amp;quot;Date&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;We look at box plots for each of the 52 weeks, showing their spread. We also consider the visual trend of the week coefficients over the past few years.&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;components %&amp;gt;% mutate(week_number = row_number() %% 52) %&amp;gt;%
-  ggplot() + geom_boxplot(aes(group = week_number, y = Seasonality))&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2020-05-28-bsts-boxofice.en/index_files/figure-html/unnamed-chunk-15-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;ggplot(data=components %&amp;gt;% filter(year(Date) &amp;lt; 2015 &amp;amp; year(Date) &amp;gt; 2012), aes(x=Date, y=Seasonality)) + geom_line() + 
-  theme_bw() + theme(legend.title = element_blank()) + ylab(&amp;quot;&amp;quot;) + xlab(&amp;quot;&amp;quot;) + guides(colour=FALSE) + 
-  theme(axis.text.x=element_text(angle = -90, hjust = 0))&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2020-05-28-bsts-boxofice.en/index_files/figure-html/unnamed-chunk-15-2.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
-&lt;p&gt;We can observe the typically expected trends. While January is a strong month (due to Oscars hits being in theaters, and the tail end of Christmas), theaters hit a low during the early months of the year, before surging at summer, lagging in the fall, and surging again around Christmas.&lt;a href=&#34;#fn14&#34; class=&#34;footnote-ref&#34; id=&#34;fnref14&#34;&gt;&lt;sup&gt;14&lt;/sup&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div id=&#34;brief-mention-of-long-term-forecasting&#34; class=&#34;section level1&#34;&gt;
-&lt;h1&gt;Brief Mention of Long Term Forecasting&lt;/h1&gt;
-&lt;p&gt;Throughout this exploration, I have mentioned how I am being purposefully fuzzy about the goals of the model. It is important to emphasize that, because in any real application, these goals would have to be foregrounded in the construction of &lt;em&gt;any&lt;/em&gt; model (whereas the point of this post is to just explore the tools). One example of this is in a critical distinction between types of prediction: forecasting in the long run, and forecasting the next step (or “nowcasting”).&lt;/p&gt;
-&lt;p&gt;Thomas Olavson’s &lt;a href=&#34;http://www.unofficialgoogledatascience.com/2019/12/humans-in-loop-forecasting-integrating.html&#34;&gt;blog post&lt;/a&gt; on the objective automation of forecasting helps clarify this distinction. He calls the long run objective “strategic forecasting, which has low update frequency, uncertainty which is difficult to quantify, and whose outputs are used in high stakes decision making (with significant human interpretation). By comparison,”tactical forecasting&amp;quot; is a mostly automated process, making countless micro predictions at scale, whose automation can be guided by frequent backtesting (and related strategies).&lt;/p&gt;
-&lt;p&gt;In theory, it seems that Bayesian Structural Time Series models should be perfectly serviceable at either goal. The original paper by Scott &amp;amp; Varian focuses on the short term nowcasting, but the interpretability of the Bayesian framework makes longer term forecasts a reasonable application. However, the models may be built quite differently when we keep these goals in mind.&lt;/p&gt;
-&lt;p&gt;Implicitly, our work this far has been geared towards tactical forecasting, using the model to construct point estimates for each subsequent time step, relying on a relatively flexible fit to the data.&lt;/p&gt;
-&lt;p&gt;Our full model computed earlier uses the Kalman smoother and is fit over &lt;em&gt;all&lt;/em&gt; the data. Thus, to get a sense of how this might work for forecasting, we need to turn to a training and test set structure. We pick the cut-off arbitrarily at the end of 2016 (we would hope that the model is relatively agnostic about this choice, but we will see that in this case, it is not). In a more serious application, it would likely make sense to compute models for a sequence of forecast cut-offs, but this choice is just for a quick demonstration.&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;cutoff &amp;lt;- 2016
-# Divide into &amp;quot;training&amp;quot; and &amp;quot;test&amp;quot; set (for forecasting)
-train.tb &amp;lt;- weekly.tb %&amp;gt;% 
-  filter(year &amp;lt;= cutoff)
-test.tb &amp;lt;- weekly.tb %&amp;gt;% 
-  filter(start_date &amp;gt; cutoff)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;We again compute the same two models as before. The 52 week seasonal model, with a static intercept (just on the training data).&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;ss.season.train &amp;lt;- AddSeasonal(list(), 
-                               train.tb$log_gross_ia, 
-                               nseasons = 52)
-ss.season.intercept.train &amp;lt;- AddStaticIntercept(ss.season.train,
-                                                train.tb$log_gross_ia)
-model.season.train &amp;lt;- bsts(train.tb$log_gross_ia, 
-                           state.specification = ss.season.intercept.train,
-                           niter = 500, 
-                           ping = 0, 
-                           seed = 21)
-
-p.season &amp;lt;- predict.bsts(model.season.train, 
-                         horizon = weekly.tb %&amp;gt;% nrow() - 
-                           train.tb %&amp;gt;% nrow())&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;And the model where we add a local linear trend.&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;ss.llt.train &amp;lt;- AddLocalLinearTrend(ss.season.train,
-                                    train.tb$log_gross_ia)
-model.llt.train &amp;lt;- bsts(train.tb$log_gross_ia, 
-                        state.specification = ss.llt.train,
-                        niter = 500, 
-                        ping = 0, 
-                        seed = 21)
-p.llt &amp;lt;- predict.bsts(model.llt.train, 
-                      horizon = weekly.tb %&amp;gt;% nrow() - 
-                        train.tb %&amp;gt;% nrow())&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;We can now use the &lt;code&gt;bsts&lt;/code&gt; built in feature for plotting these forecasts, showing the fitted values and credible intervals.&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;plot(p.season, plot.original = 52*2)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2020-05-28-bsts-boxofice.en/index_files/figure-html/unnamed-chunk-19-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;plot(p.llt, plot.original = 52*2)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2020-05-28-bsts-boxofice.en/index_files/figure-html/unnamed-chunk-19-2.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
-&lt;p&gt;The only real punchline here is that both models make moderately similar projections for the next few years. However, the plots aren’t too revealing yet, and we want to compare them to the observed values.
-We can rework our earlier functions to now compute MAPE for both fitted and predicted. Now, in addition to the credible interval (for both the one-step predictions, and the future forecasts), we zoom in on the time period which is forecast (based on our training data, up until the end of 2016).&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(gridExtra)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## 
-## Attaching package: &amp;#39;gridExtra&amp;#39;&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## The following object is masked from &amp;#39;package:dplyr&amp;#39;:
-## 
-##     combine&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;ComputeOneStepPredicted &amp;lt;- function(model, dat, response_var, p) {
-  burn &amp;lt;- SuggestBurn(0.1, model)
-  response_var &amp;lt;- enquo(response_var)
-  Actual_Log &amp;lt;- dat %&amp;gt;% pull(!! response_var)
-  tb &amp;lt;- tibble(Fitted = c(10^as.numeric(-colMeans(
-    model$one.step.prediction.errors[-(1:burn),])
-    + model$original.series), 10^p$mean),
-    Actual = 10^(Actual_Log),
-    Date = dat$start_date)
-  
-  Actual_Log_Past &amp;lt;- dat %&amp;gt;% 
-    head(length(Actual_Log) - length(p$mean)) %&amp;gt;% 
-    pull(!! response_var)
-  predictions &amp;lt;- 10^(-model$one.step.prediction.errors[-(1:burn),] + Actual_Log_Past) 
-  pred.quantiles &amp;lt;- as_tibble(t(apply(predictions, 
-                                      2, 
-                                      function(x) 
-                                        quantile(x, c(.025, .975))))) %&amp;gt;%
-    bind_rows(as_tibble(t(10^p$interval))) %&amp;gt;%
-    transmute(Date = dat$start_date,
-              LL = `2.5%`,
-              UU = `97.5%`)
-  tb &amp;lt;- tb %&amp;gt;% left_join(pred.quantiles, by = &amp;quot;Date&amp;quot;)
-  return(tb)
-}
-
-PlotOneStepPredicted &amp;lt;- function(tb, 
-                                 p,
-                                 cutoff,
-                                 Response_Label = 
-                                   &amp;quot;Log Inf. Adj. Gross ($)&amp;quot;) {
-  MAPE &amp;lt;- ComputeMAPE(tb)
-  # posterior.interval &amp;lt;- cbind.data.frame(
-  #   10^as.numeric(p$interval[1,]),
-  #   10^as.numeric(p$interval[2,]), 
-  #   subset(tb, year(Date) &amp;gt; cutoff)$Date)
-  # names(posterior.interval) &amp;lt;- c(&amp;quot;LL&amp;quot;, &amp;quot;UU&amp;quot;, &amp;quot;Date&amp;quot;)
-  # tb &amp;lt;- left_join(tb, as_tibble(posterior.interval), by=&amp;quot;Date&amp;quot;)
-  # 
-  plot.full &amp;lt;- tb %&amp;gt;% 
-    ggplot(aes(x = Date)) +
-    geom_line(aes(y = Actual, color = &amp;quot;Actual&amp;quot;), 
-              size = .3) +
-    geom_line(aes(y = Fitted, color = &amp;quot;Fitted&amp;quot;), 
-              size = .3, linetype = 2) +
-    theme_bw() + 
-    theme(legend.title = element_blank()) + 
-    ylab(Response_Label) + xlab(&amp;quot;&amp;quot;) +
-    geom_vline(xintercept = as.numeric(as.Date(paste0(cutoff, &amp;quot;-12-31&amp;quot;)), linetype=2)) + 
-    geom_ribbon(aes(ymin = LL, 
-                    ymax = UU), 
-                fill=&amp;quot;grey&amp;quot;, 
-                alpha=0.5) +
-    ggtitle(paste0(&amp;quot;BSTS -- Total One-Step MAPE = &amp;quot;, round(100*MAPE,2), &amp;quot;%&amp;quot;)) +
-    ylim(c(.9*min(tb$Fitted, tb$Actual), 1.1*max(tb$Fitted, tb$Actual)))
-
-  
-  plot.forecast &amp;lt;- subset(tb, year(Date) &amp;gt; cutoff) %&amp;gt;%
-    ggplot(aes(x = Date)) +
-    geom_line(aes(y = Actual, color = &amp;quot;Actual&amp;quot;), 
-              size = .3) +
-    geom_line(aes(y = Fitted, color = &amp;quot;Fitted&amp;quot;), 
-              size = .3, linetype = 2) +
-    theme_bw() + 
-    theme(legend.title = element_blank()) + 
-    ylab(Response_Label) + xlab(&amp;quot;&amp;quot;) +
-    geom_vline(xintercept = as.numeric(as.Date(paste0(cutoff, &amp;quot;-12-31&amp;quot;)), linetype=2)) + 
-    geom_ribbon(aes(ymin = LL, ymax = UU), fill=&amp;quot;grey&amp;quot;, alpha=0.5) + 
-    ylim(c(.9*min(tb$Fitted, tb$Actual), 1.1*max(tb$Fitted, tb$Actual)))
-  grid.arrange(plot.full, plot.forecast, nrow = 2)
-}&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;tb.season.train &amp;lt;- ComputeOneStepPredicted(model.season.train,
-                                           weekly.tb,
-                                           log_gross_ia,
-                                           p.season)
-CheckOneStepCalibration(tb.season.train)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## # A tibble: 1 x 3
-##   `Prop. Above LB` `Prop. Below UB` `Prop. Within Interval`
-##              &amp;lt;dbl&amp;gt;            &amp;lt;dbl&amp;gt;                   &amp;lt;dbl&amp;gt;
-## 1            0.908            0.852                   0.760&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;PlotOneStepPredicted(tb.season.train, p.season, 2016)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2020-05-28-bsts-boxofice.en/index_files/figure-html/unnamed-chunk-21-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;tb.llt.train &amp;lt;- ComputeOneStepPredicted(model.llt.train,
-                                        weekly.tb,
-                                        log_gross_ia,
-                                        p.llt)
-CheckOneStepCalibration(tb.llt.train)&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## # A tibble: 1 x 3
-##   `Prop. Above LB` `Prop. Below UB` `Prop. Within Interval`
-##              &amp;lt;dbl&amp;gt;            &amp;lt;dbl&amp;gt;                   &amp;lt;dbl&amp;gt;
-## 1            0.858            0.888                   0.746&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;PlotOneStepPredicted(tb.llt.train, p.season, 2016)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2020-05-28-bsts-boxofice.en/index_files/figure-html/unnamed-chunk-22-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
-&lt;p&gt;We can see that both seem to offer reasonably useful forecasts, with calibration (over the entire period, combining both one-step and forecasts)\footnote[Perhaps these should be separated, I haven’t found resources discussing the best way to evaluate these models.] in a similar range as before, and the forecast range seemingly capturing much of the observed trend.&lt;/p&gt;
-&lt;p&gt;However, the particular difference between the two models becomes clear in the distant forecast. The seasonal model is more consistent, with fairly static uncertainty. With the addition of the local linear trend, we become more confident in the short run, but have much less confidence once we project several years out. This is because the local linear trend is extremely flexible, which becomes particularly apparent when considering outcomes several years away. Whether the state of the movie business is sufficiently static for this to be a poor assumption will depend on who you ask.&lt;a href=&#34;#fn15&#34; class=&#34;footnote-ref&#34; id=&#34;fnref15&#34;&gt;&lt;sup&gt;15&lt;/sup&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;div id=&#34;not-far-from-madness&#34; class=&#34;section level2&#34;&gt;
-&lt;h2&gt;Not Far From Madness?&lt;/h2&gt;
-&lt;p&gt;While our starter models continue to perform moderately well (if unexceptionally), it is illustrative to consider how easy this modeling can go badly wrong. It only takes a few wrong choices for a model to go from simply incomplete, to totally nonsensical.&lt;/p&gt;
-&lt;p&gt;For example, what happens if we remove our seasonal correction, and left the local linear trend in to capture this seasonal variation? As the movie industry heats up in the summer months, perhaps the local linear trend is sufficient to capture that growth. We certainly would expect our accuracy to decrease, we’ve established that the week of the year is a critical predictor of the weekly gross. However, what we’ll see below is that the removal of the seasonal adjustment makes the model &lt;em&gt;completely useless&lt;/em&gt; when it comes to longer term forecasting, not simply “inaccurate”.&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# A model with solely a local linear trend 
-ss.base &amp;lt;- AddLocalLinearTrend(list(),
-                               train.tb$log_gross_ia)
-model.base &amp;lt;- bsts(train.tb$log_gross_ia, 
-                   state.specification = ss.base,
-                   niter = 500, 
-                   ping = 0, 
-                   seed = 21)
-
-p.base &amp;lt;- predict.bsts(model.base, 
-                       horizon = weekly.tb %&amp;gt;% nrow() - 
-                         train.tb %&amp;gt;% nrow())
-
-
-tb.base &amp;lt;- ComputeOneStepPredicted(model.base, 
-                                   weekly.tb, 
-                                   log_gross_ia, 
-                                   p.base)
-PlotOneStepPredicted(tb.base, p.base, cutoff)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2020-05-28-bsts-boxofice.en/index_files/figure-html/unnamed-chunk-23-1.png&#34; width=&#34;672&#34; /&gt;
-We can see that the results are completely nonsensical. It is a little more clear when using the built in prediction plots (although the dates are removed, I didn’t have time to add those back in).&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;plot(p.base, plot.original = 52*2)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2020-05-28-bsts-boxofice.en/index_files/figure-html/unnamed-chunk-24-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
-&lt;p&gt;We recall that the original series is on the &lt;em&gt;log&lt;/em&gt; scale, which helps clarify the issue.&lt;/p&gt;
-&lt;p&gt;The intuitive explanation is straightforward enough. Without the seasonal adjustment, the local linear trend has learned from the data that there is great variability. The slope is constantly changing direction, multiple times per year, so it assigned a large variance in its movements. Without observing any new data, this uncertainty compounds, as the model thinks that the slope could be rapidly growing, or rapidly falling. And worse, this all happens on that log scale. So we quickly see the range of uncertainty about the state state double and triple in log units, which leads to absurd credible intervals for the future predictions.&lt;/p&gt;
-&lt;p&gt;What’s interesting about this is that our short run predictions are not so impossible. We can see in the comparison below that the model without seasonality is clearly inferior, but it simply looks like simply a moderate step down. It’s only once we take stab at long term forecasting that we see that the use of a local linear trend without a seasonal adjustment fully breaks.&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;CompareBstsModelsLog(list(`LLT + Seasonal` = model.llt.train,
-                          `LLT Without Seasonal` = model.base))&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2020-05-28-bsts-boxofice.en/index_files/figure-html/unnamed-chunk-25-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
-&lt;p&gt;This reiterates the aforementioned discussion in Thomas Olavson’s &lt;a href=&#34;http://www.unofficialgoogledatascience.com/2019/12/humans-in-loop-forecasting-integrating.html&#34;&gt;blog post&lt;/a&gt;, distinguishing tactical and strategic forecasting. He discusses the great theoretical and practical differences between the two challenges. This frivolous example is simply a reminder of how easy theoretical models can break, when we are careless with the data. Long term forecasting requires more theoretical care, as we cannot rely on automatic processes fitting relevant patterns in the data and avoiding disaster. Poor theoretical assumptions will lead to useless forecasts.&lt;/p&gt;
-&lt;!-- ```{r} --&gt;
-&lt;!-- tb.llt.train &lt;- ComputeOneStepPredicted(model.llt.train,  --&gt;
-&lt;!--                                         weekly.tb,  --&gt;
-&lt;!--                                         log_gross_ia,  --&gt;
-&lt;!--                                         p.llt) --&gt;
-&lt;!-- PlotOneStepPredicted(tb.llt.train, p.llt, 2016) --&gt;
-&lt;!-- ``` --&gt;
-&lt;!-- ```{r} --&gt;
-&lt;!-- tb.base &lt;- ComputeOneStepPredicted(model.base,  --&gt;
-&lt;!--                                    weekly.tb,  --&gt;
-&lt;!--                                    log_gross_ia,  --&gt;
-&lt;!--                                    p.base) --&gt;
-&lt;!-- tb.base %&gt;% tail() --&gt;
-&lt;!-- #PlotOneStepPredicted(tb.base, p.base, 2016) --&gt;
-&lt;!-- ``` --&gt;
-&lt;!-- It goes without saying that the forecasting  --&gt;
-&lt;!-- The 95% prediction intervals in this case range from  --&gt;
-&lt;!-- a --&gt;
-&lt;!-- ```{r} --&gt;
-&lt;!-- tb.temp  &lt;- ComputeOneStepFitted(model.base,  --&gt;
-&lt;!--                                  train.tb,  --&gt;
-&lt;!--                                  log_gross_ia) --&gt;
-&lt;!-- PlotOneStepFitted(tb.temp) --&gt;
-&lt;!-- ``` --&gt;
-&lt;!-- ```{r} --&gt;
-&lt;!-- # This is for not adjusting for inflation.  --&gt;
-&lt;!-- # ss.season.train.orig &lt;- AddSeasonal(list(),  --&gt;
-&lt;!-- #                                train.tb$log_gross,  --&gt;
-&lt;!-- #                                nseasons = 52) --&gt;
-&lt;!-- # ss.llt.train.orig &lt;- AddLocalLinearTrend(ss.season.train, --&gt;
-&lt;!-- #                                          train.tb$log_gross) --&gt;
-&lt;!-- # model.llt.train.orig &lt;- bsts(train.tb$log_gross,  --&gt;
-&lt;!-- #                              state.specification = ss.llt.train.orig, --&gt;
-&lt;!-- #                              niter = 500,  --&gt;
-&lt;!-- #                              ping = 0,  --&gt;
-&lt;!-- #                              seed = 21) --&gt;
-&lt;!-- #  --&gt;
-&lt;!-- # p.llt.orig &lt;- predict.bsts(model.llt.train.orig,  --&gt;
-&lt;!-- #                            horizon = weekly.tb %&gt;% nrow() -  --&gt;
-&lt;!-- #                              train.tb %&gt;% nrow()) --&gt;
-&lt;!-- # plot(p.llt.orig, plot.original = 52*2) --&gt;
-&lt;!-- ``` --&gt;
-&lt;!-- TO BE CONTINUED  --&gt;
-&lt;!-- # Unfinished  --&gt;
-&lt;!-- ## Exploring the Autocorrelation --&gt;
-&lt;!-- One challenge is that these effects are all closely related. The introduction of regular seasonal effects can mask effects of auto correlation. To be honest, I don&#39;t know the best way to solve this. Eventually, the model should be well equipped to sort them out, but in the exploration stage, it&#39;s not so clear. For now, I will simply resort to a crude method at de-seasoning the model, by normalizing the grosses by the mean gross for each of the 52 weeks. This should help uncover autocorrelative effects. However, the model itself will be fit on data without this adjustment, because it will apply a more delicate (and Bayesian) treatment to these seasonal terms. I&#39;m curious what the best pratice here would be.  --&gt;
-&lt;!-- ```{r} --&gt;
-&lt;!-- weekly.tb &lt;- weekly.tb %&gt;%  --&gt;
-&lt;!--   group_by(week) %&gt;% --&gt;
-&lt;!--   mutate(week_mean_ia = mean(gross_ia)) %&gt;% --&gt;
-&lt;!--   ungroup() %&gt;% --&gt;
-&lt;!--   mutate(gross_ia_week_adj = gross_ia - week_mean_ia + mean(gross_ia)) --&gt;
-&lt;!-- ``` --&gt;
-&lt;!-- We use the Acf function from the &#34;forecast&#34; package, which computes the correlation of the data for each &#34;lag&#34; (the number of steps back). Thus, we can see here that there is a strong positive correlation between the inflation adjusted weekly gross and the previous week, but once you get to around 10 weeks or so, the correlation becomes negative (if slight).  --&gt;
-&lt;!-- ```{r} --&gt;
-&lt;!-- library(forecast) --&gt;
-&lt;!-- Acf(weekly.tb$gross_ia) --&gt;
-&lt;!-- ``` --&gt;
-&lt;!-- However, this is applied to our original data, and the presumed seasonal effects might be causing potential problems. When we instead compute an ACF plot for the week-normalized gross, we see instead that the positive autocorrelation is *consistent*. This makes a good deal of sense. The 10 to 15 weeks we were looking at above is a long enough period of time, that you essentially switch &#34;movie seasons&#34;. Thus, intuitively it fits that there might be some negative correlation, as the low point of the movie year (around February and March), are roughly 10-20 weeks offset from some of the busiest movie times (Christmas, and the summer, in the two directions). --&gt;
-&lt;!-- ```{r} --&gt;
-&lt;!-- Acf(weekly.tb$gross_ia_week_adj) --&gt;
-&lt;!-- ``` --&gt;
-&lt;!-- This local trend is typical of most time series models, but we might want to consider a slightly more advanced version.  --&gt;
-&lt;!-- Now, we apply [differencing](https://otexts.com/fpp2/stationarity.html)  --&gt;
-&lt;!-- ```{r} --&gt;
-&lt;!-- temp &lt;- weekly.tb %&gt;%  --&gt;
-&lt;!--   transmute(start_date = start_date, --&gt;
-&lt;!--             gross_ia = gross_ia, --&gt;
-&lt;!--             diff_gross_ia = gross_ia - lag(gross_ia), --&gt;
-&lt;!--             diff2_gross_ia = diff_gross_ia - lag(diff_gross_ia))  --&gt;
-&lt;!-- Acf(temp$gross_ia) --&gt;
-&lt;!-- Acf(temp$diff_gross_ia) --&gt;
-&lt;!-- Acf(temp$diff2_gross_ia) --&gt;
-&lt;!-- ggplot(aes(x = start_date)) + --&gt;
-&lt;!--   geom_line(aes(y = diff2_gross_ia))+ --&gt;
-&lt;!--   xlab(&#34;Year&#34;) + ylab(&#34;&#34;) + --&gt;
-&lt;!--   ggtitle(&#34;&#34;) --&gt;
-&lt;!-- ``` --&gt;
-&lt;!-- ```{r} --&gt;
-&lt;!-- # Not sure what&#39;s goign on here, reinvestigate --&gt;
-&lt;!-- weekly.tb &lt;- weekly.tb %&gt;% --&gt;
-&lt;!--   mutate(diff_log_gross_ia = log_gross_ia - lag(log_gross_ia), --&gt;
-&lt;!--          diff2_log_gross_ia = diff_log_gross_ia - --&gt;
-&lt;!--            lag(diff_log_gross_ia)) --&gt;
-&lt;!-- ss.r.diff2 &lt;- AddSeasonal(list(),  --&gt;
-&lt;!--                           weekly.tb$log_gross_ia,  --&gt;
-&lt;!--                           nseasons = 52) --&gt;
-&lt;!-- model.rdiff2 &lt;- bsts(log_gross_ia ~ diff_log_gross_ia + --&gt;
-&lt;!--                        diff2_log_gross_ia,  --&gt;
-&lt;!--                      state.specification = ss.r.diff2, --&gt;
-&lt;!--                      data = weekly.tb %&gt;% slice(-c(1,2)), --&gt;
-&lt;!--                      niter = 1000,  --&gt;
-&lt;!--                      ping = 0,  --&gt;
-&lt;!--                      seed = 21) --&gt;
-&lt;!-- burn &lt;-  SuggestBurn(0.1, model.rdiff2) --&gt;
-&lt;!-- os.preds.r.diff2 &lt;- ComputeOneStepFitted(model.rdiff2,  --&gt;
-&lt;!--                                         weekly.tb %&gt;% slice(-c(1,2)), --&gt;
-&lt;!--                                         log_gross_ia) --&gt;
-&lt;!-- PlotOneStepFitted(os.preds.r.diff2) --&gt;
-&lt;!-- components &lt;- cbind.data.frame( --&gt;
-&lt;!--   colMeans(model.regres.diff2$state.contributions[-(1:burn), &#34;trend&#34;,]),                                --&gt;
-&lt;!--   colMeans(bsts.model$state.contributions[-(1:burn), &#34;seasonal.12.1&#34;,]), --&gt;
-&lt;!--   as.Date(time(Y)))  --&gt;
-&lt;!-- ``` --&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div id=&#34;final-thoughts&#34; class=&#34;section level1&#34;&gt;
-&lt;h1&gt;Final Thoughts&lt;/h1&gt;
-&lt;p&gt;Using time series for forecasting is an exceptionally tricky endeavor, and this post is just a brief introduction as I dip my toe into the field. Looking at how time series are used publicly online can often give you the sense that it’s a matter of plugging the data into a flexible model, fitting the curve, and hoping for the best. However, it’s important to be precise about the inferential goals of this analysis.&lt;/p&gt;
-&lt;p&gt;The punch line from this analysis might simply be “don’t cite a Bayesian time series when the specified joint probability model doesn’t naturally reflect our best understanding of the underlying process”. And that might be fair, outside of an introductory context I would be hesitant to say much of anything about such a tenuous approaach to modeling (I’d probably tell my boss just to take a look at the movies that are coming out, and see if he recognizes the names, before I try and use past data to predict the weekly box office gross!). But these models are often applied in imperfect ways, and I’ve found it illustrative to work carefully through one such example, and try and understand the mechanics of the model under the hood.&lt;/p&gt;
-&lt;p&gt;In particular, the distinction between long run and short term forecasting is critical. They are markedly different challenges, which call for different tools and perspectives.&lt;/p&gt;
-&lt;!-- Eric Tassone &amp; Farzan Rohani provide an insightful [blog post](http://www.unofficialgoogledatascience.com/2017/04/our-quest-for-robust-time-series.html) examining the way that time series forecasting can and should cite ensemble averaging. --&gt;
-&lt;/div&gt;
-&lt;div id=&#34;sources&#34; class=&#34;section level1&#34;&gt;
-&lt;h1&gt;Sources&lt;/h1&gt;
-&lt;ul&gt;
-&lt;li&gt;The &lt;a href=&#34;https://cran.r-project.org/web/packages/bsts/bsts.pdf&#34;&gt;bsts package&lt;/a&gt;.&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://www.nber.org/chapters/c12995&#34;&gt;Scott &amp;amp; Varian (2014)&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;http://www.unofficialgoogledatascience.com/2017/07/fitting-bayesian-structural-time-series.html&#34;&gt;“Fitting Bayesian structural time series with the bsts R package”&lt;/a&gt; by Scott Varian, on the Google Unoficial Data Science Blog.&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://multithreaded.stitchfix.com/blog/2016/04/21/forget-arima/&#34;&gt;“Sorry ARIMA, but I’m Going Bayesian”&lt;/a&gt;, by Kim Larsen.&lt;/li&gt;
-&lt;li&gt;Thomas Rothenberg’s &lt;a href=&#34;https://eml.berkeley.edu/~rothenbe/Fall2007/kalman.pdf&#34;&gt;notes on the Kalman Filter&lt;/a&gt;.&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;http://www.unofficialgoogledatascience.com/2017/04/our-quest-for-robust-time-series.html&#34;&gt;“Our quest for robust time series at scale”&lt;/a&gt;, by Tassone &amp;amp; Rohani on the Google Unofficial Data Science Blog.&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://otexts.com/fpp2/&#34;&gt;“Forecasting: Principles and Practice”&lt;/a&gt;, by Rob Hyndman and George Athanasopoulos.&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;http://www.unofficialgoogledatascience.com/2019/12/humans-in-loop-forecasting-integrating.html&#34;&gt;“Humans in the Loop”&lt;/a&gt;, by Thomas Olavson, on The UnofficialGoogle Data Science Blog.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/div&gt;
-&lt;div class=&#34;footnotes&#34;&gt;
-&lt;hr /&gt;
-&lt;ol&gt;
-&lt;li id=&#34;fn1&#34;&gt;&lt;p&gt;This summer, I may work professionally on projects along these lines, but I made sure to finish writing this before I saw this in a professional setting, as at that point I might have to think about what I could share.&lt;a href=&#34;#fnref1&#34; class=&#34;footnote-back&#34;&gt;↩&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
-&lt;li id=&#34;fn2&#34;&gt;&lt;p&gt;I.e. my lifetime.&lt;a href=&#34;#fnref2&#34; class=&#34;footnote-back&#34;&gt;↩&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
-&lt;li id=&#34;fn3&#34;&gt;&lt;p&gt;While this is an incredibly obvious correction, and I left it until now mostly to make a point about an easy but damaging mistake, it’s also not quite so apparent that it is a perfect and tidy fix. Between the 90s and today, it likely is sufficient, but there are other notable societal changes that can make comparing ticket sales difficult.&lt;a href=&#34;#fnref3&#34; class=&#34;footnote-back&#34;&gt;↩&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
-&lt;li id=&#34;fn4&#34;&gt;&lt;p&gt;If we evaluate this transformation, the Mean Absolute Percentage Error becomes nonsensical, where being off by a factor of two leads to only a small penalty.&lt;a href=&#34;#fnref4&#34; class=&#34;footnote-back&#34;&gt;↩&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
-&lt;li id=&#34;fn5&#34;&gt;&lt;p&gt;Not classical time series don’t have good ways of handling this problem too! While it would indeed be foolish to consider the prior observation, the sole piece of information denoting the current state, time series models have a rich array of tools to handle these complex forms of autocorrelation.&lt;a href=&#34;#fnref5&#34; class=&#34;footnote-back&#34;&gt;↩&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
-&lt;li id=&#34;fn6&#34;&gt;&lt;p&gt;I found &lt;a href=&#34;https://eml.berkeley.edu/~rothenbe/Fall2007/kalman.pdf&#34;&gt;this&lt;/a&gt; quite helpful.&lt;a href=&#34;#fnref6&#34; class=&#34;footnote-back&#34;&gt;↩&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
-&lt;li id=&#34;fn7&#34;&gt;&lt;p&gt;Forecasting an unobserved response occurring in the given moment&lt;a href=&#34;#fnref7&#34; class=&#34;footnote-back&#34;&gt;↩&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
-&lt;li id=&#34;fn8&#34;&gt;&lt;p&gt;In this post, I use “Predictive” to refer to the task of forecasting the future response (including in the very next step), and “Inferential” to refer to understanding trends in the data (e.g. the posterior distribution of the parameters in a sensible Bayesian model should provide useful inference.&lt;a href=&#34;#fnref8&#34; class=&#34;footnote-back&#34;&gt;↩&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
-&lt;li id=&#34;fn9&#34;&gt;&lt;p&gt;As we will see in a later section, this deserves more careful consideration.&lt;a href=&#34;#fnref9&#34; class=&#34;footnote-back&#34;&gt;↩&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
-&lt;li id=&#34;fn10&#34;&gt;&lt;p&gt;If I return to this dataset, my next approach will focus on explicitly modeling the structure of the autocorrelation.&lt;a href=&#34;#fnref10&#34; class=&#34;footnote-back&#34;&gt;↩&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
-&lt;li id=&#34;fn11&#34;&gt;&lt;p&gt;Most of this is grabbed right from the bsts manual, whose documentation is very helpful.&lt;a href=&#34;#fnref11&#34; class=&#34;footnote-back&#34;&gt;↩&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
-&lt;li id=&#34;fn12&#34;&gt;&lt;p&gt;Of course, if neither model captures the situation, this inference can be complicated, but it’s still useful to explore the area.&lt;a href=&#34;#fnref12&#34; class=&#34;footnote-back&#34;&gt;↩&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
-&lt;li id=&#34;fn13&#34;&gt;&lt;p&gt;Where &lt;span class=&#34;math inline&#34;&gt;\(y_{1:t} := (y_1, \ldots, y_t)\)&lt;/span&gt;, matching the typical Kalman filter notation.&lt;a href=&#34;#fnref13&#34; class=&#34;footnote-back&#34;&gt;↩&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
-&lt;li id=&#34;fn14&#34;&gt;&lt;p&gt;I am still not entirely confident about the interpretation of these plots, will return soon to clear this up.&lt;a href=&#34;#fnref14&#34; class=&#34;footnote-back&#34;&gt;↩&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
-&lt;li id=&#34;fn15&#34;&gt;&lt;p&gt;In recent decades, it has likely been too consistent for this to be sensible, but given that this is being written as the movie industry is shut down during COVID-19, greater tail uncertainty doesn’t seem unreasonable.&lt;a href=&#34;#fnref15&#34; class=&#34;footnote-back&#34;&gt;↩&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/div&gt;
-</description>
-    </item>
-    
-    <item>
       <title>Summary of the Common Philisophical Interpretations of Probability</title>
       <link>/other_posts/interpreting-probability/</link>
       <pubDate>Thu, 28 May 2020 00:00:00 +0000</pubDate>
@@ -949,12 +155,12 @@ We can see that the results are completely nonsensical. It is a little more clea
 &lt;!-- * On a morning commute, we can estimate whether taking a turn a few blocks early to avoid a stoplight saves us time. It&#39;s much harder to figure out in advance whether taking the bus or train is easy. --&gt;
 &lt;!-- * Now, I&#39;d wager that generally, we&#39;re rather good at making small (later, we will call these &#34;local&#34;, due to their geometric interpretation) adjustments. If I realize that by taking a right a few blocks early, I can avoid the long traffic light, I&#39;ll often do it.  --&gt;
 &lt;!-- * However, there&#39;s a reason these are small changes. We can estimate their impact from where we are. If we considered an entirely new route to work, taking a whole different train line, we would have no way to know what that&#39;s like. --&gt;
-&lt;p&gt;Before, we imagined a challenge where we tried to find a peak of a mountain range, using a computer which could tell us the elevation of any chosen input point. Let’s imagine that it also tells us the slope of the incline at that point (“which direction is down”). This better reflects our intuition for local optimization, but it’s also not a large change to the game, because we could always simply query the elevation in a small area around our point, and gauge the slope ourselves. Imagine that we are hiking with an altimeter, and we can look around us and see the shape of the nearby slope. However, we can’t just look around and find a faraway peak, because we’re stuck in the forests of the Appalachians rather than the sheer granite ofthe Sierra Nevada. Our intuition tells us the optimization algorithm which is natural: from wherever we are, “go up”.&lt;/p&gt;
+&lt;p&gt;Before, we imagined a challenge where we tried to find a peak of a mountain range, using a computer which could tell us the elevation of any chosen input point. Let’s imagine that it also tells us the slope of the incline at that point (“which direction is down”). This better reflects our intuition for local optimization, but it’s also not a large change to the game, because we could always simply query the elevation in a small area around our point, and gauge the slope ourselves. Imagine that we are hiking with an altimeter, and we can look around us and see the shape of the nearby slope. However, we can’t just look around and find a faraway peak, because we’re stuck in the forests of the Appalachians rather than the sheer granite ofthe Sierra Nevada. Our intuition tells us the optimization algorithm which is natural: from wherever we are, “go up”. This intuitive algorithm is called “gradient ascent”.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;gradient-ascent&#34; class=&#34;section level1&#34;&gt;
 &lt;h1&gt;Gradient Ascent&lt;/h1&gt;
-&lt;p&gt;This intuitive is called “gradient ascent”. Wherever you are, go up. This is quite literal in the case of our mountain range, This section will provide its mathematical definition, but these details aren’t important, and you can skip the notation and go straight to the visualizations if you’d like. We begin with the intuitive description, and below write the algorithm out mathematically.&lt;/p&gt;
-&lt;p&gt;In a bit more detail, we begin at some initial point. We find the direction of steepest ascent from that point, i.e. up the hill (the magnitude and direction of steepest ascent form the “gradient” vector). Then, we walk for a period in that direction (the amount is determined by the “step size”, and how steep the ascent actually is). Once we finish walking, we are at a new point, and we repeat this process again (we determine direction of steepest ascent, and walk in that direction). Once we reach a point that is essentially flat, there is no more direction of steepest ascent to follow, and we are done (this is called “convergence”).&lt;/p&gt;
+&lt;p&gt;Here’s what gradient ascent looks like as a step-by-step process (although, its simplest summary is simply “go up”).&lt;/p&gt;
+&lt;p&gt;We begin at some initial point. We find the direction of steepest ascent from that point, i.e. up the hill (the magnitude and direction of steepest ascent form the “gradient” vector). Then, we walk for a period in that direction (the amount is determined by the “step size”, and how steep the ascent actually is). Once we finish walking, we are at a new point, and we repeat this process again (we determine direction of steepest ascent, and walk in that direction). Once we reach a point that is essentially flat, there is no more direction of steepest ascent to follow, and we are done (this is called “convergence”).&lt;/p&gt;
 &lt;p&gt;This is the intuitive definition of what it means to make &lt;em&gt;local&lt;/em&gt; changes. Wherever we are, we think “what small change could we make to make this better?” If our cookies are too salty, we add a bit less salt, but we don’t start over from scratch.&lt;/p&gt;
 &lt;div id=&#34;mathematical-definition&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;Mathematical Definition&lt;/h2&gt;
@@ -972,13 +178,13 @@ We can see that the results are completely nonsensical. It is a little more clea
 &lt;/div&gt;
 &lt;div id=&#34;visualizing-gradient-ascent&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;Visualizing Gradient Ascent&lt;/h2&gt;
-&lt;p&gt;It’s one thing to say that we follow the direction of steepest ascent, but what does that actually look like in practice? Imagine we have to summit a hill. This one is perfectly round, for simplicitly, but pretend we don’t know that, we can only see the local area around us.
+&lt;p&gt;So, we follow the direction of steepest ascent, but what does that look like in practice? Our mountain range elevation challenge&lt;a href=&#34;#fn7&#34; class=&#34;footnote-ref&#34; id=&#34;fnref7&#34;&gt;&lt;sup&gt;7&lt;/sup&gt;&lt;/a&gt; provides a natural visualization. Imagine we are dealing with the simplest of all mountain ranges: a single hill. This one is perfectly round, for simplicitly, but we pretend we don’t know that, and we can only see the local area around us.
 &lt;!-- Need to go through and do better labels/etc for all these visualizations!  --&gt;s
 &lt;!-- (Show the unimodel 2d case ) --&gt;&lt;/p&gt;
 &lt;p&gt;The following is a contour plot, like what you find on a topographical map.&lt;/p&gt;
 &lt;p&gt;It might be more clear if we consider viewing the map at an angle (thanks to the &lt;code&gt;rayshader&lt;/code&gt; &lt;a href=&#34;https://www.tylermw.com/3d-ggplots-with-rayshader/&#34;&gt;package&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;uni_vis_3d.png&#34; /&gt;&lt;/p&gt;
-&lt;p&gt;Imagine we start at that red dot in the top right. We look around, and see that the direction of steepest ascent is down and to the right.&lt;/p&gt;
+&lt;p&gt;Imagine we start at that red dot in the top right. We look around, and see that the direction of steepest ascent is down and to the left.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;eta.temp &amp;lt;- 30
 grad.first.step &amp;lt;- GradBivarNormal(x.uni.init)
 # Manually compute second step, for visualization
@@ -990,10 +196,10 @@ g.uni + uni.first.point +
                col = &amp;quot;red&amp;quot;, size = .25,
                arrow = arrow(length = unit(.2, &amp;quot;cm&amp;quot;), type = &amp;quot;closed&amp;quot;))&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;&lt;img src=&#34;/post/2020-05-27-local-optimization.en/index_files/figure-html/unnamed-chunk-4-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
-&lt;p&gt;CONSIDER ONE MORE STEP&lt;/p&gt;
-&lt;p&gt;Or in 3D…&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;uni_vis_3d_step2.png&#34; /&gt;&lt;/p&gt;
-&lt;p&gt;Below, we can watch a gif of the algorithm in action. Sure enough, in this simple setting, we head right to the top. [rw]&lt;/p&gt;
+&lt;p&gt;We move that distance up the slope, and look around once again. We see that the direction of steepest ascent is once again, down and to the left, and we move once more.&lt;/p&gt;
+&lt;p&gt;We can again try and picture this movement in 3D (which is admittedly hard to draw…).&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;uni_vis_3d_step2.png&#34; /&gt;
+We repeat this process until we look around for that direction of steepest ascent, and see that we’re at a point which is basically flat. We can picture the whole process in the gif below. We start in the top right, and climb and climb until we reach the top of the mountain, where we stop.&lt;/p&gt;
 &lt;!-- ```{r, include = FALSE} --&gt;
 &lt;!-- g.uni &lt;- tb.uni %&gt;%  --&gt;
 &lt;!--   ggplot(aes(x = x, y = y)) + --&gt;
@@ -1015,8 +221,9 @@ g.mix &amp;lt;- tb.grid %&amp;gt;%
   ggplot(aes(x = x, y = y)) +
   geom_tile(aes(fill = z)) +
   geom_contour(aes(z = z), bins = 15, color = &amp;quot;black&amp;quot;) +
-  ylim(-7.5,7.5) + xlim(-7.5, 7.5)+
-  scale_fill_gradientn(&amp;quot;z&amp;quot;, colours = terrain.colors(10)) +
+  ylim(-7.5,7.5) + xlim(-7.5, 7.5) +
+  xlab(&amp;quot;East/West&amp;quot;) + ylab(&amp;quot;North/South&amp;quot;) +  
+  scale_fill_gradientn(&amp;quot;Elevation&amp;quot;, colours = terrain.colors(10)) +
   coord_fixed()
 g.mix&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## Warning: Removed 17500 rows containing non-finite values (stat_contour).&lt;/code&gt;&lt;/pre&gt;
@@ -1044,14 +251,36 @@ g.mix&lt;/code&gt;&lt;/pre&gt;
 &lt;!-- # Sys.sleep(0.2) --&gt;
 &lt;!-- # render_snapshot(clear = TRUE) --&gt;
 &lt;!-- ``` --&gt;
-&lt;ul&gt;
-&lt;li&gt;Animation, currently on 2d, to show how gradient ascent works&lt;/li&gt;
-&lt;/ul&gt;
+&lt;p&gt;This poses an obvious problem for our algorithm. We hike up until we reach the top of a peak, look around, see that we can’t go up any further, and stop. But this could be true of &lt;em&gt;any&lt;/em&gt; of the three peaks, and only the peak in the southeast is actually highest.&lt;/p&gt;
+&lt;p&gt;Let’s say we start near the center of this region, and follow our algorithm. We climb up south and to the east, and reach that highest peak, same as we did in the case of a single hill.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;steps &amp;lt;- 130
+x.asc.seq &amp;lt;- matrix(rep(NA, 2*steps), ncol=2)
+# This is the starting position which takes us to the optima
+x.asc.seq[1,] &amp;lt;- c(1, -0.5)
+grad.seq &amp;lt;- matrix(rep(NA, 2*steps), ncol=2)
+eta &amp;lt;- 20
+
+
+for (i in 1:(steps-1)) {
+  grad.seq[i,] &amp;lt;- GradMixtureNormal(x.asc.seq[i,])
+  x.asc.seq[i+1,] &amp;lt;-  x.asc.seq[i,] + grad.seq[i,]*eta
+}
+
+tb.mix.asc &amp;lt;- tibble(x = x.asc.seq[,1], 
+                     y = x.asc.seq[,2],
+                     grad.x = grad.seq[,1],
+                     grad.y = grad.seq[,2],
+                     iter = 1:steps) %&amp;gt;% 
+  mutate(x.next = x + grad.x*eta,
+         y.next = y + grad.y*eta)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;2d_mix_grad_ascent_optima_anim.gif&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;However, what if our starting position was just a bit further north? Well, we’d head off in the opposite direction, and end up at the northmost peak. We’d halt at the top, unable to climb any further, and be forever stuck at a lower point than the peak in the southeast. And by the rules of our game, we can only see the area around us, and we’ll never know that there’s a higher peak elsewhere. And most crucially, we couldn’t possibly tell the difference between the two starting points, without prior knowledge of the shape of the region.&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;2d_mix_grad_ascent_anim.gif&#34; /&gt;&lt;/p&gt;
 &lt;div id=&#34;the-perils-of-nonconvexity&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;The Perils of “Nonconvexity”&lt;/h2&gt;
+&lt;p&gt;This simplified example illustrates a fundamental divide in mathematical optimization. If a shape is “convex”, we can easily compute its optima. If it is “nonconvex”, then it may be extremely difficult. Intuitively, we call a region “convex” if the line between any two points within that region stays &lt;em&gt;within&lt;/em&gt; that region. Thus, the rectangular Wyoming is convex, while Cape Cod makes Massachussetts nonconvex. Then, we call a &lt;em&gt;function&lt;/em&gt; “convex” if the region that lies above the surface of the function forms a convex set.&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;p&gt;Which optimization challenges are hard? Math draws a fairly simple distinction. &lt;a href=&#34;#fn7&#34; class=&#34;footnote-ref&#34; id=&#34;fnref7&#34;&gt;&lt;sup&gt;7&lt;/sup&gt;&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Which optimization challenges are hard? Math draws a fairly simple distinction. &lt;a href=&#34;#fn8&#34; class=&#34;footnote-ref&#34; id=&#34;fnref8&#34;&gt;&lt;sup&gt;8&lt;/sup&gt;&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
 &lt;li&gt;&lt;p&gt;In short, in the convex realm, local information provides global guidance. The local slope is pointing us in a direction&lt;/p&gt;&lt;/li&gt;
 &lt;li&gt;&lt;p&gt;Description of convex vs non-convex optimization, why they are two fundamentally different challenges.&lt;/p&gt;&lt;/li&gt;
 &lt;/ul&gt;
@@ -1071,7 +300,7 @@ g.mix&lt;/code&gt;&lt;/pre&gt;
 &lt;li&gt;Microsoft boasted of a neural network with &lt;a href=&#34;https://www.microsoft.com/en-us/research/blog/zero-deepspeed-new-system-optimizations-enable-training-models-with-over-100-billion-parameters/&#34;&gt;17 billion(!)&lt;/a&gt; parameters, each of which are a dimension to be optimized.&lt;/li&gt;
 &lt;li&gt;The result is an enormous amount of potential spurious optima.&lt;/li&gt;
 &lt;li&gt;What we’ve found over the past decade, SGD works “unreasonably well”. It’s explicitly an algorithm for convex optimization, and yet it optimizes these deep networks.&lt;/li&gt;
-&lt;li&gt;There are a variety of complex answers, depending on who you ask, but the staple reason which dates back &lt;a href=&#34;https://leon.bottou.org/publications/pdf/nimes-1991.pdf&#34;&gt;decades&lt;/a&gt; is that its inherent noisiness allows it to escape spurious local optima.&lt;a href=&#34;#fn8&#34; class=&#34;footnote-ref&#34; id=&#34;fnref8&#34;&gt;&lt;sup&gt;8&lt;/sup&gt;&lt;/a&gt; The noisiness comes not fro our explicit introduction, but from the its approximation error.&lt;/li&gt;
+&lt;li&gt;There are a variety of complex answers, depending on who you ask, but the staple reason which dates back &lt;a href=&#34;https://leon.bottou.org/publications/pdf/nimes-1991.pdf&#34;&gt;decades&lt;/a&gt; is that its inherent noisiness allows it to escape spurious local optima.&lt;a href=&#34;#fn9&#34; class=&#34;footnote-ref&#34; id=&#34;fnref9&#34;&gt;&lt;sup&gt;9&lt;/sup&gt;&lt;/a&gt; The noisiness comes not fro our explicit introduction, but from the its approximation error.&lt;/li&gt;
 &lt;li&gt;The noise of SGD has little analogy in our own lives, but the way that noise becomes a tool, not a hindrance, in non-convex optimization, is very real.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;SGD is the staple way to optimize neural networks.&lt;/p&gt;
@@ -1117,8 +346,9 @@ Evidence from the London Underground Network”&lt;/a&gt;, by Larcom, Rauch, &am
 &lt;li id=&#34;fn4&#34;&gt;&lt;p&gt;Or you could add in other factors, like cost and pleasantness.&lt;a href=&#34;#fnref4&#34; class=&#34;footnote-back&#34;&gt;↩&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
 &lt;li id=&#34;fn5&#34;&gt;&lt;p&gt;I’ve tasted the resulting cookies, not bad for a cafeteria batch.&lt;a href=&#34;#fnref5&#34; class=&#34;footnote-back&#34;&gt;↩&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
 &lt;li id=&#34;fn6&#34;&gt;&lt;p&gt;This is for an extremely crude version with fixed step size &lt;span class=&#34;math inline&#34;&gt;\(\eta\)&lt;/span&gt;. There is no reason to use fixed step size in practice, but that adjustment isn’t relevant to the demonstration.&lt;a href=&#34;#fnref6&#34; class=&#34;footnote-back&#34;&gt;↩&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
-&lt;li id=&#34;fn7&#34;&gt;&lt;p&gt;Like maximization and minimization, convex and concave will be used interchangeably. The multiplying a convex function by minus &lt;span class=&#34;math inline&#34;&gt;\(1\)&lt;/span&gt; makes it concave. Concave functions are easy to maximize, but we can switch between the two interchangeably.&lt;a href=&#34;#fnref7&#34; class=&#34;footnote-back&#34;&gt;↩&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
-&lt;li id=&#34;fn8&#34;&gt;&lt;p&gt;And “saddle points”, which I am skirting past here, as they are a similar concern for this high level explanation.&lt;a href=&#34;#fnref8&#34; class=&#34;footnote-back&#34;&gt;↩&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li id=&#34;fn7&#34;&gt;&lt;p&gt;name this somehow?&lt;a href=&#34;#fnref7&#34; class=&#34;footnote-back&#34;&gt;↩&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li id=&#34;fn8&#34;&gt;&lt;p&gt;Like maximization and minimization, convex and concave will be used interchangeably. The multiplying a convex function by minus &lt;span class=&#34;math inline&#34;&gt;\(1\)&lt;/span&gt; makes it concave. Concave functions are easy to maximize, but we can switch between the two interchangeably.&lt;a href=&#34;#fnref8&#34; class=&#34;footnote-back&#34;&gt;↩&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li id=&#34;fn9&#34;&gt;&lt;p&gt;And “saddle points”, which I am skirting past here, as they are a similar concern for this high level explanation.&lt;a href=&#34;#fnref9&#34; class=&#34;footnote-back&#34;&gt;↩&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
 &lt;/ol&gt;
 &lt;/div&gt;
 </description>
