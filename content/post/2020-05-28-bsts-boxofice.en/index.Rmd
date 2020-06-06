@@ -200,7 +200,7 @@ where $\epsilon_{\delta,t} \sim N(0, \sigma_\mu^2)$ is another random walk. How 
 
 Next, we consider the "seasonal" model, that is, any fixed time cycle with $S$ possible states in the cycle). For these $S$ seasons, we create an $S-1$ dimension state vector $\gamma_t$ (as we constrain the coefficients to sum to $1$) and in essence our model performs regression using these coefficients and dummy variables corresponding to the current season for the given time $t$. Then, the first element of the season state vector $\gamma_t$ evolves as 
 \begin{align*}
-\gamma_{t+1, 1} = -1*\sum_{s=2}^S \gamma_{t, s} + \epsilon_(\gamma),
+\gamma_{t+1, 1} = -1*\sum_{s=2}^S \gamma_{t, s} + \epsilon_{\gamma},
 \end{align*}
 where $\epsilon_(\gamma) \sim N(0, \sigma_\gamma^2)$. 
 
@@ -211,7 +211,7 @@ where $\epsilon_(\gamma) \sim N(0, \sigma_\gamma^2)$.
 
 With these two commponents, we can fit our twin initial models. Our "season" model consists of just the seasonal component, with $S=52$ allowing a regression on every single unique week of the year, and the "LLT" model adding to that a local linear trend. When just using the seasonal model, we need to add to it a static intercept term, so that the mean isn't wildly off. While the purpose of this is more educational than anything else, it's useful to be clear on what this could show. Comparing these models essentially takes for granted the folk wisdom that the precise week of the year influences the "state" of ticket sales. Then, comparing these models can help understand if there is some basis for tracing local trends in the movie business, or if that is just overfitting to noise.^[Of course, if neither model captures the situation, this inference can be complicated, but it's still useful to explore the area.]
 
-The `bsts` package makes fitting these models extremely easy. The "state specification" is a list of state components. We construct a seasonal state space, add a static intercept, and fit the model. This post is meant as a reminder of the underlying theory, so it won't go into the technical details of what the model produces (which are covered in the documentation), but broadly the model object which results from bsts()  contains the relevant parameters and samples from the posterior distribution which we want (with the one technical caveat that it returns all iterations of its posterior sampler, so if you want to access those samples yourself, you need to remove the burn-in segment manually).  
+The `bsts` package makes fitting these models extremely easy. The "state specification" is a list of state components. We construct a seasonal state space, add a static intercept, and fit the model. This post is meant as a reminder of the underlying theory, so it won't go into the technical details of what the model produces (which are covered in the documentation), but broadly the model object which results from `bsts()` contains the relevant parameters and samples from the posterior distribution which we want (with the one technical caveat that it returns all iterations of its posterior sampler, so if you want to access those samples yourself, you need to remove the burn-in segment manually).  
 
 ```{r}
 ss.season <- AddSeasonal(list(), 

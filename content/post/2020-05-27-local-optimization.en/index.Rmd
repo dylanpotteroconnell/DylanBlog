@@ -100,13 +100,13 @@ Personally, this describes my relationship with my own food. TO ADD MORE...
 <!-- * Now, I'd wager that generally, we're rather good at making small (later, we will call these "local", due to their geometric interpretation) adjustments. If I realize that by taking a right a few blocks early, I can avoid the long traffic light, I'll often do it.  -->
 <!-- * However, there's a reason these are small changes. We can estimate their impact from where we are. If we considered an entirely new route to work, taking a whole different train line, we would have no way to know what that's like. -->
 
-Before, we imagined a challenge where we tried to find a peak of a mountain range, using a computer which could tell us the elevation of any chosen input point. Let's imagine that it also tells us the slope of the incline at that point ("which direction is down"). This better reflects our intuition for local optimization, but it's also not a large change to the game, because we could always simply query the elevation in a small area around our point, and gauge the slope ourselves. Imagine that we are hiking with an altimeter, and we can look around us and see the shape of the nearby slope. However, we can't just look around and find a faraway peak, because we're stuck in the forests of the Appalachians rather than the sheer granite ofthe Sierra Nevada. Our intuition tells us the optimization algorithm which is natural: from wherever we are, "go up".
+Before, we imagined a challenge where we tried to find a peak of a mountain range, using a computer which could tell us the elevation of any chosen input point. Let's imagine that it also tells us the slope of the incline at that point ("which direction is down"). This better reflects our intuition for local optimization, but it's also not a large change to the game, because we could always simply query the elevation in a small area around our point, and gauge the slope ourselves. Imagine that we are hiking with an altimeter, and we can look around us and see the shape of the nearby slope. However, we can't just look around and find a faraway peak, because we're stuck in the forests of the Appalachians rather than the sheer granite ofthe Sierra Nevada. Our intuition tells us the optimization algorithm which is natural: from wherever we are, "go up". This intuitive algorithm is called "gradient ascent". 
 
 # Gradient Ascent
 
-This intuitive is called "gradient ascent". Wherever you are, go up. This is quite literal in the case of our mountain range, This section will provide its mathematical definition, but these details aren't important, and you can skip the notation and go straight to the visualizations if you'd like. We begin with the intuitive description, and below write the algorithm out mathematically.  
+Here's what gradient ascent looks like as a step-by-step process (although, its simplest summary is simply "go up"). 
 
-In a bit more detail, we begin at some initial point. We find the direction of steepest ascent from that point, i.e. up the hill (the magnitude and direction of steepest ascent form the "gradient" vector). Then, we walk for a period in that direction (the amount is determined by the "step size", and how steep the ascent actually is). Once we finish walking, we are at a new point, and we repeat this process again (we determine direction of steepest ascent, and walk in that direction). Once we reach a point that is essentially flat, there is no more direction of steepest ascent to follow, and we are done (this is called "convergence"). 
+We begin at some initial point. We find the direction of steepest ascent from that point, i.e. up the hill (the magnitude and direction of steepest ascent form the "gradient" vector). Then, we walk for a period in that direction (the amount is determined by the "step size", and how steep the ascent actually is). Once we finish walking, we are at a new point, and we repeat this process again (we determine direction of steepest ascent, and walk in that direction). Once we reach a point that is essentially flat, there is no more direction of steepest ascent to follow, and we are done (this is called "convergence"). 
 
 This is the intuitive definition of what it means to make *local* changes. Wherever we are, we think "what small change could we make to make this better?" If our cookies are too salty, we add a bit less salt, but we don't start over from scratch. 
 
@@ -130,7 +130,7 @@ Here's a mathematical definition of a crude version of gradient descent.^[This i
 
 ## Visualizing Gradient Ascent
 
-It's one thing to say that we follow the direction of steepest ascent, but what does that actually look like in practice? Imagine we have to summit a hill. This one is perfectly round, for simplicitly, but pretend we don't know that, we can only see the local area around us. 
+So, we follow the direction of steepest ascent, but what does that look like in practice? Our mountain range elevation challenge^[name this somehow?] provides a natural visualization. Imagine we are dealing with the simplest of all mountain ranges: a single hill. This one is perfectly round, for simplicitly, but we pretend we don't know that, and we can only see the local area around us. 
 <!-- Need to go through and do better labels/etc for all these visualizations!  -->s
 <!-- (Show the unimodel 2d case ) -->
 
@@ -155,6 +155,7 @@ g.uni <- tb.uni %>%
   geom_tile(aes(fill = z)) +
   geom_contour(aes(z = z), bins = 15, color = "black") +
   scale_fill_gradientn("Elevation", colours = terrain.colors(10)) +
+  xlab("East/West") + ylab("North/South")
   coord_fixed() 
   
 
@@ -187,7 +188,7 @@ It might be more clear if we consider viewing the map at an angle (thanks to the
 ![](uni_vis_3d.png)
 
 
-Imagine we start at that red dot in the top right. We look around, and see that the direction of steepest ascent is down and to the right. 
+Imagine we start at that red dot in the top right. We look around, and see that the direction of steepest ascent is down and to the left. 
 
 ```{r}
 eta.temp <- 30
@@ -202,7 +203,8 @@ g.uni + uni.first.point +
                arrow = arrow(length = unit(.2, "cm"), type = "closed"))
 ```
 
-CONSIDER ONE MORE STEP
+We move that distance up the slope, and look around once again. We see that the direction of steepest ascent is once again, down and to the left, and we move once more. 
+
 ```{r, include = FALSE}
 grad.second.step <- GradBivarNormal(x.uni.2)
 # This algorithm is modified for visualization purposes...
@@ -219,7 +221,7 @@ g.second.step <- g.uni +
                arrow = arrow(length = unit(.2, "cm"), type = "closed"))
 g.second.step
 ```
-Or in 3D...
+We can again try and picture this movement in 3D (which is admittedly hard to draw...). 
 ```{r, include = FALSE}
 # plot_gg(g.second.step,
 #         multicore = TRUE,
@@ -235,11 +237,7 @@ Or in 3D...
 ```
 
 ![](uni_vis_3d_step2.png)
-
-
-
-Below, we can watch a gif of the algorithm in action. Sure enough, in this simple setting, we head right to the top.  [rw]
-
+We repeat this process until we look around for that direction of steepest ascent, and see that we're at a point which is basically flat. We can picture the whole process in the gif below. We start in the top right, and climb and climb until we reach the top of the mountain, where we stop. 
 
 ```{r, include = FALSE}
 uni.init <- c(1.8, 1.8)
@@ -331,24 +329,25 @@ g.mix <- tb.grid %>%
   ggplot(aes(x = x, y = y)) +
   geom_tile(aes(fill = z)) +
   geom_contour(aes(z = z), bins = 15, color = "black") +
-  ylim(-7.5,7.5) + xlim(-7.5, 7.5)+
-  scale_fill_gradientn("z", colours = terrain.colors(10)) +
+  ylim(-7.5,7.5) + xlim(-7.5, 7.5) +
+  xlab("East/West") + ylab("North/South") +  
+  scale_fill_gradientn("Elevation", colours = terrain.colors(10)) +
   coord_fixed()
 g.mix
 ```
 
 ```{r, include = FALSE}
-# plot_gg(g.mix,
-#         multicore = TRUE,
-#         raytrace = FALSE,
-#         width = 7,
-#         height = 4,
-#         scale = 300,
-#         windowsize = c(1400, 866),
-#         zoom = .3,
-#         phi = 30,
-#         theta = 30)
-# render_snapshot(file = "mix_vis_3d", clear = TRUE)
+plot_gg(g.mix,
+        multicore = TRUE,
+        raytrace = FALSE,
+        width = 7,
+        height = 4,
+        scale = 300,
+        windowsize = c(1400, 866),
+        zoom = .3,
+        phi = 30,
+        theta = 30)
+render_snapshot(file = "mix_vis_3d", clear = TRUE)
 ```
 
 ![](mix_vis_3d.png)
@@ -377,8 +376,9 @@ g.mix
 <!-- # render_snapshot(clear = TRUE) -->
 <!-- ``` -->
 
-* Animation, currently on 2d, to show how gradient ascent works
+This poses an obvious problem for our algorithm. We hike up until we reach the top of a peak, look around, see that we can't go up any further, and stop. But this could be true of *any* of the three peaks, and only the peak in the southeast is actually highest.
 
+Let's say we start near the center of this region, and follow our algorithm. We climb up south and to the east, and reach that highest peak, same as we did in the case of a single hill. 
 ```{r, include = FALSE}
 
 # The gradient of the normal w.r.t. x is (x-mu)/sigma^2*density.
@@ -397,12 +397,16 @@ GradMixtureNormal <- function(x) {
   temp <- t(apply(mu.minus.x.div.sig, 1, function(r) r*component.probs))
   return(c(temp %*% w.2d))
 }
+```
 
-steps <- 200
+```{r}
+
+steps <- 130
 x.asc.seq <- matrix(rep(NA, 2*steps), ncol=2)
-x.asc.seq[1,] <- c(1.3, 0)
+# This is the starting position which takes us to the optima
+x.asc.seq[1,] <- c(1, -0.5)
 grad.seq <- matrix(rep(NA, 2*steps), ncol=2)
-eta <- 40
+eta <- 20
 
 
 for (i in 1:(steps-1)) {
@@ -421,28 +425,77 @@ tb.mix.asc <- tibble(x = x.asc.seq[,1],
 
 
 ```{r, include = FALSE}
-# p.mix.ascent <- g.mix +
-#   geom_point(data = tb.mix.asc,
-#              col = "red",
-#              size = 1) +
-#   geom_segment(data = tb.mix.asc,
-#                aes(x = x, y = y,
-#                    xend = x.next, yend = y.next),
-#                col = "red", size = .25,
-#                arrow = arrow(length = unit(.2, "cm"), type = "closed"))
-# 
-# anim.mix.ascent <- p.mix.ascent + transition_states(iter,
-#                                             transition_length = 1,
-#                                             state_length = 1)
-# animate(anim.mix.ascent,
-#         nframes = 10 + max(tb.mix.asc$iter),
-#         renderer = gifski_renderer("2d_mix_grad_ascent_anim.gif"))
+p.mix.ascent <- g.mix +
+  geom_point(data = tb.mix.asc,
+             col = "red",
+             size = 1) +
+  geom_segment(data = tb.mix.asc,
+               aes(x = x, y = y,
+                   xend = x.next, yend = y.next),
+               col = "red", size = .25,
+               arrow = arrow(length = unit(.2, "cm"), type = "closed"))
 
+anim.mix.ascent <- p.mix.ascent + transition_states(iter,
+                                            transition_length = 1,
+                                            state_length = 1)
+animate(anim.mix.ascent,
+        nframes = 100 + max(tb.mix.asc$iter),
+        renderer = gifski_renderer("2d_mix_grad_ascent_optima_anim.gif"))
+```
+![](2d_mix_grad_ascent_optima_anim.gif)
+
+However, what if our starting position was just a bit further north? Well, we'd head off in the opposite direction, and end up at the northmost peak. We'd halt at the top, unable to climb any further, and be forever stuck at a lower point than the peak in the southeast. And by the rules of our game, we can only see the area around us, and we'll never know that there's a higher peak elsewhere. And most crucially, we couldn't possibly tell the difference between the two starting points, without prior knowledge of the shape of the region.
+
+```{r, include = FALSE}
+steps <- 130
+x.asc.seq <- matrix(rep(NA, 2*steps), ncol=2)
+x.asc.seq[1,] <- c(1.3, 0)
+grad.seq <- matrix(rep(NA, 2*steps), ncol=2)
+eta <- 20
+
+
+for (i in 1:(steps-1)) {
+  grad.seq[i,] <- GradMixtureNormal(x.asc.seq[i,])
+  x.asc.seq[i+1,] <-  x.asc.seq[i,] + grad.seq[i,]*eta
+}
+
+tb.mix.asc <- tibble(x = x.asc.seq[,1], 
+                     y = x.asc.seq[,2],
+                     grad.x = grad.seq[,1],
+                     grad.y = grad.seq[,2],
+                     iter = 1:steps) %>% 
+  mutate(x.next = x + grad.x*eta,
+         y.next = y + grad.y*eta)
+```
+
+
+```{r, include = FALSE}
+p.mix.ascent <- g.mix +
+  geom_point(data = tb.mix.asc,
+             col = "red",
+             size = 1) +
+  geom_segment(data = tb.mix.asc,
+               aes(x = x, y = y,
+                   xend = x.next, yend = y.next),
+               col = "red", size = .25,
+               arrow = arrow(length = unit(.2, "cm"), type = "closed"))
+
+anim.mix.ascent <- p.mix.ascent + transition_states(iter,
+                                            transition_length = 1,
+                                            state_length = 1)
+animate(anim.mix.ascent,
+        nframes = 100 + max(tb.mix.asc$iter),
+        renderer = gifski_renderer("2d_mix_grad_ascent_anim.gif"))
 ```
 
 ![](2d_mix_grad_ascent_anim.gif)
 
+
+
 ## The Perils of "Nonconvexity"
+
+This simplified example illustrates a fundamental divide in mathematical optimization. If a shape is "convex", we can easily compute its optima. If it is "nonconvex", then it may be extremely difficult. Intuitively, we call a region "convex" if the line between any two points within that region stays *within* that region. Thus, the rectangular Wyoming is convex, while Cape Cod makes Massachussetts nonconvex. Then, we call a *function* "convex" if the region that lies above the surface of the function forms a convex set.
+
 
 
 * Which optimization challenges are hard? Math draws a fairly simple distinction. ^[Like maximization and minimization, convex and concave will be used interchangeably. The multiplying a convex function by minus $1$ makes it concave. Concave functions are easy to maximize, but we can switch between the two interchangeably.]
