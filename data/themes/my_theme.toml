@@ -5,8 +5,9 @@ name = "Dark"
 light = true
 
 # Primary
+primary = "#C48FBB"
 #primary = "#D6D6D2"
-primary = "#E3E3DA"
+#primary = "#E3E3DA"
 #primary = "d4af37"
 
 # Menu
