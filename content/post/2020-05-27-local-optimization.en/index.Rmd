@@ -789,9 +789,7 @@ tb.noisy.ascent <- tb.noisy.ascent %>%
 ![](test_noisy_ascent_anim.gif)
 Of course, this gif takes a *long* time to run---it requires a very lucky sequence of steps for us to escape the local optima! Thus, this is far from an easy fix. In fact, this highlights the importance of precisely tuning this approach. Blindly adding random noise will *eventually* let you find the summit, but along the way you'll be stuck with long stretches of experimentation before you get anywhere.
 
-
-
-# The Power of Random Noise
+# Estimation Error as Noise
 
 Simply adding random noise to gradient ascent isn't a "real" algorithm that would be ever used in practice, but it helps illustrate the powerful premise of "stochastic optimization" (i.e. optimization techniques which leverage random chance). Many varieties of stochastic optimization see widespread use,^[[Simulated annealing]() and [parallel tempering]() are two particular favorites of mine.], but here, I'll focus on one particularly relevant example, Stochastic Gradient Descent (SGD).
 
