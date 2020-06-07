@@ -353,7 +353,7 @@ GradMixtureNormal <- function(x) {
 }
 ```
 
-```{r}
+```{r, include = FALSE}
 steps <- 130
 x.asc.seq <- matrix(rep(NA, 2*steps), ncol=2)
 # This is the starting position which takes us to the optima
