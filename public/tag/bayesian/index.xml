@@ -161,7 +161,7 @@ where &lt;span class=&#34;math inline&#34;&gt;\(\epsilon_{\mu,t} \sim N(0, \sigm
 where &lt;span class=&#34;math inline&#34;&gt;\(\epsilon_{\delta,t} \sim N(0, \sigma_\mu^2)\)&lt;/span&gt; is another random walk. How these terms relate to our overall transition and observation equations will be clear once they are combined.&lt;/p&gt;
 &lt;p&gt;Next, we consider the “seasonal” model, that is, any fixed time cycle with &lt;span class=&#34;math inline&#34;&gt;\(S\)&lt;/span&gt; possible states in the cycle). For these &lt;span class=&#34;math inline&#34;&gt;\(S\)&lt;/span&gt; seasons, we create an &lt;span class=&#34;math inline&#34;&gt;\(S-1\)&lt;/span&gt; dimension state vector &lt;span class=&#34;math inline&#34;&gt;\(\gamma_t\)&lt;/span&gt; (as we constrain the coefficients to sum to &lt;span class=&#34;math inline&#34;&gt;\(1\)&lt;/span&gt;) and in essence our model performs regression using these coefficients and dummy variables corresponding to the current season for the given time &lt;span class=&#34;math inline&#34;&gt;\(t\)&lt;/span&gt;. Then, the first element of the season state vector &lt;span class=&#34;math inline&#34;&gt;\(\gamma_t\)&lt;/span&gt; evolves as
 &lt;span class=&#34;math display&#34;&gt;\[\begin{align*}
-\gamma_{t+1, 1} = -1*\sum_{s=2}^S \gamma_{t, s} + \epsilon_(\gamma),
+\gamma_{t+1, 1} = -1*\sum_{s=2}^S \gamma_{t, s} + \epsilon_{\gamma},
 \end{align*}\]&lt;/span&gt;
 where &lt;span class=&#34;math inline&#34;&gt;\(\epsilon_(\gamma) \sim N(0, \sigma_\gamma^2)\)&lt;/span&gt;.&lt;/p&gt;
 &lt;!-- &#34;If predictor variables are present, the regression coefficients are fixed (as opposed to time varying, --&gt;
@@ -169,7 +169,7 @@ where &lt;span class=&#34;math inline&#34;&gt;\(\epsilon_(\gamma) \sim N(0, \sig
 &lt;!-- in the formula are contemporaneous, so if you want lags and differences you need to put them in --&gt;
 &lt;!-- the predictor matrix yourself.&#34; -bsts Docs --&gt;
 &lt;p&gt;With these two commponents, we can fit our twin initial models. Our “season” model consists of just the seasonal component, with &lt;span class=&#34;math inline&#34;&gt;\(S=52\)&lt;/span&gt; allowing a regression on every single unique week of the year, and the “LLT” model adding to that a local linear trend. When just using the seasonal model, we need to add to it a static intercept term, so that the mean isn’t wildly off. While the purpose of this is more educational than anything else, it’s useful to be clear on what this could show. Comparing these models essentially takes for granted the folk wisdom that the precise week of the year influences the “state” of ticket sales. Then, comparing these models can help understand if there is some basis for tracing local trends in the movie business, or if that is just overfitting to noise.&lt;a href=&#34;#fn12&#34; class=&#34;footnote-ref&#34; id=&#34;fnref12&#34;&gt;&lt;sup&gt;12&lt;/sup&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;The &lt;code&gt;bsts&lt;/code&gt; package makes fitting these models extremely easy. The “state specification” is a list of state components. We construct a seasonal state space, add a static intercept, and fit the model. This post is meant as a reminder of the underlying theory, so it won’t go into the technical details of what the model produces (which are covered in the documentation), but broadly the model object which results from bsts() contains the relevant parameters and samples from the posterior distribution which we want (with the one technical caveat that it returns all iterations of its posterior sampler, so if you want to access those samples yourself, you need to remove the burn-in segment manually).&lt;/p&gt;
+&lt;p&gt;The &lt;code&gt;bsts&lt;/code&gt; package makes fitting these models extremely easy. The “state specification” is a list of state components. We construct a seasonal state space, add a static intercept, and fit the model. This post is meant as a reminder of the underlying theory, so it won’t go into the technical details of what the model produces (which are covered in the documentation), but broadly the model object which results from &lt;code&gt;bsts()&lt;/code&gt; contains the relevant parameters and samples from the posterior distribution which we want (with the one technical caveat that it returns all iterations of its posterior sampler, so if you want to access those samples yourself, you need to remove the burn-in segment manually).&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;ss.season &amp;lt;- AddSeasonal(list(), 
                          weekly.tb$log_gross_ia, 
                          nseasons = 52)
@@ -607,7 +607,7 @@ CheckOneStepCalibration(tb.season.train)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## # A tibble: 1 x 3
 ##   `Prop. Above LB` `Prop. Below UB` `Prop. Within Interval`
 ##              &amp;lt;dbl&amp;gt;            &amp;lt;dbl&amp;gt;                   &amp;lt;dbl&amp;gt;
-## 1            0.908            0.852                   0.760&lt;/code&gt;&lt;/pre&gt;
+## 1            0.910            0.852                   0.762&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;PlotOneStepPredicted(tb.season.train, p.season, 2016)&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;&lt;img src=&#34;/post/2020-05-28-bsts-boxofice.en/index_files/figure-html/unnamed-chunk-21-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;tb.llt.train &amp;lt;- ComputeOneStepPredicted(model.llt.train,
@@ -618,7 +618,7 @@ CheckOneStepCalibration(tb.llt.train)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## # A tibble: 1 x 3
 ##   `Prop. Above LB` `Prop. Below UB` `Prop. Within Interval`
 ##              &amp;lt;dbl&amp;gt;            &amp;lt;dbl&amp;gt;                   &amp;lt;dbl&amp;gt;
-## 1            0.858            0.888                   0.746&lt;/code&gt;&lt;/pre&gt;
+## 1            0.854            0.889                   0.743&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;PlotOneStepPredicted(tb.llt.train, p.season, 2016)&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;&lt;img src=&#34;/post/2020-05-28-bsts-boxofice.en/index_files/figure-html/unnamed-chunk-22-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;We can see that both seem to offer reasonably useful forecasts, with calibration (over the entire period, combining both one-step and forecasts)\footnote[Perhaps these should be separated, I haven’t found resources discussing the best way to evaluate these models.] in a similar range as before, and the forecast range seemingly capturing much of the observed trend.&lt;/p&gt;

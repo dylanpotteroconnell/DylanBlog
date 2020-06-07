@@ -38,7 +38,7 @@
   
   
   
-  <meta name="theme-color" content="hsl(339, 90%, 68%)">
+  <meta name="theme-color" content="#8F6B89">
   
 
   
@@ -65,8 +65,8 @@
       
       
         
-          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/github.min.css" crossorigin="anonymous" title="hl-light" disabled>
-          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/dracula.min.css" crossorigin="anonymous" title="hl-dark">
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/github.min.css" crossorigin="anonymous" title="hl-light">
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/dracula.min.css" crossorigin="anonymous" title="hl-dark" disabled>
         
       
     
@@ -310,7 +310,7 @@
 
 </head>
 
-<body id="top" data-spy="scroll" data-offset="70" data-target="#TableOfContents" class="dark">
+<body id="top" data-spy="scroll" data-offset="70" data-target="#TableOfContents" >
 
   <aside class="search-results" id="search">
   <div class="container">
@@ -694,7 +694,7 @@ where <span class="math inline">\(\epsilon_{\mu,t} \sim N(0, \sigma_\mu^2)\)</sp
 where <span class="math inline">\(\epsilon_{\delta,t} \sim N(0, \sigma_\mu^2)\)</span> is another random walk. How these terms relate to our overall transition and observation equations will be clear once they are combined.</p>
 <p>Next, we consider the “seasonal” model, that is, any fixed time cycle with <span class="math inline">\(S\)</span> possible states in the cycle). For these <span class="math inline">\(S\)</span> seasons, we create an <span class="math inline">\(S-1\)</span> dimension state vector <span class="math inline">\(\gamma_t\)</span> (as we constrain the coefficients to sum to <span class="math inline">\(1\)</span>) and in essence our model performs regression using these coefficients and dummy variables corresponding to the current season for the given time <span class="math inline">\(t\)</span>. Then, the first element of the season state vector <span class="math inline">\(\gamma_t\)</span> evolves as
 <span class="math display">\[\begin{align*}
-\gamma_{t+1, 1} = -1*\sum_{s=2}^S \gamma_{t, s} + \epsilon_(\gamma),
+\gamma_{t+1, 1} = -1*\sum_{s=2}^S \gamma_{t, s} + \epsilon_{\gamma},
 \end{align*}\]</span>
 where <span class="math inline">\(\epsilon_(\gamma) \sim N(0, \sigma_\gamma^2)\)</span>.</p>
 <!-- "If predictor variables are present, the regression coefficients are fixed (as opposed to time varying, -->
@@ -702,7 +702,7 @@ where <span class="math inline">\(\epsilon_(\gamma) \sim N(0, \sigma_\gamma^2)\)
 <!-- in the formula are contemporaneous, so if you want lags and differences you need to put them in -->
 <!-- the predictor matrix yourself." -bsts Docs -->
 <p>With these two commponents, we can fit our twin initial models. Our “season” model consists of just the seasonal component, with <span class="math inline">\(S=52\)</span> allowing a regression on every single unique week of the year, and the “LLT” model adding to that a local linear trend. When just using the seasonal model, we need to add to it a static intercept term, so that the mean isn’t wildly off. While the purpose of this is more educational than anything else, it’s useful to be clear on what this could show. Comparing these models essentially takes for granted the folk wisdom that the precise week of the year influences the “state” of ticket sales. Then, comparing these models can help understand if there is some basis for tracing local trends in the movie business, or if that is just overfitting to noise.<a href="#fn12" class="footnote-ref" id="fnref12"><sup>12</sup></a></p>
-<p>The <code>bsts</code> package makes fitting these models extremely easy. The “state specification” is a list of state components. We construct a seasonal state space, add a static intercept, and fit the model. This post is meant as a reminder of the underlying theory, so it won’t go into the technical details of what the model produces (which are covered in the documentation), but broadly the model object which results from bsts() contains the relevant parameters and samples from the posterior distribution which we want (with the one technical caveat that it returns all iterations of its posterior sampler, so if you want to access those samples yourself, you need to remove the burn-in segment manually).</p>
+<p>The <code>bsts</code> package makes fitting these models extremely easy. The “state specification” is a list of state components. We construct a seasonal state space, add a static intercept, and fit the model. This post is meant as a reminder of the underlying theory, so it won’t go into the technical details of what the model produces (which are covered in the documentation), but broadly the model object which results from <code>bsts()</code> contains the relevant parameters and samples from the posterior distribution which we want (with the one technical caveat that it returns all iterations of its posterior sampler, so if you want to access those samples yourself, you need to remove the burn-in segment manually).</p>
 <pre class="r"><code>ss.season &lt;- AddSeasonal(list(), 
                          weekly.tb$log_gross_ia, 
                          nseasons = 52)
@@ -1140,7 +1140,7 @@ CheckOneStepCalibration(tb.season.train)</code></pre>
 <pre><code>## # A tibble: 1 x 3
 ##   `Prop. Above LB` `Prop. Below UB` `Prop. Within Interval`
 ##              &lt;dbl&gt;            &lt;dbl&gt;                   &lt;dbl&gt;
-## 1            0.908            0.852                   0.760</code></pre>
+## 1            0.910            0.852                   0.762</code></pre>
 <pre class="r"><code>PlotOneStepPredicted(tb.season.train, p.season, 2016)</code></pre>
 <p><img src="/post/2020-05-28-bsts-boxofice.en/index_files/figure-html/unnamed-chunk-21-1.png" width="672" /></p>
 <pre class="r"><code>tb.llt.train &lt;- ComputeOneStepPredicted(model.llt.train,
@@ -1151,7 +1151,7 @@ CheckOneStepCalibration(tb.llt.train)</code></pre>
 <pre><code>## # A tibble: 1 x 3
 ##   `Prop. Above LB` `Prop. Below UB` `Prop. Within Interval`
 ##              &lt;dbl&gt;            &lt;dbl&gt;                   &lt;dbl&gt;
-## 1            0.858            0.888                   0.746</code></pre>
+## 1            0.854            0.889                   0.743</code></pre>
 <pre class="r"><code>PlotOneStepPredicted(tb.llt.train, p.season, 2016)</code></pre>
 <p><img src="/post/2020-05-28-bsts-boxofice.en/index_files/figure-html/unnamed-chunk-22-1.png" width="672" /></p>
 <p>We can see that both seem to offer reasonably useful forecasts, with calibration (over the entire period, combining both one-step and forecasts)\footnote[Perhaps these should be separated, I haven’t found resources discussing the best way to evaluate these models.] in a similar range as before, and the forecast range seemingly capturing much of the observed trend.</p>
@@ -1599,7 +1599,7 @@ We can see that the results are completely nonsensical. It is a little more clea
 
     
     
-    <script>const isSiteThemeDark = true;</script>
+    <script>const isSiteThemeDark = false;</script>
     
 
     
