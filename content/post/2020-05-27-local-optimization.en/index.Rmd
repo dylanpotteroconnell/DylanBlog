@@ -180,7 +180,7 @@ It might be more clear if we consider viewing the map at an angle (thanks to the
 
 Let's imagine gradient ascent in action. We look around, and see that the direction of steepest ascent is to the northwest, shown by the red arrow.
 
-```{r}
+```{r, include = FALSE}
 eta.temp <- 30
 grad.first.step <- GradBivarNormal(x.uni.init)
 # Manually compute second step, for visualization

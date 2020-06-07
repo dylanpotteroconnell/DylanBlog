@@ -93,17 +93,6 @@ projects: []
 <p>It might be more clear if we consider viewing the map at an angle (thanks to the <code>rayshader</code> <a href="https://www.tylermw.com/3d-ggplots-with-rayshader/">package</a>.</p>
 <p><img src="uni_vis_3d.png" /></p>
 <p>Let’s imagine gradient ascent in action. We look around, and see that the direction of steepest ascent is to the northwest, shown by the red arrow.</p>
-<pre class="r"><code>eta.temp &lt;- 30
-grad.first.step &lt;- GradBivarNormal(x.uni.init)
-# Manually compute second step, for visualization
-x.uni.2 &lt;- x.uni.init + eta.temp*grad.first.step
-
-g.uni + uni.first.point + 
-  geom_segment(aes(x = x.uni.init[1], y = x.uni.init[2],
-                   xend = x.uni.2[1], yend = x.uni.2[2]),
-               col = &quot;red&quot;, size = .25,
-               arrow = arrow(length = unit(.2, &quot;cm&quot;), type = &quot;closed&quot;))</code></pre>
-<p><img src="/post/2020-05-27-local-optimization.en/index_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
 <p>We move that distance up the slope, and look around once again. We see that the direction of steepest ascent is still northwest, so we move once more.</p>
 <p>Or, shown in 3D (which is admittedly hard to draw…).</p>
 <p><img src="uni_vis_3d_step2.png" />
@@ -117,25 +106,6 @@ We repeat this process until we look around for that direction of steepest ascen
 <p><img src="mix_vis_3d.png" /></p>
 <p>This poses an obvious problem for our algorithm. We hike up until we reach the top of a peak, look around, see that we can’t go up any further, and stop. But this could be true of <em>any</em> of the three peaks, and only the peak in the southeast is actually highest.</p>
 <p>Let’s say we start near the center of this region, and follow our algorithm. We climb up south and to the east, and reach that highest peak, just like as we did in the case of a single hill.</p>
-<pre class="r"><code>steps &lt;- 130
-x.asc.seq &lt;- matrix(rep(NA, 2*steps), ncol=2)
-# This is the starting position which takes us to the optima
-x.asc.seq[1,] &lt;- c(1, -0.5)
-grad.seq &lt;- matrix(rep(NA, 2*steps), ncol=2)
-eta &lt;- 20
-
-for (i in 1:(steps-1)) {
-  grad.seq[i,] &lt;- GradMixtureNormal(x.asc.seq[i,])
-  x.asc.seq[i+1,] &lt;-  x.asc.seq[i,] + grad.seq[i,]*eta
-}
-
-tb.mix.asc &lt;- tibble(x = x.asc.seq[,1], 
-                     y = x.asc.seq[,2],
-                     grad.x = grad.seq[,1],
-                     grad.y = grad.seq[,2],
-                     iter = 1:steps) %&gt;% 
-  mutate(x.next = x + grad.x*eta,
-         y.next = y + grad.y*eta)</code></pre>
 <p><img src="2d_mix_grad_ascent_optima_anim.gif" /></p>
 <p>However, what if our starting position was just a bit further north? Well, in the gif below, we see that we’d head off in the opposite direction, and end up at the northmost peak. We’d halt at the top, unable to climb any further, and be forever stuck at a lower point than the peak in the southeast. And by the rules of our game, we can only see the area around us, and we’ll never know that there’s a higher peak elsewhere! And most crucially, we couldn’t possibly tell the difference between the two starting points, without prior knowledge of the area.</p>
 <p><img src="2d_mix_grad_ascent_anim.gif" />
