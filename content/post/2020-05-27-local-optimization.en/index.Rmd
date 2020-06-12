@@ -30,15 +30,16 @@ library(gifski)
 # A Clockwork Egg
 <!-- (or "our optimized lives") -->
 
-I find great comfort in routine. Years of repetition have refined my morning scrambled eggs into a precise and rehearsed ritual. If I turn on the burner before I walk to the fridge, the butter will be just starting to bubble when I finish beating the eggs, and I can clean the mixing bowl in the brief pause before they're ready to be stirred. I never set out to find the right timing, but if you do the same task a thousand times, you learn from the trial and error of random variation which tiny choices make it go just a little smoother. Anyone with a morning commute can relate to the same familiar, iterative optimization. That is, until some external shock *forces* them to change.^[*[I want this post to be quite glib/silly, but this opening might be a little much, or maybe I just haven't been able to word it right. Or might be best to just launch into the Londno Subway example.]*]
+I find great comfort in routine. Years of repetition have refined my morning scrambled eggs into a precise and rehearsed ritual. If I turn on the burner before I walk to the fridge, the butter will be just starting to bubble when I finish beating the eggs, and I can clean the mixing bowl in the brief pause before they're ready to be stirred. I never set out to find the right timing, but if you do the same task a thousand times, you learn from the trial and error of random variation which tiny choices make it go just a little smoother. Anyone with a morning commute can relate to the same familiar, iterative optimization. That is, until some external shock *forces* them to change.
 
-# Disruption, and the London Subway Strike
+<!-- # Disruption, and the London Subway Strike -->
+# A Disrupted Subway
 
-On [February 4th, 2014](https://www.independent.co.uk/news/uk/home-news/tube-strikes-february-2014-how-they-will-affect-your-journey-and-stress-levels-9099641.html), the workers of the London Tube (the underground subway) went on strike, forcing a number of station closures throughout the city. For three days, some (but not all) commuters were unable to take their usual route to work, and were forced to find alternatives. After the strike, the stations reopened, and life went back to normal.
+On [February 4th, 2014](https://www.independent.co.uk/news/uk/home-news/tube-strikes-february-2014-how-they-will-affect-your-journey-and-stress-levels-9099641.html), the workers of the London Tube (the underground subway) went on strike, forcing a number of station closures throughout the city. For three days, some (but not all) commuters were unable to take their usual route to work, and were forced to find alternatives. After the strike, the stations reopened, and life could go back to normal.
 
-Three economists saw the opportunity for a natural experiment: only certain commuters were disrupted by the closure, and using the subway's tracking data, their movements could be compared to the unaffected group. And surprisingly, life *didn't* quite go back to normal after the ending of the strike. Instead, some of the disrupted group stuck with their newly discovered routes, and their time spent commuting decreased as a result.
+Three economists saw the opportunity for a natural experiment: only certain commuters were disrupted by the closure, and using the subway's tracking data, their movements could be compared to the unaffected group. And surprisingly, after the strike ended, life *didn't* quite go back to normal. Instead, some of the disrupted group stuck with their newly discovered routes, and their commuting time decreased as a result.
 
-The station closures forced commuters to break from their finely tuned routines, but a surprising number found themselves dragged unwillingly along a route that turned out to be *faster* than the one they had been taking for years. The researchers even claim that the time savings from these discoveries were so significant that the strike caused a net *decrease* in time spent commuting, despite the initial disruptions.^[This seems much harder to rigorously prove, but this is meant simiply as an informal framing device.] Even if only a small fraction found new routes, the benefits from their new routine would acrrue over years to come, while discovering it only required a disruption for a few days. 
+The station closures forced commuters to break from their finely tuned routines, but a surprising number found themselves dragged unwillingly along a route that turned out to be *faster* than the one they had been taking for years. The researchers even claim that the time savings from these discoveries were so significant that the strike caused a net *decrease* in time spent commuting, despite the initial disruptions.^[This seems much harder to rigorously prove, but this is meant simiply as an informal framing device.] Even if only a small fraction found new routes, the benefits from their new routine would accrue over years to come, while discovering it only required a disruption for a few days. 
 
 This neat case study provides an opportunity to frame the mathematical challenge of optimization in real world terms, and it gives particular insight into the counterintuitive fact that many optimization algorithms involve *random noise*. I'll begin by describing mathematical optimization in intuitive terms, and then I'll examine how the London Tube Strike provides a real world analogy for this theoretical challenge.^[A rare, and extremely tenuous connection between areas of my research, and reality.] 
 
@@ -57,14 +58,13 @@ It's easiest to explain these terms by example.
 * If we want to find the highest peak in a mountain range (an example we'll discuss in detail in the next section), the input would the latitude and longitude of a point on the map, and the objective function would be the elevation at that point.
 *  When baking chocolate chip cookies, the possible inputs might be the amount of each ingredient and the order in which they are combined, and the objective function might be the tastiness of the resulting cookie. This isn't quite a joke, and Google once ran a [cookie optimization experiment](https://static.googleusercontent.com/media/research.google.com/en//pubs/archive/46507.pdf) along these lines.^[I've tasted the resulting cookies, not bad for a cafeteria batch.]
 
-
 Optimization is a central challenge in applied mathematics and statistics, but finding solutions can be hard. The vast increase in computational power has broadened our horizons for what optimization challenges are feasible, but many important problems remain out of our reach.
 
 In the challenge of optimization, we generally assume that we are able to check the value of the objective function at some chosen input (often called "queries" to the objective function, or perhaps, the "oracle"). For example...
 
 * We can take a certain route on the subway and use our stopwatch record the duration of the trip.
 * We can bake a batch of cookies following a certain recipe, and taste them.
-* We buy ElevationBot 1.0, a rather simple computer which takes in a pair of latitude and longitude coordinates, and spits out the altitude of that point. (This example is most cleanly understood using such a computer, but to guide our intuition we'll often imagine ourselves walking around the slopes with an altimeter in hand.)
+* We can buy ElevationBot 1.0, a rather simple computer which takes in a pair of latitude and longitude coordinates, and spits out the altitude of that point. (This example is most cleanly understood using such a computer, but to guide our intuition we'll often imagine ourselves walking around the slopes with an altimeter in hand.)
 
 Our naive optimization strategy might be to just try a bunch of inputs, and hope that we find a good output. For instance, we define a grid of latitude and longitude coordinates, feed these coordinates into ElevationBot 1.0, and use the highest point we find as our answer. But this naive approach only works when the range of potential inputs is sufficiently narrow. In particular, we need to consider the "dimension" of the input space. The number of points within an exhaustive "grid" of inputs grows exponentially with the dimension of the input. Latitude and longitude represent a mere 2 dimensions, so the number of points in our grid is just the square of the number of points on a side. However, the famous [Jacques Torres cookie recipe](https://cooking.nytimes.com/recipes/1015819-chocolate-chip-cookies) has $12$ ingredients. If we wanted to try all combinations at a mere five different amounts of each ingredient, that would be over two hundred thousand possibilities, which is a bit much for even the hungriest baker. 
 
@@ -105,7 +105,7 @@ In the London Tube experiment, the researchers lay some of the blame on the "sty
 <!-- * Now, I'd wager that generally, we're rather good at making small (later, we will call these "local", due to their geometric interpretation) adjustments. If I realize that by taking a right a few blocks early, I can avoid the long traffic light, I'll often do it.  -->
 <!-- * However, there's a reason these are small changes. We can estimate their impact from where we are. If we considered an entirely new route to work, taking a whole different train line, we would have no way to know what that's like. -->
 
-Before, we imagined a challenge where we tried to find a peak of a mountain range, using ElevationBot 1.0, which could tell us the elevation of any point defined by its latitude and longitude. Now, let's imagine that there was an upgrade to ElevationBot 2.0, which *also* tells us the slope of the incline of this point (that is, "which direction slopes downward, and how steep is it", often referred to as the gradient). This better reflects our intuition for local optimization in other settings, but it's also not a terribly difficult task for the ElevationBot, as it could always query the elevation at nearby points as estimate the slope for itself.
+Before, we imagined a challenge where we tried to find a peak of a mountain range, using ElevationBot 1.0, which could tell us the elevation of any point defined by its latitude and longitude. Now, let's imagine that there was an upgrade to ElevationBot 2.0, which *also* tells us the slope of the incline of this point (that is, "which direction slopes downward, and how steep is it", often referred to as the gradient). This better reflects our intuition for local optimization in other settings, but it's also not a terribly difficult task for the ElevationBot, as the diligent machine could always query the elevation at nearby points, and use those to form an estimate of the local slope.
 
 Now, imagine that we were hiking with an altimeter, and we can look around and see the direction of the hillside slope around us. But, our information is strictly "local"---we're stuck in the foggy forests of the Appalachians, not the wide open granite of the Sierra Nevada, so we can't look miles away to spy what peak might be highest. How might we find the highest peak? Well, our intuition is simple: from wherever we are, "go up". This "algorithm" is called "gradient ascent". 
 
@@ -461,7 +461,7 @@ tb.mix.asc <- tibble(x = x.asc.seq[,1],
 ```
 
 ![](2d_mix_grad_ascent_anim.gif)
-This illustrates a fundamental divide in mathematical optimization. Some surfaces are "convex", which ensures that gradient ascent will march us directly to the highest point (the "global maxima"), no matter where we begin.^[This post is informal, so we omit regularity conditions that would not add to the explanation (but technically, this guarantee would also require the gradient of the objective to be Lipschitz, and for a suitable adaptive step-size).] However, "nonconvex" surfaces lack such guarantees, and might prove computationally intractabe (any "mountain range", by definition, falls into this category, as it has multiple peaks). Informal definitions of these terms can be found in the appendix ([Appendix: The Perils of "Nonconvexity"]), but the most intuitive takeaway is the issue of "spurious optima". To clarify the jargon...
+This illustrates a fundamental divide in mathematical optimization. Some surfaces are "convex", which ensures that gradient ascent will march us directly to the highest point (the "global maxima"), no matter where we begin.^[This post is informal, so we omit regularity conditions that would not add to the explanation (but technically, this guarantee would also require the gradient of the objective to be Lipschitz, and for a suitable adaptive step-size).] However, "nonconvex" surfaces lack such guarantees, and might prove computationally intractable (any "mountain range", by definition, falls into this category, as it has multiple peaks). Informal definitions of these terms can be found in the appendix ([Appendix: The Perils of "Nonconvexity"]), but the most intuitive takeaway is the issue of "spurious optima". To clarify the jargon...
 
 * Optima: either maxima or minima (these challenges are equivalent).
 * Global optimum (or maximum/minimum): the optimum among the *entire* input space
@@ -470,10 +470,7 @@ This illustrates a fundamental divide in mathematical optimization. Some surface
 
 In the convex realm, local information provides us with global guidance, and we can follow the path of steepest ascent all the way to the maxima. In the nonconvex setting, we might instead find ourselves trapped in a spurious optima.  
 
-<!-- * Which optimization challenges are hard? Math draws a fairly simple distinction. ^[Like maximization and minimization, convex and concave will be used interchangeably. The multiplying a convex function by minus $1$ makes it concave. Concave functions are easy to maximize, but we can switch between the two interchangeably.] -->
-
-
-# Finding the Top 
+# Not Settling for Second Best
 
 If we are wary of getting stuck at a spurious optima, how can we modify our approach to ensure we find the highest peak? 
 
@@ -571,22 +568,21 @@ Well, we saw above, that certain starting positions were successful, and others 
 
 In a sense, the challenge becomes one of *initialization*. This is common in the optimization literature. Even if the optimization surface is nonconvex, we just need to find a starting point that's reasonably close to the optima (within its "basin of attraction"), and our naive gradient ascent algorithm can do the rest. Countless papers have been written on the topic.
 
-It's also a natural fit for our intuition---if you set out to find the perfect chocolate chip cookie, I bet you'd do something similar. You'd try a bunch of different recipes that each look promising, and then try and find small improvements based on the results (a bit less salt or a bit more chocolate). It's the equivalent of trying different starting points, and then following gradient ascent (albeit, random initialization would be a poor choice when we have such rich domain knowledge to lean on). 
+It's also a natural fit for our intuition---if you set out to find the perfect chocolate chip cookie, I bet you'd do something similar. You might start with a few different recipes that look promising, and then try and find small improvements based on the results (a bit less salt, or a bit more chocolate). It's the equivalent of trying different starting points, and then following gradient ascent (albeit, random initialization would be a poor choice when we have such rich domain knowledge to lean on). 
 
-Of course, the challenge boils down to how hard it is to find the right starting point. Are any of the popular cookie recipes out there reasonably close to your own personal, optimal cookie? Hard to say. A large region of the mountain range above lead to the best peak, but what if there were dozens of mountains and the tallest one was steep with a narrow base? The challenge of optimization depends on the setting in question. 
+Thus, the challenge boils down to how hard it is to find the right starting point. Are any of the popular cookie recipes out there reasonably close to your own personal, optimal cookie? Hard to say. A large region of the mountain range above lead to the best peak, but what if there were dozens of mountains and the tallest one was steep with a narrow base? The difficulty of optimization always depends on the unique shape of the setting.
 
 # Embracing Random Noise
 
-<!-- [maybe not rigidly speak in terms of gradient ascent?] -->
 Or, we could view the challenge from a different perspective. Instead of trying to optimize different starting points using their local information, what if we were a bit more flexible in our climbing path, and were willing to experiment along the way? 
 
-Of course, there's a reason that gradient ascent is so rigid in its path---it always goes in the direction that gives you the largest gain in the shortest amount of time. Any other direction appears inferior. If the cookies aren't chocolate-y enough, you'd feel a little silly trying any other fix besides adding more chocolate chips to the dough. But as we've seen, local improvements will only take you so far. My ideal chocolate chip cookie is thick and chewey, but imagine that I had only ever tried recipes which were thin and crispy. I could try and improve them by tinkering with the balance of butter and sugar, or adding more chocolate, which might make them taste a bit better. But it would require the simultaneous change of many ingredients to make the huge leap from one type of cookie to the other.^[Of course, the question is "Would a sequence of small, incrementally beneficial changes take you all the way from 'thin and crispy' to 'thick and chewey'?" In mathematics, this is the matter of convexity, but in the real world, it can be very hard to say. My assumption is that this often *doesn't* apply in cooking. If you take the middle point between two excellent dishes, there's no reason to think that it would be tasty! But it's hard to say with confidence what the optimization space of chocolate chip cookies looks like. ]
+Of course, there's a reason that gradient ascent is so rigid in its path---it always goes in the direction that gives you the largest gain in the shortest amount of time. Any other direction appears inferior. If the cookies aren't chocolate-y enough, you'd feel a little silly trying any other fix besides adding more chocolate chips to the dough. But as we've seen, local improvements will only take you so far. My ideal chocolate chip cookie is thick and chewy, but imagine that I had only ever tried recipes which were thin and crispy. I could try and improve them by tinkering with the balance of butter and sugar, or adding more chocolate, which might make them taste a bit better. But it would require the simultaneous change of many ingredients to make the huge leap from one type of cookie to the other.^[Of course, the question is "Would a sequence of small, incrementally beneficial changes take you all the way from 'thin and crispy' to 'thick and chewey'?" In mathematics, this is the matter of convexity, but in the real world, it can be very hard to say. My assumption is that this often *doesn't* apply in cooking. If you take the middle point between two excellent dishes, there's no reason to think that it would be tasty! But it's hard to say with confidence what the optimization space of chocolate chip cookies looks like. ]
 
-What if we were a little more open to experimentation, even if we can't easily see how it would help? Let's recall the example of the London subway. These commuters had settled into their preferred morning routes, and surely if they could spot any tiny tweak which would save them time, they would have already tried it. The three day strike represented an external shock to the system, which pushed them out of their local equilibrium. It wasn't designed to improve their commute (if anything, it was the opposite). And yet, by random chance, there was a group of commuters who found themselves pushed into a surprisingly superior path, which they stuck with. Likely, that route didn't seem faster than afar, and they would be loathe to waste their time on any route that looks inferior. Only through this forced random experimentation did they escape their local optima.
+What if we were a little more open to experimentation, even if we can't easily see how it would help? Let's recall the example of the London subway. These commuters had settled into their preferred morning routes, and surely if they could spot any tiny tweak which would save them time, they would have already tried it. The three day strike represented an external shock to the system, which pushed them out of their local equilibrium. It wasn't designed to improve their commute (if anything, it was the opposite). And yet, by random chance, there was a group of commuters who found themselves pushed into a surprisingly superior path, which they stuck with. Likely, that route didn't seem faster from afar, and they would be loathe to waste their time on any route that looks inferior. Only through this forced random experimentation did they escape their local optima.
 
-What might this look like mathematically? Well, we could introduce random "noise" into our movement. Let's imagine gradient ascent once more. From our starting point, we walk in the direction of greatest ascent, and then, *we walk a bit furher in a random direction*. This won't feel very rewarding in the moment... we want to go "up", we can see which direction takes us "up", and yet, we go in a random direction? But maybe this extra experimentation will give us a chance to escape our deterministic march towards a spurious optima, and we will eventually find the highest peak. We will still *tend* to go "up", but we might not follow such a direct path.
+What might this look like mathematically? Well, we could introduce random "noise" into our movement. Let's imagine gradient ascent once more. From our starting point, we walk in the direction of greatest ascent, and then, *we walk a bit further in a random direction*. This won't feel very rewarding in the moment... we want to go "up", we can see which direction takes us "up", and yet, we go in a random direction? But maybe this extra experimentation will give us a chance to escape our deterministic march towards a spurious optima, and we will eventually find the highest peak. We will still *tend* to go "up", but we might not follow such a direct path.
 
-To be mathematically precise (again, you can just skip the mathematical part if you'd like), we simply add the random noise to our gradient ascent step from before. That is, now we set $x^{(k+1)} \leftarrow x^{(k)} + \eta \nabla f(x^{(k)}) + \sigma^2 \epsilon_k$, where $\epsilon_k \sim N(0, 1)$. That is, we add a normally distributed random noise term to each gradient ascent step. 
+To be mathematically precise (again, you can just skip the mathematical part if you'd like), we simply add the random noise to our gradient ascent step from before. That is, now we set $x^{(k+1)} \leftarrow x^{(k)} + \eta \nabla f(x^{(k)}) + \sigma^2 \epsilon_k$, where $\epsilon_k \sim N(0, 1)$. That is, we add a normally distributed random noise term to each gradient ascent step.
 
 To visualize this, we turn to the one dimensional case. A one-dimensional mountain range might not be quite as intuitive, but it's a lot easier to see on your screen, and the same rules apply. Below, we consider a mountain range where the middle peak is the highest. Following gradient ascent, if we start on the far right, we quickly find the nearby peak, but are stuck there, unable to find the highest point. 
 
@@ -639,7 +635,9 @@ GradientAscentStep <- function(x,
                                    weights) %>% 
     as.numeric()
   xprime <- x + eta*deriv + ifelse(type == "Noisy Ascent", 
-                                   rnorm(1, 0, .5), 
+                                   rnorm(1, 0, .5) + rlnorm(1,
+                                                            meanlog=-4.5,
+                                                            sdlog=1), 
                                    0)
   return(xprime)
 }
@@ -746,7 +744,7 @@ tb.noisy.ascent <- tibble(x = noisy.ascent.seq,
                                         location.params,
                                         scale.params,
                                         weights),
-         x.next = x + eta.grad.ascent*grad,
+         x.next = x + eta.noisy.ascent*grad,
          y.next = as.numeric(CauchyMixtureDensity(x.next,
                                                   location.params,
                                                   scale.params,
@@ -758,22 +756,48 @@ first.time.max <- tb.noisy.ascent %>%
   arrange(iter) %>%
   slice(1) %>%
   pull(iter)
+
 tb.noisy.ascent <- tb.noisy.ascent %>%
   slice(1:first.time.max)
 
+resting_point <- tibble(x = 0, 
+                        y = CauchyMixtureDensity(0,
+                                                 location.params,
+                                                 scale.params,weights),
+                        grad = 0, 
+                        x.next = 0,
+                        y.next = CauchyMixtureDensity(0,
+                                                      location.params,
+                                                      scale.params,weights)) %>% 
+  uncount(100) 
+tb.noisy.ascent <- tb.noisy.ascent %>% 
+  bind_rows(resting_point) %>%
+  mutate(iter = row_number())
 
+progress_tb <- tibble(iter = 1:nrow(tb.noisy.ascent)) %>%
+  mutate(progress = ifelse(iter > first.time.max,
+                           first.time.max,
+                           iter)) %>%
+  mutate(text = paste0("Progress: ", 
+                       progress,
+                       "/",
+                       first.time.max))
 
 # 
-# p.noisy <- ggplot(tb.dens.grid, aes(x = x, y = y)) +
+# p.noisy <- ggplot(tb.dens.grid %>% slice(1:1000), aes(x = x, y = y)) +
 #   geom_line() +
 #   geom_point(data = tb.noisy.ascent,
 #              col = "red", size = 1) +
+#   geom_label(data=progress_tb,
+#              aes(label=text),
+#              x=-10, 
+#              y=.04) + 
 #   geom_segment(data = tb.noisy.ascent,
 #                aes(x = x, y = y, xend = x.next, yend = y.next),
 #                # aes(x = x, y = y, xend = x.next, yend = y.next),
 #                col = "red", size = .25,
-#                arrow = arrow(length = unit(.2, "cm"), type = "closed")) + 
-#     xlab("East/West") + ylab("Elevation")
+#                arrow = arrow(length = unit(.2, "cm"), type = "closed")) +
+#   xlab("East/West") + ylab("Elevation")
 # 
 # p.noisy
 # 
@@ -781,33 +805,42 @@ tb.noisy.ascent <- tb.noisy.ascent %>%
 #                                           transition_length = 1,
 #                                           state_length = 1)
 # animate(anim.noisy,
-#         nframes = 10 + max(tb.noisy.ascent$iter),
+#         nframes = 2*max(tb.noisy.ascent$iter),
 #         renderer = gifski_renderer("test_noisy_ascent_anim.gif"))
 
 ```
-
 ![](test_noisy_ascent_anim.gif)
+
+
+
 Of course, this gif takes a *long* time to run---it requires a very lucky sequence of steps for us to escape the local optima! Thus, this is far from an easy fix. In fact, this highlights the importance of precisely tuning this approach. Blindly adding random noise will *eventually* let you find the summit, but along the way you'll be stuck with long stretches of experimentation before you get anywhere.
 
 # Estimation Error as Noise
 
-Simply adding random noise to gradient ascent isn't a "real" algorithm that would be ever used in practice, but it helps illustrate the powerful premise of "stochastic optimization" (i.e. optimization techniques which leverage random chance). Many varieties of stochastic optimization see widespread use,^[[Simulated annealing]() and [parallel tempering]() are two particular favorites of mine.], but here, I'll focus on one particularly relevant example, Stochastic Gradient Descent (SGD).
+Simply adding random noise to gradient ascent isn't a "real" algorithm that would be ever used in practice, but it helps illustrate the powerful premise of "stochastic optimization" (i.e. optimization techniques which leverage random chance). Many varieties of stochastic optimization see widespread use,^[[Simulated annealing](https://science.sciencemag.org/content/220/4598/671) and [parallel tempering](https://www.researchgate.net/publication/13255490_Replica_Monte_Carlo_Simulation_of_Spin-Glasses) are two particular favorites of mine.] but here, I'll focus on one particularly relevant example, Stochastic Gradient Descent (SGD).
 
-The premise of Stochastic Gradient Descent is a natural extension of the gradient ascent algorithm we studied above. First, we note again "gradient *ascent*" and "gradient *descent*" are equivalent---you simply take the negative of the gradient to switch between maximization and minimization. Rather, it's the "stochastic" that's new.^[What follows is a bit of a simplification of SGD, but I think it's true to the essence of the algorithm.] In gradient ascent, we needed to compute the slope of the local area (i.e. the gradient) with each step. Let's consider again our ElevationBot 2.0 which takes in latitude and longitude coordinates, and tells us the elevation and local slope of that point. However, we're not the only ones trying to play this addictive "find the highest peak" game, so we have to wait in a long line before each query. However, nearby we see a rusted old ElevationBot 1.5 terminal. It's an intermediate model, between version 1.0 (which just computes the altitude) and 2.0 (which also computes the direction of ascent), because it can only *estimate* the direction of ascent, and it's occasionally a bit off. However, there's no one in line to use it, so we can rattle off our queries much faster. Should we skip the line, and use the faster but less reliable estimates of the 1.5 model? 
+The premise of Stochastic Gradient Descent is a natural extension of the gradient ascent algorithm we studied above. First, we note again "gradient *ascent*" and "gradient *descent*" are equivalent---you simply take the negative of the gradient to switch between maximization and minimization. Rather, it's the "stochastic" that's new.^[What follows is a bit of a simplification of SGD, but I think it's true to the essence of the algorithm.] In gradient ascent, we needed to compute the slope of the local area (i.e. the gradient) with each step. Let's consider again our ElevationBot 2.0 which takes in latitude and longitude coordinates, and tells us the elevation and local slope of that point. But perhaps we're not the only ones trying to play this addictive "find the highest peak" game, so we have to wait in a long line before each query. However, nearby we see a rusted old ElevationBot 1.5 terminal. It's an intermediate model, between version 1.0 (which just computes the altitude) and 2.0 (which also computes the direction of ascent), because it can only *estimate* the direction of ascent, and it's occasionally a bit off. However, there's no one in line to use it, so we can rattle off our queries much faster. Should we skip the line, and use the faster but less reliable estimates of the 1.5 model? 
 
-This silly story might make the setting sound overly contrived, but it's actually a very foundational tradeoff.^[*[Which might be more clear if just stated explicitly... not at all clear to me that this example is clarifying?]*] It is often much faster to compute an *approximate* slope rather than an *exact* one.^[In the case of SGD, the reason this happens is that it estimates the gradient by only using a *subset* of the whole dataset.] This is the premise of Stochastic Gradient Descent---the exact gradient is replaced by a stochastic gradient, which is much faster to compute but is only an approximation of the truth. 
+This silly story might make the setting sound overly contrived, but it's actually a very foundational tradeoff. It is often much faster to compute an *approximate* slope rather than an *exact* one.^[In the case of SGD, the reason this happens is that it estimates the gradient by only using a *subset* of the whole dataset.] This is the premise of Stochastic Gradient Descent---the exact gradient is replaced by a stochastic gradient, which is much faster to compute but is only an approximation of the truth. 
 
 And this is no niche use case. Stochastic Gradient Descent has been the canonical industry standard technique for optimizing artificial neural nets for decades. When you hear about the rise of "deep learning" in the news, Stochastic Gradient Descent is the most reliable and versatile computational tool in the field. The challenge of neural networks is that their optimization space might consist of millions of dimensions (above, we visualized optimizing over a *single* dimension!). In fact, Microsoft recently boasted of a neural network with [17 billion (!)](https://www.microsoft.com/en-us/research/blog/zero-deepspeed-new-system-optimizations-enable-training-models-with-over-100-billion-parameters/) dimensions. The inevitable result of these optimization structures is that there are an enormous number of spurious local optima. 
 
-Which begs the question---if neural networks are loaded with spurious local optima, and following the gradient will often lead to those spurious points, why does SGD work so "unreasonably well"?^[In the words of [Geoffrey Hinton](https://twitter.com/samcharrington/status/917816482242990080)] There are a variety of answers, depending on who you ask, but the most common reason researchers point to (an explanation dating back  [decades](https://leon.bottou.org/publications/pdf/nimes-1991.pdf)), is that the inherent noise in the imprecise stochastic approximation allows it to escape spurious local optima.^[And "saddle points", which I am skirting past here, as they are a similar concern for this high level explanation.] This is not noise that we added explicitly, it's just the approximation error that arises from not computing the exact gradient. And yet, these random shocks turn out to be an advantage, rather than a hindrance. Even at the computational cutting edge of the field, random noise can be a powerfully helpful force, pushing us away from spurious optima and further towards our goal. 
+Which begs the question---if neural networks are loaded with spurious local optima, and following the gradient will often lead to those spurious points, then in the words of neural nets pioneer Geoffrey Hinton, why does SGD work so ["unreasonably well"](https://twitter.com/samcharrington/status/917816482242990080)?
+
+There are a variety of answers, depending on who you ask, but the most common reason researchers point to (an explanation dating back  [decades](https://leon.bottou.org/publications/pdf/nimes-1991.pdf)), is that the inherent noise in the imprecise stochastic approximation allows it to escape spurious local optima.^[And "saddle points", which I am skirting past here, as they are a similar concern for this high level explanation.] This is not noise that we added explicitly, it's just the approximation error that arises from not computing the exact gradient. And yet, these random shocks turn out to be an advantage, rather than a hindrance. Even at the computational cutting edge of the field, random noise can be a powerfully helpful force, pushing us away from spurious optima and further towards our goal. 
 
 # Wrapping Up
 
 The informal parallels between mathematical theory and our lived experience are illustrative, but not definitive. I think there is a kernel of a genuine lesson to be found here---we tend towards overly local optimization strategies in our daily lives, and external random shocks can push us to a better solution. And yet, it's important not to take this too far. In the world of pure mathematical theory, we can carefully study the effects of any potential noise, and calibrate it to fit the situation. In our daily lives, we can't easily assess the impact of this noise, and it could just as easily provide a pointless disruption (indeed, recall the example of the one-dimensional noisy ascent gif, and the long circuitous route it took to reach the top!). 
 
-Famed computer scientist Alan Perlis once said "Optimization hinders evolution". In our case, this means finding a balance between the fundamental "explore vs exploit" trade-off. That is, we could spend our energy searching for better strategies ("explore"), or we could focus on deriving the benefit from the currently known optimal strategy ("exploit"). This trade-off is omnipresent in the decisions we make, and it's very hard to get right. My instincts are that our [status quo bias](https://link.springer.com/article/10.1007/BF00055564) and inherently "local" perspective means we'll typically err on the side of "too much exploration", but there's no universal rule. 
+Famed computer scientist Alan Perlis once said "Optimization hinders evolution". In our case, this means finding a balance between the fundamental "explore vs exploit" trade-off. That is, we could spend our energy searching for better strategies ("explore"), or we could focus on deriving the benefit from the currently known optimal strategy ("exploit"). This trade-off is omnipresent in the decisions we make, and it's very hard to get right. My instincts are that our [status quo bias](https://link.springer.com/article/10.1007/BF00055564) and inherently "local" perspective means we'll typically err on the side of "too much exploitation", but there's no universal rule.
 
-Perhaps the takeaway is simply one of perspective---rather than resisting every disruption outside of our control, we should welcome it as an opportunity to explore something new. After all, there's no point getting mad at a road closure on your commute, the world won't notice.^["Why should we feel anger at the world? As if the world would notice?" is often cited to Marcus Aurelius, although I can't personally find the source.] 
+<!-- Perhaps the takeaway is simply one of perspective---rather than resisting every disruption outside of our control, we should welcome it as an opportunity to explore something new. After all, there's no point getting mad at a road closure on your commute, the world won't notice.^["Why should we feel anger at the world? As if the world would notice?" is often cited to Marcus Aurelius, although I can't personally find the source.]  -->
+
+<!-- It's natural to be wary of the unfamiliar---more often than not, it will be a downgrade from your well rehearsed routine. But the potential upsides are enormous. All it takes is acceptance of your limited local perspective,  and a leap of faith towards that hidden, higher peak. -->
+
+<!-- check whether this edit changed anything -->
+Perhaps the takeaway is simply one of perspective---rather than resisting every disruption outside of our control, we should welcome it as an opportunity to explore something new. After all, there's no point getting mad at a road closure on your commute, the world won't notice.^["Why should we feel anger at the world? As if the world would notice?" is often cited to Marcus Aurelius, although I can't personally find the source.]
 
 Scrambled eggs are a wonderful way to start the day, and I doubt I could do much more to optimize the way I make them to my own unique tastes. But I'd be foolish to think that there weren't other breakfast options I might enjoy just as much, even if the first few times I make them they don't go as smoothly as my current ritual. All it takes is accepting the limits of your local perspective, and taking a leap of faith towards that hidden higher peak.^[For full transparency, a few months ago I switched to fried eggs on top of frozen vegetables as my breakfast of choice, so maybe I took this lesson to heart.]
 
@@ -824,7 +857,7 @@ in Neural Networks"](https://leon.bottou.org/publications/pdf/nimes-1991.pdf), b
 # Appendix: Gradient Ascent Algorithm
 The gradient ascent algorithm, written informally in mathematical notation.^[This is for an extremely crude version with fixed step size $\eta$, and an imprecise definition of convergence. There is no reason  to use fixed step size in practice, but that adjustment isn't relevant to the demonstration.]  Imagine we are at some point $x \in \mathbb{R}^d$ (meaning, $x$ is a point in $d$-dimensional space). 
 
-1. Let $f: \mathbb{R}^d \to \mathbb{R}$ be our objective function. Let $\eta > 0$ be our step size constant.^[This is for an extremely crude version with fixed step size $\eta$. There is no reason to use fixed step size in practice, but that adjustment isn't relevant to the demonstration.]  We begin at some initial point $x^{(0)} \in \mathbb{R}^d$. For $k = 0, \ldots,$, until convergence, repeat steps 2 through 4.
+1. Let $f: \mathbb{R}^d \to \mathbb{R}$ be our objective function. Let $\eta > 0$ be our step size constant. We begin at some initial point $x^{(0)} \in \mathbb{R}^d$. For $k = 0, \ldots,$, until convergence, repeat steps 2 through 4.
 2. Compute the gradient $\nabla f(x^{(k)})$.
 3. Set $x^{(k+1)} \leftarrow x^{(k)} + \eta \nabla f(x^{(k)})$.
 4. If $\nabla f(x^{(k)})$ is sufficiently small, halt the algorithm, and select $x^{(k+1)}$ as our optima. Otherwise, set $k \leftarrow k+1$, and repeat steps 2-4.
