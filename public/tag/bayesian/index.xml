@@ -14,12 +14,16 @@
     
     <item>
       <title>Bayesian Structural Time Series, and Movie Ticket Sales Sales</title>
-      <link>/post/bsts-boxofice/</link>
+      <link>/2020/05/28/bsts-boxofice/</link>
       <pubDate>Thu, 28 May 2020 00:00:00 +0000</pubDate>
-      <guid>/post/bsts-boxofice/</guid>
+      <guid>/2020/05/28/bsts-boxofice/</guid>
       <description>
 
 
+&lt;div id=&#34;disclaimer&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Disclaimer&lt;/h1&gt;
+&lt;p&gt;This is something of a rough draft, written to introduce myself to BSTS models, and not exactly ready for public presentation.&lt;/p&gt;
+&lt;/div&gt;
 &lt;div id=&#34;introduction&#34; class=&#34;section level1&#34;&gt;
 &lt;h1&gt;Introduction&lt;/h1&gt;
 &lt;p&gt;In this post, I’ll describe my introductory exploration of Bayesian structural time series (BSTS) models, using Steve Scott’s &lt;code&gt;bsts&lt;/code&gt; &lt;a href=&#34;https://cran.r-project.org/web/packages/bsts/bsts.pdf&#34;&gt;package&lt;/a&gt;, applied to the total weekly box office gross (i.e. ticket sales) of American movie theaters.&lt;/p&gt;
@@ -607,7 +611,7 @@ CheckOneStepCalibration(tb.season.train)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## # A tibble: 1 x 3
 ##   `Prop. Above LB` `Prop. Below UB` `Prop. Within Interval`
 ##              &amp;lt;dbl&amp;gt;            &amp;lt;dbl&amp;gt;                   &amp;lt;dbl&amp;gt;
-## 1            0.910            0.852                   0.762&lt;/code&gt;&lt;/pre&gt;
+## 1            0.908            0.852                   0.760&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;PlotOneStepPredicted(tb.season.train, p.season, 2016)&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;&lt;img src=&#34;/post/2020-05-28-bsts-boxofice.en/index_files/figure-html/unnamed-chunk-21-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;tb.llt.train &amp;lt;- ComputeOneStepPredicted(model.llt.train,
@@ -618,7 +622,7 @@ CheckOneStepCalibration(tb.llt.train)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## # A tibble: 1 x 3
 ##   `Prop. Above LB` `Prop. Below UB` `Prop. Within Interval`
 ##              &amp;lt;dbl&amp;gt;            &amp;lt;dbl&amp;gt;                   &amp;lt;dbl&amp;gt;
-## 1            0.854            0.889                   0.743&lt;/code&gt;&lt;/pre&gt;
+## 1            0.856            0.889                   0.744&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;PlotOneStepPredicted(tb.llt.train, p.season, 2016)&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;&lt;img src=&#34;/post/2020-05-28-bsts-boxofice.en/index_files/figure-html/unnamed-chunk-22-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;We can see that both seem to offer reasonably useful forecasts, with calibration (over the entire period, combining both one-step and forecasts)\footnote[Perhaps these should be separated, I haven’t found resources discussing the best way to evaluate these models.] in a similar range as before, and the forecast range seemingly capturing much of the observed trend.&lt;/p&gt;

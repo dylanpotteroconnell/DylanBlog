@@ -25,12 +25,12 @@ social:
 - icon: twitter
   icon_pack: fab
   link: https://twitter.com/DylanPOConnell
-#- icon: google-scholar
-#  icon_pack: ai
-#  link: 
 - icon: github
   icon_pack: fab
   link: https://github.com/dylan.potter.oconnell
+- icon: film
+  icon_pack: fas
+  link: https://letterboxd.com/dylanoconnell/
 superuser: true
 title: Dylan O'Connell
 user_groups:

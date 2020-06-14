@@ -78,9 +78,9 @@
     
     <item>
       <title>The Perils of Overly Local Optimization</title>
-      <link>/post/local-optimization/</link>
+      <link>/2020/05/29/local-optimization/</link>
       <pubDate>Fri, 29 May 2020 00:00:00 +0000</pubDate>
-      <guid>/post/local-optimization/</guid>
+      <guid>/2020/05/29/local-optimization/</guid>
       <description>
 
 
@@ -276,12 +276,16 @@ in Neural Networks”&lt;/a&gt;, by L&#39;eon Bottou.&lt;/li&gt;
     
     <item>
       <title>Bayesian Structural Time Series, and Movie Ticket Sales Sales</title>
-      <link>/post/bsts-boxofice/</link>
+      <link>/2020/05/28/bsts-boxofice/</link>
       <pubDate>Thu, 28 May 2020 00:00:00 +0000</pubDate>
-      <guid>/post/bsts-boxofice/</guid>
+      <guid>/2020/05/28/bsts-boxofice/</guid>
       <description>
 
 
+&lt;div id=&#34;disclaimer&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Disclaimer&lt;/h1&gt;
+&lt;p&gt;This is something of a rough draft, written to introduce myself to BSTS models, and not exactly ready for public presentation.&lt;/p&gt;
+&lt;/div&gt;
 &lt;div id=&#34;introduction&#34; class=&#34;section level1&#34;&gt;
 &lt;h1&gt;Introduction&lt;/h1&gt;
 &lt;p&gt;In this post, I’ll describe my introductory exploration of Bayesian structural time series (BSTS) models, using Steve Scott’s &lt;code&gt;bsts&lt;/code&gt; &lt;a href=&#34;https://cran.r-project.org/web/packages/bsts/bsts.pdf&#34;&gt;package&lt;/a&gt;, applied to the total weekly box office gross (i.e. ticket sales) of American movie theaters.&lt;/p&gt;
@@ -869,7 +873,7 @@ CheckOneStepCalibration(tb.season.train)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## # A tibble: 1 x 3
 ##   `Prop. Above LB` `Prop. Below UB` `Prop. Within Interval`
 ##              &amp;lt;dbl&amp;gt;            &amp;lt;dbl&amp;gt;                   &amp;lt;dbl&amp;gt;
-## 1            0.910            0.852                   0.762&lt;/code&gt;&lt;/pre&gt;
+## 1            0.908            0.852                   0.760&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;PlotOneStepPredicted(tb.season.train, p.season, 2016)&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;&lt;img src=&#34;/post/2020-05-28-bsts-boxofice.en/index_files/figure-html/unnamed-chunk-21-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;tb.llt.train &amp;lt;- ComputeOneStepPredicted(model.llt.train,
@@ -880,7 +884,7 @@ CheckOneStepCalibration(tb.llt.train)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## # A tibble: 1 x 3
 ##   `Prop. Above LB` `Prop. Below UB` `Prop. Within Interval`
 ##              &amp;lt;dbl&amp;gt;            &amp;lt;dbl&amp;gt;                   &amp;lt;dbl&amp;gt;
-## 1            0.854            0.889                   0.743&lt;/code&gt;&lt;/pre&gt;
+## 1            0.856            0.889                   0.744&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;PlotOneStepPredicted(tb.llt.train, p.season, 2016)&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;&lt;img src=&#34;/post/2020-05-28-bsts-boxofice.en/index_files/figure-html/unnamed-chunk-22-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;We can see that both seem to offer reasonably useful forecasts, with calibration (over the entire period, combining both one-step and forecasts)\footnote[Perhaps these should be separated, I haven’t found resources discussing the best way to evaluate these models.] in a similar range as before, and the forecast range seemingly capturing much of the observed trend.&lt;/p&gt;
@@ -1231,9 +1235,9 @@ Three
     
     <item>
       <title>A Gentle Introduction to Parlays and Independence </title>
-      <link>/post/parlays-independence/</link>
+      <link>/2018/11/08/parlays-independence/</link>
       <pubDate>Thu, 08 Nov 2018 00:00:00 +0000</pubDate>
-      <guid>/post/parlays-independence/</guid>
+      <guid>/2018/11/08/parlays-independence/</guid>
       <description>&lt;blockquote&gt;
 &lt;p&gt;Betting parlays of positively correlated events will generally be profitable.&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -1269,9 +1273,9 @@ Three
     
     <item>
       <title>Winning a Debate: Insights from &#34;Intelligence Squared&#34;</title>
-      <link>/post/winning-debate/</link>
+      <link>/2018/07/29/winning-debate/</link>
       <pubDate>Sun, 29 Jul 2018 00:00:00 +0000</pubDate>
-      <guid>/post/winning-debate/</guid>
+      <guid>/2018/07/29/winning-debate/</guid>
       <description>
 
 
@@ -1301,7 +1305,7 @@ Three
 &lt;/div&gt;
 &lt;div id=&#34;how-has-this-worked-in-practice&#34; class=&#34;section level3&#34;&gt;
 &lt;h3&gt;How has this worked in practice?&lt;/h3&gt;
-&lt;p&gt;Looking at the results of the Intelligence Squared debates in reality, we see that the majority of results are uncontroversial. and there is little doubt which side was more convincing. In total, we gather the results from 88 debates from the Intelligence Squared &lt;a href=&#34;https://www.intelligencesquaredus.org/debates&#34;&gt;website&lt;/a&gt;, with the process described &lt;a href=&#34;https://dylanpotteroconnell.github.io/debateresults2/&#34;&gt;here&lt;/a&gt;, and the unpolished scraped dataset &lt;a href=&#34;https://github.com/dylanpotteroconnell/IntelSquaredProject/blob/master/votingresultsfinal.csv&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Looking at the results of the Intelligence Squared debates in reality, we see that the majority of results are uncontroversial. and there is little doubt which side was more convincing. In total, we gather the results from 88 debates from the Intelligence Squared &lt;a href=&#34;https://www.intelligencesquaredus.org/debates&#34;&gt;website&lt;/a&gt;, with the process described &lt;a href=&#34;/2018/07/26/scraping-is2/&#34;&gt;here&lt;/a&gt;, and the unpolished scraped dataset &lt;a href=&#34;https://github.com/dylanpotteroconnell/IntelSquaredProject/blob/master/votingresultsfinal.csv&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;The first winning metric we consider is the Intelligence Squared Metric (ISM), which measures shift in absolute percentage of support. We next consider the Undisputed Metric (UDM), which uses the proportional switching outlined above, and only assigns a winner when one side &lt;em&gt;both&lt;/em&gt; convinces a greater proportion of Undecided voters to join their side, as well as a greater proportion of the other side to switch their opinion. In cases when these do not agree, no winner is declared.&lt;/p&gt;
 &lt;p&gt;Thus the first question is whether there are cases where the UDM declares a winner which is the reverse of the ISM, like the toy example outlined above by &lt;em&gt;whuber&lt;/em&gt;. It turns out that this is &lt;em&gt;not&lt;/em&gt; an idle concern, and in fact there have been six debates with this conflicting result.&lt;/p&gt;
 &lt;!-- \begin{table}[h] --&gt;
@@ -1585,9 +1589,9 @@ We can stick to a nonparametric test to sidestep of our lack of reasonable assum
     
     <item>
       <title>Scraping the &#34;Intelligence Squared&#34; Debate Results</title>
-      <link>/post/scraping-is2/</link>
+      <link>/2018/07/26/scraping-is2/</link>
       <pubDate>Thu, 26 Jul 2018 00:00:00 +0000</pubDate>
-      <guid>/post/scraping-is2/</guid>
+      <guid>/2018/07/26/scraping-is2/</guid>
       <description>&lt;p&gt;This is a brief companion to the 
 &lt;a href=&#34;https://dylanpotteroconnell.github.io/debatefinalsummary/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;post&lt;/a&gt; analyzing the methods of assigning a winner to a debate, using the Intelligence Squared dataset. I will briefly outline here how I assemble that dataset, for trasparency.&lt;/p&gt;
 &lt;h3 id=&#34;compiling-the-pages&#34;&gt;Compiling the Pages&lt;/h3&gt;
@@ -1626,10 +1630,2029 @@ We can stick to a nonparametric test to sidestep of our lack of reasonable assum
     </item>
     
     <item>
+      <title>World Cup Elo Part 3: Results of Toy Model for Group Stage</title>
+      <link>/2018/06/01/worldcup-3/</link>
+      <pubDate>Fri, 01 Jun 2018 00:00:00 +0000</pubDate>
+      <guid>/2018/06/01/worldcup-3/</guid>
+      <description>
+
+
+&lt;p&gt;&lt;em&gt;Part 1 can be found &lt;a href=&#34;https://dylanpotteroconnell.github.io/worldcup/&#34;&gt;here&lt;/a&gt;, and Part 2 &lt;a href=&#34;https://dylanpotteroconnell.github.io/worldcup2/&#34;&gt;here&lt;/a&gt;.&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;Over the winter, I built a straightforward Elo rating system to model soccer/football national teams during the World Cup. Elo rating systems are used all around us, but most people never bother to delve into the details of how they are constructed, which makes it difficult to draw precise inferences, so this is a useful exercise. Now that the group stage of the 2018 World Cup has wrapped up, I’ll take a quick look at how the Elo rating system performed if it were used as a betting system..&lt;/p&gt;
+&lt;div id=&#34;major-caveats&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Major Caveats&lt;/h3&gt;
+&lt;p&gt;The resulting Elo model should not be considered truly predictive. It operates with a huge restriction, utilizing only the data from past World Cups and the qualifying rounds (ignoring other international competitions). It also doesn’t draw in any outside information such as injury news, or player retirements. Clearly, we could improve the predictive ability of our model by including more information. The advantage of this simple approach is that the resulting model is readily interpretable. It simply represents our best estimate of a team’s strength based on their World Cup and qualifying results, and seeks to quantify those results in the most accurate way possible (because simply noting the wins and losses is woefully insufficient). Incorporating injury information is valuable, but there’s no straightforward way to do it, and it would be a very subjective process. Thus, we could improve the specific predictions of our model, but we would lose the ability to properly interpret the results. Instead, I think it’s more valuable to have a model that has a narrow but precise use. This provides a foundation which we can use as a baseline for our own subjective analysis (such as the loss of players to injury, or rumors about a team being poorly prepared, or not giving it their all during qualifying matches).&lt;/p&gt;
+&lt;p&gt;Even with this narrow approach, there are a vast number of decisions needed to implement an Elo rating system. While we try our best to leave subjective analysis outside of our model, many of these decisions do not have a clear right answer. In a past post (linked here), we outline some of these decisions. These range from home field advantage, the structure of temporal weighting of results (i.e. the “K factor”), and whether to include margin of victory rather than match result. We selected our final parameters using a variety of validation techniques, performing a search of the parameter space and comparing how predictive our model is along the way (compared to the observed results tempered with betting markets). This is just a brief summary, expanded upon in other posts, the point is that we result in an implementation of the Elo rating system that performs well for the peculiar situation of football national teams in the World Cup.&lt;/p&gt;
+&lt;p&gt;This preamble leads to the fact that the group stage just wrapped up, and it’s interesting to take a look at the results. Now, simply comparing the actual match result to the percentage chance we predicted for that result isn’t terribly insightful. Our model will always select the “favorite”, so this would just tally up the total number of upsets. In fact, as a draw in football is essentially always less likely than the stronger team winning, this means that we would consider every draw to be an “incorrect” prediction. What we want to quantify is how shocking our model found those upsets relative to other norms.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;evaluating-its-performance&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Evaluating its Performance&lt;/h3&gt;
+&lt;p&gt;The natural way to evaluate the Elo rating model is to consider the results of using it to blindly bet on the matches. Again, it cannot be said enough that there’s little reason to think that the raw model would be an accurate tool to beat the betting markets.Bettors take into account all information available, and our model solely uses past results. However, it’s a useful measure to see whether these predictions are at least plausible. Our final caveat here is that a null result doesn’t mean all that much. If the betting markets were perfectly efficient, picking bets at random would be just as effective as any other strategy. Obviously, betting markets are &lt;em&gt;not&lt;/em&gt; perfectly efficient, they represent our best collective wisdom, which may well be misguided. But it’s important to remember that we would be surprised to find any betting strategy result in huge losses over a long period. The most telling “sanity check” of our model is that by and large, the odds it estimates are quite similar to the implied odds of the betting markets. This shows that the Elo rating system is at least a plausible model of team strength, and that it should be a valid starting point for subjective amendment (taking into account other factors beyond past team performance).&lt;/p&gt;
+&lt;p&gt;Our simple betting game goes as follows. For each of the 48 games played in the 2018 group stage, we use our model to compute the likelihood of either team winning, or a draw occuring. We compare those probabilities to the implied odds of those results based on the moneylines given by &lt;a href=&#34;http://www.oddsportal.com/soccer/world/world-cup-2018/results/#/&#34;&gt;OddsPortal&lt;/a&gt;, and we select the result where our prediction is the most above the implied odds. Then, we consider the observed result had we placed a $100 bet on that result. Thus, if we are incorrect, we lose $100, and if we’re right, our winnings are based on the given money line.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;results&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Results&lt;/h3&gt;
+&lt;style type=&#34;text/css&#34;&gt;
+.tg  {border-collapse:collapse;border-spacing:0;}
+.tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:black;}
+.tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:black;}
+.tg .tg-0lax{text-align:left;vertical-align:top}
+&lt;/style&gt;
+&lt;table class=&#34;tg&#34;&gt;
+&lt;tr&gt;
+&lt;th class=&#34;tg-0lax&#34;&gt;
+Team 1
+&lt;/th&gt;
+&lt;th class=&#34;tg-0lax&#34;&gt;
+Team 2
+&lt;/th&gt;
+&lt;th class=&#34;tg-0lax&#34;&gt;
+Model: P(Win 1)
+&lt;/th&gt;
+&lt;th class=&#34;tg-0lax&#34;&gt;
+Model: P(Draw)
+&lt;/th&gt;
+&lt;th class=&#34;tg-0lax&#34;&gt;
+Model: P(Win 2)
+&lt;/th&gt;
+&lt;th class=&#34;tg-0lax&#34;&gt;
+Line: Win 1
+&lt;/th&gt;
+&lt;th class=&#34;tg-0lax&#34;&gt;
+Line: Tie
+&lt;/th&gt;
+&lt;th class=&#34;tg-0lax&#34;&gt;
+Line: Win 3
+&lt;/th&gt;
+&lt;th class=&#34;tg-0lax&#34;&gt;
+Profit
+&lt;/th&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+Russia
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+Saudi Arabia
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+0.562
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+0.233
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+0.206
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+-217
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+334
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+807
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+-100
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+Russia
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+Egypt
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+0.566
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+0.231
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+0.203
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+-105
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+257
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+330
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+95.2
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+Russia
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+Uruguay
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+0.462
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+0.262
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+0.276
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+193
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+208
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+177
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+-100
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+Saudi Arabia
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+Egypt
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+0.36
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+0.289
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+0.351
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+445
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+263
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+-130
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+445
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+Saudi Arabia
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+Uruguay
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+0.278
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+0.262
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+0.46
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+1700
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+573
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+-455
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+-100
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+Egypt
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+Uruguay
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+0.274
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+0.261
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+0.465
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+744
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+309
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+-196
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+-100
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+Portugal
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+Spain
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+0.307
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+0.273
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+0.421
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+338
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+227
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+104
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+-100
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+Portugal
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+Morocco
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+0.586
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+0.225
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+0.189
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+-143
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+270
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+504
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+-100
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+Portugal
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+Iran
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+0.528
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+0.243
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+0.23
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+-167
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+309
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+539
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+-100
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+Spain
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+Morocco
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+0.641
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+0.207
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+0.152
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+-278
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+417
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+927
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+-100
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+Spain
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+Iran
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+0.587
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+0.225
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+0.188
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+-476
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+586
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+1832
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+-100
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+Morocco
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+Iran
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+0.307
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+0.273
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+0.42
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+123
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+198
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+317
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+317
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+France
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+Australia
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+0.536
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+0.241
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+0.224
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+-370
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+623
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+944
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+-100
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+France
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+Peru
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+0.583
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+0.226
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+0.191
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+-164
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+287
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+561
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+-100
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+France
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+Denmark
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+0.447
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+0.266
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+0.287
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+106
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+181
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+434
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+-100
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+Australia
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+Peru
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+0.407
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+0.276
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+0.316
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+193
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+254
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+149
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+-100
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+Australia
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+Denmark
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+0.287
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+0.266
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+0.447
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+369
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+244
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+-110
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+-100
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+Peru
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+Denmark
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+0.25
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+0.251
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+0.498
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+271
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+211
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+131
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+131
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+Argentina
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+Iceland
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+0.635
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+0.209
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+0.156
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+-303
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+441
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+1034
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+-100
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+Argentina
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+Croatia
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+0.516
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+0.246
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+0.237
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+108
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+229
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+312
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+-100
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+Argentina
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+Nigeria
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+0.583
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+0.226
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+0.191
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+-200
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+426
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+499
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+-100
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+Iceland
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+Croatia
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+0.257
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+0.254
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+0.488
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+341
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+299
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+-120
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+-100
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+Iceland
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+Nigeria
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+0.309
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+0.274
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+0.417
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+172
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+210
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+199
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+199
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+Croatia
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+Nigeria
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+0.428
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+0.271
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+0.301
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+-147
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+279
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+514
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+-100
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+Brazil
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+Switzerland
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+0.561
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+0.233
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+0.206
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+-208
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+343
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+711
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+-100
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+Brazil
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+Costa Rica
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+0.556
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+0.234
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+0.209
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+-476
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+571
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+1817
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+-100
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+Brazil
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+Serbia
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+0.571
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+0.23
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+0.199
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+-213
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+368
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+661
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+-100
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+Switzerland
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+Costa Rica
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+0.352
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+0.289
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+0.36
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+-167
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+270
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+663
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+-100
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+Switzerland
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+Serbia
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+0.367
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+0.287
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+0.346
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+196
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+204
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+175
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+196
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+Costa Rica
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+Serbia
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+0.371
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+0.286
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+0.343
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+436
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+243
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+-119
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+-100
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+Germany
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+Mexico
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+0.536
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+0.24
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+0.224
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+-204
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+358
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+624
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+624
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+Germany
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+Sweden
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+0.56
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+0.233
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+0.207
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+-213
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+366
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+664
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+-100
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+Germany
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+South Korea
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+0.698
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+0.187
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+0.115
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+-588
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+740
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+1837
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+-100
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+Mexico
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+Sweden
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+0.381
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+0.283
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+0.335
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+121
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+240
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+259
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+259
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+Mexico
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+South Korea
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+0.547
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+0.237
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+0.216
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+-143
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+281
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+473
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+-100
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+Sweden
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+South Korea
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+0.523
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+0.244
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+0.233
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+127
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+204
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+293
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+127
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+Belgium
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+Panama
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+0.608
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+0.218
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+0.174
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+-455
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+577
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+1662
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+-100
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+Belgium
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+Tunisia
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+0.488
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+0.254
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+0.258
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+-303
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+419
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+1104
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+-100
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+Belgium
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+England
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+0.309
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+0.274
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+0.418
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+272
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+184
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+147
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+272
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+Panama
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+Tunisia
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+0.259
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+0.255
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+0.486
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+337
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+278
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+-114
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+-100
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+Panama
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+England
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+0.14
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+0.201
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+0.659
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+1773
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+548
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+-455
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+-100
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+Tunisia
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+England
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+0.216
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+0.237
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+0.547
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+755
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+323
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+-204
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+-100
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+Poland
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+Senegal
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+0.397
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+0.279
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+0.324
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+152
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+206
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+233
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+233
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+Poland
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+Colombia
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+0.204
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+0.232
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+0.563
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+249
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+246
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+121
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+121
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+Poland
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+Japan
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+0.314
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+0.276
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+0.411
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+171
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+215
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+195
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+-100
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+Senegal
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+Colombia
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+0.179
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+0.221
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+0.6
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+419
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+282
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+-132
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+75.8
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+Senegal
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+Japan
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+0.283
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+0.264
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+0.452
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+165
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+199
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+221
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+-100
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+Colombia
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+Japan
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+0.512
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+0.248
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+0.24
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+-112
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+234
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+411
+&lt;/td&gt;
+&lt;td class=&#34;tg-0lax&#34;&gt;
+411
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;table&gt;
+&lt;colgroup&gt;
+&lt;col width=&#34;11%&#34; /&gt;
+&lt;col width=&#34;11%&#34; /&gt;
+&lt;col width=&#34;13%&#34; /&gt;
+&lt;col width=&#34;13%&#34; /&gt;
+&lt;col width=&#34;13%&#34; /&gt;
+&lt;col width=&#34;10%&#34; /&gt;
+&lt;col width=&#34;8%&#34; /&gt;
+&lt;col width=&#34;10%&#34; /&gt;
+&lt;col width=&#34;6%&#34; /&gt;
+&lt;/colgroup&gt;
+&lt;thead&gt;
+&lt;tr class=&#34;header&#34;&gt;
+&lt;th&gt;Team 1&lt;/th&gt;
+&lt;th&gt;Team 2&lt;/th&gt;
+&lt;th&gt;Model: P(Win 1)&lt;/th&gt;
+&lt;th&gt;Model: P(Draw)&lt;/th&gt;
+&lt;th&gt;Model: P(Win 2)&lt;/th&gt;
+&lt;th&gt;Line: Win 1&lt;/th&gt;
+&lt;th&gt;Line: Tie&lt;/th&gt;
+&lt;th&gt;Line: Win 3&lt;/th&gt;
+&lt;th&gt;Profit&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr class=&#34;odd&#34;&gt;
+&lt;td&gt;Russia&lt;/td&gt;
+&lt;td&gt;Saudi Arabia&lt;/td&gt;
+&lt;td&gt;0.562&lt;/td&gt;
+&lt;td&gt;0.233&lt;/td&gt;
+&lt;td&gt;0.206&lt;/td&gt;
+&lt;td&gt;-217&lt;/td&gt;
+&lt;td&gt;334&lt;/td&gt;
+&lt;td&gt;807&lt;/td&gt;
+&lt;td&gt;-100&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;even&#34;&gt;
+&lt;td&gt;Russia&lt;/td&gt;
+&lt;td&gt;Egypt&lt;/td&gt;
+&lt;td&gt;0.566&lt;/td&gt;
+&lt;td&gt;0.231&lt;/td&gt;
+&lt;td&gt;0.203&lt;/td&gt;
+&lt;td&gt;-105&lt;/td&gt;
+&lt;td&gt;257&lt;/td&gt;
+&lt;td&gt;330&lt;/td&gt;
+&lt;td&gt;95.2&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;odd&#34;&gt;
+&lt;td&gt;Russia&lt;/td&gt;
+&lt;td&gt;Uruguay&lt;/td&gt;
+&lt;td&gt;0.462&lt;/td&gt;
+&lt;td&gt;0.262&lt;/td&gt;
+&lt;td&gt;0.276&lt;/td&gt;
+&lt;td&gt;193&lt;/td&gt;
+&lt;td&gt;208&lt;/td&gt;
+&lt;td&gt;177&lt;/td&gt;
+&lt;td&gt;-100&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;even&#34;&gt;
+&lt;td&gt;Saudi Arabia&lt;/td&gt;
+&lt;td&gt;Egypt&lt;/td&gt;
+&lt;td&gt;0.36&lt;/td&gt;
+&lt;td&gt;0.289&lt;/td&gt;
+&lt;td&gt;0.351&lt;/td&gt;
+&lt;td&gt;445&lt;/td&gt;
+&lt;td&gt;263&lt;/td&gt;
+&lt;td&gt;-130&lt;/td&gt;
+&lt;td&gt;445&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;odd&#34;&gt;
+&lt;td&gt;Saudi Arabia&lt;/td&gt;
+&lt;td&gt;Uruguay&lt;/td&gt;
+&lt;td&gt;0.278&lt;/td&gt;
+&lt;td&gt;0.262&lt;/td&gt;
+&lt;td&gt;0.46&lt;/td&gt;
+&lt;td&gt;1700&lt;/td&gt;
+&lt;td&gt;573&lt;/td&gt;
+&lt;td&gt;-455&lt;/td&gt;
+&lt;td&gt;-100&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;even&#34;&gt;
+&lt;td&gt;Egypt&lt;/td&gt;
+&lt;td&gt;Uruguay&lt;/td&gt;
+&lt;td&gt;0.274&lt;/td&gt;
+&lt;td&gt;0.261&lt;/td&gt;
+&lt;td&gt;0.465&lt;/td&gt;
+&lt;td&gt;744&lt;/td&gt;
+&lt;td&gt;309&lt;/td&gt;
+&lt;td&gt;-196&lt;/td&gt;
+&lt;td&gt;-100&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;odd&#34;&gt;
+&lt;td&gt;Portugal&lt;/td&gt;
+&lt;td&gt;Spain&lt;/td&gt;
+&lt;td&gt;0.307&lt;/td&gt;
+&lt;td&gt;0.273&lt;/td&gt;
+&lt;td&gt;0.421&lt;/td&gt;
+&lt;td&gt;338&lt;/td&gt;
+&lt;td&gt;227&lt;/td&gt;
+&lt;td&gt;104&lt;/td&gt;
+&lt;td&gt;-100&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;even&#34;&gt;
+&lt;td&gt;Portugal&lt;/td&gt;
+&lt;td&gt;Morocco&lt;/td&gt;
+&lt;td&gt;0.586&lt;/td&gt;
+&lt;td&gt;0.225&lt;/td&gt;
+&lt;td&gt;0.189&lt;/td&gt;
+&lt;td&gt;-143&lt;/td&gt;
+&lt;td&gt;270&lt;/td&gt;
+&lt;td&gt;504&lt;/td&gt;
+&lt;td&gt;-100&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;odd&#34;&gt;
+&lt;td&gt;Portugal&lt;/td&gt;
+&lt;td&gt;Iran&lt;/td&gt;
+&lt;td&gt;0.528&lt;/td&gt;
+&lt;td&gt;0.243&lt;/td&gt;
+&lt;td&gt;0.23&lt;/td&gt;
+&lt;td&gt;-167&lt;/td&gt;
+&lt;td&gt;309&lt;/td&gt;
+&lt;td&gt;539&lt;/td&gt;
+&lt;td&gt;-100&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;even&#34;&gt;
+&lt;td&gt;Spain&lt;/td&gt;
+&lt;td&gt;Morocco&lt;/td&gt;
+&lt;td&gt;0.641&lt;/td&gt;
+&lt;td&gt;0.207&lt;/td&gt;
+&lt;td&gt;0.152&lt;/td&gt;
+&lt;td&gt;-278&lt;/td&gt;
+&lt;td&gt;417&lt;/td&gt;
+&lt;td&gt;927&lt;/td&gt;
+&lt;td&gt;-100&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;odd&#34;&gt;
+&lt;td&gt;Spain&lt;/td&gt;
+&lt;td&gt;Iran&lt;/td&gt;
+&lt;td&gt;0.587&lt;/td&gt;
+&lt;td&gt;0.225&lt;/td&gt;
+&lt;td&gt;0.188&lt;/td&gt;
+&lt;td&gt;-476&lt;/td&gt;
+&lt;td&gt;586&lt;/td&gt;
+&lt;td&gt;1832&lt;/td&gt;
+&lt;td&gt;-100&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;even&#34;&gt;
+&lt;td&gt;Morocco&lt;/td&gt;
+&lt;td&gt;Iran&lt;/td&gt;
+&lt;td&gt;0.307&lt;/td&gt;
+&lt;td&gt;0.273&lt;/td&gt;
+&lt;td&gt;0.42&lt;/td&gt;
+&lt;td&gt;123&lt;/td&gt;
+&lt;td&gt;198&lt;/td&gt;
+&lt;td&gt;317&lt;/td&gt;
+&lt;td&gt;317&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;odd&#34;&gt;
+&lt;td&gt;France&lt;/td&gt;
+&lt;td&gt;Australia&lt;/td&gt;
+&lt;td&gt;0.536&lt;/td&gt;
+&lt;td&gt;0.241&lt;/td&gt;
+&lt;td&gt;0.224&lt;/td&gt;
+&lt;td&gt;-370&lt;/td&gt;
+&lt;td&gt;623&lt;/td&gt;
+&lt;td&gt;944&lt;/td&gt;
+&lt;td&gt;-100&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;even&#34;&gt;
+&lt;td&gt;France&lt;/td&gt;
+&lt;td&gt;Peru&lt;/td&gt;
+&lt;td&gt;0.583&lt;/td&gt;
+&lt;td&gt;0.226&lt;/td&gt;
+&lt;td&gt;0.191&lt;/td&gt;
+&lt;td&gt;-164&lt;/td&gt;
+&lt;td&gt;287&lt;/td&gt;
+&lt;td&gt;561&lt;/td&gt;
+&lt;td&gt;-100&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;odd&#34;&gt;
+&lt;td&gt;France&lt;/td&gt;
+&lt;td&gt;Denmark&lt;/td&gt;
+&lt;td&gt;0.447&lt;/td&gt;
+&lt;td&gt;0.266&lt;/td&gt;
+&lt;td&gt;0.287&lt;/td&gt;
+&lt;td&gt;106&lt;/td&gt;
+&lt;td&gt;181&lt;/td&gt;
+&lt;td&gt;434&lt;/td&gt;
+&lt;td&gt;-100&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;even&#34;&gt;
+&lt;td&gt;Australia&lt;/td&gt;
+&lt;td&gt;Peru&lt;/td&gt;
+&lt;td&gt;0.407&lt;/td&gt;
+&lt;td&gt;0.276&lt;/td&gt;
+&lt;td&gt;0.316&lt;/td&gt;
+&lt;td&gt;193&lt;/td&gt;
+&lt;td&gt;254&lt;/td&gt;
+&lt;td&gt;149&lt;/td&gt;
+&lt;td&gt;-100&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;odd&#34;&gt;
+&lt;td&gt;Australia&lt;/td&gt;
+&lt;td&gt;Denmark&lt;/td&gt;
+&lt;td&gt;0.287&lt;/td&gt;
+&lt;td&gt;0.266&lt;/td&gt;
+&lt;td&gt;0.447&lt;/td&gt;
+&lt;td&gt;369&lt;/td&gt;
+&lt;td&gt;244&lt;/td&gt;
+&lt;td&gt;-110&lt;/td&gt;
+&lt;td&gt;-100&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;even&#34;&gt;
+&lt;td&gt;Peru&lt;/td&gt;
+&lt;td&gt;Denmark&lt;/td&gt;
+&lt;td&gt;0.25&lt;/td&gt;
+&lt;td&gt;0.251&lt;/td&gt;
+&lt;td&gt;0.498&lt;/td&gt;
+&lt;td&gt;271&lt;/td&gt;
+&lt;td&gt;211&lt;/td&gt;
+&lt;td&gt;131&lt;/td&gt;
+&lt;td&gt;131&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;odd&#34;&gt;
+&lt;td&gt;Argentina&lt;/td&gt;
+&lt;td&gt;Iceland&lt;/td&gt;
+&lt;td&gt;0.635&lt;/td&gt;
+&lt;td&gt;0.209&lt;/td&gt;
+&lt;td&gt;0.156&lt;/td&gt;
+&lt;td&gt;-303&lt;/td&gt;
+&lt;td&gt;441&lt;/td&gt;
+&lt;td&gt;1034&lt;/td&gt;
+&lt;td&gt;-100&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;even&#34;&gt;
+&lt;td&gt;Argentina&lt;/td&gt;
+&lt;td&gt;Croatia&lt;/td&gt;
+&lt;td&gt;0.516&lt;/td&gt;
+&lt;td&gt;0.246&lt;/td&gt;
+&lt;td&gt;0.237&lt;/td&gt;
+&lt;td&gt;108&lt;/td&gt;
+&lt;td&gt;229&lt;/td&gt;
+&lt;td&gt;312&lt;/td&gt;
+&lt;td&gt;-100&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;odd&#34;&gt;
+&lt;td&gt;Argentina&lt;/td&gt;
+&lt;td&gt;Nigeria&lt;/td&gt;
+&lt;td&gt;0.583&lt;/td&gt;
+&lt;td&gt;0.226&lt;/td&gt;
+&lt;td&gt;0.191&lt;/td&gt;
+&lt;td&gt;-200&lt;/td&gt;
+&lt;td&gt;426&lt;/td&gt;
+&lt;td&gt;499&lt;/td&gt;
+&lt;td&gt;-100&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;even&#34;&gt;
+&lt;td&gt;Iceland&lt;/td&gt;
+&lt;td&gt;Croatia&lt;/td&gt;
+&lt;td&gt;0.257&lt;/td&gt;
+&lt;td&gt;0.254&lt;/td&gt;
+&lt;td&gt;0.488&lt;/td&gt;
+&lt;td&gt;341&lt;/td&gt;
+&lt;td&gt;299&lt;/td&gt;
+&lt;td&gt;-120&lt;/td&gt;
+&lt;td&gt;-100&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;odd&#34;&gt;
+&lt;td&gt;Iceland&lt;/td&gt;
+&lt;td&gt;Nigeria&lt;/td&gt;
+&lt;td&gt;0.309&lt;/td&gt;
+&lt;td&gt;0.274&lt;/td&gt;
+&lt;td&gt;0.417&lt;/td&gt;
+&lt;td&gt;172&lt;/td&gt;
+&lt;td&gt;210&lt;/td&gt;
+&lt;td&gt;199&lt;/td&gt;
+&lt;td&gt;199&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;even&#34;&gt;
+&lt;td&gt;Croatia&lt;/td&gt;
+&lt;td&gt;Nigeria&lt;/td&gt;
+&lt;td&gt;0.428&lt;/td&gt;
+&lt;td&gt;0.271&lt;/td&gt;
+&lt;td&gt;0.301&lt;/td&gt;
+&lt;td&gt;-147&lt;/td&gt;
+&lt;td&gt;279&lt;/td&gt;
+&lt;td&gt;514&lt;/td&gt;
+&lt;td&gt;-100&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;odd&#34;&gt;
+&lt;td&gt;Brazil&lt;/td&gt;
+&lt;td&gt;Switzerland&lt;/td&gt;
+&lt;td&gt;0.561&lt;/td&gt;
+&lt;td&gt;0.233&lt;/td&gt;
+&lt;td&gt;0.206&lt;/td&gt;
+&lt;td&gt;-208&lt;/td&gt;
+&lt;td&gt;343&lt;/td&gt;
+&lt;td&gt;711&lt;/td&gt;
+&lt;td&gt;-100&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;even&#34;&gt;
+&lt;td&gt;Brazil&lt;/td&gt;
+&lt;td&gt;Costa Rica&lt;/td&gt;
+&lt;td&gt;0.556&lt;/td&gt;
+&lt;td&gt;0.234&lt;/td&gt;
+&lt;td&gt;0.209&lt;/td&gt;
+&lt;td&gt;-476&lt;/td&gt;
+&lt;td&gt;571&lt;/td&gt;
+&lt;td&gt;1817&lt;/td&gt;
+&lt;td&gt;-100&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;odd&#34;&gt;
+&lt;td&gt;Brazil&lt;/td&gt;
+&lt;td&gt;Serbia&lt;/td&gt;
+&lt;td&gt;0.571&lt;/td&gt;
+&lt;td&gt;0.23&lt;/td&gt;
+&lt;td&gt;0.199&lt;/td&gt;
+&lt;td&gt;-213&lt;/td&gt;
+&lt;td&gt;368&lt;/td&gt;
+&lt;td&gt;661&lt;/td&gt;
+&lt;td&gt;-100&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;even&#34;&gt;
+&lt;td&gt;Switzerland&lt;/td&gt;
+&lt;td&gt;Costa Rica&lt;/td&gt;
+&lt;td&gt;0.352&lt;/td&gt;
+&lt;td&gt;0.289&lt;/td&gt;
+&lt;td&gt;0.36&lt;/td&gt;
+&lt;td&gt;-167&lt;/td&gt;
+&lt;td&gt;270&lt;/td&gt;
+&lt;td&gt;663&lt;/td&gt;
+&lt;td&gt;-100&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;odd&#34;&gt;
+&lt;td&gt;Switzerland&lt;/td&gt;
+&lt;td&gt;Serbia&lt;/td&gt;
+&lt;td&gt;0.367&lt;/td&gt;
+&lt;td&gt;0.287&lt;/td&gt;
+&lt;td&gt;0.346&lt;/td&gt;
+&lt;td&gt;196&lt;/td&gt;
+&lt;td&gt;204&lt;/td&gt;
+&lt;td&gt;175&lt;/td&gt;
+&lt;td&gt;196&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;even&#34;&gt;
+&lt;td&gt;Costa Rica&lt;/td&gt;
+&lt;td&gt;Serbia&lt;/td&gt;
+&lt;td&gt;0.371&lt;/td&gt;
+&lt;td&gt;0.286&lt;/td&gt;
+&lt;td&gt;0.343&lt;/td&gt;
+&lt;td&gt;436&lt;/td&gt;
+&lt;td&gt;243&lt;/td&gt;
+&lt;td&gt;-119&lt;/td&gt;
+&lt;td&gt;-100&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;odd&#34;&gt;
+&lt;td&gt;Germany&lt;/td&gt;
+&lt;td&gt;Mexico&lt;/td&gt;
+&lt;td&gt;0.536&lt;/td&gt;
+&lt;td&gt;0.24&lt;/td&gt;
+&lt;td&gt;0.224&lt;/td&gt;
+&lt;td&gt;-204&lt;/td&gt;
+&lt;td&gt;358&lt;/td&gt;
+&lt;td&gt;624&lt;/td&gt;
+&lt;td&gt;624&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;even&#34;&gt;
+&lt;td&gt;Germany&lt;/td&gt;
+&lt;td&gt;Sweden&lt;/td&gt;
+&lt;td&gt;0.56&lt;/td&gt;
+&lt;td&gt;0.233&lt;/td&gt;
+&lt;td&gt;0.207&lt;/td&gt;
+&lt;td&gt;-213&lt;/td&gt;
+&lt;td&gt;366&lt;/td&gt;
+&lt;td&gt;664&lt;/td&gt;
+&lt;td&gt;-100&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;odd&#34;&gt;
+&lt;td&gt;Germany&lt;/td&gt;
+&lt;td&gt;South Korea&lt;/td&gt;
+&lt;td&gt;0.698&lt;/td&gt;
+&lt;td&gt;0.187&lt;/td&gt;
+&lt;td&gt;0.115&lt;/td&gt;
+&lt;td&gt;-588&lt;/td&gt;
+&lt;td&gt;740&lt;/td&gt;
+&lt;td&gt;1837&lt;/td&gt;
+&lt;td&gt;-100&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;even&#34;&gt;
+&lt;td&gt;Mexico&lt;/td&gt;
+&lt;td&gt;Sweden&lt;/td&gt;
+&lt;td&gt;0.381&lt;/td&gt;
+&lt;td&gt;0.283&lt;/td&gt;
+&lt;td&gt;0.335&lt;/td&gt;
+&lt;td&gt;121&lt;/td&gt;
+&lt;td&gt;240&lt;/td&gt;
+&lt;td&gt;259&lt;/td&gt;
+&lt;td&gt;259&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;odd&#34;&gt;
+&lt;td&gt;Mexico&lt;/td&gt;
+&lt;td&gt;South Korea&lt;/td&gt;
+&lt;td&gt;0.547&lt;/td&gt;
+&lt;td&gt;0.237&lt;/td&gt;
+&lt;td&gt;0.216&lt;/td&gt;
+&lt;td&gt;-143&lt;/td&gt;
+&lt;td&gt;281&lt;/td&gt;
+&lt;td&gt;473&lt;/td&gt;
+&lt;td&gt;-100&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;even&#34;&gt;
+&lt;td&gt;Sweden&lt;/td&gt;
+&lt;td&gt;South Korea&lt;/td&gt;
+&lt;td&gt;0.523&lt;/td&gt;
+&lt;td&gt;0.244&lt;/td&gt;
+&lt;td&gt;0.233&lt;/td&gt;
+&lt;td&gt;127&lt;/td&gt;
+&lt;td&gt;204&lt;/td&gt;
+&lt;td&gt;293&lt;/td&gt;
+&lt;td&gt;127&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;odd&#34;&gt;
+&lt;td&gt;Belgium&lt;/td&gt;
+&lt;td&gt;Panama&lt;/td&gt;
+&lt;td&gt;0.608&lt;/td&gt;
+&lt;td&gt;0.218&lt;/td&gt;
+&lt;td&gt;0.174&lt;/td&gt;
+&lt;td&gt;-455&lt;/td&gt;
+&lt;td&gt;577&lt;/td&gt;
+&lt;td&gt;1662&lt;/td&gt;
+&lt;td&gt;-100&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;even&#34;&gt;
+&lt;td&gt;Belgium&lt;/td&gt;
+&lt;td&gt;Tunisia&lt;/td&gt;
+&lt;td&gt;0.488&lt;/td&gt;
+&lt;td&gt;0.254&lt;/td&gt;
+&lt;td&gt;0.258&lt;/td&gt;
+&lt;td&gt;-303&lt;/td&gt;
+&lt;td&gt;419&lt;/td&gt;
+&lt;td&gt;1104&lt;/td&gt;
+&lt;td&gt;-100&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;odd&#34;&gt;
+&lt;td&gt;Belgium&lt;/td&gt;
+&lt;td&gt;England&lt;/td&gt;
+&lt;td&gt;0.309&lt;/td&gt;
+&lt;td&gt;0.274&lt;/td&gt;
+&lt;td&gt;0.418&lt;/td&gt;
+&lt;td&gt;272&lt;/td&gt;
+&lt;td&gt;184&lt;/td&gt;
+&lt;td&gt;147&lt;/td&gt;
+&lt;td&gt;272&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;even&#34;&gt;
+&lt;td&gt;Panama&lt;/td&gt;
+&lt;td&gt;Tunisia&lt;/td&gt;
+&lt;td&gt;0.259&lt;/td&gt;
+&lt;td&gt;0.255&lt;/td&gt;
+&lt;td&gt;0.486&lt;/td&gt;
+&lt;td&gt;337&lt;/td&gt;
+&lt;td&gt;278&lt;/td&gt;
+&lt;td&gt;-114&lt;/td&gt;
+&lt;td&gt;-100&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;odd&#34;&gt;
+&lt;td&gt;Panama&lt;/td&gt;
+&lt;td&gt;England&lt;/td&gt;
+&lt;td&gt;0.14&lt;/td&gt;
+&lt;td&gt;0.201&lt;/td&gt;
+&lt;td&gt;0.659&lt;/td&gt;
+&lt;td&gt;1773&lt;/td&gt;
+&lt;td&gt;548&lt;/td&gt;
+&lt;td&gt;-455&lt;/td&gt;
+&lt;td&gt;-100&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;even&#34;&gt;
+&lt;td&gt;Tunisia&lt;/td&gt;
+&lt;td&gt;England&lt;/td&gt;
+&lt;td&gt;0.216&lt;/td&gt;
+&lt;td&gt;0.237&lt;/td&gt;
+&lt;td&gt;0.547&lt;/td&gt;
+&lt;td&gt;755&lt;/td&gt;
+&lt;td&gt;323&lt;/td&gt;
+&lt;td&gt;-204&lt;/td&gt;
+&lt;td&gt;-100&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;odd&#34;&gt;
+&lt;td&gt;Poland&lt;/td&gt;
+&lt;td&gt;Senegal&lt;/td&gt;
+&lt;td&gt;0.397&lt;/td&gt;
+&lt;td&gt;0.279&lt;/td&gt;
+&lt;td&gt;0.324&lt;/td&gt;
+&lt;td&gt;152&lt;/td&gt;
+&lt;td&gt;206&lt;/td&gt;
+&lt;td&gt;233&lt;/td&gt;
+&lt;td&gt;233&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;even&#34;&gt;
+&lt;td&gt;Poland&lt;/td&gt;
+&lt;td&gt;Colombia&lt;/td&gt;
+&lt;td&gt;0.204&lt;/td&gt;
+&lt;td&gt;0.232&lt;/td&gt;
+&lt;td&gt;0.563&lt;/td&gt;
+&lt;td&gt;249&lt;/td&gt;
+&lt;td&gt;246&lt;/td&gt;
+&lt;td&gt;121&lt;/td&gt;
+&lt;td&gt;121&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;odd&#34;&gt;
+&lt;td&gt;Poland&lt;/td&gt;
+&lt;td&gt;Japan&lt;/td&gt;
+&lt;td&gt;0.314&lt;/td&gt;
+&lt;td&gt;0.276&lt;/td&gt;
+&lt;td&gt;0.411&lt;/td&gt;
+&lt;td&gt;171&lt;/td&gt;
+&lt;td&gt;215&lt;/td&gt;
+&lt;td&gt;195&lt;/td&gt;
+&lt;td&gt;-100&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;even&#34;&gt;
+&lt;td&gt;Senegal&lt;/td&gt;
+&lt;td&gt;Colombia&lt;/td&gt;
+&lt;td&gt;0.179&lt;/td&gt;
+&lt;td&gt;0.221&lt;/td&gt;
+&lt;td&gt;0.6&lt;/td&gt;
+&lt;td&gt;419&lt;/td&gt;
+&lt;td&gt;282&lt;/td&gt;
+&lt;td&gt;-132&lt;/td&gt;
+&lt;td&gt;75.8&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;odd&#34;&gt;
+&lt;td&gt;Senegal&lt;/td&gt;
+&lt;td&gt;Japan&lt;/td&gt;
+&lt;td&gt;0.283&lt;/td&gt;
+&lt;td&gt;0.264&lt;/td&gt;
+&lt;td&gt;0.452&lt;/td&gt;
+&lt;td&gt;165&lt;/td&gt;
+&lt;td&gt;199&lt;/td&gt;
+&lt;td&gt;221&lt;/td&gt;
+&lt;td&gt;-100&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;even&#34;&gt;
+&lt;td&gt;Colombia&lt;/td&gt;
+&lt;td&gt;Japan&lt;/td&gt;
+&lt;td&gt;0.512&lt;/td&gt;
+&lt;td&gt;0.248&lt;/td&gt;
+&lt;td&gt;0.24&lt;/td&gt;
+&lt;td&gt;-112&lt;/td&gt;
+&lt;td&gt;234&lt;/td&gt;
+&lt;td&gt;411&lt;/td&gt;
+&lt;td&gt;411&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;In the end, our net profit is a whopping $106, after wagering $4,800 total. Obviously, over a sample size of 48 games, this is a quite insignificant result. But it’s actually slightly more impressive than it initially seems, because the betting lines take into account the rake of the sportsbook. If we picked randomly at a perfectly efficient market, we would on average have about a -5% return on investment (ROI). So our observed 2% ROI could charitably be considered in the context of being about a 7% improvement on the accuracy of the betting market, but obviously this is still not terribly significant over such a small sample.&lt;/p&gt;
+&lt;p&gt;So far from revolutionary, but seeing the predictions turn a small profit above the rake is neat as our model bet on &lt;em&gt;all&lt;/em&gt; games, rather than just the ones it had confidence in. One would hope that this result could be improved upon by actually using the information available leading up to the world cup, such as squad selection, fitness rumors, and injury absences, to improve the result (however, beating the betting markets tends to be trickier than people expect, even with additional information).&lt;/p&gt;
+&lt;p&gt;Our most profitable selection was Mexico’s win over Germany, which had an incredible line of +624. Our system would never give a competent team like Mexico such low odds, given the historical likelihood of upsets at the World Cup. This is a nice reminder about how large a sample would be necessary to draw any inferences about an actual betting strategy. Our system is sometimes selecting events which the betting lines have at &amp;lt;15%, and believing that the true number is slightly higher. We would lose money on this bet the vast majority of the time, even if we actually had a significant edge on the field.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;summary&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Summary&lt;/h3&gt;
+&lt;p&gt;In sum, this Elo rating system is not intended to be predictive, but to be a foundation for how to quantify the team strength shown in past world cup and qualifying games. It’s promising to see that the resulting predicted outcome percentages are close to those implied by the betting odds prior to the match. When we use the resulting model as a betting strategy for every single group stage match, we see that it turns a small profit beyond the rake taken by the bookies, although over a 48 game sample this effect is much too small to prove anything besides the rating system being at least plausible.&lt;/p&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
       <title>OddsConverter Part 3: Uploading to the Chrome Store</title>
-      <link>/post/oddsconverter-part3/</link>
+      <link>/2018/03/01/oddsconverter-part3/</link>
       <pubDate>Thu, 01 Mar 2018 00:00:00 +0000</pubDate>
-      <guid>/post/oddsconverter-part3/</guid>
+      <guid>/2018/03/01/oddsconverter-part3/</guid>
       <description>&lt;p&gt;Brief update to the 
 &lt;a href=&#34;https://dylanpotteroconnell.github.io/bettingextension2/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;past post&lt;/a&gt;. I knew a few people who wanted to try the extension, so I thought it’d be a fun exercise to go through the process of uploading it to the Chrome store. You can view and add the extension to your own browser 
 &lt;a href=&#34;https://chrome.google.com/webstore/detail/odds-converter/klechkhopfnjihobbcfeheooaigjjgdg&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;here&lt;/a&gt;. This is far from a polished state, given that it was meant to be a quick way to explore something new. However, I do find myself using the finished product a surprising amount, so I thought it was worth keeping on the Webstore. And it’s nice to see how easy Google makes it to upload a simple app.&lt;/p&gt;
@@ -1638,9 +3661,9 @@ We can stick to a nonparametric test to sidestep of our lack of reasonable assum
     
     <item>
       <title>Odds Converter Part 2: Conversion Webpage</title>
-      <link>/post/oddsconverter-part2/</link>
+      <link>/2018/01/25/oddsconverter-part2/</link>
       <pubDate>Thu, 25 Jan 2018 00:00:00 +0000</pubDate>
-      <guid>/post/oddsconverter-part2/</guid>
+      <guid>/2018/01/25/oddsconverter-part2/</guid>
       <description>&lt;h2 id=&#34;opening-a-new-page&#34;&gt;Opening a New Page&lt;/h2&gt;
 &lt;p&gt;Our simple extension from 
 &lt;a href=&#34;https://dylanpotteroconnell.github.io/bettingextension/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;last time&lt;/a&gt; works quite well to replace text on a page, but whenever text isn&amp;rsquo;t displayed in a nice format (which is true for many mdoern websites), it won&amp;rsquo;t do much good. The hope is to add functionality to it so that the user can easily and manually input the odds that they need. My vision was to let the user right click, and open up a page that lets them impute the odds to convert in a more detailed format.&lt;/p&gt;
@@ -1770,9 +3793,9 @@ function IPtoML(IP) {
     
     <item>
       <title>OddsConverter Part 1: Converting Plaintext</title>
-      <link>/post/oddsconverter-part1/</link>
+      <link>/2018/01/22/oddsconverter-part1/</link>
       <pubDate>Mon, 22 Jan 2018 00:00:00 +0000</pubDate>
-      <guid>/post/oddsconverter-part1/</guid>
+      <guid>/2018/01/22/oddsconverter-part1/</guid>
       <description>&lt;p&gt;The same betting odds are often displayed in disparate ways, depending on the context. In America, normally in terms of a Moneyline, where +200 is shorthand for &amp;ldquo;if you bet $100, you can win an additional $200&amp;rdquo;. In other contexts, we generally see the tradition &amp;ldquo;X/Y&amp;rdquo; fractional odds. Both of these have clear mathematical meanings, but for inexperienced bettors, they tend to be poor conveyors of intuitive meaning. We can quickly estimate what &amp;ldquo;+350&amp;rdquo; implies, but for most people, it takes a mental calculation to do so. The most useful intuitive information about betting odds comes from the &amp;ldquo;Implied Probability&amp;rdquo;, which is the probability of the event necessary for you to &amp;ldquo;break even&amp;rdquo; on the bet. Betting sites don&amp;rsquo;t particularly like Implied Probability because it makes the cut they take more obvious (when mutually exclusive and complete events have probabilities that sum up to greater than one), and more intuitively accurate information for bettors can make them realize how daunting it is to actually keep up a positive expected value.&lt;/p&gt;
 &lt;p&gt;As someone without the perfect intuition needed to convert these odds in my head, I got tired of glancing at a table of odds and trying to work out their precise value one by one. I thought it would be nice to have a very simple Google Chrome extension that could do it for me. The initial functionality is simple: click on the icon, and it converts any odds it can find on the page into Implied Probability. Click on it again, and it converts back. The challenge is that I have zero knowledge of JavaScript. Luckily, this task was simple enough that it could be cobbled together in the style of Frankenstein&amp;rsquo;s monster, with some slight modifications.&lt;/p&gt;
 &lt;h2 id=&#34;click-icon-replace-text&#34;&gt;Click Icon, Replace Text&lt;/h2&gt;
@@ -1854,6 +3877,523 @@ var replacedText = text.replace(pattern,
     </item>
     
     <item>
+      <title>World Cup Elo Part 2: Tuning the Model</title>
+      <link>/2017/12/10/worldcup-2/</link>
+      <pubDate>Sun, 10 Dec 2017 00:00:00 +0000</pubDate>
+      <guid>/2017/12/10/worldcup-2/</guid>
+      <description>
+
+
+&lt;p&gt;&lt;em&gt;Part 1 can be found &lt;a href=&#34;https://dylanpotteroconnell.github.io/worldcup1/&#34;&gt;here&lt;/a&gt;, and a followup discussing the eventual observed World Cup results is found &lt;a href=&#34;https://dylanpotteroconnell.github.io/bettinggroupstageresults/&#34;&gt;here&lt;/a&gt;.&lt;/em&gt;&lt;/p&gt;
+&lt;div id=&#34;elo-rating-system-choices&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Elo Rating System Choices&lt;/h3&gt;
+&lt;p&gt;As previously described, the Elo rating system is a broad and flexible framework, rather than a monolithic model. In fact, the primary draw of this project was to better understand the subjective choices that any person constructing such a model must make, and how we can use our intuition and domain knowledge to make plausible choices. In this post, I’ll briefly outline how one might approach some of those choices in the context of the World Cup.&lt;/p&gt;
+&lt;div id=&#34;calibrating-draws&#34; class=&#34;section level4&#34;&gt;
+&lt;h4&gt;Calibrating Draws&lt;/h4&gt;
+&lt;p&gt;The Elo rating system only computes an Expected Score for a given matchup, which does not uniquely determine the likelihood of a draw. We consider draws worth half a point (so Expected Score &lt;span class=&#34;math inline&#34;&gt;\(= P(\text{Win}) + P(\text{Draw})/2\)&lt;/span&gt;), but an Expected Score of &lt;span class=&#34;math inline&#34;&gt;\(1/2\)&lt;/span&gt; might correspond to a 50% chance of either team winning (and no chance of a draw), or 100% chance of a draw, or anything in between. Thus, we need to find a formula to convert from Expected Score to the chances of either team winning or a draw. There is no perfect system to do this, the best we can do is examine historical data, and find a plausble mapping.&lt;/p&gt;
+&lt;p&gt;The details are covered in Section 3.1 of the corresponding paper. In the &lt;a href=&#34;https://www.progressivebetting.co.uk/statistics/football_statistics/leagues_by_draws/&#34;&gt;top four leagues&lt;/a&gt;, about 26% of matches end in a draw. In our full dataset, only 21.7% of matches end in a draw, but in the group stage, 25.1% end in a draw. This fits out intuition, as the qualifying stages have significantly less parity, which reduces the chance of a draw. As a final ballpark estimate, we consider the draw percentages of individual matches implicitly predicted by Premiere league &lt;a href=&#34;https://pena.lt/y/2015/12/12/frequency-of-draws-in-football/&#34;&gt;sportsbooks&lt;/a&gt;, and note that the draw percentage almost never rises above 31%, with a heavy left tail. Thus, for our initial estimate, we choose that two evenly matched teams have about a 29% chance of a draw (about one standard deviation above what we see in top leagues). Then, when we run our Elo model, we can select values of a tuning parameter (which we call &lt;span class=&#34;math inline&#34;&gt;\(k_d\)&lt;/span&gt;), which increases the likelihood of a draw, as shown in . Again, the messiness of these models lies in the fact that there is no truly rigorous approach. However, this fits our intuition, and can be adjusted until it best fits our variety of historical data.&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[\begin{equation} P(\text{Draw}) = .29(1-2|ES-1/2|)^{k_d}.\label{eqn:draws}
+\end{equation}\]&lt;/span&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;incorporating-margin-of-victory-mov&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Incorporating Margin of Victory (MOV)&lt;/h3&gt;
+&lt;p&gt;So far, when we refer to the “score” in the context of our Elo ratings, we have been referring to the match result (with &lt;span class=&#34;math inline&#34;&gt;\(1\)&lt;/span&gt; denoting a win, &lt;span class=&#34;math inline&#34;&gt;\(1/2\)&lt;/span&gt; a tie, and &lt;span class=&#34;math inline&#34;&gt;\(0\)&lt;/span&gt; a loss). This approach is sensible, but it is possible that we are missing out on additional valuable information by ignoring the margin of victory (which is the difference between the scores of the two respective teams). We have to be careful not to overweight margin of victory, as it is match result that ultimately determines advancement (in qualifying and group stage matches, margin of victory is only ever a tiebreaker), so teams do not have as much incentive to widen a blowout lead as they do to gain the lead. Further, we have to be concerned with the concept of “garbage time”, which is a widely believed phenomena where teams will not necessarily play their hardest once flipping the game result is essentially out of reach (the idea is that if a team is down multiple goals without much time left, they may “give up” and be more likely to concede additional goals, leading to a wider blowout). Thus, we wish to test margin of victory as an alternative approach to our regular score format.&lt;/p&gt;
+&lt;p&gt;We still need to have the score range from &lt;span class=&#34;math inline&#34;&gt;\(0\)&lt;/span&gt; to &lt;span class=&#34;math inline&#34;&gt;\(1\)&lt;/span&gt;, with &lt;span class=&#34;math inline&#34;&gt;\(1/2\)&lt;/span&gt; denoting a draw. However, when using margin of victory, we can now treat narrow victories as not being worth a full point, and the same for narrow defeats being worth more than &lt;span class=&#34;math inline&#34;&gt;\(0\)&lt;/span&gt; points. As mentioned before, we want to minimize the impact of “garbage time” goals on our rating, thus we want to make sure that the difference between a 1 goal win and a draw is substantially more than the difference between a 5 goal win and a 4 goal win. As before, let &lt;span class=&#34;math inline&#34;&gt;\(S_A\)&lt;/span&gt; be the observed score of the match, and let &lt;span class=&#34;math inline&#34;&gt;\(M_A\)&lt;/span&gt; be team A’s margin of victory (which is negative in a loss). Then, we choose our score function so that each additional goal brings the score half the remaining distance to &lt;span class=&#34;math inline&#34;&gt;\(1\)&lt;/span&gt; (or &lt;span class=&#34;math inline&#34;&gt;\(0\)&lt;/span&gt;), as shown in Equation  (for &lt;span class=&#34;math inline&#34;&gt;\(M_A=0\)&lt;/span&gt;, we define this sum to be &lt;span class=&#34;math inline&#34;&gt;\(0\)&lt;/span&gt;, so &lt;span class=&#34;math inline&#34;&gt;\(S_A=1/2\)&lt;/span&gt;). Thus, a draw is worth &lt;span class=&#34;math inline&#34;&gt;\(1/2\)&lt;/span&gt; score, winning by one goal is worth &lt;span class=&#34;math inline&#34;&gt;\(3/4\)&lt;/span&gt; score, and losing by 2 goals is worth &lt;span class=&#34;math inline&#34;&gt;\(1/8\)&lt;/span&gt; score, and so on. Thus, the most significant goal is still the difference between a win and a draw, and each successive goal adds more (but decreasing) weight to the significance of the result. It is not obvious that this approach is superior to that of our original simple score system, and we have to test this approach and see if it provides a better hit to the histrical data.&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[\begin{equation}
+S_A =  1/2 + \text{Sign}(\{M_A\})\sum_{i=1}^{|M_A|} (1/2)^{i+1} \label{eqn:mov}
+\end{equation}\]&lt;/span&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;weighting-historical-results&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Weighting Historical Results&lt;/h3&gt;
+&lt;p&gt;Perhaps the most fundamental challenge for national team predictions is that for any given team, the matches are a small sample stretched over a long period of time. The 2018 group stage team with the largest number of total matches in our dataset is Mexico (with 74), but most play far fewer (with the average being &lt;span class=&#34;math inline&#34;&gt;\(48\)&lt;/span&gt; matches played in our dataset). We can see that Mexico’s roster has shifted dramatically during this span (indeed, no players from the 2002 squad are still on the roster), which calls into question the predictive efficacy of looking at results from the distant past. However, the best world cup nations tend to show consistent success even as rosters shift (Germany, Italy, and Brazil combine for 13 World Cup victories, while the rest of the world only has a combined 7), likely due to their infrastructure for the sport. On the other hand, if a collection of quality players mature at the same time, a roster can achieve success that is at odds with the nation’s historical strength,. For instance, in the five World Cups from 1990 to 2010, Belgium did not qualify twice, had one group stage exit, and two round of 16 exits. However, entering the 2014 World Cup, bookmakers gave them the fifth best odds to win the tournament (behind perennial powerhouses Brazil, Argentina, Germany, and Spain). This example demonstrates a major challenge that we face. Historical success is a reliable initial predictor, but it does not capture the rise of a particular roster. Indeed, en route to qualifying for the 2014 World Cup, Belgium only played 6 matches, mostly against opponents who were not strong enough to qualify for the World Cup themselves. It is hard to predict the Belgium squad’s strength based on their historical success, but it is dangerous to weight their small sample size of qualifying victories against lesser opponents too highly. Thus, we want to find a delicate balance between weighting a team’s full set of games and their smaller sample of recent games that better matches their current roster.&lt;/p&gt;
+&lt;p&gt;The main way that we account for this balance is in the &lt;span class=&#34;math inline&#34;&gt;\(K\)&lt;/span&gt; weights of the Elo system (Equation ). The shift in Elo after each match result is tuned by the &lt;span class=&#34;math inline&#34;&gt;\(K\)&lt;/span&gt; parameter, with larger values placing higher weight on the match. We can adjust the &lt;span class=&#34;math inline&#34;&gt;\(K\)&lt;/span&gt; values to be small for games far in the past, and large for recent games. However, our weighting need not be limited to simply the date of the match. We will also experiment with giving higher weight to main event (group stage or knockout) matches over qualification matches. This makes intuitive sense, as qualification matches are more likely to be disrupted by rushed travel, and might not be as predictive. There is also a higher likelihood of the match being comparatively unimportant to the team (this year, Brazil secured qualification with several qualification matches remaining on their schedule).&lt;/p&gt;
+&lt;p&gt;Let &lt;span class=&#34;math inline&#34;&gt;\(c_t\)&lt;/span&gt; be our tuning parameter to weight match recency, and &lt;span class=&#34;math inline&#34;&gt;\(c_q\)&lt;/span&gt; be our tuning parameter to weight matches which are played in the main event. In each case, a value of &lt;span class=&#34;math inline&#34;&gt;\(1\)&lt;/span&gt; denotes that there is no additional weighting, and a value greater than 1 increases the weighting. Let &lt;span class=&#34;math inline&#34;&gt;\(k_b\)&lt;/span&gt; be the base &lt;span class=&#34;math inline&#34;&gt;\(K\)&lt;/span&gt; value (which will generally be initialized to around &lt;span class=&#34;math inline&#34;&gt;\(10\)&lt;/span&gt;, leading to intuitive shifts in Elo, but it will vary based on our other tuning parameters), let &lt;span class=&#34;math inline&#34;&gt;\(Y_m\)&lt;/span&gt; be the year of the match we are considering, and &lt;span class=&#34;math inline&#34;&gt;\(Y_c\)&lt;/span&gt; the year we are projecting for (it will ultimately be 2018, but we will test our models on earlier years). Then our weighting formula is given by&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[\begin{equation} K(k_b, c_t, c_q) = k_b + \frac{5}{8}(c_t-1)(16-(Y_c-Y_m)) + k_b (c_q-1) \mathbb{1}\\{\text{Main Event Match}\\}\label{eqn:k}.
+\end{equation}\]&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;We have a broad choice in defining this formula, but this leads to fairly intuitive results. We note that the additional weighting (beyond the &lt;span class=&#34;math inline&#34;&gt;\(k_b\)&lt;/span&gt; base value) is only present if we increase &lt;span class=&#34;math inline&#34;&gt;\(c_q\)&lt;/span&gt; and &lt;span class=&#34;math inline&#34;&gt;\(c_t\)&lt;/span&gt; beyond &lt;span class=&#34;math inline&#34;&gt;\(1\)&lt;/span&gt;, and when they are present they are additive to the base value. We construct the time modification so that at the tail end of our dataset (16 years prior), the time bonus is &lt;span class=&#34;math inline&#34;&gt;\(0\)&lt;/span&gt;, and it scales up to &lt;span class=&#34;math inline&#34;&gt;\(10(c_t -1)\)&lt;/span&gt; in the present day. The qualifying tuning parameter simply adds a constant based on whether the match was part of the main event of the World Cup. If we include these additive values (and set &lt;span class=&#34;math inline&#34;&gt;\(k_t, k_q &amp;gt; 1\)&lt;/span&gt;), we can simply reduce &lt;span class=&#34;math inline&#34;&gt;\(k_b\)&lt;/span&gt; so that the total Elo shifts do not become too dramatic. These tuning parameters will be a core part of our search for optimal parameters (Section ), and we will select values for which they give us intuitive results.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;resulting-model&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Resulting Model&lt;/h3&gt;
+&lt;p&gt;With these options laid out, we have to perform a search of the multidimensional parameter space to find the model which is the most reasonable fit with our intuition and the historical data. This process is more substantial, and can be found &lt;a href=&#34;%7B%7B%20site.url%20%7D%7D/images/doconnell_practicalexamreport.pdf&#34;&gt;in the original report&lt;/a&gt; (in the future I might createa summary for the webpage). Ultimately, this search is less interesting than the lessons learned in setting up the model (although there is much to be discussed when comparing the efficacy of different parameter choices on the historical data). In the future, I’d like to write that up in more detail. For now, I will simply leave the results of our final model. Our final parameter choices are&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;For our scaling &lt;span class=&#34;math inline&#34;&gt;\(K\)&lt;/span&gt; factor, we use tuning parameters of &lt;span class=&#34;math inline&#34;&gt;\(c_q = 2, c_t = 2,\)&lt;/span&gt; and &lt;span class=&#34;math inline&#34;&gt;\(k_b = 10\)&lt;/span&gt; (see Equation ).&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;We incorporate margin of victory into our scoring system (see Equation ).&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;We select the tuning parameter for the likelihood of draws &lt;span class=&#34;math inline&#34;&gt;\(k_d = .5\)&lt;/span&gt; (see Equation ).&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;We assume that home teams have a rating advantage of 90 points, and that this applies for World Cup hosts as well.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;The final estimated Elo ratings entering the 2018 World Cup are as follows. These show remarkable consistency with betting markets leading into the World Cup, showing that the vast majority of our World Cup predictions can be accounted for by a simple analysis of past results, with informatin about shifting rosters and practice rumors and analysis of aging players only a very slight factor.&lt;/p&gt;
+&lt;style type=&#34;text/css&#34;&gt;
+.tg  {border-collapse:collapse;border-spacing:0;}
+.tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:black;}
+.tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:black;}
+.tg .tg-xldj{border-color:inherit;text-align:left}
+.tg .tg-quj4{border-color:inherit;text-align:right}
+.tg .tg-0pky{border-color:inherit;text-align:left;vertical-align:top}
+.tg .tg-dvpl{border-color:inherit;text-align:right;vertical-align:top}
+&lt;/style&gt;
+&lt;table class=&#34;tg&#34;&gt;
+&lt;tr&gt;
+&lt;th class=&#34;tg-xldj&#34;&gt;
+Team
+&lt;/th&gt;
+&lt;th class=&#34;tg-quj4&#34;&gt;
+Elo Rating
+&lt;/th&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&#34;tg-0pky&#34;&gt;
+Germany
+&lt;/td&gt;
+&lt;td class=&#34;tg-dvpl&#34;&gt;
+1413.74
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&#34;tg-0pky&#34;&gt;
+Brazil
+&lt;/td&gt;
+&lt;td class=&#34;tg-dvpl&#34;&gt;
+1375.23
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&#34;tg-0pky&#34;&gt;
+Spain
+&lt;/td&gt;
+&lt;td class=&#34;tg-dvpl&#34;&gt;
+1351.30
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&#34;tg-0pky&#34;&gt;
+Argentina
+&lt;/td&gt;
+&lt;td class=&#34;tg-dvpl&#34;&gt;
+1338.77
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&#34;tg-0pky&#34;&gt;
+France
+&lt;/td&gt;
+&lt;td class=&#34;tg-dvpl&#34;&gt;
+1321.57
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&#34;tg-0pky&#34;&gt;
+Portugal
+&lt;/td&gt;
+&lt;td class=&#34;tg-dvpl&#34;&gt;
+1311.52
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&#34;tg-0pky&#34;&gt;
+Colombia
+&lt;/td&gt;
+&lt;td class=&#34;tg-dvpl&#34;&gt;
+1310.96
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&#34;tg-0pky&#34;&gt;
+England
+&lt;/td&gt;
+&lt;td class=&#34;tg-dvpl&#34;&gt;
+1303.28
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&#34;tg-0pky&#34;&gt;
+Mexico
+&lt;/td&gt;
+&lt;td class=&#34;tg-dvpl&#34;&gt;
+1301.45
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&#34;tg-0pky&#34;&gt;
+Sweden
+&lt;/td&gt;
+&lt;td class=&#34;tg-dvpl&#34;&gt;
+1285.50
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&#34;tg-0pky&#34;&gt;
+Denmark
+&lt;/td&gt;
+&lt;td class=&#34;tg-dvpl&#34;&gt;
+1265.82
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&#34;tg-0pky&#34;&gt;
+Belgium
+&lt;/td&gt;
+&lt;td class=&#34;tg-dvpl&#34;&gt;
+1265.15
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&#34;tg-0pky&#34;&gt;
+Uruguay
+&lt;/td&gt;
+&lt;td class=&#34;tg-dvpl&#34;&gt;
+1257.39
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&#34;tg-0pky&#34;&gt;
+Costa Rica
+&lt;/td&gt;
+&lt;td class=&#34;tg-dvpl&#34;&gt;
+1249.41
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&#34;tg-0pky&#34;&gt;
+Switzerland
+&lt;/td&gt;
+&lt;td class=&#34;tg-dvpl&#34;&gt;
+1246.65
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&#34;tg-0pky&#34;&gt;
+Serbia
+&lt;/td&gt;
+&lt;td class=&#34;tg-dvpl&#34;&gt;
+1239.61
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&#34;tg-0pky&#34;&gt;
+Croatia
+&lt;/td&gt;
+&lt;td class=&#34;tg-dvpl&#34;&gt;
+1239.21
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&#34;tg-0pky&#34;&gt;
+Russia
+&lt;/td&gt;
+&lt;td class=&#34;tg-dvpl&#34;&gt;
+1232.75
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&#34;tg-0pky&#34;&gt;
+Japan
+&lt;/td&gt;
+&lt;td class=&#34;tg-dvpl&#34;&gt;
+1214.17
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&#34;tg-0pky&#34;&gt;
+Australia
+&lt;/td&gt;
+&lt;td class=&#34;tg-dvpl&#34;&gt;
+1209.51
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&#34;tg-0pky&#34;&gt;
+Iran
+&lt;/td&gt;
+&lt;td class=&#34;tg-dvpl&#34;&gt;
+1204.75
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&#34;tg-0pky&#34;&gt;
+Nigeria
+&lt;/td&gt;
+&lt;td class=&#34;tg-dvpl&#34;&gt;
+1194.97
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&#34;tg-0pky&#34;&gt;
+Saudi Arabia
+&lt;/td&gt;
+&lt;td class=&#34;tg-dvpl&#34;&gt;
+1193.30
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&#34;tg-0pky&#34;&gt;
+Egypt
+&lt;/td&gt;
+&lt;td class=&#34;tg-dvpl&#34;&gt;
+1190.45
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&#34;tg-0pky&#34;&gt;
+Tunisia
+&lt;/td&gt;
+&lt;td class=&#34;tg-dvpl&#34;&gt;
+1183.82
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&#34;tg-0pky&#34;&gt;
+South Korea
+&lt;/td&gt;
+&lt;td class=&#34;tg-dvpl&#34;&gt;
+1181.74
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&#34;tg-0pky&#34;&gt;
+Poland
+&lt;/td&gt;
+&lt;td class=&#34;tg-dvpl&#34;&gt;
+1180.45
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&#34;tg-0pky&#34;&gt;
+Peru
+&lt;/td&gt;
+&lt;td class=&#34;tg-dvpl&#34;&gt;
+1177.72
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&#34;tg-0pky&#34;&gt;
+Morocco
+&lt;/td&gt;
+&lt;td class=&#34;tg-dvpl&#34;&gt;
+1165.22
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&#34;tg-0pky&#34;&gt;
+Iceland
+&lt;/td&gt;
+&lt;td class=&#34;tg-dvpl&#34;&gt;
+1157.48
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&#34;tg-0pky&#34;&gt;
+Senegal
+&lt;/td&gt;
+&lt;td class=&#34;tg-dvpl&#34;&gt;
+1154.91
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&#34;tg-0pky&#34;&gt;
+Panama
+&lt;/td&gt;
+&lt;td class=&#34;tg-dvpl&#34;&gt;
+1103.44
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>World Cup Elo Part 1; Predictive Efficacy of Prior Results </title>
+      <link>/2017/12/05/worldcup-1/</link>
+      <pubDate>Tue, 05 Dec 2017 00:00:00 +0000</pubDate>
+      <guid>/2017/12/05/worldcup-1/</guid>
+      <description>
+
+
+&lt;p&gt;&lt;em&gt;Part 2 can be found &lt;a href=&#34;https://dylanpotteroconnell.github.io/worldcup2/&#34;&gt;here&lt;/a&gt;, and a followup discussing the eventual observed World Cup results is found &lt;a href=&#34;https://dylanpotteroconnell.github.io/bettinggroupstageresults/&#34;&gt;here&lt;/a&gt;.&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;The FIFA World Cup is the biggest biggest spectacle of the sports and entertainment, world. With tens of billions of dollars bet on its results, it presents a fascinating predictive challenge. Its structure defies that of regular domestic sports leagues, which offer regular and consistent competitive results which we can use to gauge future performance. National teams play each other infrequently, and there are frequently large shifts in roster between each meaningful competition. True World Cup predictions have to go far beyond standard sabermetric models, and have to consider a wide array of input information.&lt;/p&gt;
+&lt;p&gt;This provides an interesting opportunity to consider the practical limits of an analytical model in such a challenging situation. We consider the efficacy of predicting national team strength using solely the World Cup results of the past 20 years. The core of this short project was originally written in five days as part of a curricular project (knowing little about international football), hence some of the initial restrictions, but it has been expanded since. The original paper goes into some detail &lt;a href=&#34;%7B%7B%20site.url%20%7D%7D/images/doconnell_practicalexamreport.pdf&#34;&gt;here&lt;/a&gt;, but we highlight some of the points here. This post will describe the setup, challenge, and data setting, and &lt;a href=&#34;https://dylanpotteroconnell.github.io/worldcup2/&#34;&gt;Part 2&lt;/a&gt; will describe some of the choices made in tuning the model (with Part 3 to come).&lt;/p&gt;
+&lt;div id=&#34;challenges&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Challenges&lt;/h3&gt;
+&lt;p&gt;We start with a brief overview of why common statistical approaches are poorly suited to this problem. This will be fairly obvious to most, but these challenges inform any more successful approach, and need to be kept in mind. A naive approach to predict the outcome of a match might be to consider the past results between the two teams in question. However, the sparsity of the dataset makes this impossible. Of the 48 matches played in the 2018 group stage, only 14 of them involve a pair of teams which have a single game played in our dataset. This is not solely due to the vast number of national teams and the infrequency of scheduled matches, but becuase the qualifying and group selection process specifically encourages matchup diversity. Qualfication is done by region, so a large number of a team’s total games will be against the same consistent competition, while group selection encourages a variety of regional representation.&lt;/p&gt;
+&lt;p&gt;The closed nature of regional qualification highlights the primary challenge in this task. Almost any measurable result in football matters only relative to its competition. As a toy example, compare the basic performance metrics between Argentina split between their qualification matches and their group stage matches in our dataset.&lt;/p&gt;
+Qualification Performance
+&lt;style type=&#34;text/css&#34;&gt;
+.tg  {border-collapse:collapse;border-spacing:0;}
+.tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:black;}
+.tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:black;}
+.tg .tg-xldj{border-color:inherit;text-align:left}
+.tg .tg-0pky{border-color:inherit;text-align:left;vertical-align:top}
+&lt;/style&gt;
+&lt;table class=&#34;tg&#34;&gt;
+&lt;tr&gt;
+&lt;th class=&#34;tg-xldj&#34;&gt;
+&lt;/th&gt;
+&lt;th class=&#34;tg-xldj&#34;&gt;
+Wins
+&lt;/th&gt;
+&lt;th class=&#34;tg-xldj&#34;&gt;
+Draws
+&lt;/th&gt;
+&lt;th class=&#34;tg-xldj&#34;&gt;
+Losses
+&lt;/th&gt;
+&lt;th class=&#34;tg-0pky&#34;&gt;
+Mean Goals For
+&lt;/th&gt;
+&lt;th class=&#34;tg-0pky&#34;&gt;
+Mean Goals Against
+&lt;/th&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&#34;tg-0pky&#34;&gt;
+Australia
+&lt;/td&gt;
+&lt;td class=&#34;tg-0pky&#34;&gt;
+36
+&lt;/td&gt;
+&lt;td class=&#34;tg-0pky&#34;&gt;
+11
+&lt;/td&gt;
+&lt;td class=&#34;tg-0pky&#34;&gt;
+10
+&lt;/td&gt;
+&lt;td class=&#34;tg-0pky&#34;&gt;
+3.14
+&lt;/td&gt;
+&lt;td class=&#34;tg-0pky&#34;&gt;
+0.84
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&#34;tg-0pky&#34;&gt;
+Argentina
+&lt;/td&gt;
+&lt;td class=&#34;tg-0pky&#34;&gt;
+39
+&lt;/td&gt;
+&lt;td class=&#34;tg-0pky&#34;&gt;
+19
+&lt;/td&gt;
+&lt;td class=&#34;tg-0pky&#34;&gt;
+11
+&lt;/td&gt;
+&lt;td class=&#34;tg-0pky&#34;&gt;
+1.69
+&lt;/td&gt;
+&lt;td class=&#34;tg-0pky&#34;&gt;
+0.91
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+Group Stage Performance
+&lt;style type=&#34;text/css&#34;&gt;
+.tg  {border-collapse:collapse;border-spacing:0;}
+.tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:black;}
+.tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:black;}
+.tg .tg-xldj{border-color:inherit;text-align:left}
+.tg .tg-0pky{border-color:inherit;text-align:left;vertical-align:top}
+&lt;/style&gt;
+&lt;table class=&#34;tg&#34;&gt;
+&lt;tr&gt;
+&lt;th class=&#34;tg-xldj&#34;&gt;
+&lt;/th&gt;
+&lt;th class=&#34;tg-xldj&#34;&gt;
+Wins
+&lt;/th&gt;
+&lt;th class=&#34;tg-xldj&#34;&gt;
+Draws
+&lt;/th&gt;
+&lt;th class=&#34;tg-xldj&#34;&gt;
+Losses
+&lt;/th&gt;
+&lt;th class=&#34;tg-0pky&#34;&gt;
+Mean Goals For
+&lt;/th&gt;
+&lt;th class=&#34;tg-0pky&#34;&gt;
+Mean Goals Against
+&lt;/th&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&#34;tg-0pky&#34;&gt;
+Australia
+&lt;/td&gt;
+&lt;td class=&#34;tg-0pky&#34;&gt;
+2
+&lt;/td&gt;
+&lt;td class=&#34;tg-0pky&#34;&gt;
+2
+&lt;/td&gt;
+&lt;td class=&#34;tg-0pky&#34;&gt;
+6
+&lt;/td&gt;
+&lt;td class=&#34;tg-0pky&#34;&gt;
+1.22
+&lt;/td&gt;
+&lt;td class=&#34;tg-0pky&#34;&gt;
+2.22
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td class=&#34;tg-0pky&#34;&gt;
+Argentina
+&lt;/td&gt;
+&lt;td class=&#34;tg-0pky&#34;&gt;
+9
+&lt;/td&gt;
+&lt;td class=&#34;tg-0pky&#34;&gt;
+2
+&lt;/td&gt;
+&lt;td class=&#34;tg-0pky&#34;&gt;
+1
+&lt;/td&gt;
+&lt;td class=&#34;tg-0pky&#34;&gt;
+1.92
+&lt;/td&gt;
+&lt;td class=&#34;tg-0pky&#34;&gt;
+0.58
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;p&gt;This is an insultingly trivial example (no one truly expects simply comparing average goals scored to be perfectly predictive, and this simply looks at the dataset as a whole, rather than considering the temporal shifts), but the magnitude of the result is still striking. In qualification matches, Australia is completely dominant, with their mean result being better than a decisive 3-1 blowout, while Argentina has a consistent but comparatively pedestrian winning record. However, in the group stage, Argentina’s performance actually &lt;em&gt;improves&lt;/em&gt;, while Australia becomes a decidedly losing team. Argentina’s route to qualification lies in the ASEAN East Asian federation, which is largely comprised of small island countries with minimal football infrastructure, while Argentina has to qualify in the elite CONMEBOL South American region, with a dozen football countries that can field top tier programs. The average result for Australia is inflated by matches such as their 31-0 defeat of Amerian Samoa, while Argentina is forced to grind out tough matches against Brazil and Uruguay.&lt;/p&gt;
+&lt;p&gt;This ultimately presents a circular challenge. Every single recorded aspect of a match result is only meaningful relative to the strength of competition, and yet our goal is to estimate the strength of these teams. This is a task best suited to iteratively updating systems. For thi problem, we utilize the Elo rating system, the most widespread and popular used in competition since its invention. Elo rating systems are far from perfect, and we will see that this is another example of an occasionally problematic fit. But Elo rating systems provide numerous advantages.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;Elo is naturally self correcting. A surprising result causes a larger shift in its perception of the strength of each team, so large errors tend to be smoothed out over time, with sufficient data. Elo is &lt;em&gt;not&lt;/em&gt; necessarily well suited for delicate inference tasks when the data violates its underlying assumptions, but Elo on the whole is extremely robust to these inaccuracies.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Elo has a vast array of customization. In common parlance, people frequently refer to “the Elo model”, which depending on context, is probably correct. But it does cause some people to not realize that Elo simplifies defines a class of rating systems. The constructor of the model has to make a large number of important and ultimately subjective choices in order to complete the model. This customizability allows Elo systems to adapt to a wider array of problems, and also makes this a worthwhile project, because it’s difficult to understand the choices inherent in constructing an Elo system until one tries it in action. And constructing this model will better inform us as we hear about Elo models in other contexts in the future.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div id=&#34;a-brief-introduction-to-elo&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;A Brief Introduction to Elo&lt;/h3&gt;
+&lt;p&gt;Elo ratings provide a broad framework for continuously updating the relative strength of each national team at the time of each successive match, which we will need in order to use the past results for future predictions. The core setup is as follows. Each team has a rating (which we denote &lt;span class=&#34;math inline&#34;&gt;\(R\)&lt;/span&gt;), that is updated as after each match they play. If team A and team B (with ratings &lt;span class=&#34;math inline&#34;&gt;\(R_A\)&lt;/span&gt; and &lt;span class=&#34;math inline&#34;&gt;\(R_B\)&lt;/span&gt;) play each other in a match, we can calculate the Expected Score for team A (&lt;span class=&#34;math inline&#34;&gt;\(E_A\)&lt;/span&gt;, shown in the equation below) in that match. Here, score is a function of the match result (not the goals scored), which in its base form is generally &lt;span class=&#34;math inline&#34;&gt;\(E_A=1\)&lt;/span&gt; for a win, &lt;span class=&#34;math inline&#34;&gt;\(E_A = 1/2\)&lt;/span&gt; for a draw, and &lt;span class=&#34;math inline&#34;&gt;\(E_A=0\)&lt;/span&gt; for loss (we will see that we can adjust this concept of “score” to account for margin of victory in a later section. Then, once we observe the result of the match (which has observed score &lt;span class=&#34;math inline&#34;&gt;\(S_A\)&lt;/span&gt;), we can use this, the expected score (&lt;span class=&#34;math inline&#34;&gt;\(E_A\)&lt;/span&gt;), and a tuning parameter &lt;span class=&#34;math inline&#34;&gt;\(K\)&lt;/span&gt; weighting the match (which we will discuss in detail in later sections) to update the Elo rating for team A to its new value, &lt;span class=&#34;math inline&#34;&gt;\(R_A^*\)&lt;/span&gt; (shown in Equation , with a corresponding update for team B).&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[\begin{align}
+E_A &amp;amp;= \frac{1}{1 + 10^{-(R_A - R_B)/400}}\label{eqn:eloes}\\\\\\
+R_A^* &amp;amp;= R_A + K(S_A - E_A)\\label{eqn:eloupdate}
+\end{align}\]&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;This is a naturally self correcting system, because an upset causes a large shift in score for both teams, while a result that is expected will cause a much smaller shift in ratings. This property is particularly appealing to us, because we know that a primary challenge will be that we naturally expect the strength of national teams to shift in ways different than if we were measuring the rating of an individual. As players retire and new ones join, the team composition itself can change dramatically between competitions, so we want a rating system that works to quickly adjust to data that conflicts with its previous belief. Further, if two teams play each other endlessly with a fixed probability of match outcomes, their Elo ratings will reach equilibrium, rather than endlessly diverging, even if one team has a positive winning percentage. In fact, it will reach the equilibrium where that winning percentage corresponds with the given Expected Score between this pair of Elo ratings. Certain rating systems tend to blindly reward teams for playing additional matches, while this system only cares about the quality of a team’s results. The &lt;span class=&#34;math inline&#34;&gt;\(400\)&lt;/span&gt; term in Equation above determines the scale of the rating system. This is the constant used by the FIDE chess rating system, and it implies that a team with a &lt;span class=&#34;math inline&#34;&gt;\(100\)&lt;/span&gt; point advantage in Elo rating has an Expected Score of about &lt;span class=&#34;math inline&#34;&gt;\(0.64\)&lt;/span&gt;, which is a fairly intuitive scale to work with.&lt;/p&gt;
+&lt;details&gt;
+&lt;p&gt;&lt;summary&gt;Click here for brief overview of some issues with Elo&lt;/summary&gt;&lt;/p&gt;
+&lt;p&gt;(Quoted from original paper).&lt;/p&gt;
+&lt;p&gt;
+Elo rating systems are not without their flaws. For example, one study of Elo ratings in chess showed that it tends to underrate &lt;a href=&#34;http://glicko.net/research/chance.pdf&#34;&gt;the chance of an upset&lt;/a&gt; in very lopsided matches. A primary reason hypothesized for this is that weaker players tend to improve more quickly between tournaments than stronger players, which means the algorithm will tend to underestimate the weaker opponent’s chances in a match. This by itself is not likely to be a major concern for national teams in soccer. In chess, each player tends to improve as their career progresses, while this cannot universally be true among soccer national teams, as the pool of top competitors is largely fixed (besides political shifts in country definitions) and their skill is determined relative to the pool of teams. Thus, we should be concerned that the strength of teams fluctuates between World Cups (which it does), but it is unlikely to be systemically true that all teams tend to improve over time, as team strength is relative to a fixed pool of national teams.
+&lt;/p&gt;
+&lt;p&gt;
+Precise analysis of Elo ratings requires assumptions about the dataset that are unlikely to be exactly true, but the system is somewhat robust against these inaccuracies, due to its self correcting nature. We assume that each team has some true strength at a given moment in time, which we cannot directly measure. The crucial Expected Score calculation (described below) assumes that each team has the same standard deviation for their observed performance in a given match (which is randomly distributed around their true strength at that time) . This is a core assumption that may not precisely fit our data, as it is difficult to prove that some national teams could not have a higher standard deviation of observed performance given such limited data. Further, Elo ratings assume that shifts in the true strength of a team are gradual over time. This depends on the time frame that one considers, but among soccer national teams this is unlikely to always be true. Sometimes a large number of players will retire between World Cups, or for a specific match, a crucial star player may be missing due to injury. Unfortunately, it is entirely possible for a national team to have a rapid shift in true strength. We note that this will prove problematic no matter our approach. It incentivizes us more heavily weighting extremely recent matches rather than taking a broader look at past performance. It is reasonable to place a high weight on recency, but given the sparsity of our dataset, and the inherent randomness involved in soccer, we have to strike a balance. It is trivial to find cases where a team has an excellent match on one day, and plays poorly soon after, with no changes to be found between the games, as we understand that the results of a soccer match have a relatively high variance.
+&lt;/p&gt;
+&lt;p&gt;
+Thus, we can see that there are elements of Elo rating assumptions that are not precise fits for our data. However, by and large, similar assumptions are unavoidable for any insightful analysis, and an Elo rating system is well equipped to produce reasonable results even with some violation of assumptions. Ultimately, the way to address these concerns is to carefully examine our resulting model, and ensure that the results are intuitive and accurate along the way. Indeed, much of our work will come from trying a variety of Elo based approaches, and analyzing the results.
+&lt;/p&gt;
+&lt;/details&gt;
+&lt;/div&gt;
+&lt;div id=&#34;the-dataset&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;The Dataset&lt;/h3&gt;
+&lt;p&gt;We consider World Cup results (group stage, knockout, and qualifying) from 2002-2018, with the data compiled by the &lt;a href=&#34;www.rsssf.com&#34;&gt;Rec.Sport.Soccer Statistics Foundation&lt;/a&gt;. After removing an assortment of matches without results (qualifying matches are occasionally canceled or annuled for various reasons), we are left with 2964 complete match results. The primary data cleaning challenge is creating a complete mapping from these matches, to the national teams involved. Not only does the dataset use a variety of abbreviations for each country, many political borders have shifted during the course of this dataset. Luckily, this largely applies to teams who are not qualified for the 2018 World Cup, but we surely cannot ignore these because our model will be predicated on an accurate assessment of not just the teams directly qualified, but for the teams which they played in order to qualify (to give tehir results context). Thus, there is no solution for this but a laborious manual inspection of this messy situation. Ultimately, we compile a list of 115 mappings (applying to 42 different countries), with certain selections being routine (the different ways a country can be abbreviated), and others being more impactful (when countries split). Details can be found in the &lt;a href=&#34;%7B%7B%20site.url%20%7D%7D/images/doconnell_practicalexamreport.pdf&#34;&gt;paper&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;The most significant choice involves the Serbian national team, which is qualified for the 2018 World Cup. Up through 2006, it competed as the joint Serbia &amp;amp; Montenegro national team, until Montenegro declared independence. As the majority of players stayed on the Serbian national team, we simply count that as a singular unified team, and consider the Montenegro national team to be “newly formed” in 2006. While the dataset is overall sparse (due to the vast number of teams in FIFA), thankfully the 32 teams for the 2018 World Cup are reasonably well represented. The least prolific is Iceland (with 31 matches recorded), but most countries have 40 to 60 that we cn use.&lt;/p&gt;
+&lt;p&gt;In the next post, we will outline the myriad choices required in constructing this model.&lt;/p&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
       <title>External Project</title>
       <link>/project/external-project/</link>
       <pubDate>Wed, 27 Apr 2016 00:00:00 +0000</pubDate>
@@ -1895,56 +4435,6 @@ var replacedText = text.replace(pattern,
     </item>
     
     <item>
-      <title>Hello R Markdown</title>
-      <link>/post/2015-07-23-r-rmarkdown/</link>
-      <pubDate>Thu, 23 Jul 2015 21:13:14 -0500</pubDate>
-      <guid>/post/2015-07-23-r-rmarkdown/</guid>
-      <description>
-
-
-&lt;div id=&#34;r-markdown&#34; class=&#34;section level1&#34;&gt;
-&lt;h1&gt;R Markdown&lt;/h1&gt;
-&lt;p&gt;This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see &lt;a href=&#34;http://rmarkdown.rstudio.com&#34; class=&#34;uri&#34;&gt;http://rmarkdown.rstudio.com&lt;/a&gt;.&lt;/p&gt;
-&lt;p&gt;You can embed an R code chunk like this:&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;summary(cars)
-##      speed           dist       
-##  Min.   : 4.0   Min.   :  2.00  
-##  1st Qu.:12.0   1st Qu.: 26.00  
-##  Median :15.0   Median : 36.00  
-##  Mean   :15.4   Mean   : 42.98  
-##  3rd Qu.:19.0   3rd Qu.: 56.00  
-##  Max.   :25.0   Max.   :120.00
-fit &amp;lt;- lm(dist ~ speed, data = cars)
-fit
-## 
-## Call:
-## lm(formula = dist ~ speed, data = cars)
-## 
-## Coefficients:
-## (Intercept)        speed  
-##     -17.579        3.932&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;div id=&#34;including-plots&#34; class=&#34;section level1&#34;&gt;
-&lt;h1&gt;Including Plots&lt;/h1&gt;
-&lt;p&gt;You can also embed plots. See Figure &lt;a href=&#34;#fig:pie&#34;&gt;1&lt;/a&gt; for example:&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;par(mar = c(0, 1, 0, 1))
-pie(
-  c(280, 60, 20),
-  c(&amp;#39;Sky&amp;#39;, &amp;#39;Sunny side of pyramid&amp;#39;, &amp;#39;Shady side of pyramid&amp;#39;),
-  col = c(&amp;#39;#0292D8&amp;#39;, &amp;#39;#F7EA39&amp;#39;, &amp;#39;#C4B632&amp;#39;),
-  init.angle = -50, border = NA
-)&lt;/code&gt;&lt;/pre&gt;
-&lt;div class=&#34;figure&#34;&gt;&lt;span id=&#34;fig:pie&#34;&gt;&lt;/span&gt;
-&lt;img src=&#34;/post/2015-07-23-r-rmarkdown_files/figure-html/pie-1.png&#34; alt=&#34;A fancy pie chart.&#34; width=&#34;672&#34; /&gt;
-&lt;p class=&#34;caption&#34;&gt;
-Figure 1: A fancy pie chart.
-&lt;/p&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-</description>
-    </item>
-    
-    <item>
       <title>An example conference paper</title>
       <link>/publication/conference-paper/</link>
       <pubDate>Mon, 01 Jul 2013 00:00:00 +0000</pubDate>
@@ -1966,9 +4456,9 @@ Figure 1: A fancy pie chart.
     
     <item>
       <title>TEST Writing technical content in Academic</title>
-      <link>/post/writing-technical-content/</link>
+      <link>/2000/07/12/test-writing-technical-content-in-academic/</link>
       <pubDate>Wed, 12 Jul 2000 00:00:00 +0000</pubDate>
-      <guid>/post/writing-technical-content/</guid>
+      <guid>/2000/07/12/test-writing-technical-content-in-academic/</guid>
       <description>&lt;p&gt;Academic is designed to give technical content creators a seamless experience. You can focus on the content and Academic handles the rest.&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;Highlight your code snippets, take notes on math classes, and draw diagrams from textual representation.&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;On this page, you&amp;rsquo;ll find some examples of the types of technical content that can be rendered with Academic.&lt;/p&gt;
@@ -2200,9 +4690,9 @@ A Markdown aside is useful for displaying notices, hints, or definitions to your
     
     <item>
       <title>Academic: the website builder for Hugo</title>
-      <link>/post/getting-started/</link>
+      <link>/2000/04/20/academic-the-website-builder-for-hugo/</link>
       <pubDate>Thu, 20 Apr 2000 00:00:00 +0000</pubDate>
-      <guid>/post/getting-started/</guid>
+      <guid>/2000/04/20/academic-the-website-builder-for-hugo/</guid>
       <description>&lt;p&gt;&lt;strong&gt;Create a free website with Academic using Markdown, Jupyter, or RStudio. Choose a beautiful color theme and build anything with the Page Builder - over 40 &lt;em&gt;widgets&lt;/em&gt;, &lt;em&gt;themes&lt;/em&gt;, and &lt;em&gt;language packs&lt;/em&gt; included!&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;
 &lt;a href=&#34;https://academic-demo.netlify.com/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Check out the latest &lt;strong&gt;demo&lt;/strong&gt;&lt;/a&gt; of what you&amp;rsquo;ll get in less than 10 minutes, or 

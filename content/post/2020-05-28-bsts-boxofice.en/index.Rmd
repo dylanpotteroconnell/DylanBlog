@@ -21,6 +21,9 @@ blogdown::html_page:
     toc: true
 ---
 
+# Disclaimer
+This is something of a rough draft, written to introduce myself to BSTS models, and not exactly ready for public presentation.
+
 # Introduction
 In this post, I'll describe my introductory exploration of Bayesian structural time series (BSTS) models, using Steve Scott's `bsts` [package](https://cran.r-project.org/web/packages/bsts/bsts.pdf), applied to the total weekly box office gross (i.e. ticket sales) of American movie theaters. 
 

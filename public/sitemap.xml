@@ -34,32 +34,32 @@
   
   <url>
     <loc>/tag/introductory/</loc>
-    <lastmod>2020-05-27T18:47:28-04:00</lastmod>
+    <lastmod>2020-05-29T18:47:28-04:00</lastmod>
   </url>
   
   <url>
     <loc>/tag/optimization/</loc>
-    <lastmod>2020-05-27T18:47:28-04:00</lastmod>
+    <lastmod>2020-05-29T18:47:28-04:00</lastmod>
   </url>
   
   <url>
     <loc>/post/</loc>
-    <lastmod>2020-05-28T13:54:36-04:00</lastmod>
+    <lastmod>2020-06-14T16:13:22-04:00</lastmod>
   </url>
   
   <url>
     <loc>/tag/r/</loc>
-    <lastmod>2020-05-28T13:54:36-04:00</lastmod>
+    <lastmod>2020-05-29T18:47:28-04:00</lastmod>
   </url>
   
   <url>
     <loc>/tags/</loc>
-    <lastmod>2020-05-28T13:54:36-04:00</lastmod>
+    <lastmod>2020-05-29T18:47:28-04:00</lastmod>
   </url>
   
   <url>
-    <loc>/post/local-optimization/</loc>
-    <lastmod>2020-05-27T18:47:28-04:00</lastmod>
+    <loc>/2020/05/29/local-optimization/</loc>
+    <lastmod>2020-05-29T18:47:28-04:00</lastmod>
   </url>
   
   <url>
@@ -68,7 +68,7 @@
   </url>
   
   <url>
-    <loc>/post/bsts-boxofice/</loc>
+    <loc>/2020/05/28/bsts-boxofice/</loc>
     <lastmod>2020-05-28T13:54:36-04:00</lastmod>
   </url>
   
@@ -133,7 +133,7 @@
   </url>
   
   <url>
-    <loc>/post/parlays-independence/</loc>
+    <loc>/2018/11/08/parlays-independence/</loc>
     <lastmod>2020-05-27T16:09:30-04:00</lastmod>
   </url>
   
@@ -143,12 +143,12 @@
   </url>
   
   <url>
-    <loc>/post/winning-debate/</loc>
+    <loc>/2018/07/29/winning-debate/</loc>
     <lastmod>2020-05-27T16:31:49-04:00</lastmod>
   </url>
   
   <url>
-    <loc>/post/scraping-is2/</loc>
+    <loc>/2018/07/26/scraping-is2/</loc>
     <lastmod>2020-05-27T16:25:53-04:00</lastmod>
   </url>
   
@@ -168,23 +168,38 @@
   </url>
   
   <url>
+    <loc>/2018/06/01/worldcup-3/</loc>
+    <lastmod>2020-06-14T16:13:22-04:00</lastmod>
+  </url>
+  
+  <url>
     <loc>/tag/javascript/</loc>
     <lastmod>2020-05-27T17:07:40-04:00</lastmod>
   </url>
   
   <url>
-    <loc>/post/oddsconverter-part3/</loc>
+    <loc>/2018/03/01/oddsconverter-part3/</loc>
     <lastmod>2020-05-27T17:07:40-04:00</lastmod>
   </url>
   
   <url>
-    <loc>/post/oddsconverter-part2/</loc>
+    <loc>/2018/01/25/oddsconverter-part2/</loc>
     <lastmod>2020-05-27T17:06:09-04:00</lastmod>
   </url>
   
   <url>
-    <loc>/post/oddsconverter-part1/</loc>
+    <loc>/2018/01/22/oddsconverter-part1/</loc>
     <lastmod>2020-05-27T17:04:30-04:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/2017/12/10/worldcup-2/</loc>
+    <lastmod>2020-06-14T16:10:29-04:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/2017/12/05/worldcup-1/</loc>
+    <lastmod>2020-06-14T16:08:11-04:00</lastmod>
   </url>
   
   <url>
@@ -228,36 +243,6 @@
   </url>
   
   <url>
-    <loc>/categories/</loc>
-    <lastmod>2019-04-17T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/post/2015-07-23-r-rmarkdown/</loc>
-    <lastmod>2015-07-23T21:13:14-05:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/tag/plot/</loc>
-    <lastmod>2015-07-23T21:13:14-05:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/category/r/</loc>
-    <lastmod>2015-07-23T21:13:14-05:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/tag/r-markdown/</loc>
-    <lastmod>2015-07-23T21:13:14-05:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/tag/regression/</loc>
-    <lastmod>2015-07-23T21:13:14-05:00</lastmod>
-  </url>
-  
-  <url>
     <loc>/publication-type/1/</loc>
     <lastmod>2013-07-01T00:00:00+00:00</lastmod>
   </url>
@@ -268,7 +253,7 @@
   </url>
   
   <url>
-    <loc>/post/writing-technical-content/</loc>
+    <loc>/2000/07/12/test-writing-technical-content-in-academic/</loc>
     <lastmod>2000-07-12T00:00:00+00:00</lastmod>
   </url>
   
@@ -278,7 +263,12 @@
   </url>
   
   <url>
-    <loc>/post/getting-started/</loc>
+    <loc>/2000/04/20/academic-the-website-builder-for-hugo/</loc>
+    <lastmod>2019-04-17T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/categories/</loc>
     <lastmod>2019-04-17T00:00:00+00:00</lastmod>
   </url>
   

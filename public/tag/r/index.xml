@@ -14,9 +14,9 @@
     
     <item>
       <title>The Perils of Overly Local Optimization</title>
-      <link>/post/local-optimization/</link>
+      <link>/2020/05/29/local-optimization/</link>
       <pubDate>Fri, 29 May 2020 00:00:00 +0000</pubDate>
-      <guid>/post/local-optimization/</guid>
+      <guid>/2020/05/29/local-optimization/</guid>
       <description>
 
 
@@ -212,12 +212,16 @@ in Neural Networks”&lt;/a&gt;, by L&#39;eon Bottou.&lt;/li&gt;
     
     <item>
       <title>Bayesian Structural Time Series, and Movie Ticket Sales Sales</title>
-      <link>/post/bsts-boxofice/</link>
+      <link>/2020/05/28/bsts-boxofice/</link>
       <pubDate>Thu, 28 May 2020 00:00:00 +0000</pubDate>
-      <guid>/post/bsts-boxofice/</guid>
+      <guid>/2020/05/28/bsts-boxofice/</guid>
       <description>
 
 
+&lt;div id=&#34;disclaimer&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Disclaimer&lt;/h1&gt;
+&lt;p&gt;This is something of a rough draft, written to introduce myself to BSTS models, and not exactly ready for public presentation.&lt;/p&gt;
+&lt;/div&gt;
 &lt;div id=&#34;introduction&#34; class=&#34;section level1&#34;&gt;
 &lt;h1&gt;Introduction&lt;/h1&gt;
 &lt;p&gt;In this post, I’ll describe my introductory exploration of Bayesian structural time series (BSTS) models, using Steve Scott’s &lt;code&gt;bsts&lt;/code&gt; &lt;a href=&#34;https://cran.r-project.org/web/packages/bsts/bsts.pdf&#34;&gt;package&lt;/a&gt;, applied to the total weekly box office gross (i.e. ticket sales) of American movie theaters.&lt;/p&gt;
@@ -805,7 +809,7 @@ CheckOneStepCalibration(tb.season.train)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## # A tibble: 1 x 3
 ##   `Prop. Above LB` `Prop. Below UB` `Prop. Within Interval`
 ##              &amp;lt;dbl&amp;gt;            &amp;lt;dbl&amp;gt;                   &amp;lt;dbl&amp;gt;
-## 1            0.910            0.852                   0.762&lt;/code&gt;&lt;/pre&gt;
+## 1            0.908            0.852                   0.760&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;PlotOneStepPredicted(tb.season.train, p.season, 2016)&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;&lt;img src=&#34;/post/2020-05-28-bsts-boxofice.en/index_files/figure-html/unnamed-chunk-21-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;tb.llt.train &amp;lt;- ComputeOneStepPredicted(model.llt.train,
@@ -816,7 +820,7 @@ CheckOneStepCalibration(tb.llt.train)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## # A tibble: 1 x 3
 ##   `Prop. Above LB` `Prop. Below UB` `Prop. Within Interval`
 ##              &amp;lt;dbl&amp;gt;            &amp;lt;dbl&amp;gt;                   &amp;lt;dbl&amp;gt;
-## 1            0.854            0.889                   0.743&lt;/code&gt;&lt;/pre&gt;
+## 1            0.856            0.889                   0.744&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;PlotOneStepPredicted(tb.llt.train, p.season, 2016)&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;&lt;img src=&#34;/post/2020-05-28-bsts-boxofice.en/index_files/figure-html/unnamed-chunk-22-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;We can see that both seem to offer reasonably useful forecasts, with calibration (over the entire period, combining both one-step and forecasts)\footnote[Perhaps these should be separated, I haven’t found resources discussing the best way to evaluate these models.] in a similar range as before, and the forecast range seemingly capturing much of the observed trend.&lt;/p&gt;
@@ -1006,9 +1010,9 @@ We can see that the results are completely nonsensical. It is a little more clea
     
     <item>
       <title>Winning a Debate: Insights from &#34;Intelligence Squared&#34;</title>
-      <link>/post/winning-debate/</link>
+      <link>/2018/07/29/winning-debate/</link>
       <pubDate>Sun, 29 Jul 2018 00:00:00 +0000</pubDate>
-      <guid>/post/winning-debate/</guid>
+      <guid>/2018/07/29/winning-debate/</guid>
       <description>
 
 
@@ -1038,7 +1042,7 @@ We can see that the results are completely nonsensical. It is a little more clea
 &lt;/div&gt;
 &lt;div id=&#34;how-has-this-worked-in-practice&#34; class=&#34;section level3&#34;&gt;
 &lt;h3&gt;How has this worked in practice?&lt;/h3&gt;
-&lt;p&gt;Looking at the results of the Intelligence Squared debates in reality, we see that the majority of results are uncontroversial. and there is little doubt which side was more convincing. In total, we gather the results from 88 debates from the Intelligence Squared &lt;a href=&#34;https://www.intelligencesquaredus.org/debates&#34;&gt;website&lt;/a&gt;, with the process described &lt;a href=&#34;https://dylanpotteroconnell.github.io/debateresults2/&#34;&gt;here&lt;/a&gt;, and the unpolished scraped dataset &lt;a href=&#34;https://github.com/dylanpotteroconnell/IntelSquaredProject/blob/master/votingresultsfinal.csv&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Looking at the results of the Intelligence Squared debates in reality, we see that the majority of results are uncontroversial. and there is little doubt which side was more convincing. In total, we gather the results from 88 debates from the Intelligence Squared &lt;a href=&#34;https://www.intelligencesquaredus.org/debates&#34;&gt;website&lt;/a&gt;, with the process described &lt;a href=&#34;/2018/07/26/scraping-is2/&#34;&gt;here&lt;/a&gt;, and the unpolished scraped dataset &lt;a href=&#34;https://github.com/dylanpotteroconnell/IntelSquaredProject/blob/master/votingresultsfinal.csv&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;The first winning metric we consider is the Intelligence Squared Metric (ISM), which measures shift in absolute percentage of support. We next consider the Undisputed Metric (UDM), which uses the proportional switching outlined above, and only assigns a winner when one side &lt;em&gt;both&lt;/em&gt; convinces a greater proportion of Undecided voters to join their side, as well as a greater proportion of the other side to switch their opinion. In cases when these do not agree, no winner is declared.&lt;/p&gt;
 &lt;p&gt;Thus the first question is whether there are cases where the UDM declares a winner which is the reverse of the ISM, like the toy example outlined above by &lt;em&gt;whuber&lt;/em&gt;. It turns out that this is &lt;em&gt;not&lt;/em&gt; an idle concern, and in fact there have been six debates with this conflicting result.&lt;/p&gt;
 &lt;!-- \begin{table}[h] --&gt;
@@ -1322,9 +1326,9 @@ We can stick to a nonparametric test to sidestep of our lack of reasonable assum
     
     <item>
       <title>Scraping the &#34;Intelligence Squared&#34; Debate Results</title>
-      <link>/post/scraping-is2/</link>
+      <link>/2018/07/26/scraping-is2/</link>
       <pubDate>Thu, 26 Jul 2018 00:00:00 +0000</pubDate>
-      <guid>/post/scraping-is2/</guid>
+      <guid>/2018/07/26/scraping-is2/</guid>
       <description>&lt;p&gt;This is a brief companion to the 
 &lt;a href=&#34;https://dylanpotteroconnell.github.io/debatefinalsummary/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;post&lt;/a&gt; analyzing the methods of assigning a winner to a debate, using the Intelligence Squared dataset. I will briefly outline here how I assemble that dataset, for trasparency.&lt;/p&gt;
 &lt;h3 id=&#34;compiling-the-pages&#34;&gt;Compiling the Pages&lt;/h3&gt;

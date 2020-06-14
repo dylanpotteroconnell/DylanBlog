@@ -14,9 +14,9 @@
     
     <item>
       <title>The Perils of Overly Local Optimization</title>
-      <link>/post/local-optimization/</link>
+      <link>/2020/05/29/local-optimization/</link>
       <pubDate>Fri, 29 May 2020 00:00:00 +0000</pubDate>
-      <guid>/post/local-optimization/</guid>
+      <guid>/2020/05/29/local-optimization/</guid>
       <description>
 
 
@@ -212,9 +212,9 @@ in Neural Networks”&lt;/a&gt;, by L&#39;eon Bottou.&lt;/li&gt;
     
     <item>
       <title>A Gentle Introduction to Parlays and Independence </title>
-      <link>/post/parlays-independence/</link>
+      <link>/2018/11/08/parlays-independence/</link>
       <pubDate>Thu, 08 Nov 2018 00:00:00 +0000</pubDate>
-      <guid>/post/parlays-independence/</guid>
+      <guid>/2018/11/08/parlays-independence/</guid>
       <description>&lt;blockquote&gt;
 &lt;p&gt;Betting parlays of positively correlated events will generally be profitable.&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -250,9 +250,9 @@ in Neural Networks”&lt;/a&gt;, by L&#39;eon Bottou.&lt;/li&gt;
     
     <item>
       <title>Scraping the &#34;Intelligence Squared&#34; Debate Results</title>
-      <link>/post/scraping-is2/</link>
+      <link>/2018/07/26/scraping-is2/</link>
       <pubDate>Thu, 26 Jul 2018 00:00:00 +0000</pubDate>
-      <guid>/post/scraping-is2/</guid>
+      <guid>/2018/07/26/scraping-is2/</guid>
       <description>&lt;p&gt;This is a brief companion to the 
 &lt;a href=&#34;https://dylanpotteroconnell.github.io/debatefinalsummary/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;post&lt;/a&gt; analyzing the methods of assigning a winner to a debate, using the Intelligence Squared dataset. I will briefly outline here how I assemble that dataset, for trasparency.&lt;/p&gt;
 &lt;h3 id=&#34;compiling-the-pages&#34;&gt;Compiling the Pages&lt;/h3&gt;

@@ -53,7 +53,7 @@ We have a possible outcome where Intelligence Squared would declare the â€œForâ€
 
 ### How has this worked in practice?
 
-Looking at the results of the Intelligence Squared debates in reality, we see that the majority of results are uncontroversial. and there is little doubt which side was more convincing. In total, we gather the results from 88 debates from the Intelligence Squared [website](https://www.intelligencesquaredus.org/debates), with the process described [here](https://dylanpotteroconnell.github.io/debateresults2/), and the unpolished scraped dataset [here](https://github.com/dylanpotteroconnell/IntelSquaredProject/blob/master/votingresultsfinal.csv).
+Looking at the results of the Intelligence Squared debates in reality, we see that the majority of results are uncontroversial. and there is little doubt which side was more convincing. In total, we gather the results from 88 debates from the Intelligence Squared [website](https://www.intelligencesquaredus.org/debates), with the process described [here](/2018/07/26/scraping-is2/), and the unpolished scraped dataset [here](https://github.com/dylanpotteroconnell/IntelSquaredProject/blob/master/votingresultsfinal.csv).
 
 The first winning metric we consider is the Intelligence Squared Metric (ISM), which measures shift in absolute percentage of support. We next consider the Undisputed Metric (UDM), which uses the proportional switching outlined above, and only assigns a winner when one side *both* convinces a greater proportion of Undecided voters to join their side, as well as a greater proportion of the other side to switch their opinion. In cases when these do not agree, no winner is declared.
 

@@ -1,0 +1,1179 @@
+<!DOCTYPE html><html lang="en-us" >
+
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="generator" content="Source Themes Academic 4.8.0">
+
+  
+
+  
+  
+  
+  
+  
+    
+    
+    
+  
+  
+
+  <meta name="author" content="Dylan O&#39;Connell">
+
+  
+  
+  
+    
+  
+  <meta name="description" content="A Clockwork Egg I find great comfort in routine. Years of repetition have refined my morning scrambled eggs into a precise and rehearsed ritual. If I turn on the burner before I walk to the fridge, the butter will be just starting to bubble when I finish beating the eggs, and I can clean the mixing bowl in the brief pause before they’re ready to be stirred.">
+
+  
+  <link rel="alternate" hreflang="en-us" href="/2020/05/29/local-optimization/">
+
+  
+
+
+  
+  
+  
+  <meta name="theme-color" content="#8F6B89">
+  
+
+  
+  
+  
+  <script src="/js/mathjax-config.js"></script>
+  
+
+  
+  
+  
+  
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.8.6/css/academicons.min.css" integrity="sha256-uFVgMKfistnJAfoCUQigIl+JfUaP47GrRKjf6CTPVmw=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.0-1/css/all.min.css" integrity="sha256-4w9DunooKSr3MFXHXWyFER38WmPdm361bQS/2KUWZbU=" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+
+    
+    
+    
+      
+    
+    
+      
+      
+        
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/github.min.css" crossorigin="anonymous" title="hl-light">
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/dracula.min.css" crossorigin="anonymous" title="hl-dark" disabled>
+        
+      
+    
+
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.5.1/leaflet.css" integrity="sha256-SHMGCYmST46SoyGgo4YR/9AlK1vf3ff84Aq9yK4hdqM=" crossorigin="anonymous">
+    
+
+    
+
+    
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.1.2/lazysizes.min.js" integrity="sha256-Md1qLToewPeKjfAHU1zyPwOutccPAm5tahnaw7Osw0A=" crossorigin="anonymous" async></script>
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+    
+      
+
+      
+      
+
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" integrity="" crossorigin="anonymous" async></script>
+      
+    
+      
+
+      
+      
+
+      
+    
+
+  
+
+  
+  
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto&display=swap">
+  
+
+  
+  
+  
+  
+  <link rel="stylesheet" href="/css/academic.css">
+
+  
+
+
+
+
+  
+
+
+  
+  
+
+  
+
+  <link rel="manifest" href="/index.webmanifest">
+  <link rel="icon" type="image/png" href="/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_32x32_fill_lanczos_center_2.png">
+  <link rel="apple-touch-icon" type="image/png" href="/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_192x192_fill_lanczos_center_2.png">
+
+  <link rel="canonical" href="/2020/05/29/local-optimization/">
+
+  
+  
+  
+  
+  
+  
+  
+    
+    
+  
+  
+  <meta property="twitter:card" content="summary">
+  
+  <meta property="og:site_name" content="Dylan&#39;s Blog">
+  <meta property="og:url" content="/2020/05/29/local-optimization/">
+  <meta property="og:title" content="The Perils of Overly Local Optimization | Dylan&#39;s Blog">
+  <meta property="og:description" content="A Clockwork Egg I find great comfort in routine. Years of repetition have refined my morning scrambled eggs into a precise and rehearsed ritual. If I turn on the burner before I walk to the fridge, the butter will be just starting to bubble when I finish beating the eggs, and I can clean the mixing bowl in the brief pause before they’re ready to be stirred."><meta property="og:image" content="/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_512x512_fill_lanczos_center_2.png">
+  <meta property="twitter:image" content="/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_512x512_fill_lanczos_center_2.png"><meta property="og:locale" content="en-us">
+  
+    
+      <meta property="article:published_time" content="2020-05-29T00:00:00&#43;00:00">
+    
+    <meta property="article:modified_time" content="2020-05-29T18:47:28-04:00">
+  
+
+  
+
+
+    
+
+
+
+
+
+
+  
+
+
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "/2020/05/29/local-optimization/"
+  },
+  "headline": "The Perils of Overly Local Optimization",
+  
+  "datePublished": "2020-05-29T00:00:00Z",
+  "dateModified": "2020-05-29T18:47:28-04:00",
+  
+  "author": {
+    "@type": "Person",
+    "name": "Dylan O'Connell"
+  },
+  
+  "publisher": {
+    "@type": "Organization",
+    "name": "Dylan's Blog",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_192x192_fill_lanczos_center_2.png"
+    }
+  },
+  "description": "A Clockwork Egg I find great comfort in routine. Years of repetition have refined my morning scrambled eggs into a precise and rehearsed ritual. If I turn on the burner before I walk to the fridge, the butter will be just starting to bubble when I finish beating the eggs, and I can clean the mixing bowl in the brief pause before they’re ready to be stirred."
+}
+</script>
+
+  
+
+  
+
+
+  
+
+
+  
+
+
+
+
+
+  <title>The Perils of Overly Local Optimization | Dylan&#39;s Blog</title>
+
+</head>
+
+<body id="top" data-spy="scroll" data-offset="70" data-target="#TableOfContents" >
+
+  <aside class="search-results" id="search">
+  <div class="container">
+    <section class="search-header">
+
+      <div class="row no-gutters justify-content-between mb-3">
+        <div class="col-6">
+          <h1>Search</h1>
+        </div>
+        <div class="col-6 col-search-close">
+          <a class="js-search" href="#"><i class="fas fa-times-circle text-muted" aria-hidden="true"></i></a>
+        </div>
+      </div>
+
+      <div id="search-box">
+        
+        <input name="q" id="search-query" placeholder="Search..." autocapitalize="off"
+        autocomplete="off" autocorrect="off" spellcheck="false" type="search">
+        
+      </div>
+
+    </section>
+    <section class="section-search-results">
+
+      <div id="search-hits">
+        
+      </div>
+
+    </section>
+  </div>
+</aside>
+
+
+  
+
+
+
+
+
+
+
+<nav class="navbar navbar-expand-lg navbar-light compensate-for-scrollbar" id="navbar-main">
+  <div class="container">
+
+    
+    <div class="d-none d-lg-inline-flex">
+      <a class="navbar-brand" href="/">Dylan&#39;s Blog</a>
+    </div>
+    
+
+    
+    <button type="button" class="navbar-toggler" data-toggle="collapse"
+            data-target="#navbar-content" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
+    <span><i class="fas fa-bars"></i></span>
+    </button>
+    
+
+    
+    <div class="navbar-brand-mobile-wrapper d-inline-flex d-lg-none">
+      <a class="navbar-brand" href="/">Dylan&#39;s Blog</a>
+    </div>
+    
+
+    
+    
+    <div class="navbar-collapse main-menu-item collapse justify-content-start" id="navbar-content">
+
+      
+      <ul class="navbar-nav d-md-inline-flex">
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#posts"><span>Posts</span></a>
+        </li>
+
+        
+        
+
+        
+
+        
+        
+        
+          
+        
+
+        
+        
+        
+        
+        
+        
+          
+          
+          
+            
+          
+          
+        
+
+        <li class="nav-item">
+          <a class="nav-link " href="/#about"><span>About</span></a>
+        </li>
+
+        
+        
+
+      
+
+        
+      </ul>
+    </div>
+
+    <ul class="nav-icons navbar-nav flex-row ml-auto d-flex pl-md-2">
+      
+      <li class="nav-item">
+        <a class="nav-link js-search" href="#" aria-label="Search"><i class="fas fa-search" aria-hidden="true"></i></a>
+      </li>
+      
+
+      
+
+      
+
+    </ul>
+
+  </div>
+</nav>
+
+
+  <article class="article">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+  
+  
+<div class="article-container pt-3">
+  <h1>The Perils of Overly Local Optimization</h1>
+
+  
+
+  
+    
+
+
+<div class="article-metadata">
+
+  
+  
+
+  
+  <span class="article-date">
+    
+    
+      
+          Last updated on
+      
+    
+    May 29, 2020
+  </span>
+  
+
+  
+
+  
+  <span class="middot-divider"></span>
+  <span class="article-reading-time">
+    25 min read
+  </span>
+  
+
+  
+  
+  
+
+  
+  
+
+</div>
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+</div>
+
+
+
+  <div class="article-container">
+
+    <div class="article-style">
+      
+
+
+<div id="a-clockwork-egg" class="section level1">
+<h1>A Clockwork Egg</h1>
+<!-- (or "our optimized lives") -->
+<p>I find great comfort in routine. Years of repetition have refined my morning scrambled eggs into a precise and rehearsed ritual. If I turn on the burner before I walk to the fridge, the butter will be just starting to bubble when I finish beating the eggs, and I can clean the mixing bowl in the brief pause before they’re ready to be stirred. I never set out to find the right timing, but if you do the same task a thousand times, you learn from the trial and error of random variation which tiny choices make it go just a little smoother. Anyone with a morning commute can relate to the same familiar, iterative optimization. That is, until some external shock <em>forces</em> them to change.</p>
+<!-- # Disruption, and the London Subway Strike -->
+</div>
+<div id="a-disrupted-subway" class="section level1">
+<h1>A Disrupted Subway</h1>
+<p>On <a href="https://www.independent.co.uk/news/uk/home-news/tube-strikes-february-2014-how-they-will-affect-your-journey-and-stress-levels-9099641.html">February 4th, 2014</a>, the workers of the London Tube (the underground subway) went on strike, forcing a number of station closures throughout the city. For three days, some (but not all) commuters were unable to take their usual route to work, and were forced to find alternatives. After the strike, the stations reopened, and life could go back to normal.</p>
+<p>Three economists saw the opportunity for a natural experiment: only certain commuters were disrupted by the closure, and using the subway’s tracking data, their movements could be compared to the unaffected group. And surprisingly, after the strike ended, life <em>didn’t</em> quite go back to normal. Instead, some of the disrupted group stuck with their newly discovered routes, and their commuting time decreased as a result.</p>
+<p>The station closures forced commuters to break from their finely tuned routines, but a surprising number found themselves dragged unwillingly along a route that turned out to be <em>faster</em> than the one they had been taking for years. The researchers even claim that the time savings from these discoveries were so significant that the strike caused a net <em>decrease</em> in time spent commuting, despite the initial disruptions.<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a> Even if only a small fraction found new routes, the benefits from their new routine would accrue over years to come, while discovering it only required a disruption for a few days.</p>
+<p>This neat case study provides an opportunity to frame the mathematical challenge of optimization in real world terms, and it gives particular insight into the counterintuitive fact that many optimization algorithms involve <em>random noise</em>. I’ll begin by describing mathematical optimization in intuitive terms, and then I’ll examine how the London Tube Strike provides a real world analogy for this theoretical challenge.<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a></p>
+<!-- This story provides a neat way to frame the mathematical challenge of optimization, and in particular, why so many optimization algorithms involve *random noise*, a choice which might initially seem bizarre. I'll begin by describing mathematical optimization in intuitive terms, and then show how the results of the London Tube Strike provides an analogy to very real mathematical properties. -->
+<!-- ^[I have no personal insight into the rigor of the experiment itself, it's being used just as a framing device here.] -->
+</div>
+<div id="the-framework-of-optimization" class="section level1">
+<h1>The Framework of “Optimization”</h1>
+<p>Math always starts with a definition—so, what is “mathematical optimization”? The <a href="https://deepai.org/machine-learning-glossary-and-terms/mathematical-optimization">DeepAI website</a> writes the following.</p>
+<blockquote>
+<p>Mathematical optimization is the process of maximizing or minimizing an objective function by finding the best available values across a set of inputs.</p>
+</blockquote>
+<p>It’s easiest to explain these terms by example.</p>
+<ul>
+<li>For London commuters, their “objective function” might be the duration of the commute,<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a> and the “available values across a set of inputs” might be the route they take.</li>
+<li>If we want to find the highest peak in a mountain range (an example we’ll discuss in detail in the next section), the input would the latitude and longitude of a point on the map, and the objective function would be the elevation at that point.</li>
+<li>When baking chocolate chip cookies, the possible inputs might be the amount of each ingredient and the order in which they are combined, and the objective function might be the tastiness of the resulting cookie. This isn’t quite a joke, and Google once ran a <a href="https://static.googleusercontent.com/media/research.google.com/en//pubs/archive/46507.pdf">cookie optimization experiment</a> along these lines.<a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a></li>
+</ul>
+<p>Optimization is a central challenge in applied mathematics and statistics, but finding solutions can be hard. The vast increase in computational power has broadened our horizons for what optimization challenges are feasible, but many important problems remain out of our reach.</p>
+<p>In the challenge of optimization, we generally assume that we are able to check the value of the objective function at some chosen input (often called “queries” to the objective function, or perhaps, the “oracle”). For example…</p>
+<ul>
+<li>We can take a certain route on the subway and use our stopwatch record the duration of the trip.</li>
+<li>We can bake a batch of cookies following a certain recipe, and taste them.</li>
+<li>We can buy ElevationBot 1.0, a rather simple computer which takes in a pair of latitude and longitude coordinates, and spits out the altitude of that point. (This example is most cleanly understood using such a computer, but to guide our intuition we’ll often imagine ourselves walking around the slopes with an altimeter in hand.)</li>
+</ul>
+<p>Our naive optimization strategy might be to just try a bunch of inputs, and hope that we find a good output. For instance, we define a grid of latitude and longitude coordinates, feed these coordinates into ElevationBot 1.0, and use the highest point we find as our answer. But this naive approach only works when the range of potential inputs is sufficiently narrow. In particular, we need to consider the “dimension” of the input space. The number of points within an exhaustive “grid” of inputs grows exponentially with the dimension of the input. Latitude and longitude represent a mere 2 dimensions, so the number of points in our grid is just the square of the number of points on a side. However, the famous <a href="https://cooking.nytimes.com/recipes/1015819-chocolate-chip-cookies">Jacques Torres cookie recipe</a> has <span class="math inline">\(12\)</span> ingredients. If we wanted to try all combinations at a mere five different amounts of each ingredient, that would be over two hundred thousand possibilities, which is a bit much for even the hungriest baker.</p>
+<p>In our own lives, we constantly confront similar optimization challenges, but we rarely take this naive approach. Instead, we typically to look around us for small <em>local</em> optimizations, whose benefits we can easily identify.</p>
+<!-- * Finding the best route on the subway is something we optimize. While often algorithmic services can do the work for us, in other cases (or the past), we have to figure it out ourselves, and we somehow pick our starting point. -->
+<!-- * For an example, let's imagine we want to find the highest point in a mountain range. We can check an individual point, and see how high it is. How do we find the highest point? The analogy would be something like, instead of latitude and longitude in a mountain range, in our morning routine it would be that "series of choices for how we get to work".  -->
+<!-- * Now, imagine instead of querying a computer for the height, you yourself were actually in that mountain range. What would you do? Well, you'd look for the peak, but what if you were in a forest? You'd go up. Specifically, you would look at the area around you for *local* guidance. -->
+</div>
+<div id="locality-in-optimization" class="section level1">
+<h1>Locality in Optimization</h1>
+<p>Imagine biting into a warm cookie, fresh out of the oven. The rich buttery center has just the right chew, while the edges are lightly crisp. You taste the faintest hints of toffee, butterscotch, and vanilla, and the sprinkle of sea salt on top adds an extra kick. It’s almost perfect, but there’s not <em>quite</em> enough chocolate.</p>
+<p><img src="choc_chip_cookies.jpg" /></p>
+<p>We wouldn’t just throw up our hands and start from scratch… we’d just add more chocolate! The average baker can’t look at a cookie recipe, and imagine exactly what the result will taste like from afar. But we can <em>taste</em> a recipe, and imagine what a small specific tweak would do to the result.</p>
+<p>“Locality” in optimization refers to “closeness” in the input space. In latitude and longitude, this would be the “as the crow flies” distance, while in the input space of “cookie ingredients” and “subway commuting choices”, the definition is a bit less rigorous, but we can still imagine what constitutes a “small” change. In general, we can estimate the impacts of a <em>limited single change</em> to the input, but not multiple big adjustments If we increase the amount of chocolate, we know they’ll taste a bit like before, but more chocolate-y. If we increase the amounts of chocolate, butter, baking soda, cut some flour, and tweak the balance between brown and cane sugar, can the average home cook really guess what the result will taste like?</p>
+<p>In the London Tube experiment, the researchers lay some of the blame on the “stylized nature” of the Tube map displayed to commuters. Its spatial distortions make it difficult to spot major inefficiencies in their route, without some external push. By comparison, we can usually estimate the impact of these “local” changes by ourselves. If we get off one stop earlier, maybe our walk to work increases by a minute, but we avoid the wait at a crowded station. These slight changes are a bit like tweaking just a single ingredient in a cookie, and we might be able to tell whether or not they are worth trying.</p>
+<p><img src="london_tube_map.jpg" /></p>
+<!-- Personally, this describes my relationship with my own food. TO ADD MORE... -->
+<!-- * In my own life, I find this with food all the time. I have a set rotation of dishes I love, that fit my criteria (hassle-free ingredients, saves well for leftoers, etc). I'm happy to make small chaanes to what I eat. I recently realized how well a lone, unadorned sweet potato went with some of my staples. That's a one step addition, and I can evaluate its impact as I walk the aisles of the store. Sure enough, it quickly became a staple. -->
+<!-- * However, I'm sure there are many full dishes out there that would be just as good as my current rotation. But to find a new dish is a risk. There's no way for me to see all the the links in the chain. Will the ingredients be easy to find? Will I find the cooking burdensome? What will the end result taste like? Are my cooking supplies well suited to the task? -->
+<!-- * We provide some new rules of the game. We know not only the value at these points, we know the shape/slope/etc of the area around it. This is a reasonable relaxation, because we can estimate this shape by querying our computer for the values of the areas near our point (are we going up or down). The rule is that we can't look far away to see where the peak is (perhaps we're stuck in the Appalachian forests, and not the sheer granite of the Sierra Nevada).  -->
+<!-- * This isn't arbitrary, it's a natural understanding of how we actually operate. We are inherently *local* optimizers. We can easily assess the impact of small changes, not not large ones. -->
+<!-- * On a morning commute, we can estimate whether taking a turn a few blocks early to avoid a stoplight saves us time. It's much harder to figure out in advance whether taking the bus or train is easy. -->
+<!-- * Now, I'd wager that generally, we're rather good at making small (later, we will call these "local", due to their geometric interpretation) adjustments. If I realize that by taking a right a few blocks early, I can avoid the long traffic light, I'll often do it.  -->
+<!-- * However, there's a reason these are small changes. We can estimate their impact from where we are. If we considered an entirely new route to work, taking a whole different train line, we would have no way to know what that's like. -->
+<p>Before, we imagined a challenge where we tried to find a peak of a mountain range, using ElevationBot 1.0, which could tell us the elevation of any point defined by its latitude and longitude. Now, let’s imagine that there was an upgrade to ElevationBot 2.0, which <em>also</em> tells us the slope of the incline of this point (that is, “which direction slopes downward, and how steep is it”, often referred to as the gradient). This better reflects our intuition for local optimization in other settings, but it’s also not a terribly difficult task for the ElevationBot, as the diligent machine could always query the elevation at nearby points, and use those to form an estimate of the local slope.</p>
+<p>Now, imagine that we were hiking with an altimeter, and we can look around and see the direction of the hillside slope around us. But, our information is strictly “local”—we’re stuck in the foggy forests of the Appalachians, not the wide open granite of the Sierra Nevada, so we can’t look miles away to spy what peak might be highest. How might we find the highest peak? Well, our intuition is simple: from wherever we are, “go up”. This “algorithm” is called “gradient ascent”.</p>
+</div>
+<div id="gradient-ascent" class="section level1">
+<h1>Gradient Ascent</h1>
+<p>Gradient ascent is a canonical optimization algorithm, and the step by step process can be described as follows (its simplest summary is simply “go up, as fast as you can”).</p>
+<p>We begin at some initial point. We find the direction of steepest ascent from that point, i.e. “if you took a few steps in any direction, which would make you gain the most elevation?” (the magnitude and direction of steepest ascent form the “gradient”, and the direction is the <em>opposite</em> of where a marble would roll). Then, we walk for some distance in that direction (this amount is referred to as the “step size”, meaning a step of the algorithm, not a step with your feet). Once we finish walking, we look around our new location, and we repeat this process again (i.e. determine the direction of steepest ascent, and walk in that direction). Once we reach a point that is essentially flat, there is no direction we can follow which takes us any higher, and we are done (this is called “convergence”). To see this written in basic mathematical notation, see <a href="#appendix-gradient-ascent-algorithm">Appendix: Gradient Ascent Algorithm</a>.</p>
+<p>This isn’t some arbitrary example, it’s a natural definition of what it means to improve our situation through <em>local</em> changes. Wherever we are, we think “what small change could we take to make to make this better?” If our cookies are too salty, we add a bit less salt, but we don’t start over from scratch.</p>
+</div>
+<div id="visualizing-gradient-ascent" class="section level1">
+<h1>Visualizing Gradient Ascent</h1>
+<p>So, we follow the direction of steepest ascent, but what does that look like in practice? We can visualize our challenge of finding the highest point in a very simple mountain range. In fact, simplest of all, imagine a single hill. This one is perfectly round, but we pretend we don’t know that, and we can only see the local area around us.</p>
+<p>The following is a contour plot, like what you find on a topographical map. At the center is the highest point, and it slopes down as you get further away. Our current position is the red dot, in the southeast.</p>
+<p>It might be more clear if we consider viewing the map at an angle (thanks to the <code>rayshader</code> <a href="https://www.tylermw.com/3d-ggplots-with-rayshader/">package</a>.</p>
+<p><img src="uni_vis_3d.png" /></p>
+<p>Let’s imagine gradient ascent in action. We look around, and see that the direction of steepest ascent is to the northwest, shown by the red arrow.</p>
+<p>We move that distance up the slope, and look around once again. We see that the direction of steepest ascent is still northwest, so we move once more.</p>
+<p>Or, shown in 3D (which is admittedly hard to draw…).</p>
+<p><img src="uni_vis_3d_step2.png" />
+We repeat this process until we look around for that direction of steepest ascent, and see that we’re at a point which is basically flat. You can watch the whole process in the gif below. We start in the top right, and climb and climb until we reach the top of the mountain, where we stop.<a href="#fn5" class="footnote-ref" id="fnref5"><sup>5</sup></a></p>
+<p><img src="2d_uni_grad_ascent_anim.gif" /></p>
+</div>
+<div id="not-all-mountains-are-friendly" class="section level1">
+<h1>Not All Mountains Are Friendly</h1>
+<p>In this simple example, our local minimization strategy (“just go up!”) finds the highest peak without any trouble. However, imagine there were three different peaks, of differing heights.</p>
+<p>It’s a bit harder to picture, but a 3D visualization might help picture its shape.</p>
+<p><img src="mix_vis_3d.png" /></p>
+<p>This poses an obvious problem for our algorithm. We hike up until we reach the top of a peak, look around, see that we can’t go up any further, and stop. But this could be true of <em>any</em> of the three peaks, and only the peak in the southeast is actually highest.</p>
+<p>Let’s say we start near the center of this region, and follow our algorithm. We climb up south and to the east, and reach that highest peak, just like as we did in the case of a single hill.</p>
+<p><img src="2d_mix_grad_ascent_optima_anim.gif" /></p>
+<p>However, what if our starting position was just a bit further north? Well, in the gif below, we see that we’d head off in the opposite direction, and end up at the northmost peak. We’d halt at the top, unable to climb any further, and be forever stuck at a lower point than the peak in the southeast. And by the rules of our game, we can only see the area around us, and we’ll never know that there’s a higher peak elsewhere! And most crucially, we couldn’t possibly tell the difference between the two starting points, without prior knowledge of the area.</p>
+<p><img src="2d_mix_grad_ascent_anim.gif" />
+This illustrates a fundamental divide in mathematical optimization. Some surfaces are “convex”, which ensures that gradient ascent will march us directly to the highest point (the “global maxima”), no matter where we begin.<a href="#fn6" class="footnote-ref" id="fnref6"><sup>6</sup></a> However, “nonconvex” surfaces lack such guarantees, and might prove computationally intractable (any “mountain range”, by definition, falls into this category, as it has multiple peaks). Informal definitions of these terms can be found in the appendix (<a href="#appendix-the-perils-of-nonconvexity">Appendix: The Perils of “Nonconvexity”</a>), but the most intuitive takeaway is the issue of “spurious optima”. To clarify the jargon…</p>
+<ul>
+<li>Optima: either maxima or minima (these challenges are equivalent).</li>
+<li>Global optimum (or maximum/minimum): the optimum among the <em>entire</em> input space</li>
+<li>Local optima (or maxima/minima): these points are optima in a small neighborhood around themselves, but not if you consider points far away. There is no local direction which takes you higher (or lower, if minimizing), but none are the global optimum.</li>
+<li>In the context of optimization, local optima are also called <em>spurious</em> optima, because they have the same local properties as the global optimum, but they are not the solution to the optimization challenge.</li>
+</ul>
+<p>In the convex realm, local information provides us with global guidance, and we can follow the path of steepest ascent all the way to the maxima. In the nonconvex setting, we might instead find ourselves trapped in a spurious optima.</p>
+</div>
+<div id="not-settling-for-second-best" class="section level1">
+<h1>Not Settling for Second Best</h1>
+<p>If we are wary of getting stuck at a spurious optima, how can we modify our approach to ensure we find the highest peak?</p>
+<p>Well, we saw above, that certain starting positions were successful, and others lead us astray. What if we simply used our gradient ascent algorithm multiple times, starting from randomly chosen starting points? Then we could check the results of each of our attempts, and pick the highest point we find. The gif below shows what that might look like.<a href="#fn7" class="footnote-ref" id="fnref7"><sup>7</sup></a> If we try a number of randomly chosen points, we are highly likely to find one that leads to the highest peak.</p>
+<p><img src="2d_mix_grad_restarts_anim.gif" /></p>
+<p>In a sense, the challenge becomes one of <em>initialization</em>. This is common in the optimization literature. Even if the optimization surface is nonconvex, we just need to find a starting point that’s reasonably close to the optima (within its “basin of attraction”), and our naive gradient ascent algorithm can do the rest. Countless papers have been written on the topic.</p>
+<p>It’s also a natural fit for our intuition—if you set out to find the perfect chocolate chip cookie, I bet you’d do something similar. You might start with a few different recipes that look promising, and then try and find small improvements based on the results (a bit less salt, or a bit more chocolate). It’s the equivalent of trying different starting points, and then following gradient ascent (albeit, random initialization would be a poor choice when we have such rich domain knowledge to lean on).</p>
+<p>Thus, the challenge boils down to how hard it is to find the right starting point. Are any of the popular cookie recipes out there reasonably close to your own personal, optimal cookie? Hard to say. A large region of the mountain range above lead to the best peak, but what if there were dozens of mountains and the tallest one was steep with a narrow base? The difficulty of optimization always depends on the unique shape of the setting.</p>
+</div>
+<div id="embracing-random-noise" class="section level1">
+<h1>Embracing Random Noise</h1>
+<p>Or, we could view the challenge from a different perspective. Instead of trying to optimize different starting points using their local information, what if we were a bit more flexible in our climbing path, and were willing to experiment along the way?</p>
+<p>Of course, there’s a reason that gradient ascent is so rigid in its path—it always goes in the direction that gives you the largest gain in the shortest amount of time. Any other direction appears inferior. If the cookies aren’t chocolate-y enough, you’d feel a little silly trying any other fix besides adding more chocolate chips to the dough. But as we’ve seen, local improvements will only take you so far. My ideal chocolate chip cookie is thick and chewy, but imagine that I had only ever tried recipes which were thin and crispy. I could try and improve them by tinkering with the balance of butter and sugar, or adding more chocolate, which might make them taste a bit better. But it would require the simultaneous change of many ingredients to make the huge leap from one type of cookie to the other.<a href="#fn8" class="footnote-ref" id="fnref8"><sup>8</sup></a></p>
+<p>What if we were a little more open to experimentation, even if we can’t easily see how it would help? Let’s recall the example of the London subway. These commuters had settled into their preferred morning routes, and surely if they could spot any tiny tweak which would save them time, they would have already tried it. The three day strike represented an external shock to the system, which pushed them out of their local equilibrium. It wasn’t designed to improve their commute (if anything, it was the opposite). And yet, by random chance, there was a group of commuters who found themselves pushed into a surprisingly superior path, which they stuck with. Likely, that route didn’t seem faster from afar, and they would be loathe to waste their time on any route that looks inferior. Only through this forced random experimentation did they escape their local optima.</p>
+<p>What might this look like mathematically? Well, we could introduce random “noise” into our movement. Let’s imagine gradient ascent once more. From our starting point, we walk in the direction of greatest ascent, and then, <em>we walk a bit further in a random direction</em>. This won’t feel very rewarding in the moment… we want to go “up”, we can see which direction takes us “up”, and yet, we go in a random direction? But maybe this extra experimentation will give us a chance to escape our deterministic march towards a spurious optima, and we will eventually find the highest peak. We will still <em>tend</em> to go “up”, but we might not follow such a direct path.</p>
+<p>To be mathematically precise (again, you can just skip the mathematical part if you’d like), we simply add the random noise to our gradient ascent step from before. That is, now we set <span class="math inline">\(x^{(k+1)} \leftarrow x^{(k)} + \eta \nabla f(x^{(k)}) + \sigma^2 \epsilon_k\)</span>, where <span class="math inline">\(\epsilon_k \sim N(0, 1)\)</span>. That is, we add a normally distributed random noise term to each gradient ascent step.</p>
+<p>To visualize this, we turn to the one dimensional case. A one-dimensional mountain range might not be quite as intuitive, but it’s a lot easier to see on your screen, and the same rules apply. Below, we consider a mountain range where the middle peak is the highest. Following gradient ascent, if we start on the far right, we quickly find the nearby peak, but are stuck there, unable to find the highest point.</p>
+<p><img src="test_grad_ascent_anim.gif" /></p>
+<p>However, if we start from the same place, but add a bit of noise with every step, our path isn’t quite so direct. We take a bit longer to reach the top of the low peak, but from there, the random noise gives us a chance to “escape”. That is, with each move, we feel a pull back towards the low peak (as that is the direction of ascent). But if we get lucky, and find a sequence of random noise terms that “push” us far enough to the the left, we escape this valley and feel the pull of the highest peak. The addition of random noise allows us to escape eternal mediocrity, stuck at the top of the low peak.</p>
+<p><img src="test_noisy_ascent_anim.gif" /></p>
+<p>Of course, this gif takes a <em>long</em> time to run—it requires a very lucky sequence of steps for us to escape the local optima! Thus, this is far from an easy fix. In fact, this highlights the importance of precisely tuning this approach. Blindly adding random noise will <em>eventually</em> let you find the summit, but along the way you’ll be stuck with long stretches of experimentation before you get anywhere.</p>
+</div>
+<div id="estimation-error-as-noise" class="section level1">
+<h1>Estimation Error as Noise</h1>
+<p>Simply adding random noise to gradient ascent isn’t a “real” algorithm that would be ever used in practice, but it helps illustrate the powerful premise of “stochastic optimization” (i.e. optimization techniques which leverage random chance). Many varieties of stochastic optimization see widespread use,<a href="#fn9" class="footnote-ref" id="fnref9"><sup>9</sup></a> but here, I’ll focus on one particularly relevant example, Stochastic Gradient Descent (SGD).</p>
+<p>The premise of Stochastic Gradient Descent is a natural extension of the gradient ascent algorithm we studied above. First, we note again “gradient <em>ascent</em>” and “gradient <em>descent</em>” are equivalent—you simply take the negative of the gradient to switch between maximization and minimization. Rather, it’s the “stochastic” that’s new.<a href="#fn10" class="footnote-ref" id="fnref10"><sup>10</sup></a> In gradient ascent, we needed to compute the slope of the local area (i.e. the gradient) with each step. Let’s consider again our ElevationBot 2.0 which takes in latitude and longitude coordinates, and tells us the elevation and local slope of that point. But perhaps we’re not the only ones trying to play this addictive “find the highest peak” game, so we have to wait in a long line before each query. However, nearby we see a rusted old ElevationBot 1.5 terminal. It’s an intermediate model, between version 1.0 (which just computes the altitude) and 2.0 (which also computes the direction of ascent), because it can only <em>estimate</em> the direction of ascent, and it’s occasionally a bit off. However, there’s no one in line to use it, so we can rattle off our queries much faster. Should we skip the line, and use the faster but less reliable estimates of the 1.5 model?</p>
+<p>This silly story might make the setting sound overly contrived, but it’s actually a very foundational tradeoff. It is often much faster to compute an <em>approximate</em> slope rather than an <em>exact</em> one.<a href="#fn11" class="footnote-ref" id="fnref11"><sup>11</sup></a> This is the premise of Stochastic Gradient Descent—the exact gradient is replaced by a stochastic gradient, which is much faster to compute but is only an approximation of the truth.</p>
+<p>And this is no niche use case. Stochastic Gradient Descent has been the canonical industry standard technique for optimizing artificial neural nets for decades. When you hear about the rise of “deep learning” in the news, Stochastic Gradient Descent is the most reliable and versatile computational tool in the field. The challenge of neural networks is that their optimization space might consist of millions of dimensions (above, we visualized optimizing over a <em>single</em> dimension!). In fact, Microsoft recently boasted of a neural network with <a href="https://www.microsoft.com/en-us/research/blog/zero-deepspeed-new-system-optimizations-enable-training-models-with-over-100-billion-parameters/">17 billion (!)</a> dimensions. The inevitable result of these optimization structures is that there are an enormous number of spurious local optima.</p>
+<p>Which begs the question—if neural networks are loaded with spurious local optima, and following the gradient will often lead to those spurious points, then in the words of neural nets pioneer Geoffrey Hinton, why does SGD work so <a href="https://twitter.com/samcharrington/status/917816482242990080">“unreasonably well”</a>?</p>
+<p>There are a variety of answers, depending on who you ask, but the most common reason researchers point to (an explanation dating back <a href="https://leon.bottou.org/publications/pdf/nimes-1991.pdf">decades</a>), is that the inherent noise in the imprecise stochastic approximation allows it to escape spurious local optima.<a href="#fn12" class="footnote-ref" id="fnref12"><sup>12</sup></a> This is not noise that we added explicitly, it’s just the approximation error that arises from not computing the exact gradient. And yet, these random shocks turn out to be an advantage, rather than a hindrance. Even at the computational cutting edge of the field, random noise can be a powerfully helpful force, pushing us away from spurious optima and further towards our goal.</p>
+</div>
+<div id="wrapping-up" class="section level1">
+<h1>Wrapping Up</h1>
+<p>The informal parallels between mathematical theory and our lived experience are illustrative, but not definitive. I think there is a kernel of a genuine lesson to be found here—we tend towards overly local optimization strategies in our daily lives, and external random shocks can push us to a better solution. And yet, it’s important not to take this too far. In the world of pure mathematical theory, we can carefully study the effects of any potential noise, and calibrate it to fit the situation. In our daily lives, we can’t easily assess the impact of this noise, and it could just as easily provide a pointless disruption (indeed, recall the example of the one-dimensional noisy ascent gif, and the long circuitous route it took to reach the top!).</p>
+<p>Famed computer scientist Alan Perlis once said “Optimization hinders evolution”. In our case, this means finding a balance between the fundamental “explore vs exploit” trade-off. That is, we could spend our energy searching for better strategies (“explore”), or we could focus on deriving the benefit from the currently known optimal strategy (“exploit”). This trade-off is omnipresent in the decisions we make, and it’s very hard to get right. My instincts are that our <a href="https://link.springer.com/article/10.1007/BF00055564">status quo bias</a> and inherently “local” perspective means we’ll typically err on the side of “too much exploitation”, but there’s no universal rule.</p>
+<!-- Perhaps the takeaway is simply one of perspective---rather than resisting every disruption outside of our control, we should welcome it as an opportunity to explore something new. After all, there's no point getting mad at a road closure on your commute, the world won't notice.^["Why should we feel anger at the world? As if the world would notice?" is often cited to Marcus Aurelius, although I can't personally find the source.]  -->
+<!-- It's natural to be wary of the unfamiliar---more often than not, it will be a downgrade from your well rehearsed routine. But the potential upsides are enormous. All it takes is acceptance of your limited local perspective,  and a leap of faith towards that hidden, higher peak. -->
+<!-- check whether this edit changed anything -->
+<p>Perhaps the takeaway is simply one of perspective—rather than resisting every disruption outside of our control, we should welcome it as an opportunity to explore something new. After all, there’s no point getting mad at a road closure on your commute, the world won’t notice.<a href="#fn13" class="footnote-ref" id="fnref13"><sup>13</sup></a></p>
+<p>Scrambled eggs are a wonderful way to start the day, and I doubt I could do much more to optimize the way I make them to my own unique tastes. But I’d be foolish to think that there weren’t other breakfast options I might enjoy just as much, even if the first few times I make them they don’t go as smoothly as my current ritual. All it takes is accepting the limits of your local perspective, and taking a leap of faith towards that hidden higher peak.<a href="#fn14" class="footnote-ref" id="fnref14"><sup>14</sup></a></p>
+</div>
+<div id="sources" class="section level1">
+<h1>Sources</h1>
+<ul>
+<li><a href="http://timharford.com/books/messy/">“Messy”</a>, by Tim Harford. Broadly, this whole post was heavily inspired by Tim Harford’s writings on the London Tube experiment. I first read his description when I was studying Langevin diffusions, and I have wanted to show some visualizations of the premise ever since. I think this post is sufficiently far from his writings to add something new (he uses the example to make a point about how external shocks pushing us out of equilibrium prompt greater creativity, whereas I’m trying to focus simply on the viewpoint on mathematical optimization), but the original idea is certainly his.</li>
+<li><a href="http://users.ox.ac.uk/~econ0360/FerdinandRauch/Tube.pdf">“The Benefits of Forced Experimentation: Striking
+Evidence from the London Underground Network”</a>, by Larcom, Rauch, &amp; Willems (2017). Further, a short <a href="http://cep.lse.ac.uk/pubs/download/cp455.pdf">write-up</a> of the London Tube Strike research.</li>
+<li><a href="https://static.googleusercontent.com/media/research.google.com/en//pubs/archive/46507.pdf">“Bayesian Optimization for a Better Dessert”</a>, by Kochanski et al. (2017).</li>
+<li>The <a href="https://www.rayshader.com/"><code>rayshader</code> package</a>.</li>
+<li><a href="https://leon.bottou.org/publications/pdf/nimes-1991.pdf">“Stochastic Gradient Learning
+in Neural Networks”</a>, by L'eon Bottou.</li>
+</ul>
+</div>
+<div id="appendix-gradient-ascent-algorithm" class="section level1">
+<h1>Appendix: Gradient Ascent Algorithm</h1>
+<p>The gradient ascent algorithm, written informally in mathematical notation.<a href="#fn15" class="footnote-ref" id="fnref15"><sup>15</sup></a> Imagine we are at some point <span class="math inline">\(x \in \mathbb{R}^d\)</span> (meaning, <span class="math inline">\(x\)</span> is a point in <span class="math inline">\(d\)</span>-dimensional space).</p>
+<ol style="list-style-type: decimal">
+<li>Let <span class="math inline">\(f: \mathbb{R}^d \to \mathbb{R}\)</span> be our objective function. Let <span class="math inline">\(\eta &gt; 0\)</span> be our step size constant. We begin at some initial point <span class="math inline">\(x^{(0)} \in \mathbb{R}^d\)</span>. For <span class="math inline">\(k = 0, \ldots,\)</span>, until convergence, repeat steps 2 through 4.</li>
+<li>Compute the gradient <span class="math inline">\(\nabla f(x^{(k)})\)</span>.</li>
+<li>Set <span class="math inline">\(x^{(k+1)} \leftarrow x^{(k)} + \eta \nabla f(x^{(k)})\)</span>.</li>
+<li>If <span class="math inline">\(\nabla f(x^{(k)})\)</span> is sufficiently small, halt the algorithm, and select <span class="math inline">\(x^{(k+1)}\)</span> as our optima. Otherwise, set <span class="math inline">\(k \leftarrow k+1\)</span>, and repeat steps 2-4.</li>
+</ol>
+</div>
+<div id="appendix-the-perils-of-nonconvexity" class="section level1">
+<h1>Appendix: The Perils of “Nonconvexity”</h1>
+<p>Intuitively, we call a region a “convex set” if the line between any two points within that region stays <em>within</em> that region. Thus, the rectangular Wyoming is convex, while Cape Cod makes Massachussetts nonconvex. Then, we call a <em>function</em> “convex” if the region that lies above the surface of the function forms a “convex set”.</p>
+<p>In general, convex functions are easy to optimize, because *local information provides global guidance&quot;. That is, if we follow the path upward, we know that we’ll eventually reach the true optimal value.</p>
+<p>However, one further note to make this correct. The mountain range elevation objective function we study is actually “concave”, which is just a convex function flipped upside down. In this colloquial description of optimization challenges, we use the two terms interchangeably, because they are equally easy to solve.<a href="#fn16" class="footnote-ref" id="fnref16"><sup>16</sup></a></p>
+</div>
+<div class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p>This seems much harder to rigorously prove, but this is meant simiply as an informal framing device.<a href="#fnref1" class="footnote-back">↩</a></p></li>
+<li id="fn2"><p>A rare, and extremely tenuous connection between areas of my research, and reality.<a href="#fnref2" class="footnote-back">↩</a></p></li>
+<li id="fn3"><p>Or they could add in other factors, like cost or “pleasantness”.<a href="#fnref3" class="footnote-back">↩</a></p></li>
+<li id="fn4"><p>I’ve tasted the resulting cookies, not bad for a cafeteria batch.<a href="#fnref4" class="footnote-back">↩</a></p></li>
+<li id="fn5"><p>The above images took huge step sizes for visual clarity, this shows a more realistic sequence.<a href="#fnref5" class="footnote-back">↩</a></p></li>
+<li id="fn6"><p>This post is informal, so we omit regularity conditions that would not add to the explanation (but technically, this guarantee would also require the gradient of the objective to be Lipschitz, and for a suitable adaptive step-size).<a href="#fnref6" class="footnote-back">↩</a></p></li>
+<li id="fn7"><p>Only a few starting points shown, to keep the gif short.<a href="#fnref7" class="footnote-back">↩</a></p></li>
+<li id="fn8"><p>Of course, the question is “Would a sequence of small, incrementally beneficial changes take you all the way from ‘thin and crispy’ to ‘thick and chewey’?” In mathematics, this is the matter of convexity, but in the real world, it can be very hard to say. My assumption is that this often <em>doesn’t</em> apply in cooking. If you take the middle point between two excellent dishes, there’s no reason to think that it would be tasty! But it’s hard to say with confidence what the optimization space of chocolate chip cookies looks like. <a href="#fnref8" class="footnote-back">↩</a></p></li>
+<li id="fn9"><p><a href="https://science.sciencemag.org/content/220/4598/671">Simulated annealing</a> and <a href="https://www.researchgate.net/publication/13255490_Replica_Monte_Carlo_Simulation_of_Spin-Glasses">parallel tempering</a> are two particular favorites of mine.<a href="#fnref9" class="footnote-back">↩</a></p></li>
+<li id="fn10"><p>What follows is a bit of a simplification of SGD, but I think it’s true to the essence of the algorithm.<a href="#fnref10" class="footnote-back">↩</a></p></li>
+<li id="fn11"><p>In the case of SGD, the reason this happens is that it estimates the gradient by only using a <em>subset</em> of the whole dataset.<a href="#fnref11" class="footnote-back">↩</a></p></li>
+<li id="fn12"><p>And “saddle points”, which I am skirting past here, as they are a similar concern for this high level explanation.<a href="#fnref12" class="footnote-back">↩</a></p></li>
+<li id="fn13"><p>“Why should we feel anger at the world? As if the world would notice?” is often cited to Marcus Aurelius, although I can’t personally find the source.<a href="#fnref13" class="footnote-back">↩</a></p></li>
+<li id="fn14"><p>For full transparency, a few months ago I switched to fried eggs on top of frozen vegetables as my breakfast of choice, so maybe I took this lesson to heart.<a href="#fnref14" class="footnote-back">↩</a></p></li>
+<li id="fn15"><p>This is for an extremely crude version with fixed step size <span class="math inline">\(\eta\)</span>, and an imprecise definition of convergence. There is no reason to use fixed step size in practice, but that adjustment isn’t relevant to the demonstration.<a href="#fnref15" class="footnote-back">↩</a></p></li>
+<li id="fn16"><p>You can turn a concave function into a convex one by simply multiplying it by <span class="math inline">\(-1\)</span>, and minimizing rather than optimizing.<a href="#fnref16" class="footnote-back">↩</a></p></li>
+</ol>
+</div>
+
+    </div>
+
+    
+
+
+
+
+
+<div class="article-tags">
+  
+  <a class="badge badge-light" href="/tag/introductory/">introductory</a>
+  
+  <a class="badge badge-light" href="/tag/optimization/">optimization</a>
+  
+  <a class="badge badge-light" href="/tag/r/">R</a>
+  
+</div>
+
+
+
+<div class="share-box" aria-hidden="true">
+  <ul class="share">
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://twitter.com/intent/tweet?url=/2020/05/29/local-optimization/&amp;text=The%20Perils%20of%20Overly%20Local%20Optimization" target="_blank" rel="noopener" class="share-btn-twitter">
+          <i class="fab fa-twitter"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://www.facebook.com/sharer.php?u=/2020/05/29/local-optimization/&amp;t=The%20Perils%20of%20Overly%20Local%20Optimization" target="_blank" rel="noopener" class="share-btn-facebook">
+          <i class="fab fa-facebook"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="mailto:?subject=The%20Perils%20of%20Overly%20Local%20Optimization&amp;body=/2020/05/29/local-optimization/" target="_blank" rel="noopener" class="share-btn-email">
+          <i class="fas fa-envelope"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://www.linkedin.com/shareArticle?url=/2020/05/29/local-optimization/&amp;title=The%20Perils%20of%20Overly%20Local%20Optimization" target="_blank" rel="noopener" class="share-btn-linkedin">
+          <i class="fab fa-linkedin-in"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="whatsapp://send?text=The%20Perils%20of%20Overly%20Local%20Optimization%20/2020/05/29/local-optimization/" target="_blank" rel="noopener" class="share-btn-whatsapp">
+          <i class="fab fa-whatsapp"></i>
+        </a>
+      </li>
+    
+      
+      
+      
+        
+      
+      
+      
+      <li>
+        <a href="https://service.weibo.com/share/share.php?url=/2020/05/29/local-optimization/&amp;title=The%20Perils%20of%20Overly%20Local%20Optimization" target="_blank" rel="noopener" class="share-btn-weibo">
+          <i class="fab fa-weibo"></i>
+        </a>
+      </li>
+    
+  </ul>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+  
+    
+    
+    
+      
+    
+    
+    
+    <div class="media author-card content-widget-hr">
+      
+        
+        <img class="avatar mr-3 avatar-circle" src="/author/dylan-oconnell/avatar%20copy_hu70a705bbf7383a13eea33bcd09c55f2e_17965_270x270_fill_q90_lanczos_center.jpg" alt="Dylan O&#39;Connell">
+      
+
+      <div class="media-body">
+        <h5 class="card-title"><a href="/">Dylan O&#39;Connell</a></h5>
+        
+        
+        <ul class="network-icon" aria-hidden="true">
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+    <li>
+      <a href="mailto:dylan.oconnell@yale.edu" >
+        <i class="fas fa-envelope"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://twitter.com/DylanPOConnell" target="_blank" rel="noopener">
+        <i class="fab fa-twitter"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://github.com/dylan.potter.oconnell" target="_blank" rel="noopener">
+        <i class="fab fa-github"></i>
+      </a>
+    </li>
+  
+    
+    
+    
+      
+    
+    
+    
+    
+    
+      
+    
+    <li>
+      <a href="https://letterboxd.com/dylanoconnell/" target="_blank" rel="noopener">
+        <i class="fas fa-film"></i>
+      </a>
+    </li>
+  
+</ul>
+
+      </div>
+    </div>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <div class="article-widget content-widget-hr">
+    <h3>Related</h3>
+    <ul>
+      
+      <li><a href="/2018/07/26/scraping-is2/">Scraping the &#34;Intelligence Squared&#34; Debate Results</a></li>
+      
+      <li><a href="/2020/05/28/bsts-boxofice/">Bayesian Structural Time Series, and Movie Ticket Sales Sales</a></li>
+      
+      <li><a href="/2018/11/08/parlays-independence/">A Gentle Introduction to Parlays and Independence </a></li>
+      
+      <li><a href="/2018/07/29/winning-debate/">Winning a Debate: Insights from &#34;Intelligence Squared&#34;</a></li>
+      
+    </ul>
+  </div>
+  
+
+
+
+
+  </div>
+</article>
+
+      
+
+    
+    
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/4.1.4/imagesloaded.pkgd.min.js" integrity="sha256-lqvxZrPLtfffUl2G/e7szqSvPBILGbwmsGE1MKlOi0Q=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.6/isotope.pkgd.min.js" integrity="sha256-CBrpuqrMhXwcLLUd5tvQ4euBHCdh7wGlDfNz8vbu/iI=" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+
+      
+
+      
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/highlight.min.js" integrity="sha256-eOgo0OtLL4cdq7RdwRUiGKLX9XsIJ7nGhWEKbohmVAQ=" crossorigin="anonymous"></script>
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/languages/r.min.js"></script>
+        
+      
+
+    
+
+    
+    
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.5.1/leaflet.js" integrity="sha256-EErZamuLefUnbMBQbsEqu1USa+btR2oIlCpBJbyD4/g=" crossorigin="anonymous"></script>
+    
+
+    
+    
+    <script>const code_highlighting = true;</script>
+    
+
+    
+    
+    <script>const isSiteThemeDark = false;</script>
+    
+
+    
+    
+    
+    
+    
+    
+    <script>
+      const search_config = {"indexURI":"/index.json","minLength":1,"threshold":0.3};
+      const i18n = {"no_results":"No results found","placeholder":"Search...","results":"results found"};
+      const content_type = {
+        'post': "Posts",
+        'project': "Projects",
+        'publication' : "Publications",
+        'talk' : "Talks"
+        };
+    </script>
+    
+
+    
+    
+
+    
+    
+    <script id="search-hit-fuse-template" type="text/x-template">
+      <div class="search-hit" id="summary-{{key}}">
+      <div class="search-hit-content">
+        <div class="search-hit-name">
+          <a href="{{relpermalink}}">{{title}}</a>
+          <div class="article-metadata search-hit-type">{{type}}</div>
+          <p class="search-hit-description">{{snippet}}</p>
+        </div>
+      </div>
+      </div>
+    </script>
+    
+
+    
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/3.2.1/fuse.min.js" integrity="sha256-VzgmKYmhsGNNN4Ph1kMW+BjoYJM2jV5i4IlFoeZA9XI=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js" integrity="sha256-4HLtjeVgH0eIB3aZ9mLYF6E8oU5chNdjU6p6rrXpl9U=" crossorigin="anonymous"></script>
+    
+
+    
+    
+
+    
+    
+
+    
+    
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+      
+    
+    
+    
+    
+    <script src="/js/academic.min.37431be2d92d7fb0160054761ab79602.js"></script>
+
+    
+
+
+
+
+
+
+  
+  
+  <div class="container">
+    <footer class="site-footer">
+  
+  <p class="powered-by">
+    
+      <a href="/privacy/">Privacy Policy</a>
+    
+    
+       &middot; 
+      <a href="/terms/">Terms</a>
+    
+  </p>
+  
+
+  <p class="powered-by">
+    
+  </p>
+
+  
+  
+
+
+
+
+
+
+  <p class="powered-by">
+    Powered by the
+    <a href="https://sourcethemes.com/academic/" target="_blank" rel="noopener">Academic theme</a> for
+    <a href="https://gohugo.io" target="_blank" rel="noopener">Hugo</a>.
+
+    
+    <span class="float-right" aria-hidden="true">
+      <a href="#" class="back-to-top">
+        <span class="button_icon">
+          <i class="fas fa-chevron-up fa-2x"></i>
+        </span>
+      </a>
+    </span>
+    
+  </p>
+</footer>
+
+  </div>
+  
+
+  
+<div id="modal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Cite</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <pre><code class="tex hljs"></code></pre>
+      </div>
+      <div class="modal-footer">
+        <a class="btn btn-outline-primary my-1 js-copy-cite" href="#" target="_blank">
+          <i class="fas fa-copy"></i> Copy
+        </a>
+        <a class="btn btn-outline-primary my-1 js-download-cite" href="#" target="_blank">
+          <i class="fas fa-download"></i> Download
+        </a>
+        <div id="modal-error"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

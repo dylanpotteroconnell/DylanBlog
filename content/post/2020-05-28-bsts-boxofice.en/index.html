@@ -23,6 +23,10 @@ blogdown::html_page:
 
 
 
+<div id="disclaimer" class="section level1">
+<h1>Disclaimer</h1>
+<p>This is something of a rough draft, written to introduce myself to BSTS models, and not exactly ready for public presentation.</p>
+</div>
 <div id="introduction" class="section level1">
 <h1>Introduction</h1>
 <p>In this post, I’ll describe my introductory exploration of Bayesian structural time series (BSTS) models, using Steve Scott’s <code>bsts</code> <a href="https://cran.r-project.org/web/packages/bsts/bsts.pdf">package</a>, applied to the total weekly box office gross (i.e. ticket sales) of American movie theaters.</p>
@@ -610,7 +614,7 @@ CheckOneStepCalibration(tb.season.train)</code></pre>
 <pre><code>## # A tibble: 1 x 3
 ##   `Prop. Above LB` `Prop. Below UB` `Prop. Within Interval`
 ##              &lt;dbl&gt;            &lt;dbl&gt;                   &lt;dbl&gt;
-## 1            0.910            0.852                   0.762</code></pre>
+## 1            0.908            0.852                   0.760</code></pre>
 <pre class="r"><code>PlotOneStepPredicted(tb.season.train, p.season, 2016)</code></pre>
 <p><img src="/post/2020-05-28-bsts-boxofice.en/index_files/figure-html/unnamed-chunk-21-1.png" width="672" /></p>
 <pre class="r"><code>tb.llt.train &lt;- ComputeOneStepPredicted(model.llt.train,
@@ -621,7 +625,7 @@ CheckOneStepCalibration(tb.llt.train)</code></pre>
 <pre><code>## # A tibble: 1 x 3
 ##   `Prop. Above LB` `Prop. Below UB` `Prop. Within Interval`
 ##              &lt;dbl&gt;            &lt;dbl&gt;                   &lt;dbl&gt;
-## 1            0.854            0.889                   0.743</code></pre>
+## 1            0.856            0.889                   0.744</code></pre>
 <pre class="r"><code>PlotOneStepPredicted(tb.llt.train, p.season, 2016)</code></pre>
 <p><img src="/post/2020-05-28-bsts-boxofice.en/index_files/figure-html/unnamed-chunk-22-1.png" width="672" /></p>
 <p>We can see that both seem to offer reasonably useful forecasts, with calibration (over the entire period, combining both one-step and forecasts)\footnote[Perhaps these should be separated, I haven’t found resources discussing the best way to evaluate these models.] in a similar range as before, and the forecast range seemingly capturing much of the observed trend.</p>

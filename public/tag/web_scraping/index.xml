@@ -14,9 +14,9 @@
     
     <item>
       <title>Scraping the &#34;Intelligence Squared&#34; Debate Results</title>
-      <link>/post/scraping-is2/</link>
+      <link>/2018/07/26/scraping-is2/</link>
       <pubDate>Thu, 26 Jul 2018 00:00:00 +0000</pubDate>
-      <guid>/post/scraping-is2/</guid>
+      <guid>/2018/07/26/scraping-is2/</guid>
       <description>&lt;p&gt;This is a brief companion to the 
 &lt;a href=&#34;https://dylanpotteroconnell.github.io/debatefinalsummary/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;post&lt;/a&gt; analyzing the methods of assigning a winner to a debate, using the Intelligence Squared dataset. I will briefly outline here how I assemble that dataset, for trasparency.&lt;/p&gt;
 &lt;h3 id=&#34;compiling-the-pages&#34;&gt;Compiling the Pages&lt;/h3&gt;
