@@ -635,10 +635,9 @@ GradientAscentStep <- function(x,
                                    weights) %>% 
     as.numeric()
   xprime <- x + eta*deriv + ifelse(type == "Noisy Ascent", 
-                                   rnorm(1, 0, .5) + rlnorm(1,
-                                                            meanlog=-4.5,
-                                                            sdlog=1), 
-                                   0)
+                                   rnorm(1, 0, .5)+ rlnorm(1, 
+                                                           meanlog=-4.5,
+                                                           sdlog=1), 0)
   return(xprime)
 }
 

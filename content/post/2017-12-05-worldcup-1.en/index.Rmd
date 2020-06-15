@@ -8,7 +8,7 @@ tags: []
 subtitle: ''
 summary: ''
 authors: []
-lastmod: '2020-06-14T16:08:11-04:00'
+lastmod: '2018-06-14T16:08:11-04:00'
 featured: no
 image:
   caption: ''
@@ -19,11 +19,11 @@ projects: []
 
 
 
-*Part 2 can be found [here](https://dylanpotteroconnell.github.io/worldcup2/), and a followup discussing the eventual observed World Cup results is found [here](https://dylanpotteroconnell.github.io/bettinggroupstageresults/).*
+*Part 2 can be found [here](/2017/12/10/worldcup-2/), and a followup discussing the eventual observed World Cup results is found [here](/2018/06/01/worldcup-3).*
 
 The FIFA World Cup is the biggest biggest spectacle of the sports and entertainment, world. With tens of billions of dollars bet on its results, it presents a fascinating predictive challenge. Its structure defies that of regular domestic sports leagues, which offer regular and consistent competitive results which we can use to gauge future performance. National teams play each other infrequently, and there are frequently large shifts in roster between each meaningful competition. True World Cup predictions have to go far beyond standard sabermetric models, and have to consider a wide array of input information.
 
-This provides an interesting opportunity to consider the practical limits of an analytical model in such a challenging situation. We consider the efficacy of predicting national team strength using solely the World Cup results of the past 20 years. The core of this short project was originally written in five days as part of a curricular project (knowing little about international football), hence some of the initial restrictions, but it has been expanded since. The original paper goes into some detail [here]({{ site.url }}/images/doconnell_practicalexamreport.pdf), but we highlight some of the points here. This post will describe the setup, challenge, and data setting, and [Part 2](https://dylanpotteroconnell.github.io/worldcup2/) will describe some of the choices made in tuning the model (with Part 3 to come).
+This provides an interesting opportunity to consider the practical limits of an analytical model in such a challenging situation. We consider the efficacy of predicting national team strength using solely the World Cup results of the past 20 years. The core of this short project was originally written in five days as part of a curricular project (knowing little about international football), hence some of the initial restrictions, but it has been expanded since. The original paper goes into some detail [here](/pdfs/doconnell_practicalexamreport.pdf), but we highlight some of the points here. This post will describe the setup, challenge, and data setting, and [Part 2](/2017/12/10/worldcup-2/) will describe some of the choices made in tuning the model (with Part 3 to come).
 
 ### Challenges
 
@@ -140,7 +140,7 @@ Precise analysis of Elo ratings requires assumptions about the dataset that are 
 
 ### The Dataset
 
-We consider World Cup results (group stage, knockout, and qualifying) from 2002-2018, with the data compiled by the [Rec.Sport.Soccer Statistics Foundation](www.rsssf.com). After removing an assortment of matches without results (qualifying matches are occasionally canceled or annuled for various reasons), we are left with 2964 complete match results. The primary data cleaning challenge is creating a complete mapping from these matches, to the national teams involved. Not only does the dataset use a variety of abbreviations for each country, many political borders have shifted during the course of this dataset. Luckily, this largely applies to teams who are not qualified for the 2018 World Cup, but we surely cannot ignore these because our model will be predicated on an accurate assessment of not just the teams directly qualified, but for the teams which they played in order to qualify (to give tehir results context). Thus, there is no solution for this but a laborious manual inspection of this messy situation. Ultimately, we compile a list of 115 mappings (applying to 42 different countries), with certain selections being routine (the different ways a country can be abbreviated), and others being more impactful (when countries split). Details can be found in the [paper]({{ site.url }}/images/doconnell_practicalexamreport.pdf).
+We consider World Cup results (group stage, knockout, and qualifying) from 2002-2018, with the data compiled by the [Rec.Sport.Soccer Statistics Foundation](www.rsssf.com). After removing an assortment of matches without results (qualifying matches are occasionally canceled or annuled for various reasons), we are left with 2964 complete match results. The primary data cleaning challenge is creating a complete mapping from these matches, to the national teams involved. Not only does the dataset use a variety of abbreviations for each country, many political borders have shifted during the course of this dataset. Luckily, this largely applies to teams who are not qualified for the 2018 World Cup, but we surely cannot ignore these because our model will be predicated on an accurate assessment of not just the teams directly qualified, but for the teams which they played in order to qualify (to give tehir results context). Thus, there is no solution for this but a laborious manual inspection of this messy situation. Ultimately, we compile a list of 115 mappings (applying to 42 different countries), with certain selections being routine (the different ways a country can be abbreviated), and others being more impactful (when countries split). Details can be found in the [paper](/pdfs/doconnell_practicalexamreport.pdf).
 
 The most significant choice involves the Serbian national team, which is qualified for the 2018 World Cup. Up through 2006, it competed as the joint Serbia & Montenegro national team, until Montenegro declared independence. As the majority of players stayed on the Serbian national team, we simply count that as a singular unified team, and consider the Montenegro national team to be "newly formed" in 2006. While the dataset is overall sparse (due to the vast number of teams in FIFA), thankfully the 32 teams for the 2018 World Cup are reasonably well represented. The least prolific is Iceland (with 31 matches recorded), but most countries have 40 to 60 that we cn use. 
 
