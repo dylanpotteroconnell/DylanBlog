@@ -1,23 +1,23 @@
 ---
-title: The Perils of Overly Local Optimization
-author: Dylan O'Connell
+title: "The Perils of Overly Local Optimization"
+author: "Dylan O'Connell"
 date: '2020-05-29'
-slug: local-optimization
 categories: []
-tags:
-  - introductory
-  - R
-  - optimization
-subtitle: ''
-summary: ''
-authors: []
-lastmod: '2020-05-29T18:47:28-04:00'
 featured: yes
 image:
   caption: ''
   focal_point: ''
   preview_only: no
+lastmod: '2020-05-29T18:47:28-04:00'
 projects: []
+slug: local-optimization
+subtitle: ''
+summary: ''
+tags:
+- introductory
+- R
+- optimization
+authors: []
 ---
 
 ```{r, include = FALSE, message = FALSE}
@@ -30,7 +30,7 @@ library(gifski)
 # A Clockwork Egg
 <!-- (or "our optimized lives") -->
 
-Every morning, I cook scrambled eggs. After years of repetition, each step in the routine is automatic. If I turn on the burner before I walk to the fridge, the butter will be just starting to bubble when I finish beating the eggs, and I can clean the mixing bowl in the brief pause before they're ready to be stirred. Anyone with a morning commute can relate to this mindless optimization---if you do the same task a thousand times, you stumble on tiny improvements through the trial and error of random variation. Once formed, these habits are unlikely to change, until there's an external shock.
+Every morning, I cook scrambled eggs. After years of repetition, each step in my routine is automatic. If I turn on the burner before I walk to the fridge, the butter will be just starting to bubble when I finish beating the eggs, and I can clean the mixing bowl in the brief pause before they're ready to be stirred. Anyone with a morning commute can relate to this mindless optimization---if you do the same task a thousand times, you stumble on tiny improvements through the trial and error of random variation. Once formed, these habits are unlikely to change, until there's an external shock.
 
 
 <!-- I find great comfort in routine. Years of repetition have refined my morning scrambled eggs into a precise and rehearsed ritual. If I turn on the burner before I walk to the fridge, the butter will be just starting to bubble when I finish beating the eggs, and I can clean the mixing bowl in the brief pause before they're ready to be stirred. I never set out to find the right timing, but if you do the same task a thousand times, you learn from the trial and error of random variation which tiny choices make it go just a little smoother. Anyone with a morning commute can relate to the same familiar, iterative optimization. That is, until some external shock *forces* them to change. <--
