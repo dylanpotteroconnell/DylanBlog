@@ -1,0 +1,39 @@
+---
+title: Life is Underpowered
+author: Dylan O'Connell
+date: '2020-08-16'
+slug: underpowered
+categories: []
+tags: []
+subtitle: ''
+summary: ''
+authors: []
+lastmod: '2020-08-16T21:19:59-04:00'
+featured: no
+image:
+  caption: ''
+  focal_point: ''
+  preview_only: no
+projects: []
+---
+
+
+
+# Examples
+
+
+Free throws: Lebron James 73.4% https://www.basketball-reference.com/players/j/jamesle01.html
+Shaquille O'Neal: 52.7% https://www.basketball-reference.com/players/o/onealsh01.html
+(https://www.stat.ubc.ca/~rollin/stats/ssize/b2.html would need to observe 85 before we were confident).
+
+
+Barry Bonds had an almost impossible 6.5 AB/HR. 
+https://en.wikipedia.org/wiki/At_bats_per_home_run
+
+A typical team would average about 24 AB/HR. https://www.teamrankings.com/mlb/stat/at-bats-per-home-run
+(We would need to observe 109 at bats. It seems most players can expect about [4.5 at bats per game]( https://fantasy.fangraphs.com/buying-generic-plate-appearances-by-lineup-spot/), so we might need 24 games of watching these mystery players to be actually reasonably confident we are watching the most absurd statistical anomaly season ever, rather than just a typical modern hitter.
+<!-- https://jackauty.com/power-calculator-cohens-d/ -->
+
+# Acknowledgements 
+
+This was inspired by Stuart Ritchie's excellent book [Science Fictions](https://www.amazon.com/dp/B07WZ7TRC4). In particular, it contains a reference to Simmons et al.'s [presentation](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2205186)^[Simmons, Joseph P., Leif D. Nelson, and Uri Simonsohn. "Life after p-hacking." Meeting of the society for personality and social psychology, New Orleans, LA. 2013.] presentation, which used relatable examples to provide a heuristic for what sample sizes were typically required for sufficient power.

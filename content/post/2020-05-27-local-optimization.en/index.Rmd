@@ -30,20 +30,24 @@ library(gifski)
 # A Clockwork Egg
 <!-- (or "our optimized lives") -->
 
-I find great comfort in routine. Years of repetition have refined my morning scrambled eggs into a precise and rehearsed ritual. If I turn on the burner before I walk to the fridge, the butter will be just starting to bubble when I finish beating the eggs, and I can clean the mixing bowl in the brief pause before they're ready to be stirred. I never set out to find the right timing, but if you do the same task a thousand times, you learn from the trial and error of random variation which tiny choices make it go just a little smoother. Anyone with a morning commute can relate to the same familiar, iterative optimization. That is, until some external shock *forces* them to change.
+Every morning, I cook scrambled eggs. After years of repetition, each step in the routine is automatic. If I turn on the burner before I walk to the fridge, the butter will be just starting to bubble when I finish beating the eggs, and I can clean the mixing bowl in the brief pause before they're ready to be stirred. Anyone with a morning commute can relate to this mindless optimization---if you do the same task a thousand times, you stumble on tiny improvements through the trial and error of random variation. Once formed, these habits are unlikely to change, until there's an external shock.
+
+
+<!-- I find great comfort in routine. Years of repetition have refined my morning scrambled eggs into a precise and rehearsed ritual. If I turn on the burner before I walk to the fridge, the butter will be just starting to bubble when I finish beating the eggs, and I can clean the mixing bowl in the brief pause before they're ready to be stirred. I never set out to find the right timing, but if you do the same task a thousand times, you learn from the trial and error of random variation which tiny choices make it go just a little smoother. Anyone with a morning commute can relate to the same familiar, iterative optimization. That is, until some external shock *forces* them to change. <--
 
 <!-- # Disruption, and the London Subway Strike -->
-# A Disrupted Subway
+# Forced Experimentation
 
-On [February 4th, 2014](https://www.independent.co.uk/news/uk/home-news/tube-strikes-february-2014-how-they-will-affect-your-journey-and-stress-levels-9099641.html), the workers of the London Tube (the underground subway) went on strike, forcing a number of station closures throughout the city. For three days, some (but not all) commuters were unable to take their usual route to work, and were forced to find alternatives. After the strike, the stations reopened, and life could go back to normal.
+On [February 4th, 2014](https://www.independent.co.uk/news/uk/home-news/tube-strikes-february-2014-how-they-will-affect-your-journey-and-stress-levels-9099641.html), the London Tube workers went on strike, forcing a number of station closures throughout the city. For three days, some commuters were unable to take their usual route to work, and were forced to find alternatives. After the strike, the stations reopened, and life could go back to normal.
 
-Three economists saw the opportunity for a natural experiment: only certain commuters were disrupted by the closure, and using the subway's tracking data, their movements could be compared to the unaffected group. And surprisingly, after the strike ended, life *didn't* quite go back to normal. Instead, some of the disrupted group stuck with their newly discovered routes, and their commuting time decreased as a result.
+Three economists saw the opportunity for a natural experiment---only certain commuters were disrupted by the closure, and using the subway's tracking data, their movements could be compared to the unaffected group. Surprisingly, life *didn't* go back to normal after the strike ended. Instead, some of the disrupted group realized they had stumbled onto a *faster* route during the strike, and they didn't switch back. In fact, researchers even claimed that the time savings from these discoveries were so significant that the strike caused a *net decrease* in time spent commuting, despite the initial disruptions.^[This seems much harder to rigorously prove, but this is meant simiply as an informal framing device.] Even if only a small fraction found new routes, the benefits from their new routine would accrue over years to come, while the initial disruption was brief. 
 
-The station closures forced commuters to break from their finely tuned routines, but a surprising number found themselves dragged unwillingly along a route that turned out to be *faster* than the one they had been taking for years. The researchers even claim that the time savings from these discoveries were so significant that the strike caused a net *decrease* in time spent commuting, despite the initial disruptions.^[This seems much harder to rigorously prove, but this is meant simiply as an informal framing device.] Even if only a small fraction found new routes, the benefits from their new routine would accrue over years to come, while the initial disruption was brief. 
 
-In this blog post, we will explore how this story (and its surprising outcome) can be naturally understood using the field of mathematical optimization. In fact, there are deep parallels between this theoretical framework, and the problems we confront in our daily lives. This proves useful in both directions---the intuition we have built from lived experience helps us learn the mathematical theory, while that mathematical theory can in turn identify the limitations of our intuition. 
+<!-- The station closures forced commuters to break from their finely tuned routines, and a surprising number found themselves dragged unwillingly along a route that turned out to be *faster* than the one they had been taking for years.-->
 
-We will use a trio of real world examples (this subway strike, the quest for the perfect cookie, and the search for the top of a mountain) as a lens through which we can understand the building blocks of optimization. Then, we will explore how the counterintuitive but common inclusion of algorithmic random noise provides insight, not just into these case studies, but into any attempt to improve one's life. 
+This post will explore how this story can be naturally understood through the lens of mathematical optimization. In fact, there are deep parallels between this theoretical framework and the problems we confront in our daily lives. This proves useful in both directions---the intuition we have built from lived experience helps us learn the mathematical theory, while that mathematical theory can in turn identify the limitations of our intuition. 
+
+We will use a trio of real world examples---this subway strike, the quest for the perfect cookie, and the search for the top of a mountain---to illustrate the basic building blocks of optimization. Then, we'll explore the surprisingly rich implications of random noise (like, perhaps, a subway strike) within optimization algorithms.
 
 <!-- helps provide not just insight into these case studies, but broad guidance for how one can optimize their own life.  -->
 
@@ -53,13 +57,11 @@ We will use a trio of real world examples (this subway strike, the quest for the
 <!-- This neat case study provides an opportunity to frame the mathematical challenge of optimization in real world terms, and it gives particular insight into the counterintuitive fact that many optimization algorithms involve random noise. I’ll begin by describing mathematical optimization in intuitive terms, and then I’ll examine how the London Tube Strike provides a real world analogy for this theoretical challenge.2 -->
 
 
-
-
 <!-- This story provides a neat way to frame the mathematical challenge of optimization, and in particular, why so many optimization algorithms involve *random noise*, a choice which might initially seem bizarre. I'll begin by describing mathematical optimization in intuitive terms, and then show how the results of the London Tube Strike provides an analogy to very real mathematical properties. -->
 <!-- ^[I have no personal insight into the rigor of the experiment itself, it's being used just as a framing device here.] -->
 
 # The Framework of "Optimization"
-Math always starts with a definition---so, what is "mathematical optimization"? The [DeepAI website](https://deepai.org/machine-learning-glossary-and-terms/mathematical-optimization) writes the following.
+Math always starts with a definition. The [DeepAI website](https://deepai.org/machine-learning-glossary-and-terms/mathematical-optimization) writes the following.
 
 > Mathematical optimization is the process of maximizing or minimizing an objective function by finding the best available values across a set of inputs.
 
@@ -67,19 +69,19 @@ It's easiest to explain these terms by example.
 
 * For London commuters, their "objective function" might be the duration of the commute,^[Or they could add in other factors, like cost or "pleasantness".] and the "available values across a set of inputs" might be the route they take.
 * If we want to find the highest peak in a mountain range (an example we'll discuss in detail in the next section), the input would the latitude and longitude of a point on the map, and the objective function would be the elevation at that point.
-*  When baking chocolate chip cookies, the possible inputs might be the amount of each ingredient and the order in which they are combined, and the objective function might be the tastiness of the resulting cookie. This isn't quite a joke, and Google once ran a [cookie optimization experiment](https://static.googleusercontent.com/media/research.google.com/en//pubs/archive/46507.pdf) along these lines.^[I've tasted the resulting cookies, not bad for a cafeteria batch.]
+*  When baking chocolate chip cookies, the possible inputs might be the amount of each ingredient and the order in which they are combined, and the objective function might be the tastiness of the resulting cookie. This isn't a joke---Google once ran a [cookie optimization experiment](https://static.googleusercontent.com/media/research.google.com/en//pubs/archive/46507.pdf) along these lines.^[I've tasted the resulting cookies, and they're not bad for a cafeteria batch.]
 
-Optimization is a central challenge in applied mathematics and statistics, but finding solutions can be hard. The vast increase in computational power has broadened our horizons for what optimization challenges are feasible, but many important problems remain out of our reach.
+Optimization is one of the most common tasks in applied mathematics, but finding solutions can be hard. The vast increase in computational power has broadened our horizons for what optimization challenges are feasible, but many important problems remain out of our reach.
 
-In the challenge of optimization, we generally assume that we are able to check the value of the objective function at some chosen input (often called "queries" to the objective function, or perhaps, the "oracle"). For example...
+In an optimization problem, we typically assume that we are able to check the value of the objective function at some chosen input (often called "queries" to the objective function, or perhaps, the "oracle"). For example:
 
-* We can take a certain route on the subway and use our stopwatch record the duration of the trip.
+* We can follow a certain route on the subway and use our stopwatch to record the duration of the trip.
 * We can bake a batch of cookies following a certain recipe, and taste them.
-* We can buy ElevationBot 1.0, a rather simple computer which takes in a pair of latitude and longitude coordinates, and spits out the altitude of that point. (This example is most cleanly understood using such a computer, but to guide our intuition we'll often imagine ourselves walking around the slopes with an altimeter in hand.)
+* We use ElevationBot 1.0, a simple computer which takes in a pair of latitude and longitude coordinates, and spits out the altitude of that point. <!-- (This example is most cleanly understood using such a computer, but to guide our intuition we'll often imagine ourselves walking around the slopes with an altimeter in hand.) -->
 
-Our naive optimization strategy might be to just try a bunch of inputs, and hope that we find a good output. For instance, we define a grid of latitude and longitude coordinates, feed these coordinates into ElevationBot 1.0, and use the highest point we find as our answer. But this naive approach only works when the range of potential inputs is sufficiently narrow. In particular, we need to consider the "dimension" of the input space. The number of points within an exhaustive "grid" of inputs grows exponentially with the dimension of the input. Latitude and longitude represent a mere 2 dimensions, so the number of points in our grid is just the square of the number of points on a side. However, the famous [Jacques Torres cookie recipe](https://cooking.nytimes.com/recipes/1015819-chocolate-chip-cookies) has $12$ ingredients. If we wanted to try all combinations at a mere five different amounts of each ingredient, that would be over two hundred thousand possibilities, which is a bit much for even the hungriest baker. 
+A naive optimization strategy is to simply try a bunch of inputs, and hope that we find a good output. For instance, we define a grid of latitude and longitude coordinates, feed these coordinates into ElevationBot 1.0, and use the that highest point we find as out answer. But this naive approach only works when the range of potential inputs is sufficiently narrow. In particular, we need to consider the "dimension" of the input space. The number of points within an exhaustive "grid" of inputs grows exponentially with the dimension of the input. Latitude and longitude represent a mere 2 dimensions, so the number of points in our grid is just the square of the number of points per side. However, the famous [Jacques Torres cookie recipe](https://cooking.nytimes.com/recipes/1015819-chocolate-chip-cookies) has 12 ingredients. If we wanted to try all combinations at a mere five different amounts of each ingredient, that require over two hundred thousand possibilities (which is a bit much for even a hungry baker).
 
-In our own lives, we constantly confront similar optimization challenges, but we rarely take this naive approach. Instead, we typically to look around us for small *local* optimizations, whose benefits we can easily identify. 
+In our own lives, we often confront similar optimization challenges, but we rarely take this naive approach. Instead, we typically to look around us for small *local* optimizations, whose benefits we can easily identify. 
 
 <!-- * Finding the best route on the subway is something we optimize. While often algorithmic services can do the work for us, in other cases (or the past), we have to figure it out ourselves, and we somehow pick our starting point. -->
 
@@ -89,13 +91,13 @@ In our own lives, we constantly confront similar optimization challenges, but we
 
 # Locality in Optimization
 
-Imagine biting into a warm cookie, fresh out of the oven. The rich buttery center has just the right chew, while the edges are lightly crisp. You taste the faintest hints of toffee, butterscotch, and vanilla, and the sprinkle of sea salt on top adds an extra kick. It's almost perfect, but there's not *quite* enough chocolate.
+Imagine biting into a warm cookie, fresh out of the oven. The rich buttery center has just the right chew, while the edges are lightly crisp. You taste the faintest hints of toffee, butterscotch, and vanilla, and the sprinkle of sea salt on top adds an extra kick. It's almost perfect, but there's not *quite* enough bite from the dark chocolate.
 
 ![](choc_chip_cookies.jpg)
 
 We wouldn't just throw up our hands and start from scratch... we'd just add more chocolate! The average baker can't look at a cookie recipe, and imagine exactly what the result will taste like from afar. But we can *taste* a recipe, and imagine what a small specific tweak would do to the result.
 
-"Locality" in optimization refers to "closeness" in the input space. In latitude and longitude, this would be the "as the crow flies" distance, while in the input space of "cookie ingredients" and "subway commuting choices", the definition is a bit less rigorous, but we can still imagine what constitutes a "small" change. In general, we can estimate the impacts of a *limited single change* to the input, but not multiple big adjustments If we increase the amount of chocolate, we know they'll taste a bit like before, but more chocolate-y. If we increase the amounts of chocolate, butter, baking soda, cut some flour, and tweak the balance between brown and cane sugar, can the average home cook really guess what the result will taste like? 
+"Locality" in optimization refers to "closeness" in the input space. In latitude and longitude, this would be the "as the crow flies" distance, while in the input space of "cookie ingredients" and "subway commuting choices", the definition is a bit less rigorous, but we can still imagine what constitutes a "small" change. In general, we can estimate the impacts of a single small single change to the input, but not multiple big adjustments. If we increase the amount of chocolate, we know they'll taste roughly the same as before, but a bit more chocolate-y. If we increase the amounts of chocolate, butter, and baking soda, cut some flour, and tweak the balance between brown and cane sugar, can the typical home cook really guess what the result will taste like? 
 
 In the London Tube experiment, the researchers lay some of the blame on the "stylized nature" of the Tube map displayed to commuters. Its spatial distortions make it difficult to spot major inefficiencies in their route, without some external push. By comparison, we can usually estimate the impact of these "local" changes by ourselves. If we get off one stop earlier, maybe our walk to work increases by a minute, but we avoid the wait at a crowded station. These slight changes are a bit like tweaking just a single ingredient in a cookie, and we might be able to tell whether or not they are worth trying.
 
@@ -118,7 +120,7 @@ In the London Tube experiment, the researchers lay some of the blame on the "sty
 
 Before, we imagined a challenge where we tried to find a peak of a mountain range, using ElevationBot 1.0, which could tell us the elevation of any point defined by its latitude and longitude. Now, let's imagine that there was an upgrade to ElevationBot 2.0, which *also* tells us the slope of the incline of this point (that is, "which direction slopes downward, and how steep is it", often referred to as the gradient). This better reflects our intuition for local optimization in other settings, but it's also not a terribly difficult task for the ElevationBot, as the diligent machine could always query the elevation at nearby points, and use those to form an estimate of the local slope.
 
-Now, imagine that we were hiking with an altimeter, and we can look around and see the direction of the hillside slope around us. But, our information is strictly "local"---we're stuck in the foggy forests of the Appalachians, not the wide open granite of the Sierra Nevada, so we can't look miles away to spy what peak might be highest. How might we find the highest peak? Well, our intuition is simple: from wherever we are, "go up". This "algorithm" is called "gradient ascent". 
+Now, imagine that we were hiking with an altimeter, and we can look around and see the direction of the hillside slope around us. However, our information is strictly "local"---we're stuck in the foggy forests of the Appalachians, not the wide open granite of the Sierra Nevada, so we can't look miles away to spy what peak might be highest. How might we find the highest peak? Well, our intuition is simple: from wherever we are, we choose to "go up". This "algorithm" is called "gradient ascent". 
 
 # Gradient Ascent
 
@@ -238,7 +240,7 @@ Or, shown in 3D (which is admittedly hard to draw...).
 ```
 
 ![](uni_vis_3d_step2.png)
-We repeat this process until we look around for that direction of steepest ascent, and see that we're at a point which is basically flat. You can watch the whole process in the gif below. We start in the top right, and climb and climb until we reach the top of the mountain, where we stop.^[The above images took huge step sizes for visual clarity, this shows a more realistic sequence.]
+We repeat this process until we look around for that direction of steepest ascent, and see that we're at a point which is basically flat. You can watch the whole process in the gif below. We start in the bottom right, and climb and climb until we reach the top of the mountain, where we stop.^[The above images took huge step sizes for visual clarity, this shows a more realistic sequence.]
 
 ```{r, include = FALSE}
 uni.init <- c(1.8, -1.8)
@@ -324,7 +326,7 @@ g.mix <- tb.grid %>%
   coord_fixed()
 g.mix
 ```
-It's a bit harder to picture, but a 3D visualization might help picture its shape.
+It's a bit harder to picture, but a 3D visualization might help show the shape.
 
 ```{r, include = FALSE}
 # plot_gg(g.mix,
