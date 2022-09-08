@@ -3,261 +3,235 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>/courses/example/example1/</loc>
-    <lastmod>2019-05-05T00:00:00+01:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/courses/example/</loc>
+    <loc>https://dylanpotteroconnell.netlify.app/courses/example/</loc>
     <lastmod>2018-09-09T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/courses/example/example2/</loc>
-    <lastmod>2019-05-05T00:00:00+01:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/</loc>
+    <loc>https://dylanpotteroconnell.netlify.app/</loc>
     <lastmod>2030-06-01T13:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/talk/example/</loc>
+    <loc>https://dylanpotteroconnell.netlify.app/talk/example/</loc>
     <lastmod>2030-06-01T13:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/talk/</loc>
+    <loc>https://dylanpotteroconnell.netlify.app/talk/</loc>
     <lastmod>2030-06-01T13:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/tag/introductory/</loc>
+    <loc>https://dylanpotteroconnell.netlify.app/tag/introductory/</loc>
     <lastmod>2020-05-29T18:47:28-04:00</lastmod>
   </url>
   
   <url>
-    <loc>/tag/optimization/</loc>
+    <loc>https://dylanpotteroconnell.netlify.app/tag/optimization/</loc>
     <lastmod>2020-05-29T18:47:28-04:00</lastmod>
   </url>
   
   <url>
-    <loc>/post/</loc>
+    <loc>https://dylanpotteroconnell.netlify.app/post/</loc>
     <lastmod>2020-05-29T18:47:28-04:00</lastmod>
   </url>
   
   <url>
-    <loc>/tag/r/</loc>
+    <loc>https://dylanpotteroconnell.netlify.app/tag/r/</loc>
     <lastmod>2020-05-29T18:47:28-04:00</lastmod>
   </url>
   
   <url>
-    <loc>/tags/</loc>
+    <loc>https://dylanpotteroconnell.netlify.app/tags/</loc>
     <lastmod>2020-05-29T18:47:28-04:00</lastmod>
   </url>
   
   <url>
-    <loc>/2020/05/29/local-optimization/</loc>
+    <loc>https://dylanpotteroconnell.netlify.app/2020/05/29/local-optimization/</loc>
     <lastmod>2020-05-29T18:47:28-04:00</lastmod>
   </url>
   
   <url>
-    <loc>/tag/bayesian/</loc>
+    <loc>https://dylanpotteroconnell.netlify.app/tag/bayesian/</loc>
     <lastmod>2020-05-28T13:54:36-04:00</lastmod>
   </url>
   
   <url>
-    <loc>/2020/05/28/bsts-boxofice/</loc>
+    <loc>https://dylanpotteroconnell.netlify.app/2020/05/28/bsts-boxofice/</loc>
     <lastmod>2020-05-28T13:54:36-04:00</lastmod>
   </url>
   
   <url>
-    <loc>/other_posts/</loc>
-    <lastmod>2020-05-28T17:45:25-04:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/other_posts/interpreting-probability/</loc>
-    <lastmod>2020-05-28T17:45:25-04:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/courses/</loc>
-    <lastmod>2019-05-05T00:00:00+01:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/publication-type/3/</loc>
+    <loc>https://dylanpotteroconnell.netlify.app/publication-type/3/</loc>
     <lastmod>2019-04-07T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/publication/preprint/</loc>
+    <loc>https://dylanpotteroconnell.netlify.app/publication/preprint/</loc>
     <lastmod>2019-04-07T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/authors/</loc>
+    <loc>https://dylanpotteroconnell.netlify.app/authors/</loc>
     <lastmod>2019-04-07T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/author/dylan-oconnell/</loc>
+    <loc>https://dylanpotteroconnell.netlify.app/author/dylan-oconnell/</loc>
     <lastmod>2019-04-07T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/publication_types/</loc>
+    <loc>https://dylanpotteroconnell.netlify.app/publication_types/</loc>
     <lastmod>2019-04-07T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/publication/</loc>
+    <loc>https://dylanpotteroconnell.netlify.app/publication/</loc>
     <lastmod>2019-04-07T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/tag/source-themes/</loc>
+    <loc>https://dylanpotteroconnell.netlify.app/tag/source-themes/</loc>
     <lastmod>2019-04-07T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/slides/</loc>
+    <loc>https://dylanpotteroconnell.netlify.app/slides/</loc>
     <lastmod>2019-02-05T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/slides/example/</loc>
+    <loc>https://dylanpotteroconnell.netlify.app/slides/example/</loc>
     <lastmod>2019-02-05T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/2018/11/08/parlays-independence/</loc>
+    <loc>https://dylanpotteroconnell.netlify.app/2018/11/08/parlays-independence/</loc>
     <lastmod>2020-05-27T16:09:30-04:00</lastmod>
   </url>
   
   <url>
-    <loc>/tag/betting/</loc>
+    <loc>https://dylanpotteroconnell.netlify.app/tag/betting/</loc>
     <lastmod>2020-05-27T17:07:40-04:00</lastmod>
   </url>
   
   <url>
-    <loc>/2018/07/29/winning-debate/</loc>
+    <loc>https://dylanpotteroconnell.netlify.app/courses/</loc>
+    <lastmod>2018-09-09T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://dylanpotteroconnell.netlify.app/2018/07/29/winning-debate/</loc>
     <lastmod>2020-05-27T16:31:49-04:00</lastmod>
   </url>
   
   <url>
-    <loc>/2018/07/26/scraping-is2/</loc>
+    <loc>https://dylanpotteroconnell.netlify.app/2018/07/26/scraping-is2/</loc>
     <lastmod>2020-05-27T16:25:53-04:00</lastmod>
   </url>
   
   <url>
-    <loc>/tag/web_scraping/</loc>
+    <loc>https://dylanpotteroconnell.netlify.app/tag/web_scraping/</loc>
     <lastmod>2020-05-27T16:25:53-04:00</lastmod>
   </url>
   
   <url>
-    <loc>/privacy/</loc>
-    <lastmod>2018-06-28T00:00:00+01:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/terms/</loc>
-    <lastmod>2018-06-28T00:00:00+01:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/2018/06/01/worldcup-3/</loc>
+    <loc>https://dylanpotteroconnell.netlify.app/2018/06/01/worldcup-3/</loc>
     <lastmod>2018-06-14T16:13:22-04:00</lastmod>
   </url>
   
   <url>
-    <loc>/tag/javascript/</loc>
+    <loc>https://dylanpotteroconnell.netlify.app/tag/javascript/</loc>
     <lastmod>2020-05-27T17:07:40-04:00</lastmod>
   </url>
   
   <url>
-    <loc>/2018/03/01/oddsconverter-part3/</loc>
+    <loc>https://dylanpotteroconnell.netlify.app/2018/03/01/oddsconverter-part3/</loc>
     <lastmod>2020-05-27T17:07:40-04:00</lastmod>
   </url>
   
   <url>
-    <loc>/2018/01/25/oddsconverter-part2/</loc>
+    <loc>https://dylanpotteroconnell.netlify.app/2018/01/25/oddsconverter-part2/</loc>
     <lastmod>2020-05-27T17:06:09-04:00</lastmod>
   </url>
   
   <url>
-    <loc>/2018/01/22/oddsconverter-part1/</loc>
+    <loc>https://dylanpotteroconnell.netlify.app/2018/01/22/oddsconverter-part1/</loc>
     <lastmod>2020-05-27T17:04:30-04:00</lastmod>
   </url>
   
   <url>
-    <loc>/2017/12/10/worldcup-2/</loc>
+    <loc>https://dylanpotteroconnell.netlify.app/2017/12/10/worldcup-2/</loc>
     <lastmod>2018-06-14T16:10:29-04:00</lastmod>
   </url>
   
   <url>
-    <loc>/2017/12/05/worldcup-1/</loc>
+    <loc>https://dylanpotteroconnell.netlify.app/2017/12/05/worldcup-1/</loc>
     <lastmod>2018-06-14T16:08:11-04:00</lastmod>
   </url>
   
   <url>
-    <loc>/tag/deep-learning/</loc>
+    <loc>https://dylanpotteroconnell.netlify.app/tag/deep-learning/</loc>
     <lastmod>2016-04-27T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/tag/demo/</loc>
+    <loc>https://dylanpotteroconnell.netlify.app/tag/demo/</loc>
     <lastmod>2016-04-27T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/project/external-project/</loc>
+    <loc>https://dylanpotteroconnell.netlify.app/project/external-project/</loc>
     <lastmod>2016-04-27T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/project/internal-project/</loc>
+    <loc>https://dylanpotteroconnell.netlify.app/project/internal-project/</loc>
     <lastmod>2016-04-27T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/project/</loc>
+    <loc>https://dylanpotteroconnell.netlify.app/project/</loc>
     <lastmod>2016-04-27T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/publication-type/2/</loc>
+    <loc>https://dylanpotteroconnell.netlify.app/publication-type/2/</loc>
     <lastmod>2015-09-01T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/publication/journal-article/</loc>
+    <loc>https://dylanpotteroconnell.netlify.app/publication/journal-article/</loc>
     <lastmod>2015-09-01T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/author/robert-ford/</loc>
+    <loc>https://dylanpotteroconnell.netlify.app/author/robert-ford/</loc>
     <lastmod>2015-09-01T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/publication-type/1/</loc>
+    <loc>https://dylanpotteroconnell.netlify.app/publication-type/1/</loc>
     <lastmod>2013-07-01T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/publication/conference-paper/</loc>
+    <loc>https://dylanpotteroconnell.netlify.app/publication/conference-paper/</loc>
     <lastmod>2013-07-01T00:00:00+00:00</lastmod>
   </url>
   
   <url>
-    <loc>/categories/</loc>
+    <loc>https://dylanpotteroconnell.netlify.app/categories/</loc>
   </url>
   
   <url>
-    <loc>/author/%E5%90%B3%E6%81%A9%E9%81%94/</loc>
+    <loc>https://dylanpotteroconnell.netlify.app/other_posts/</loc>
+  </url>
+  
+  <url>
+    <loc>https://dylanpotteroconnell.netlify.app/author/%E5%90%B3%E6%81%A9%E9%81%94/</loc>
   </url>
   
 </urlset>

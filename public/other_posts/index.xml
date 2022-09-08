@@ -2,27 +2,15 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Posts | Dylan&#39;s Blog</title>
-    <link>/other_posts/</link>
-      <atom:link href="/other_posts/index.xml" rel="self" type="application/rss+xml" />
+    <link>https://dylanpotteroconnell.netlify.app/other_posts/</link>
+      <atom:link href="https://dylanpotteroconnell.netlify.app/other_posts/index.xml" rel="self" type="application/rss+xml" />
     <description>Posts</description>
-    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Thu, 28 May 2020 00:00:00 +0000</lastBuildDate>
+    <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language>
     <image>
-      <url>/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_512x512_fill_lanczos_center_2.png</url>
+      <url>https://dylanpotteroconnell.netlify.app/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_512x512_fill_lanczos_center_2.png</url>
       <title>Posts</title>
-      <link>/other_posts/</link>
+      <link>https://dylanpotteroconnell.netlify.app/other_posts/</link>
     </image>
-    
-    <item>
-      <title>Summary of the Common Philisophical Interpretations of Probability</title>
-      <link>/other_posts/interpreting-probability/</link>
-      <pubDate>Thu, 28 May 2020 00:00:00 +0000</pubDate>
-      <guid>/other_posts/interpreting-probability/</guid>
-      <description>
-
-
-&lt;p&gt;Common interpretations of probability &lt;span class=&#34;math inline&#34;&gt;\(P= 1\)&lt;/span&gt; or &lt;span class=&#34;math inline&#34;&gt;\(P=0\)&lt;/span&gt; that’s IT.&lt;/p&gt;
-</description>
-    </item>
     
   </channel>
 </rss>

@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>javascript | Dylan&#39;s Blog</title>
-    <link>/tag/javascript/</link>
-      <atom:link href="/tag/javascript/index.xml" rel="self" type="application/rss+xml" />
+    <link>https://dylanpotteroconnell.netlify.app/tag/javascript/</link>
+      <atom:link href="https://dylanpotteroconnell.netlify.app/tag/javascript/index.xml" rel="self" type="application/rss+xml" />
     <description>javascript</description>
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Thu, 01 Mar 2018 00:00:00 +0000</lastBuildDate>
     <image>
-      <url>/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_512x512_fill_lanczos_center_2.png</url>
+      <url>https://dylanpotteroconnell.netlify.app/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_512x512_fill_lanczos_center_2.png</url>
       <title>javascript</title>
-      <link>/tag/javascript/</link>
+      <link>https://dylanpotteroconnell.netlify.app/tag/javascript/</link>
     </image>
     
     <item>
       <title>OddsConverter Part 3: Uploading to the Chrome Store</title>
-      <link>/2018/03/01/oddsconverter-part3/</link>
+      <link>https://dylanpotteroconnell.netlify.app/2018/03/01/oddsconverter-part3/</link>
       <pubDate>Thu, 01 Mar 2018 00:00:00 +0000</pubDate>
-      <guid>/2018/03/01/oddsconverter-part3/</guid>
+      <guid>https://dylanpotteroconnell.netlify.app/2018/03/01/oddsconverter-part3/</guid>
       <description>&lt;p&gt;Brief update to the 
 &lt;a href=&#34;https://dylanpotteroconnell.github.io/bettingextension2/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;past post&lt;/a&gt;. I knew a few people who wanted to try the extension, so I thought it’d be a fun exercise to go through the process of uploading it to the Chrome store. You can view and add the extension to your own browser 
 &lt;a href=&#34;https://chrome.google.com/webstore/detail/odds-converter/klechkhopfnjihobbcfeheooaigjjgdg&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;here&lt;/a&gt;. This is far from a polished state, given that it was meant to be a quick way to explore something new. However, I do find myself using the finished product a surprising amount, so I thought it was worth keeping on the Webstore. And it’s nice to see how easy Google makes it to upload a simple app.&lt;/p&gt;
@@ -25,9 +25,9 @@
     
     <item>
       <title>Odds Converter Part 2: Conversion Webpage</title>
-      <link>/2018/01/25/oddsconverter-part2/</link>
+      <link>https://dylanpotteroconnell.netlify.app/2018/01/25/oddsconverter-part2/</link>
       <pubDate>Thu, 25 Jan 2018 00:00:00 +0000</pubDate>
-      <guid>/2018/01/25/oddsconverter-part2/</guid>
+      <guid>https://dylanpotteroconnell.netlify.app/2018/01/25/oddsconverter-part2/</guid>
       <description>&lt;h2 id=&#34;opening-a-new-page&#34;&gt;Opening a New Page&lt;/h2&gt;
 &lt;p&gt;Our simple extension from 
 &lt;a href=&#34;https://dylanpotteroconnell.github.io/bettingextension/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;last time&lt;/a&gt; works quite well to replace text on a page, but whenever text isn&amp;rsquo;t displayed in a nice format (which is true for many mdoern websites), it won&amp;rsquo;t do much good. The hope is to add functionality to it so that the user can easily and manually input the odds that they need. My vision was to let the user right click, and open up a page that lets them impute the odds to convert in a more detailed format.&lt;/p&gt;
@@ -157,9 +157,9 @@ function IPtoML(IP) {
     
     <item>
       <title>OddsConverter Part 1: Converting Plaintext</title>
-      <link>/2018/01/22/oddsconverter-part1/</link>
+      <link>https://dylanpotteroconnell.netlify.app/2018/01/22/oddsconverter-part1/</link>
       <pubDate>Mon, 22 Jan 2018 00:00:00 +0000</pubDate>
-      <guid>/2018/01/22/oddsconverter-part1/</guid>
+      <guid>https://dylanpotteroconnell.netlify.app/2018/01/22/oddsconverter-part1/</guid>
       <description>&lt;p&gt;The same betting odds are often displayed in disparate ways, depending on the context. In America, normally in terms of a Moneyline, where +200 is shorthand for &amp;ldquo;if you bet \$100, you can win an additional \$200&amp;rdquo;. In other contexts, we generally see the tradition &amp;ldquo;X/Y&amp;rdquo; fractional odds. Both of these have clear mathematical meanings, but for inexperienced bettors, they tend to be poor conveyors of intuitive meaning. We can quickly estimate what &amp;ldquo;+350&amp;rdquo; implies, but for most people, it takes a mental calculation to do so. The most useful intuitive information about betting odds comes from the &amp;ldquo;Implied Probability&amp;rdquo;, which is the probability of the event necessary for you to &amp;ldquo;break even&amp;rdquo; on the bet. Betting sites don&amp;rsquo;t particularly like Implied Probability because it makes the cut they take more obvious (when mutually exclusive and complete events have probabilities that sum up to greater than one), and more intuitively accurate information for bettors can make them realize how daunting it is to actually keep up a positive expected value.&lt;/p&gt;
 &lt;p&gt;As someone without the perfect intuition needed to convert these odds in my head, I got tired of glancing at a table of odds and trying to work out their precise value one by one. I thought it would be nice to have a very simple Google Chrome extension that could do it for me. The initial functionality is simple: click on the icon, and it converts any odds it can find on the page into Implied Probability. Click on it again, and it converts back. The challenge is that I have zero knowledge of JavaScript. Luckily, this task was simple enough that it could be cobbled together in the style of Frankenstein&amp;rsquo;s monster, with some slight modifications.&lt;/p&gt;
 &lt;h2 id=&#34;click-icon-replace-text&#34;&gt;Click Icon, Replace Text&lt;/h2&gt;

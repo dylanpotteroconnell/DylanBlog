@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>web_scraping | Dylan&#39;s Blog</title>
-    <link>/tag/web_scraping/</link>
-      <atom:link href="/tag/web_scraping/index.xml" rel="self" type="application/rss+xml" />
+    <link>https://dylanpotteroconnell.netlify.app/tag/web_scraping/</link>
+      <atom:link href="https://dylanpotteroconnell.netlify.app/tag/web_scraping/index.xml" rel="self" type="application/rss+xml" />
     <description>web_scraping</description>
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Thu, 26 Jul 2018 00:00:00 +0000</lastBuildDate>
     <image>
-      <url>/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_512x512_fill_lanczos_center_2.png</url>
+      <url>https://dylanpotteroconnell.netlify.app/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_512x512_fill_lanczos_center_2.png</url>
       <title>web_scraping</title>
-      <link>/tag/web_scraping/</link>
+      <link>https://dylanpotteroconnell.netlify.app/tag/web_scraping/</link>
     </image>
     
     <item>
       <title>Scraping the &#34;Intelligence Squared&#34; Debate Results</title>
-      <link>/2018/07/26/scraping-is2/</link>
+      <link>https://dylanpotteroconnell.netlify.app/2018/07/26/scraping-is2/</link>
       <pubDate>Thu, 26 Jul 2018 00:00:00 +0000</pubDate>
-      <guid>/2018/07/26/scraping-is2/</guid>
+      <guid>https://dylanpotteroconnell.netlify.app/2018/07/26/scraping-is2/</guid>
       <description>&lt;p&gt;This is a brief companion to the 
 &lt;a href=&#34;https://dylanpotteroconnell.github.io/debatefinalsummary/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;post&lt;/a&gt; analyzing the methods of assigning a winner to a debate, using the Intelligence Squared dataset. I will briefly outline here how I assemble that dataset, for trasparency.&lt;/p&gt;
 &lt;h3 id=&#34;compiling-the-pages&#34;&gt;Compiling the Pages&lt;/h3&gt;

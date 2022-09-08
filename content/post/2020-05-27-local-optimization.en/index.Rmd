@@ -1,16 +1,18 @@
 ---
 title: "The Perils of Overly Local Optimization"
 author: "Dylan O'Connell"
-date: '2020-05-29'
-categories: []
+date: "2020-05-29"
+output:
+  html_document:
+    df_print: paged
 featured: yes
 image:
   caption: ''
   focal_point: ''
   preview_only: no
-lastmod: '2020-05-29T18:47:28-04:00'
+lastmod: "2020-05-29T18:47:28-04:00"
 projects: []
-slug: local-optimization
+slug: "local-optimization"
 subtitle: ''
 summary: ''
 tags:
@@ -18,6 +20,7 @@ tags:
 - R
 - optimization
 authors: []
+categories: []
 ---
 
 ```{r, include = FALSE, message = FALSE}

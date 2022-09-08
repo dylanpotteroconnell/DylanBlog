@@ -2,63 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Dylan&#39;s Blog</title>
-    <link>/</link>
-      <atom:link href="/index.xml" rel="self" type="application/rss+xml" />
+    <link>https://dylanpotteroconnell.netlify.app/</link>
+      <atom:link href="https://dylanpotteroconnell.netlify.app/index.xml" rel="self" type="application/rss+xml" />
     <description>Dylan&#39;s Blog</description>
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><lastBuildDate>Sat, 01 Jun 2030 13:00:00 +0000</lastBuildDate>
     <image>
-      <url>/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_512x512_fill_lanczos_center_2.png</url>
+      <url>https://dylanpotteroconnell.netlify.app/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_512x512_fill_lanczos_center_2.png</url>
       <title>Dylan&#39;s Blog</title>
-      <link>/</link>
+      <link>https://dylanpotteroconnell.netlify.app/</link>
     </image>
     
     <item>
-      <title>Example Page 1</title>
-      <link>/courses/example/example1/</link>
-      <pubDate>Sun, 05 May 2019 00:00:00 +0100</pubDate>
-      <guid>/courses/example/example1/</guid>
-      <description>&lt;p&gt;In this tutorial, I&amp;rsquo;ll share my top 10 tips for getting started with Academic:&lt;/p&gt;
-&lt;h2 id=&#34;tip-1&#34;&gt;Tip 1&lt;/h2&gt;
-&lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis posuere tellus ac convallis placerat. Proin tincidunt magna sed ex sollicitudin condimentum. Sed ac faucibus dolor, scelerisque sollicitudin nisi. Cras purus urna, suscipit quis sapien eu, pulvinar tempor diam. Quisque risus orci, mollis id ante sit amet, gravida egestas nisl. Sed ac tempus magna. Proin in dui enim. Donec condimentum, sem id dapibus fringilla, tellus enim condimentum arcu, nec volutpat est felis vel metus. Vestibulum sit amet erat at nulla eleifend gravida.&lt;/p&gt;
-&lt;p&gt;Nullam vel molestie justo. Curabitur vitae efficitur leo. In hac habitasse platea dictumst. Sed pulvinar mauris dui, eget varius purus congue ac. Nulla euismod, lorem vel elementum dapibus, nunc justo porta mi, sed tempus est est vel tellus. Nam et enim eleifend, laoreet sem sit amet, elementum sem. Morbi ut leo congue, maximus velit ut, finibus arcu. In et libero cursus, rutrum risus non, molestie leo. Nullam congue quam et volutpat malesuada. Sed risus tortor, pulvinar et dictum nec, sodales non mi. Phasellus lacinia commodo laoreet. Nam mollis, erat in feugiat consectetur, purus eros egestas tellus, in auctor urna odio at nibh. Mauris imperdiet nisi ac magna convallis, at rhoncus ligula cursus.&lt;/p&gt;
-&lt;p&gt;Cras aliquam rhoncus ipsum, in hendrerit nunc mattis vitae. Duis vitae efficitur metus, ac tempus leo. Cras nec fringilla lacus. Quisque sit amet risus at ipsum pharetra commodo. Sed aliquam mauris at consequat eleifend. Praesent porta, augue sed viverra bibendum, neque ante euismod ante, in vehicula justo lorem ac eros. Suspendisse augue libero, venenatis eget tincidunt ut, malesuada at lorem. Donec vitae bibendum arcu. Aenean maximus nulla non pretium iaculis. Quisque imperdiet, nulla in pulvinar aliquet, velit quam ultrices quam, sit amet fringilla leo sem vel nunc. Mauris in lacinia lacus.&lt;/p&gt;
-&lt;p&gt;Suspendisse a tincidunt lacus. Curabitur at urna sagittis, dictum ante sit amet, euismod magna. Sed rutrum massa id tortor commodo, vitae elementum turpis tempus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean purus turpis, venenatis a ullamcorper nec, tincidunt et massa. Integer posuere quam rutrum arcu vehicula imperdiet. Mauris ullamcorper quam vitae purus congue, quis euismod magna eleifend. Vestibulum semper vel augue eget tincidunt. Fusce eget justo sodales, dapibus odio eu, ultrices lorem. Duis condimentum lorem id eros commodo, in facilisis mauris scelerisque. Morbi sed auctor leo. Nullam volutpat a lacus quis pharetra. Nulla congue rutrum magna a ornare.&lt;/p&gt;
-&lt;p&gt;Aliquam in turpis accumsan, malesuada nibh ut, hendrerit justo. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Quisque sed erat nec justo posuere suscipit. Donec ut efficitur arcu, in malesuada neque. Nunc dignissim nisl massa, id vulputate nunc pretium nec. Quisque eget urna in risus suscipit ultricies. Pellentesque odio odio, tincidunt in eleifend sed, posuere a diam. Nam gravida nisl convallis semper elementum. Morbi vitae felis faucibus, vulputate orci placerat, aliquet nisi. Aliquam erat volutpat. Maecenas sagittis pulvinar purus, sed porta quam laoreet at.&lt;/p&gt;
-&lt;h2 id=&#34;tip-2&#34;&gt;Tip 2&lt;/h2&gt;
-&lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis posuere tellus ac convallis placerat. Proin tincidunt magna sed ex sollicitudin condimentum. Sed ac faucibus dolor, scelerisque sollicitudin nisi. Cras purus urna, suscipit quis sapien eu, pulvinar tempor diam. Quisque risus orci, mollis id ante sit amet, gravida egestas nisl. Sed ac tempus magna. Proin in dui enim. Donec condimentum, sem id dapibus fringilla, tellus enim condimentum arcu, nec volutpat est felis vel metus. Vestibulum sit amet erat at nulla eleifend gravida.&lt;/p&gt;
-&lt;p&gt;Nullam vel molestie justo. Curabitur vitae efficitur leo. In hac habitasse platea dictumst. Sed pulvinar mauris dui, eget varius purus congue ac. Nulla euismod, lorem vel elementum dapibus, nunc justo porta mi, sed tempus est est vel tellus. Nam et enim eleifend, laoreet sem sit amet, elementum sem. Morbi ut leo congue, maximus velit ut, finibus arcu. In et libero cursus, rutrum risus non, molestie leo. Nullam congue quam et volutpat malesuada. Sed risus tortor, pulvinar et dictum nec, sodales non mi. Phasellus lacinia commodo laoreet. Nam mollis, erat in feugiat consectetur, purus eros egestas tellus, in auctor urna odio at nibh. Mauris imperdiet nisi ac magna convallis, at rhoncus ligula cursus.&lt;/p&gt;
-&lt;p&gt;Cras aliquam rhoncus ipsum, in hendrerit nunc mattis vitae. Duis vitae efficitur metus, ac tempus leo. Cras nec fringilla lacus. Quisque sit amet risus at ipsum pharetra commodo. Sed aliquam mauris at consequat eleifend. Praesent porta, augue sed viverra bibendum, neque ante euismod ante, in vehicula justo lorem ac eros. Suspendisse augue libero, venenatis eget tincidunt ut, malesuada at lorem. Donec vitae bibendum arcu. Aenean maximus nulla non pretium iaculis. Quisque imperdiet, nulla in pulvinar aliquet, velit quam ultrices quam, sit amet fringilla leo sem vel nunc. Mauris in lacinia lacus.&lt;/p&gt;
-&lt;p&gt;Suspendisse a tincidunt lacus. Curabitur at urna sagittis, dictum ante sit amet, euismod magna. Sed rutrum massa id tortor commodo, vitae elementum turpis tempus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean purus turpis, venenatis a ullamcorper nec, tincidunt et massa. Integer posuere quam rutrum arcu vehicula imperdiet. Mauris ullamcorper quam vitae purus congue, quis euismod magna eleifend. Vestibulum semper vel augue eget tincidunt. Fusce eget justo sodales, dapibus odio eu, ultrices lorem. Duis condimentum lorem id eros commodo, in facilisis mauris scelerisque. Morbi sed auctor leo. Nullam volutpat a lacus quis pharetra. Nulla congue rutrum magna a ornare.&lt;/p&gt;
-&lt;p&gt;Aliquam in turpis accumsan, malesuada nibh ut, hendrerit justo. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Quisque sed erat nec justo posuere suscipit. Donec ut efficitur arcu, in malesuada neque. Nunc dignissim nisl massa, id vulputate nunc pretium nec. Quisque eget urna in risus suscipit ultricies. Pellentesque odio odio, tincidunt in eleifend sed, posuere a diam. Nam gravida nisl convallis semper elementum. Morbi vitae felis faucibus, vulputate orci placerat, aliquet nisi. Aliquam erat volutpat. Maecenas sagittis pulvinar purus, sed porta quam laoreet at.&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Example Page 2</title>
-      <link>/courses/example/example2/</link>
-      <pubDate>Sun, 05 May 2019 00:00:00 +0100</pubDate>
-      <guid>/courses/example/example2/</guid>
-      <description>&lt;p&gt;Here are some more tips for getting started with Academic:&lt;/p&gt;
-&lt;h2 id=&#34;tip-3&#34;&gt;Tip 3&lt;/h2&gt;
-&lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis posuere tellus ac convallis placerat. Proin tincidunt magna sed ex sollicitudin condimentum. Sed ac faucibus dolor, scelerisque sollicitudin nisi. Cras purus urna, suscipit quis sapien eu, pulvinar tempor diam. Quisque risus orci, mollis id ante sit amet, gravida egestas nisl. Sed ac tempus magna. Proin in dui enim. Donec condimentum, sem id dapibus fringilla, tellus enim condimentum arcu, nec volutpat est felis vel metus. Vestibulum sit amet erat at nulla eleifend gravida.&lt;/p&gt;
-&lt;p&gt;Nullam vel molestie justo. Curabitur vitae efficitur leo. In hac habitasse platea dictumst. Sed pulvinar mauris dui, eget varius purus congue ac. Nulla euismod, lorem vel elementum dapibus, nunc justo porta mi, sed tempus est est vel tellus. Nam et enim eleifend, laoreet sem sit amet, elementum sem. Morbi ut leo congue, maximus velit ut, finibus arcu. In et libero cursus, rutrum risus non, molestie leo. Nullam congue quam et volutpat malesuada. Sed risus tortor, pulvinar et dictum nec, sodales non mi. Phasellus lacinia commodo laoreet. Nam mollis, erat in feugiat consectetur, purus eros egestas tellus, in auctor urna odio at nibh. Mauris imperdiet nisi ac magna convallis, at rhoncus ligula cursus.&lt;/p&gt;
-&lt;p&gt;Cras aliquam rhoncus ipsum, in hendrerit nunc mattis vitae. Duis vitae efficitur metus, ac tempus leo. Cras nec fringilla lacus. Quisque sit amet risus at ipsum pharetra commodo. Sed aliquam mauris at consequat eleifend. Praesent porta, augue sed viverra bibendum, neque ante euismod ante, in vehicula justo lorem ac eros. Suspendisse augue libero, venenatis eget tincidunt ut, malesuada at lorem. Donec vitae bibendum arcu. Aenean maximus nulla non pretium iaculis. Quisque imperdiet, nulla in pulvinar aliquet, velit quam ultrices quam, sit amet fringilla leo sem vel nunc. Mauris in lacinia lacus.&lt;/p&gt;
-&lt;p&gt;Suspendisse a tincidunt lacus. Curabitur at urna sagittis, dictum ante sit amet, euismod magna. Sed rutrum massa id tortor commodo, vitae elementum turpis tempus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean purus turpis, venenatis a ullamcorper nec, tincidunt et massa. Integer posuere quam rutrum arcu vehicula imperdiet. Mauris ullamcorper quam vitae purus congue, quis euismod magna eleifend. Vestibulum semper vel augue eget tincidunt. Fusce eget justo sodales, dapibus odio eu, ultrices lorem. Duis condimentum lorem id eros commodo, in facilisis mauris scelerisque. Morbi sed auctor leo. Nullam volutpat a lacus quis pharetra. Nulla congue rutrum magna a ornare.&lt;/p&gt;
-&lt;p&gt;Aliquam in turpis accumsan, malesuada nibh ut, hendrerit justo. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Quisque sed erat nec justo posuere suscipit. Donec ut efficitur arcu, in malesuada neque. Nunc dignissim nisl massa, id vulputate nunc pretium nec. Quisque eget urna in risus suscipit ultricies. Pellentesque odio odio, tincidunt in eleifend sed, posuere a diam. Nam gravida nisl convallis semper elementum. Morbi vitae felis faucibus, vulputate orci placerat, aliquet nisi. Aliquam erat volutpat. Maecenas sagittis pulvinar purus, sed porta quam laoreet at.&lt;/p&gt;
-&lt;h2 id=&#34;tip-4&#34;&gt;Tip 4&lt;/h2&gt;
-&lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis posuere tellus ac convallis placerat. Proin tincidunt magna sed ex sollicitudin condimentum. Sed ac faucibus dolor, scelerisque sollicitudin nisi. Cras purus urna, suscipit quis sapien eu, pulvinar tempor diam. Quisque risus orci, mollis id ante sit amet, gravida egestas nisl. Sed ac tempus magna. Proin in dui enim. Donec condimentum, sem id dapibus fringilla, tellus enim condimentum arcu, nec volutpat est felis vel metus. Vestibulum sit amet erat at nulla eleifend gravida.&lt;/p&gt;
-&lt;p&gt;Nullam vel molestie justo. Curabitur vitae efficitur leo. In hac habitasse platea dictumst. Sed pulvinar mauris dui, eget varius purus congue ac. Nulla euismod, lorem vel elementum dapibus, nunc justo porta mi, sed tempus est est vel tellus. Nam et enim eleifend, laoreet sem sit amet, elementum sem. Morbi ut leo congue, maximus velit ut, finibus arcu. In et libero cursus, rutrum risus non, molestie leo. Nullam congue quam et volutpat malesuada. Sed risus tortor, pulvinar et dictum nec, sodales non mi. Phasellus lacinia commodo laoreet. Nam mollis, erat in feugiat consectetur, purus eros egestas tellus, in auctor urna odio at nibh. Mauris imperdiet nisi ac magna convallis, at rhoncus ligula cursus.&lt;/p&gt;
-&lt;p&gt;Cras aliquam rhoncus ipsum, in hendrerit nunc mattis vitae. Duis vitae efficitur metus, ac tempus leo. Cras nec fringilla lacus. Quisque sit amet risus at ipsum pharetra commodo. Sed aliquam mauris at consequat eleifend. Praesent porta, augue sed viverra bibendum, neque ante euismod ante, in vehicula justo lorem ac eros. Suspendisse augue libero, venenatis eget tincidunt ut, malesuada at lorem. Donec vitae bibendum arcu. Aenean maximus nulla non pretium iaculis. Quisque imperdiet, nulla in pulvinar aliquet, velit quam ultrices quam, sit amet fringilla leo sem vel nunc. Mauris in lacinia lacus.&lt;/p&gt;
-&lt;p&gt;Suspendisse a tincidunt lacus. Curabitur at urna sagittis, dictum ante sit amet, euismod magna. Sed rutrum massa id tortor commodo, vitae elementum turpis tempus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean purus turpis, venenatis a ullamcorper nec, tincidunt et massa. Integer posuere quam rutrum arcu vehicula imperdiet. Mauris ullamcorper quam vitae purus congue, quis euismod magna eleifend. Vestibulum semper vel augue eget tincidunt. Fusce eget justo sodales, dapibus odio eu, ultrices lorem. Duis condimentum lorem id eros commodo, in facilisis mauris scelerisque. Morbi sed auctor leo. Nullam volutpat a lacus quis pharetra. Nulla congue rutrum magna a ornare.&lt;/p&gt;
-&lt;p&gt;Aliquam in turpis accumsan, malesuada nibh ut, hendrerit justo. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Quisque sed erat nec justo posuere suscipit. Donec ut efficitur arcu, in malesuada neque. Nunc dignissim nisl massa, id vulputate nunc pretium nec. Quisque eget urna in risus suscipit ultricies. Pellentesque odio odio, tincidunt in eleifend sed, posuere a diam. Nam gravida nisl convallis semper elementum. Morbi vitae felis faucibus, vulputate orci placerat, aliquet nisi. Aliquam erat volutpat. Maecenas sagittis pulvinar purus, sed porta quam laoreet at.&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
       <title>Example Talk</title>
-      <link>/talk/example/</link>
+      <link>https://dylanpotteroconnell.netlify.app/talk/example/</link>
       <pubDate>Sat, 01 Jun 2030 13:00:00 +0000</pubDate>
-      <guid>/talk/example/</guid>
+      <guid>https://dylanpotteroconnell.netlify.app/talk/example/</guid>
       <description>&lt;div class=&#34;alert alert-note&#34;&gt;
   &lt;div&gt;
     Click on the &lt;strong&gt;Slides&lt;/strong&gt; button above to view the built-in slides feature.
@@ -78,25 +36,27 @@
     
     <item>
       <title>The Perils of Overly Local Optimization</title>
-      <link>/2020/05/29/local-optimization/</link>
+      <link>https://dylanpotteroconnell.netlify.app/2020/05/29/local-optimization/</link>
       <pubDate>Fri, 29 May 2020 00:00:00 +0000</pubDate>
-      <guid>/2020/05/29/local-optimization/</guid>
+      <guid>https://dylanpotteroconnell.netlify.app/2020/05/29/local-optimization/</guid>
       <description>
 
 
 &lt;div id=&#34;a-clockwork-egg&#34; class=&#34;section level1&#34;&gt;
 &lt;h1&gt;A Clockwork Egg&lt;/h1&gt;
 &lt;!-- (or &#34;our optimized lives&#34;) --&gt;
-&lt;p&gt;I find great comfort in routine. Years of repetition have refined my morning scrambled eggs into a precise and rehearsed ritual. If I turn on the burner before I walk to the fridge, the butter will be just starting to bubble when I finish beating the eggs, and I can clean the mixing bowl in the brief pause before they’re ready to be stirred. I never set out to find the right timing, but if you do the same task a thousand times, you learn from the trial and error of random variation which tiny choices make it go just a little smoother. Anyone with a morning commute can relate to the same familiar, iterative optimization. That is, until some external shock &lt;em&gt;forces&lt;/em&gt; them to change.&lt;/p&gt;
+&lt;p&gt;Every morning, I cook scrambled eggs. After years of repetition, each step in my routine is automatic. If I turn on the burner before I walk to the fridge, the butter will be just starting to bubble when I finish beating the eggs, and I can clean the mixing bowl in the brief pause before they’re ready to be stirred. Anyone with a morning commute can relate to this mindless optimization—if you do the same task a thousand times, you stumble on tiny improvements through the trial and error of random variation. Once formed, these habits are unlikely to change, until there’s an external shock.&lt;/p&gt;
+&lt;!-- I find great comfort in routine. Years of repetition have refined my morning scrambled eggs into a precise and rehearsed ritual. If I turn on the burner before I walk to the fridge, the butter will be just starting to bubble when I finish beating the eggs, and I can clean the mixing bowl in the brief pause before they&#39;re ready to be stirred. I never set out to find the right timing, but if you do the same task a thousand times, you learn from the trial and error of random variation which tiny choices make it go just a little smoother. Anyone with a morning commute can relate to the same familiar, iterative optimization. That is, until some external shock *forces* them to change. &lt;--
+
 &lt;!-- # Disruption, and the London Subway Strike --&gt;
 &lt;/div&gt;
-&lt;div id=&#34;a-disrupted-subway&#34; class=&#34;section level1&#34;&gt;
-&lt;h1&gt;A Disrupted Subway&lt;/h1&gt;
-&lt;p&gt;On &lt;a href=&#34;https://www.independent.co.uk/news/uk/home-news/tube-strikes-february-2014-how-they-will-affect-your-journey-and-stress-levels-9099641.html&#34;&gt;February 4th, 2014&lt;/a&gt;, the workers of the London Tube (the underground subway) went on strike, forcing a number of station closures throughout the city. For three days, some (but not all) commuters were unable to take their usual route to work, and were forced to find alternatives. After the strike, the stations reopened, and life could go back to normal.&lt;/p&gt;
-&lt;p&gt;Three economists saw the opportunity for a natural experiment: only certain commuters were disrupted by the closure, and using the subway’s tracking data, their movements could be compared to the unaffected group. And surprisingly, after the strike ended, life &lt;em&gt;didn’t&lt;/em&gt; quite go back to normal. Instead, some of the disrupted group stuck with their newly discovered routes, and their commuting time decreased as a result.&lt;/p&gt;
-&lt;p&gt;The station closures forced commuters to break from their finely tuned routines, but a surprising number found themselves dragged unwillingly along a route that turned out to be &lt;em&gt;faster&lt;/em&gt; than the one they had been taking for years. The researchers even claim that the time savings from these discoveries were so significant that the strike caused a net &lt;em&gt;decrease&lt;/em&gt; in time spent commuting, despite the initial disruptions.&lt;a href=&#34;#fn1&#34; class=&#34;footnote-ref&#34; id=&#34;fnref1&#34;&gt;&lt;sup&gt;1&lt;/sup&gt;&lt;/a&gt; Even if only a small fraction found new routes, the benefits from their new routine would accrue over years to come, while the initial disruption was brief.&lt;/p&gt;
-&lt;p&gt;In this blog post, we will explore how this story (and its surprising outcome) can be naturally understood using the field of mathematical optimization. In fact, there are deep parallels between this theoretical framework, and the problems we confront in our daily lives. This proves useful in both directions—the intuition we have built from lived experience helps us learn the mathematical theory, while that mathematical theory can in turn identify the limitations of our intuition.&lt;/p&gt;
-&lt;p&gt;We will use a trio of real world examples (this subway strike, the quest for the perfect cookie, and the search for the top of a mountain) as a lens through which we can understand the building blocks of optimization. Then, we will explore how the counterintuitive but common inclusion of algorithmic random noise provides insight, not just into these case studies, but into any attempt to improve one’s life.&lt;/p&gt;
+&lt;div id=&#34;forced-experimentation&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Forced Experimentation&lt;/h1&gt;
+&lt;p&gt;On &lt;a href=&#34;https://www.independent.co.uk/news/uk/home-news/tube-strikes-february-2014-how-they-will-affect-your-journey-and-stress-levels-9099641.html&#34;&gt;February 4th, 2014&lt;/a&gt;, the London Tube workers went on strike, forcing a number of station closures throughout the city. For three days, some commuters were unable to take their usual route to work, and were forced to find alternatives. After the strike, the stations reopened, and life could go back to normal.&lt;/p&gt;
+&lt;p&gt;Three economists saw the opportunity for a natural experiment—only certain commuters were disrupted by the closure, and using the subway’s tracking data, their movements could be compared to the unaffected group. Surprisingly, life &lt;em&gt;didn’t&lt;/em&gt; go back to normal after the strike ended. Instead, some of the disrupted group realized they had stumbled onto a &lt;em&gt;faster&lt;/em&gt; route during the strike, and they didn’t switch back. In fact, researchers even claimed that the time savings from these discoveries were so significant that the strike caused a &lt;em&gt;net decrease&lt;/em&gt; in time spent commuting, despite the initial disruptions.&lt;a href=&#34;#fn1&#34; class=&#34;footnote-ref&#34; id=&#34;fnref1&#34;&gt;&lt;sup&gt;1&lt;/sup&gt;&lt;/a&gt; Even if only a small fraction found new routes, the benefits from their new routine would accrue over years to come, while the initial disruption was brief.&lt;/p&gt;
+&lt;!-- The station closures forced commuters to break from their finely tuned routines, and a surprising number found themselves dragged unwillingly along a route that turned out to be *faster* than the one they had been taking for years.--&gt;
+&lt;p&gt;This post will explore how this story can be naturally understood through the lens of mathematical optimization. In fact, there are deep parallels between this theoretical framework and the problems we confront in our daily lives. This proves useful in both directions—the intuition we have built from lived experience helps us learn the mathematical theory, while that mathematical theory can in turn identify the limitations of our intuition.&lt;/p&gt;
+&lt;p&gt;We will use a trio of real world examples—this subway strike, the quest for the perfect cookie, and the search for the top of a mountain—to illustrate the basic building blocks of optimization. Then, we’ll explore the surprisingly rich implications of random noise (like, perhaps, a subway strike) within optimization algorithms.&lt;/p&gt;
 &lt;!-- helps provide not just insight into these case studies, but broad guidance for how one can optimize their own life.  --&gt;
 &lt;!-- This neat case study provides an opportunity to frame the mathematical challenge of optimization in real world terms, and it gives particular insight into the counterintuitive fact that many optimization algorithms involve *random noise*. I&#39;ll begin by describing mathematical optimization in intuitive terms, and then I&#39;ll examine how the London Tube Strike provides a real world analogy for this theoretical challenge.^[A rare, and extremely tenuous connection between areas of my research, and reality.]  --&gt;
 &lt;!-- This neat case study provides an opportunity to frame the mathematical challenge of optimization in real world terms, and it gives particular insight into the counterintuitive fact that many optimization algorithms involve random noise. I’ll begin by describing mathematical optimization in intuitive terms, and then I’ll examine how the London Tube Strike provides a real world analogy for this theoretical challenge.2 --&gt;
@@ -105,7 +65,7 @@
 &lt;/div&gt;
 &lt;div id=&#34;the-framework-of-optimization&#34; class=&#34;section level1&#34;&gt;
 &lt;h1&gt;The Framework of “Optimization”&lt;/h1&gt;
-&lt;p&gt;Math always starts with a definition—so, what is “mathematical optimization”? The &lt;a href=&#34;https://deepai.org/machine-learning-glossary-and-terms/mathematical-optimization&#34;&gt;DeepAI website&lt;/a&gt; writes the following.&lt;/p&gt;
+&lt;p&gt;Math always starts with a definition. The &lt;a href=&#34;https://deepai.org/machine-learning-glossary-and-terms/mathematical-optimization&#34;&gt;DeepAI website&lt;/a&gt; writes the following.&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;Mathematical optimization is the process of maximizing or minimizing an objective function by finding the best available values across a set of inputs.&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -113,27 +73,27 @@
 &lt;ul&gt;
 &lt;li&gt;For London commuters, their “objective function” might be the duration of the commute,&lt;a href=&#34;#fn2&#34; class=&#34;footnote-ref&#34; id=&#34;fnref2&#34;&gt;&lt;sup&gt;2&lt;/sup&gt;&lt;/a&gt; and the “available values across a set of inputs” might be the route they take.&lt;/li&gt;
 &lt;li&gt;If we want to find the highest peak in a mountain range (an example we’ll discuss in detail in the next section), the input would the latitude and longitude of a point on the map, and the objective function would be the elevation at that point.&lt;/li&gt;
-&lt;li&gt;When baking chocolate chip cookies, the possible inputs might be the amount of each ingredient and the order in which they are combined, and the objective function might be the tastiness of the resulting cookie. This isn’t quite a joke, and Google once ran a &lt;a href=&#34;https://static.googleusercontent.com/media/research.google.com/en//pubs/archive/46507.pdf&#34;&gt;cookie optimization experiment&lt;/a&gt; along these lines.&lt;a href=&#34;#fn3&#34; class=&#34;footnote-ref&#34; id=&#34;fnref3&#34;&gt;&lt;sup&gt;3&lt;/sup&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;When baking chocolate chip cookies, the possible inputs might be the amount of each ingredient and the order in which they are combined, and the objective function might be the tastiness of the resulting cookie. This isn’t a joke—Google once ran a &lt;a href=&#34;https://static.googleusercontent.com/media/research.google.com/en//pubs/archive/46507.pdf&#34;&gt;cookie optimization experiment&lt;/a&gt; along these lines.&lt;a href=&#34;#fn3&#34; class=&#34;footnote-ref&#34; id=&#34;fnref3&#34;&gt;&lt;sup&gt;3&lt;/sup&gt;&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;Optimization is a central challenge in applied mathematics and statistics, but finding solutions can be hard. The vast increase in computational power has broadened our horizons for what optimization challenges are feasible, but many important problems remain out of our reach.&lt;/p&gt;
-&lt;p&gt;In the challenge of optimization, we generally assume that we are able to check the value of the objective function at some chosen input (often called “queries” to the objective function, or perhaps, the “oracle”). For example…&lt;/p&gt;
+&lt;p&gt;Optimization is one of the most common tasks in applied mathematics, but finding solutions can be hard. The vast increase in computational power has broadened our horizons for what optimization challenges are feasible, but many important problems remain out of our reach.&lt;/p&gt;
+&lt;p&gt;In an optimization problem, we typically assume that we are able to check the value of the objective function at some chosen input (often called “queries” to the objective function, or perhaps, the “oracle”). For example:&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;We can take a certain route on the subway and use our stopwatch record the duration of the trip.&lt;/li&gt;
+&lt;li&gt;We can follow a certain route on the subway and use our stopwatch to record the duration of the trip.&lt;/li&gt;
 &lt;li&gt;We can bake a batch of cookies following a certain recipe, and taste them.&lt;/li&gt;
-&lt;li&gt;We can buy ElevationBot 1.0, a rather simple computer which takes in a pair of latitude and longitude coordinates, and spits out the altitude of that point. (This example is most cleanly understood using such a computer, but to guide our intuition we’ll often imagine ourselves walking around the slopes with an altimeter in hand.)&lt;/li&gt;
+&lt;li&gt;We use ElevationBot 1.0, a simple computer which takes in a pair of latitude and longitude coordinates, and spits out the altitude of that point. &lt;!-- (This example is most cleanly understood using such a computer, but to guide our intuition we&#39;ll often imagine ourselves walking around the slopes with an altimeter in hand.) --&gt;&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;Our naive optimization strategy might be to just try a bunch of inputs, and hope that we find a good output. For instance, we define a grid of latitude and longitude coordinates, feed these coordinates into ElevationBot 1.0, and use the highest point we find as our answer. But this naive approach only works when the range of potential inputs is sufficiently narrow. In particular, we need to consider the “dimension” of the input space. The number of points within an exhaustive “grid” of inputs grows exponentially with the dimension of the input. Latitude and longitude represent a mere 2 dimensions, so the number of points in our grid is just the square of the number of points on a side. However, the famous &lt;a href=&#34;https://cooking.nytimes.com/recipes/1015819-chocolate-chip-cookies&#34;&gt;Jacques Torres cookie recipe&lt;/a&gt; has &lt;span class=&#34;math inline&#34;&gt;\(12\)&lt;/span&gt; ingredients. If we wanted to try all combinations at a mere five different amounts of each ingredient, that would be over two hundred thousand possibilities, which is a bit much for even the hungriest baker.&lt;/p&gt;
-&lt;p&gt;In our own lives, we constantly confront similar optimization challenges, but we rarely take this naive approach. Instead, we typically to look around us for small &lt;em&gt;local&lt;/em&gt; optimizations, whose benefits we can easily identify.&lt;/p&gt;
+&lt;p&gt;A naive optimization strategy is to simply try a bunch of inputs, and hope that we find a good output. For instance, we define a grid of latitude and longitude coordinates, feed these coordinates into ElevationBot 1.0, and use the that highest point we find as out answer. But this naive approach only works when the range of potential inputs is sufficiently narrow. In particular, we need to consider the “dimension” of the input space. The number of points within an exhaustive “grid” of inputs grows exponentially with the dimension of the input. Latitude and longitude represent a mere 2 dimensions, so the number of points in our grid is just the square of the number of points per side. However, the famous &lt;a href=&#34;https://cooking.nytimes.com/recipes/1015819-chocolate-chip-cookies&#34;&gt;Jacques Torres cookie recipe&lt;/a&gt; has 12 ingredients. If we wanted to try all combinations at a mere five different amounts of each ingredient, that require over two hundred thousand possibilities (which is a bit much for even a hungry baker).&lt;/p&gt;
+&lt;p&gt;In our own lives, we often confront similar optimization challenges, but we rarely take this naive approach. Instead, we typically to look around us for small &lt;em&gt;local&lt;/em&gt; optimizations, whose benefits we can easily identify.&lt;/p&gt;
 &lt;!-- * Finding the best route on the subway is something we optimize. While often algorithmic services can do the work for us, in other cases (or the past), we have to figure it out ourselves, and we somehow pick our starting point. --&gt;
 &lt;!-- * For an example, let&#39;s imagine we want to find the highest point in a mountain range. We can check an individual point, and see how high it is. How do we find the highest point? The analogy would be something like, instead of latitude and longitude in a mountain range, in our morning routine it would be that &#34;series of choices for how we get to work&#34;.  --&gt;
 &lt;!-- * Now, imagine instead of querying a computer for the height, you yourself were actually in that mountain range. What would you do? Well, you&#39;d look for the peak, but what if you were in a forest? You&#39;d go up. Specifically, you would look at the area around you for *local* guidance. --&gt;
 &lt;/div&gt;
 &lt;div id=&#34;locality-in-optimization&#34; class=&#34;section level1&#34;&gt;
 &lt;h1&gt;Locality in Optimization&lt;/h1&gt;
-&lt;p&gt;Imagine biting into a warm cookie, fresh out of the oven. The rich buttery center has just the right chew, while the edges are lightly crisp. You taste the faintest hints of toffee, butterscotch, and vanilla, and the sprinkle of sea salt on top adds an extra kick. It’s almost perfect, but there’s not &lt;em&gt;quite&lt;/em&gt; enough chocolate.&lt;/p&gt;
+&lt;p&gt;Imagine biting into a warm cookie, fresh out of the oven. The rich buttery center has just the right chew, while the edges are lightly crisp. You taste the faintest hints of toffee, butterscotch, and vanilla, and the sprinkle of sea salt on top adds an extra kick. It’s almost perfect, but there’s not &lt;em&gt;quite&lt;/em&gt; enough bite from the dark chocolate.&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;choc_chip_cookies.jpg&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;We wouldn’t just throw up our hands and start from scratch… we’d just add more chocolate! The average baker can’t look at a cookie recipe, and imagine exactly what the result will taste like from afar. But we can &lt;em&gt;taste&lt;/em&gt; a recipe, and imagine what a small specific tweak would do to the result.&lt;/p&gt;
-&lt;p&gt;“Locality” in optimization refers to “closeness” in the input space. In latitude and longitude, this would be the “as the crow flies” distance, while in the input space of “cookie ingredients” and “subway commuting choices”, the definition is a bit less rigorous, but we can still imagine what constitutes a “small” change. In general, we can estimate the impacts of a &lt;em&gt;limited single change&lt;/em&gt; to the input, but not multiple big adjustments If we increase the amount of chocolate, we know they’ll taste a bit like before, but more chocolate-y. If we increase the amounts of chocolate, butter, baking soda, cut some flour, and tweak the balance between brown and cane sugar, can the average home cook really guess what the result will taste like?&lt;/p&gt;
+&lt;p&gt;“Locality” in optimization refers to “closeness” in the input space. In latitude and longitude, this would be the “as the crow flies” distance, while in the input space of “cookie ingredients” and “subway commuting choices”, the definition is a bit less rigorous, but we can still imagine what constitutes a “small” change. In general, we can estimate the impacts of a single small single change to the input, but not multiple big adjustments. If we increase the amount of chocolate, we know they’ll taste roughly the same as before, but a bit more chocolate-y. If we increase the amounts of chocolate, butter, and baking soda, cut some flour, and tweak the balance between brown and cane sugar, can the typical home cook really guess what the result will taste like?&lt;/p&gt;
 &lt;p&gt;In the London Tube experiment, the researchers lay some of the blame on the “stylized nature” of the Tube map displayed to commuters. Its spatial distortions make it difficult to spot major inefficiencies in their route, without some external push. By comparison, we can usually estimate the impact of these “local” changes by ourselves. If we get off one stop earlier, maybe our walk to work increases by a minute, but we avoid the wait at a crowded station. These slight changes are a bit like tweaking just a single ingredient in a cookie, and we might be able to tell whether or not they are worth trying.&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;london_tube_map.jpg&#34; /&gt;&lt;/p&gt;
 &lt;!-- Personally, this describes my relationship with my own food. TO ADD MORE... --&gt;
@@ -145,12 +105,12 @@
 &lt;!-- * Now, I&#39;d wager that generally, we&#39;re rather good at making small (later, we will call these &#34;local&#34;, due to their geometric interpretation) adjustments. If I realize that by taking a right a few blocks early, I can avoid the long traffic light, I&#39;ll often do it.  --&gt;
 &lt;!-- * However, there&#39;s a reason these are small changes. We can estimate their impact from where we are. If we considered an entirely new route to work, taking a whole different train line, we would have no way to know what that&#39;s like. --&gt;
 &lt;p&gt;Before, we imagined a challenge where we tried to find a peak of a mountain range, using ElevationBot 1.0, which could tell us the elevation of any point defined by its latitude and longitude. Now, let’s imagine that there was an upgrade to ElevationBot 2.0, which &lt;em&gt;also&lt;/em&gt; tells us the slope of the incline of this point (that is, “which direction slopes downward, and how steep is it”, often referred to as the gradient). This better reflects our intuition for local optimization in other settings, but it’s also not a terribly difficult task for the ElevationBot, as the diligent machine could always query the elevation at nearby points, and use those to form an estimate of the local slope.&lt;/p&gt;
-&lt;p&gt;Now, imagine that we were hiking with an altimeter, and we can look around and see the direction of the hillside slope around us. But, our information is strictly “local”—we’re stuck in the foggy forests of the Appalachians, not the wide open granite of the Sierra Nevada, so we can’t look miles away to spy what peak might be highest. How might we find the highest peak? Well, our intuition is simple: from wherever we are, “go up”. This “algorithm” is called “gradient ascent”.&lt;/p&gt;
+&lt;p&gt;Now, imagine that we were hiking with an altimeter, and we can look around and see the direction of the hillside slope around us. However, our information is strictly “local”—we’re stuck in the foggy forests of the Appalachians, not the wide open granite of the Sierra Nevada, so we can’t look miles away to spy what peak might be highest. How might we find the highest peak? Well, our intuition is simple: from wherever we are, we choose to “go up”. This “algorithm” is called “gradient ascent”.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;gradient-ascent&#34; class=&#34;section level1&#34;&gt;
 &lt;h1&gt;Gradient Ascent&lt;/h1&gt;
 &lt;p&gt;Gradient ascent is a canonical optimization algorithm, and the step by step process can be described as follows (its simplest summary is simply “go up, as fast as you can”).&lt;/p&gt;
-&lt;p&gt;We begin at some initial point. We find the direction of steepest ascent from that point, i.e. “if you took a few steps in any direction, which would make you gain the most elevation?” (the magnitude and direction of steepest ascent form the “gradient”, and the direction is the &lt;em&gt;opposite&lt;/em&gt; of where a marble would roll). Then, we walk for some distance in that direction (this amount is referred to as the “step size”, meaning a step of the algorithm, not a step with your feet). Once we finish walking, we look around our new location, and we repeat this process again (i.e. determine the direction of steepest ascent, and walk in that direction). Once we reach a point that is essentially flat, there is no direction we can follow which takes us any higher, and we are done (this is called “convergence”). To see this written in basic mathematical notation, see &lt;a href=&#34;#appendix-gradient-ascent-algorithm&#34;&gt;Appendix: Gradient Ascent Algorithm&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;We begin at some initial point. We find the direction of steepest ascent from that point, i.e. “if you took a few steps in any direction, which would make you gain the most elevation?” (the magnitude and direction of steepest ascent form the “gradient”, and the direction is the &lt;em&gt;opposite&lt;/em&gt; of where a marble would roll). Then, we walk for some distance in that direction (this amount is referred to as the “step size”, meaning a step of the algorithm, not a step with your feet). Once we finish walking, we look around our new location, and we repeat this process again (i.e. determine the direction of steepest ascent, and walk in that direction). Once we reach a point that is essentially flat, there is no direction we can follow which takes us any higher, and we are done (this is called “convergence”). To see this written in basic mathematical notation, see &lt;a href=&#34;#appendix-gradient-ascent-algorithm&#34;&gt;Appendix: Gradient Ascent Algorithm&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;This isn’t some arbitrary example, it’s a natural definition of what it means to improve our situation through &lt;em&gt;local&lt;/em&gt; changes. Wherever we are, we think “what small change could we take to make to make this better?” If our cookies are too salty, we add a bit less salt, but we don’t start over from scratch.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;visualizing-gradient-ascent&#34; class=&#34;section level1&#34;&gt;
@@ -163,13 +123,13 @@
 &lt;p&gt;We move that distance up the slope, and look around once again. We see that the direction of steepest ascent is still northwest, so we move once more.&lt;/p&gt;
 &lt;p&gt;Or, shown in 3D (which is admittedly hard to draw…).&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;uni_vis_3d_step2.png&#34; /&gt;
-We repeat this process until we look around for that direction of steepest ascent, and see that we’re at a point which is basically flat. You can watch the whole process in the gif below. We start in the top right, and climb and climb until we reach the top of the mountain, where we stop.&lt;a href=&#34;#fn4&#34; class=&#34;footnote-ref&#34; id=&#34;fnref4&#34;&gt;&lt;sup&gt;4&lt;/sup&gt;&lt;/a&gt;&lt;/p&gt;
+We repeat this process until we look around for that direction of steepest ascent, and see that we’re at a point which is basically flat. You can watch the whole process in the gif below. We start in the bottom right, and climb and climb until we reach the top of the mountain, where we stop.&lt;a href=&#34;#fn4&#34; class=&#34;footnote-ref&#34; id=&#34;fnref4&#34;&gt;&lt;sup&gt;4&lt;/sup&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;2d_uni_grad_ascent_anim.gif&#34; /&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;not-all-mountains-are-friendly&#34; class=&#34;section level1&#34;&gt;
 &lt;h1&gt;Not All Mountains Are Friendly&lt;/h1&gt;
 &lt;p&gt;In this simple example, our local minimization strategy (“just go up!”) finds the highest peak without any trouble. However, imagine there were three different peaks, of differing heights.&lt;/p&gt;
-&lt;p&gt;It’s a bit harder to picture, but a 3D visualization might help picture its shape.&lt;/p&gt;
+&lt;p&gt;It’s a bit harder to picture, but a 3D visualization might help show the shape.&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;mix_vis_3d.png&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;This poses an obvious problem for our algorithm. We hike up until we reach the top of a peak, look around, see that we can’t go up any further, and stop. But this could be true of &lt;em&gt;any&lt;/em&gt; of the three peaks, and only the peak in the southeast is actually highest.&lt;/p&gt;
 &lt;p&gt;Let’s say we start near the center of this region, and follow our algorithm. We climb up south and to the east, and reach that highest peak, just like as we did in the case of a single hill.&lt;/p&gt;
@@ -232,7 +192,7 @@ This illustrates a fundamental divide in mathematical optimization. Some surface
 &lt;li&gt;&lt;a href=&#34;http://timharford.com/books/messy/&#34;&gt;“Messy”&lt;/a&gt;, by Tim Harford. Broadly, this whole post was heavily inspired by Tim Harford’s writings on the London Tube experiment. I first read his description when I was studying Langevin diffusions, and I have wanted to show some visualizations of the premise ever since. I think this post is sufficiently far from his writings to add something new (he uses the example to make a point about how external shocks pushing us out of equilibrium prompt greater creativity, whereas I’m trying to focus simply on the viewpoint on mathematical optimization), but the original idea is certainly his.&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;http://users.ox.ac.uk/~econ0360/FerdinandRauch/Tube.pdf&#34;&gt;“The Benefits of Forced Experimentation: Striking
 Evidence from the London Underground Network”&lt;/a&gt;, by Larcom, Rauch, &amp;amp; Willems (2017). Further, a short &lt;a href=&#34;http://cep.lse.ac.uk/pubs/download/cp455.pdf&#34;&gt;write-up&lt;/a&gt; of the London Tube Strike research.&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;https://static.googleusercontent.com/media/research.google.com/en//pubs/archive/46507.pdf&#34;&gt;“Bayesian Optimization for a Better Dessert”&lt;/a&gt;, by Kochanski et al. (2017).&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://static.googleusercontent.com/media/research.google.com/en//pubs/archive/46507.pdf&#34;&gt;“Bayesian Optimization for a Better Dessert”&lt;/a&gt;, by Kochanski et al. (2017).&lt;/li&gt;
 &lt;li&gt;The &lt;a href=&#34;https://www.rayshader.com/&#34;&gt;&lt;code&gt;rayshader&lt;/code&gt; package&lt;/a&gt;.&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;https://leon.bottou.org/publications/pdf/nimes-1991.pdf&#34;&gt;“Stochastic Gradient Learning
 in Neural Networks”&lt;/a&gt;, by L&#39;eon Bottou.&lt;/li&gt;
@@ -251,27 +211,27 @@ in Neural Networks”&lt;/a&gt;, by L&#39;eon Bottou.&lt;/li&gt;
 &lt;div id=&#34;appendix-the-perils-of-nonconvexity&#34; class=&#34;section level1&#34;&gt;
 &lt;h1&gt;Appendix: The Perils of “Nonconvexity”&lt;/h1&gt;
 &lt;p&gt;Intuitively, we call a region a “convex set” if the line between any two points within that region stays &lt;em&gt;within&lt;/em&gt; that region. Thus, the rectangular Wyoming is convex, while Cape Cod makes Massachussetts nonconvex. Then, we call a &lt;em&gt;function&lt;/em&gt; “convex” if the region that lies above the surface of the function forms a “convex set”.&lt;/p&gt;
-&lt;p&gt;In general, convex functions are easy to optimize, because *local information provides global guidance&amp;quot;. That is, if we follow the path upward, we know that we’ll eventually reach the true optimal value.&lt;/p&gt;
+&lt;p&gt;In general, convex functions are easy to optimize, because *local information provides global guidance”. That is, if we follow the path upward, we know that we’ll eventually reach the true optimal value.&lt;/p&gt;
 &lt;p&gt;However, one further note to make this correct. The mountain range elevation objective function we study is actually “concave”, which is just a convex function flipped upside down. In this colloquial description of optimization challenges, we use the two terms interchangeably, because they are equally easy to solve.&lt;a href=&#34;#fn15&#34; class=&#34;footnote-ref&#34; id=&#34;fnref15&#34;&gt;&lt;sup&gt;15&lt;/sup&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;/div&gt;
-&lt;div class=&#34;footnotes&#34;&gt;
+&lt;div class=&#34;footnotes footnotes-end-of-document&#34;&gt;
 &lt;hr /&gt;
 &lt;ol&gt;
-&lt;li id=&#34;fn1&#34;&gt;&lt;p&gt;This seems much harder to rigorously prove, but this is meant simiply as an informal framing device.&lt;a href=&#34;#fnref1&#34; class=&#34;footnote-back&#34;&gt;↩&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
-&lt;li id=&#34;fn2&#34;&gt;&lt;p&gt;Or they could add in other factors, like cost or “pleasantness”.&lt;a href=&#34;#fnref2&#34; class=&#34;footnote-back&#34;&gt;↩&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
-&lt;li id=&#34;fn3&#34;&gt;&lt;p&gt;I’ve tasted the resulting cookies, not bad for a cafeteria batch.&lt;a href=&#34;#fnref3&#34; class=&#34;footnote-back&#34;&gt;↩&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
-&lt;li id=&#34;fn4&#34;&gt;&lt;p&gt;The above images took huge step sizes for visual clarity, this shows a more realistic sequence.&lt;a href=&#34;#fnref4&#34; class=&#34;footnote-back&#34;&gt;↩&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
-&lt;li id=&#34;fn5&#34;&gt;&lt;p&gt;This post is informal, so we omit regularity conditions that would not add to the explanation (but technically, this guarantee would also require the gradient of the objective to be Lipschitz, and for a suitable adaptive step-size).&lt;a href=&#34;#fnref5&#34; class=&#34;footnote-back&#34;&gt;↩&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
-&lt;li id=&#34;fn6&#34;&gt;&lt;p&gt;Only a few starting points shown, to keep the gif short.&lt;a href=&#34;#fnref6&#34; class=&#34;footnote-back&#34;&gt;↩&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
-&lt;li id=&#34;fn7&#34;&gt;&lt;p&gt;Of course, the question is “Would a sequence of small, incrementally beneficial changes take you all the way from ‘thin and crispy’ to ‘thick and chewey’?” In mathematics, this is the matter of convexity, but in the real world, it can be very hard to say. My assumption is that this often &lt;em&gt;doesn’t&lt;/em&gt; apply in cooking. If you take the middle point between two excellent dishes, there’s no reason to think that it would be tasty! But it’s hard to say with confidence what the optimization space of chocolate chip cookies looks like. &lt;a href=&#34;#fnref7&#34; class=&#34;footnote-back&#34;&gt;↩&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
-&lt;li id=&#34;fn8&#34;&gt;&lt;p&gt;&lt;a href=&#34;https://science.sciencemag.org/content/220/4598/671&#34;&gt;Simulated annealing&lt;/a&gt; and &lt;a href=&#34;https://www.researchgate.net/publication/13255490_Replica_Monte_Carlo_Simulation_of_Spin-Glasses&#34;&gt;parallel tempering&lt;/a&gt; are two particular favorites of mine.&lt;a href=&#34;#fnref8&#34; class=&#34;footnote-back&#34;&gt;↩&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
-&lt;li id=&#34;fn9&#34;&gt;&lt;p&gt;What follows is a bit of a simplification of SGD, but I think it’s true to the essence of the algorithm.&lt;a href=&#34;#fnref9&#34; class=&#34;footnote-back&#34;&gt;↩&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
-&lt;li id=&#34;fn10&#34;&gt;&lt;p&gt;In the case of SGD, the reason this happens is that it estimates the gradient by only using a &lt;em&gt;subset&lt;/em&gt; of the whole dataset.&lt;a href=&#34;#fnref10&#34; class=&#34;footnote-back&#34;&gt;↩&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
-&lt;li id=&#34;fn11&#34;&gt;&lt;p&gt;And “saddle points”, which I am skirting past here, as they are a similar concern for this high level explanation.&lt;a href=&#34;#fnref11&#34; class=&#34;footnote-back&#34;&gt;↩&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
-&lt;li id=&#34;fn12&#34;&gt;&lt;p&gt;“Why should we feel anger at the world? As if the world would notice?” is often cited to Marcus Aurelius, although I can’t personally find the source.&lt;a href=&#34;#fnref12&#34; class=&#34;footnote-back&#34;&gt;↩&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
-&lt;li id=&#34;fn13&#34;&gt;&lt;p&gt;For full transparency, a few months ago I switched to fried eggs on top of frozen vegetables as my breakfast of choice, so maybe I took this lesson to heart.&lt;a href=&#34;#fnref13&#34; class=&#34;footnote-back&#34;&gt;↩&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
-&lt;li id=&#34;fn14&#34;&gt;&lt;p&gt;This is for an extremely crude version with fixed step size &lt;span class=&#34;math inline&#34;&gt;\(\eta\)&lt;/span&gt;, and an imprecise definition of convergence. There is no reason to use fixed step size in practice, but that adjustment isn’t relevant to the demonstration.&lt;a href=&#34;#fnref14&#34; class=&#34;footnote-back&#34;&gt;↩&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
-&lt;li id=&#34;fn15&#34;&gt;&lt;p&gt;You can turn a concave function into a convex one by simply multiplying it by &lt;span class=&#34;math inline&#34;&gt;\(-1\)&lt;/span&gt;, and minimizing rather than optimizing.&lt;a href=&#34;#fnref15&#34; class=&#34;footnote-back&#34;&gt;↩&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li id=&#34;fn1&#34;&gt;&lt;p&gt;This seems much harder to rigorously prove, but this is meant simiply as an informal framing device.&lt;a href=&#34;#fnref1&#34; class=&#34;footnote-back&#34;&gt;↩︎&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li id=&#34;fn2&#34;&gt;&lt;p&gt;Or they could add in other factors, like cost or “pleasantness”.&lt;a href=&#34;#fnref2&#34; class=&#34;footnote-back&#34;&gt;↩︎&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li id=&#34;fn3&#34;&gt;&lt;p&gt;I’ve tasted the resulting cookies, and they’re not bad for a cafeteria batch.&lt;a href=&#34;#fnref3&#34; class=&#34;footnote-back&#34;&gt;↩︎&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li id=&#34;fn4&#34;&gt;&lt;p&gt;The above images took huge step sizes for visual clarity, this shows a more realistic sequence.&lt;a href=&#34;#fnref4&#34; class=&#34;footnote-back&#34;&gt;↩︎&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li id=&#34;fn5&#34;&gt;&lt;p&gt;This post is informal, so we omit regularity conditions that would not add to the explanation (but technically, this guarantee would also require the gradient of the objective to be Lipschitz, and for a suitable adaptive step-size).&lt;a href=&#34;#fnref5&#34; class=&#34;footnote-back&#34;&gt;↩︎&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li id=&#34;fn6&#34;&gt;&lt;p&gt;Only a few starting points shown, to keep the gif short.&lt;a href=&#34;#fnref6&#34; class=&#34;footnote-back&#34;&gt;↩︎&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li id=&#34;fn7&#34;&gt;&lt;p&gt;Of course, the question is “Would a sequence of small, incrementally beneficial changes take you all the way from ‘thin and crispy’ to ‘thick and chewey’?” In mathematics, this is the matter of convexity, but in the real world, it can be very hard to say. My assumption is that this often &lt;em&gt;doesn’t&lt;/em&gt; apply in cooking. If you take the middle point between two excellent dishes, there’s no reason to think that it would be tasty! But it’s hard to say with confidence what the optimization space of chocolate chip cookies looks like. &lt;a href=&#34;#fnref7&#34; class=&#34;footnote-back&#34;&gt;↩︎&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li id=&#34;fn8&#34;&gt;&lt;p&gt;&lt;a href=&#34;https://science.sciencemag.org/content/220/4598/671&#34;&gt;Simulated annealing&lt;/a&gt; and &lt;a href=&#34;https://www.researchgate.net/publication/13255490_Replica_Monte_Carlo_Simulation_of_Spin-Glasses&#34;&gt;parallel tempering&lt;/a&gt; are two particular favorites of mine.&lt;a href=&#34;#fnref8&#34; class=&#34;footnote-back&#34;&gt;↩︎&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li id=&#34;fn9&#34;&gt;&lt;p&gt;What follows is a bit of a simplification of SGD, but I think it’s true to the essence of the algorithm.&lt;a href=&#34;#fnref9&#34; class=&#34;footnote-back&#34;&gt;↩︎&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li id=&#34;fn10&#34;&gt;&lt;p&gt;In the case of SGD, the reason this happens is that it estimates the gradient by only using a &lt;em&gt;subset&lt;/em&gt; of the whole dataset.&lt;a href=&#34;#fnref10&#34; class=&#34;footnote-back&#34;&gt;↩︎&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li id=&#34;fn11&#34;&gt;&lt;p&gt;And “saddle points”, which I am skirting past here, as they are a similar concern for this high level explanation.&lt;a href=&#34;#fnref11&#34; class=&#34;footnote-back&#34;&gt;↩︎&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li id=&#34;fn12&#34;&gt;&lt;p&gt;“Why should we feel anger at the world? As if the world would notice?” is often cited to Marcus Aurelius, although I can’t personally find the source.&lt;a href=&#34;#fnref12&#34; class=&#34;footnote-back&#34;&gt;↩︎&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li id=&#34;fn13&#34;&gt;&lt;p&gt;For full transparency, a few months ago I switched to fried eggs on top of frozen vegetables as my breakfast of choice, so maybe I took this lesson to heart.&lt;a href=&#34;#fnref13&#34; class=&#34;footnote-back&#34;&gt;↩︎&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li id=&#34;fn14&#34;&gt;&lt;p&gt;This is for an extremely crude version with fixed step size &lt;span class=&#34;math inline&#34;&gt;\(\eta\)&lt;/span&gt;, and an imprecise definition of convergence. There is no reason to use fixed step size in practice, but that adjustment isn’t relevant to the demonstration.&lt;a href=&#34;#fnref14&#34; class=&#34;footnote-back&#34;&gt;↩︎&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;li id=&#34;fn15&#34;&gt;&lt;p&gt;You can turn a concave function into a convex one by simply multiplying it by &lt;span class=&#34;math inline&#34;&gt;\(-1\)&lt;/span&gt;, and minimizing rather than optimizing.&lt;a href=&#34;#fnref15&#34; class=&#34;footnote-back&#34;&gt;↩︎&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
 &lt;/ol&gt;
 &lt;/div&gt;
 </description>
@@ -279,9 +239,9 @@ in Neural Networks”&lt;/a&gt;, by L&#39;eon Bottou.&lt;/li&gt;
     
     <item>
       <title>Bayesian Structural Time Series, and Movie Ticket Sales Sales</title>
-      <link>/2020/05/28/bsts-boxofice/</link>
+      <link>https://dylanpotteroconnell.netlify.app/2020/05/28/bsts-boxofice/</link>
       <pubDate>Thu, 28 May 2020 00:00:00 +0000</pubDate>
-      <guid>/2020/05/28/bsts-boxofice/</guid>
+      <guid>https://dylanpotteroconnell.netlify.app/2020/05/28/bsts-boxofice/</guid>
       <description>
 
 
@@ -326,7 +286,7 @@ weekly.tb %&amp;gt;%
   xlab(&amp;quot;Year&amp;quot;) + 
   ylab(&amp;quot;Gross ($)&amp;quot;) + 
   ggtitle(&amp;quot;Weekly (American) Box Office Gross&amp;quot;) &lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2020-05-28-bsts-boxofice.en/index_files/figure-html/unnamed-chunk-3-1.png&#34; width=&#34;672&#34; /&gt;
+&lt;p&gt;&lt;img src=&#34;https://dylanpotteroconnell.netlify.app/post/2020-05-28-bsts-boxofice.en/index_files/figure-html/unnamed-chunk-3-1.png&#34; width=&#34;672&#34; /&gt;
 Looking at the time series, we first note that there are enormous week-to-week spikes. As we will discuss in greater detail, this reflects the release of new blockbusters, and it reflects unobserved data (of course, we have some useful approximations, such as the fact that a major blockbuster is often released around Christmas). Intuitively, our lack of access shows that there is probably a great deal of irreducible uncertainty for us in this setting.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;inflation-adjustment&#34; class=&#34;section level2&#34;&gt;
@@ -354,7 +314,7 @@ weekly.tb %&amp;gt;%
                 col = Type)) + 
   xlab(&amp;quot;Year&amp;quot;) + ylab(&amp;quot;Yearly Mean Gross&amp;quot;) +
   ggtitle(&amp;quot;Yearly Mean Gross: Nominal vs Inflation Adjusted.&amp;quot;)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2020-05-28-bsts-boxofice.en/index_files/figure-html/unnamed-chunk-4-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://dylanpotteroconnell.netlify.app/post/2020-05-28-bsts-boxofice.en/index_files/figure-html/unnamed-chunk-4-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;!-- ```{r} --&gt;
 &lt;!-- # library(priceR) --&gt;
 &lt;!-- #  --&gt;
@@ -466,7 +426,7 @@ model.llt &amp;lt;- bsts(weekly.tb$log_gross_ia,
 &lt;p&gt;The &lt;code&gt;bsts&lt;/code&gt; package comes preloaded with useful functions for analysis of the results. We start with &lt;code&gt;CompareBstsModels()&lt;/code&gt;, which charts the cumulative absolute error of our one-step predictions.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;CompareBstsModels(list(Seasonal = model.season, 
                        LLT = model.llt))&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2020-05-28-bsts-boxofice.en/index_files/figure-html/unnamed-chunk-8-1.png&#34; width=&#34;672&#34; /&gt;
+&lt;p&gt;&lt;img src=&#34;https://dylanpotteroconnell.netlify.app/post/2020-05-28-bsts-boxofice.en/index_files/figure-html/unnamed-chunk-8-1.png&#34; width=&#34;672&#34; /&gt;
 With a single line of code, we can see how the additional flexibility of the local linear trend does indeed make our predictions more accurate.&lt;/p&gt;
 &lt;p&gt;However, if you’re unfamiliar with BSTS models, it’s not immediately clear what exactly this is measuring, and it’s important to be very precise. “Cumulative absolute error” is clear enough, but what errors is it referring to? These are the “one-step-ahead” prediction errors, where the data points are drawn from the posterior computed by the Kalman filter. Unfortunately, we can’t be too rigorous about this description without going into the theoretical details of the filter, but the gist is that the Kalman filter computes the posterior distribution for the next response data point, &lt;span class=&#34;math inline&#34;&gt;\(p(y_t | y_{1:t-1})\)&lt;/span&gt;, recursively through the posterior on the latent state posterior, &lt;span class=&#34;math inline&#34;&gt;\(p(\alpha_t | y_{1:t-1})\)&lt;/span&gt;.&lt;a href=&#34;#fn13&#34; class=&#34;footnote-ref&#34; id=&#34;fnref13&#34;&gt;&lt;sup&gt;13&lt;/sup&gt;&lt;/a&gt; Our model object contains posterior draws (in our case, &lt;span class=&#34;math inline&#34;&gt;\(500\)&lt;/span&gt; of them) for each posterior distribution &lt;span class=&#34;math inline&#34;&gt;\(p(y_t | y_{1:t-1})\)&lt;/span&gt;. The “errors” above are the difference between these posterior samples, and the actual observed data point.&lt;/p&gt;
 &lt;p&gt;This poses a problem for applying this function directly to our setting. The mean absolute prediction errors are computed on the response data, which are logarithms, whereas we are most likely interested in errors on the regular scale. The fix is simply to grab the relevant parts of the &lt;code&gt;CompareBstsModels()&lt;/code&gt; &lt;a href=&#34;https://rdrr.io/cran/bsts/src/R/compare.bsts.models.R&#34;&gt;source code&lt;/a&gt;, and do a bit of surgery until it suits our purpose. We take the one-step errors directly from the model object, and remove the burn-in. Then, we convert from posterior errors in the log scale, to posterior errors on the regular scale. If such a log-scale posterior error is &lt;span class=&#34;math inline&#34;&gt;\(\hat{e}\)&lt;/span&gt;, our response (in regular scale, not log) as &lt;span class=&#34;math inline&#34;&gt;\(y\)&lt;/span&gt;, and our predicted value as &lt;span class=&#34;math inline&#34;&gt;\(\hat{y}\)&lt;/span&gt;, we have &lt;span class=&#34;math inline&#34;&gt;\(\hat{e} = \log_{10} \hat{y} - \log_{10}y\)&lt;/span&gt;. Thus, the errors we want are given by
@@ -546,7 +506,7 @@ CompareBstsModelsLog &amp;lt;- function(model.list) {
 
 CompareBstsModelsLog(list(Season = model.season, 
                           LLT = model.llt))&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2020-05-28-bsts-boxofice.en/index_files/figure-html/unnamed-chunk-9-1.png&#34; width=&#34;672&#34; /&gt;
+&lt;p&gt;&lt;img src=&#34;https://dylanpotteroconnell.netlify.app/post/2020-05-28-bsts-boxofice.en/index_files/figure-html/unnamed-chunk-9-1.png&#34; width=&#34;672&#34; /&gt;
 Of course, this transformation doesn’t radically change the picture, it’s still measuring the same errors. But the units of absolute error are now interpretable, the difference between the two is more clear, and there could be cases where computing the errors based on the logs would lead to unintuitive results.&lt;/p&gt;
 &lt;p&gt;Further, as we keep repeating, one should think carefully about the goals of the analysis. The cumulative error is an intuitive metric, but it’s not particularly Bayesian (as it is computed using a simple point estimate on the posterior). If the ultimate output of the model is a sequence of these point estimates, then it is a sensible place to start. If the goal is to construct a full posterior probability that captures the theoretical situation, it won’t be very meaningful.&lt;/p&gt;
 &lt;p&gt;The &lt;code&gt;bsts&lt;/code&gt; package offers a &lt;a href=&#34;https://rdrr.io/cran/bsts/man/plot.bsts.html&#34;&gt;variety of other plotting tools&lt;/a&gt; (such as &lt;code&gt;PlotBstsComponents()&lt;/code&gt;, &lt;code&gt;PlotBstsForecastDistribution()&lt;/code&gt;, &lt;code&gt;PlotSeasonalEffect()&lt;/code&gt;, and more), but they didn’t appear very informative when applied directly out of the box to this data set. Which isn’t surprising, it’s hard to write general purpose plotting functions. In almost all cases, it’s better to construct your own, to tackle the task at hand.
@@ -687,10 +647,10 @@ CheckOneStepCalibration &amp;lt;- function(tb) {
 }&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;tb.season &amp;lt;- ComputeOneStepFitted(model.season, weekly.tb, log_gross_ia)
 PlotOneStepFitted(tb.season, plot_quantiles = TRUE)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2020-05-28-bsts-boxofice.en/index_files/figure-html/unnamed-chunk-11-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://dylanpotteroconnell.netlify.app/post/2020-05-28-bsts-boxofice.en/index_files/figure-html/unnamed-chunk-11-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;tb.llt &amp;lt;- ComputeOneStepFitted(model.llt, weekly.tb, log_gross_ia)
 PlotOneStepFitted(tb.llt, plot_quantiles = TRUE)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2020-05-28-bsts-boxofice.en/index_files/figure-html/unnamed-chunk-11-2.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://dylanpotteroconnell.netlify.app/post/2020-05-28-bsts-boxofice.en/index_files/figure-html/unnamed-chunk-11-2.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;Broadly, we can see that the seasonal model is more conservative, and sticks with the broadly known weekly trends. It predicts spikes at major holidays, but otherwise misses on the unexpected micro trends. The LLT model &lt;em&gt;does&lt;/em&gt; make an attempt to predict these large spikes. It’s a very difficult task given the data, so we only see a moderate improvement in the MAPE. They represent two different philosophies, and the choice might depend on the specific goals.&lt;/p&gt;
 &lt;p&gt;However, these are simply fitting point estimates, the means of the one-step posterior predictive distributions. In the tutorials I saw online, this was the the typical example used (with posterior distributions cited for the coefficients themselves), but we do have a full distribution to work with. We consider the rate of coverage for the 95% credible intervals for both distributions.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;CheckOneStepCalibration(tb.season)&lt;/code&gt;&lt;/pre&gt;
@@ -719,7 +679,7 @@ tb.skeptic &amp;lt;- ComputeOneStepFitted(model.skeptic,
                                    weekly.tb, 
                                    log_gross_ia)
 PlotOneStepFitted(tb.skeptic, plot_quantiles = TRUE)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2020-05-28-bsts-boxofice.en/index_files/figure-html/unnamed-chunk-13-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://dylanpotteroconnell.netlify.app/post/2020-05-28-bsts-boxofice.en/index_files/figure-html/unnamed-chunk-13-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;CheckOneStepCalibration(tb.skeptic)&lt;/code&gt;&lt;/pre&gt;
 &lt;pre&gt;&lt;code&gt;## # A tibble: 1 x 3
 ##   `Prop. Above LB` `Prop. Below UB` `Prop. Within Interval`
@@ -737,11 +697,11 @@ names(components) &amp;lt;- c(&amp;quot;Seasonality&amp;quot;, &amp;quot;Date&am
 &lt;p&gt;We look at box plots for each of the 52 weeks, showing their spread. We also consider the visual trend of the week coefficients over the past few years.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;components %&amp;gt;% mutate(week_number = row_number() %% 52) %&amp;gt;%
   ggplot() + geom_boxplot(aes(group = week_number, y = Seasonality))&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2020-05-28-bsts-boxofice.en/index_files/figure-html/unnamed-chunk-15-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://dylanpotteroconnell.netlify.app/post/2020-05-28-bsts-boxofice.en/index_files/figure-html/unnamed-chunk-15-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;ggplot(data=components %&amp;gt;% filter(year(Date) &amp;lt; 2015 &amp;amp; year(Date) &amp;gt; 2012), aes(x=Date, y=Seasonality)) + geom_line() + 
   theme_bw() + theme(legend.title = element_blank()) + ylab(&amp;quot;&amp;quot;) + xlab(&amp;quot;&amp;quot;) + guides(colour=FALSE) + 
   theme(axis.text.x=element_text(angle = -90, hjust = 0))&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2020-05-28-bsts-boxofice.en/index_files/figure-html/unnamed-chunk-15-2.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://dylanpotteroconnell.netlify.app/post/2020-05-28-bsts-boxofice.en/index_files/figure-html/unnamed-chunk-15-2.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;We can observe the typically expected trends. While January is a strong month (due to Oscars hits being in theaters, and the tail end of Christmas), theaters hit a low during the early months of the year, before surging at summer, lagging in the fall, and surging again around Christmas.&lt;a href=&#34;#fn14&#34; class=&#34;footnote-ref&#34; id=&#34;fnref14&#34;&gt;&lt;sup&gt;14&lt;/sup&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
@@ -786,9 +746,9 @@ p.llt &amp;lt;- predict.bsts(model.llt.train,
                         train.tb %&amp;gt;% nrow())&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;We can now use the &lt;code&gt;bsts&lt;/code&gt; built in feature for plotting these forecasts, showing the fitted values and credible intervals.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;plot(p.season, plot.original = 52*2)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2020-05-28-bsts-boxofice.en/index_files/figure-html/unnamed-chunk-19-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://dylanpotteroconnell.netlify.app/post/2020-05-28-bsts-boxofice.en/index_files/figure-html/unnamed-chunk-19-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;plot(p.llt, plot.original = 52*2)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2020-05-28-bsts-boxofice.en/index_files/figure-html/unnamed-chunk-19-2.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://dylanpotteroconnell.netlify.app/post/2020-05-28-bsts-boxofice.en/index_files/figure-html/unnamed-chunk-19-2.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;The only real punchline here is that both models make moderately similar projections for the next few years. However, the plots aren’t too revealing yet, and we want to compare them to the observed values.
 We can rework our earlier functions to now compute MAPE for both fitted and predicted. Now, in addition to the credible interval (for both the one-step predictions, and the future forecasts), we zoom in on the time period which is forecast (based on our training data, up until the end of 2016).&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;library(gridExtra)&lt;/code&gt;&lt;/pre&gt;
@@ -878,7 +838,7 @@ CheckOneStepCalibration(tb.season.train)&lt;/code&gt;&lt;/pre&gt;
 ##              &amp;lt;dbl&amp;gt;            &amp;lt;dbl&amp;gt;                   &amp;lt;dbl&amp;gt;
 ## 1            0.908            0.852                   0.760&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;PlotOneStepPredicted(tb.season.train, p.season, 2016)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2020-05-28-bsts-boxofice.en/index_files/figure-html/unnamed-chunk-21-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://dylanpotteroconnell.netlify.app/post/2020-05-28-bsts-boxofice.en/index_files/figure-html/unnamed-chunk-21-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;tb.llt.train &amp;lt;- ComputeOneStepPredicted(model.llt.train,
                                         weekly.tb,
                                         log_gross_ia,
@@ -889,7 +849,7 @@ CheckOneStepCalibration(tb.llt.train)&lt;/code&gt;&lt;/pre&gt;
 ##              &amp;lt;dbl&amp;gt;            &amp;lt;dbl&amp;gt;                   &amp;lt;dbl&amp;gt;
 ## 1            0.856            0.889                   0.744&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;PlotOneStepPredicted(tb.llt.train, p.season, 2016)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2020-05-28-bsts-boxofice.en/index_files/figure-html/unnamed-chunk-22-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://dylanpotteroconnell.netlify.app/post/2020-05-28-bsts-boxofice.en/index_files/figure-html/unnamed-chunk-22-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;We can see that both seem to offer reasonably useful forecasts, with calibration (over the entire period, combining both one-step and forecasts)\footnote[Perhaps these should be separated, I haven’t found resources discussing the best way to evaluate these models.] in a similar range as before, and the forecast range seemingly capturing much of the observed trend.&lt;/p&gt;
 &lt;p&gt;However, the particular difference between the two models becomes clear in the distant forecast. The seasonal model is more consistent, with fairly static uncertainty. With the addition of the local linear trend, we become more confident in the short run, but have much less confidence once we project several years out. This is because the local linear trend is extremely flexible, which becomes particularly apparent when considering outcomes several years away. Whether the state of the movie business is sufficiently static for this to be a poor assumption will depend on who you ask.&lt;a href=&#34;#fn15&#34; class=&#34;footnote-ref&#34; id=&#34;fnref15&#34;&gt;&lt;sup&gt;15&lt;/sup&gt;&lt;/a&gt;&lt;/p&gt;
 &lt;div id=&#34;not-far-from-madness&#34; class=&#34;section level2&#34;&gt;
@@ -915,16 +875,16 @@ tb.base &amp;lt;- ComputeOneStepPredicted(model.base,
                                    log_gross_ia, 
                                    p.base)
 PlotOneStepPredicted(tb.base, p.base, cutoff)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2020-05-28-bsts-boxofice.en/index_files/figure-html/unnamed-chunk-23-1.png&#34; width=&#34;672&#34; /&gt;
+&lt;p&gt;&lt;img src=&#34;https://dylanpotteroconnell.netlify.app/post/2020-05-28-bsts-boxofice.en/index_files/figure-html/unnamed-chunk-23-1.png&#34; width=&#34;672&#34; /&gt;
 We can see that the results are completely nonsensical. It is a little more clear when using the built in prediction plots (although the dates are removed, I didn’t have time to add those back in).&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;plot(p.base, plot.original = 52*2)&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2020-05-28-bsts-boxofice.en/index_files/figure-html/unnamed-chunk-24-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://dylanpotteroconnell.netlify.app/post/2020-05-28-bsts-boxofice.en/index_files/figure-html/unnamed-chunk-24-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;We recall that the original series is on the &lt;em&gt;log&lt;/em&gt; scale, which helps clarify the issue.&lt;/p&gt;
 &lt;p&gt;The intuitive explanation is straightforward enough. Without the seasonal adjustment, the local linear trend has learned from the data that there is great variability. The slope is constantly changing direction, multiple times per year, so it assigned a large variance in its movements. Without observing any new data, this uncertainty compounds, as the model thinks that the slope could be rapidly growing, or rapidly falling. And worse, this all happens on that log scale. So we quickly see the range of uncertainty about the state state double and triple in log units, which leads to absurd credible intervals for the future predictions.&lt;/p&gt;
 &lt;p&gt;What’s interesting about this is that our short run predictions are not so impossible. We can see in the comparison below that the model without seasonality is clearly inferior, but it simply looks like simply a moderate step down. It’s only once we take stab at long term forecasting that we see that the use of a local linear trend without a seasonal adjustment fully breaks.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;CompareBstsModelsLog(list(`LLT + Seasonal` = model.llt.train,
                           `LLT Without Seasonal` = model.base))&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/2020-05-28-bsts-boxofice.en/index_files/figure-html/unnamed-chunk-25-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;https://dylanpotteroconnell.netlify.app/post/2020-05-28-bsts-boxofice.en/index_files/figure-html/unnamed-chunk-25-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;p&gt;This reiterates the aforementioned discussion in Thomas Olavson’s &lt;a href=&#34;http://www.unofficialgoogledatascience.com/2019/12/humans-in-loop-forecasting-integrating.html&#34;&gt;blog post&lt;/a&gt;, distinguishing tactical and strategic forecasting. He discusses the great theoretical and practical differences between the two challenges. This frivolous example is simply a reminder of how easy theoretical models can break, when we are careless with the data. Long term forecasting requires more theoretical care, as we cannot rely on automatic processes fitting relevant patterns in the data and avoiding disaster. Poor theoretical assumptions will lead to useless forecasts.&lt;/p&gt;
 &lt;!-- ```{r} --&gt;
 &lt;!-- tb.llt.train &lt;- ComputeOneStepPredicted(model.llt.train,  --&gt;
@@ -1076,22 +1036,10 @@ We can see that the results are completely nonsensical. It is a little more clea
     </item>
     
     <item>
-      <title>Summary of the Common Philisophical Interpretations of Probability</title>
-      <link>/other_posts/interpreting-probability/</link>
-      <pubDate>Thu, 28 May 2020 00:00:00 +0000</pubDate>
-      <guid>/other_posts/interpreting-probability/</guid>
-      <description>
-
-
-&lt;p&gt;Common interpretations of probability &lt;span class=&#34;math inline&#34;&gt;\(P= 1\)&lt;/span&gt; or &lt;span class=&#34;math inline&#34;&gt;\(P=0\)&lt;/span&gt; that’s IT.&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
       <title>An example preprint / working paper</title>
-      <link>/publication/preprint/</link>
+      <link>https://dylanpotteroconnell.netlify.app/publication/preprint/</link>
       <pubDate>Sun, 07 Apr 2019 00:00:00 +0000</pubDate>
-      <guid>/publication/preprint/</guid>
+      <guid>https://dylanpotteroconnell.netlify.app/publication/preprint/</guid>
       <description>&lt;div class=&#34;alert alert-note&#34;&gt;
   &lt;div&gt;
     Click the &lt;em&gt;Slides&lt;/em&gt; button above to demo Academic&amp;rsquo;s Markdown slides feature.
@@ -1104,9 +1052,9 @@ We can see that the results are completely nonsensical. It is a little more clea
     
     <item>
       <title>Slides</title>
-      <link>/slides/example/</link>
+      <link>https://dylanpotteroconnell.netlify.app/slides/example/</link>
       <pubDate>Tue, 05 Feb 2019 00:00:00 +0000</pubDate>
-      <guid>/slides/example/</guid>
+      <guid>https://dylanpotteroconnell.netlify.app/slides/example/</guid>
       <description>&lt;h1 id=&#34;create-slides-in-markdown-with-academic&#34;&gt;Create slides in Markdown with Academic&lt;/h1&gt;
 &lt;p&gt;
 &lt;a href=&#34;https://sourcethemes.com/academic/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;Academic&lt;/a&gt; | 
@@ -1238,9 +1186,9 @@ Three
     
     <item>
       <title>A Gentle Introduction to Parlays and Independence </title>
-      <link>/2018/11/08/parlays-independence/</link>
+      <link>https://dylanpotteroconnell.netlify.app/2018/11/08/parlays-independence/</link>
       <pubDate>Thu, 08 Nov 2018 00:00:00 +0000</pubDate>
-      <guid>/2018/11/08/parlays-independence/</guid>
+      <guid>https://dylanpotteroconnell.netlify.app/2018/11/08/parlays-independence/</guid>
       <description>&lt;blockquote&gt;
 &lt;p&gt;Betting parlays of positively correlated events will generally be profitable.&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -1276,15 +1224,15 @@ Three
     
     <item>
       <title>Winning a Debate: Insights from &#34;Intelligence Squared&#34;</title>
-      <link>/2018/07/29/winning-debate/</link>
+      <link>https://dylanpotteroconnell.netlify.app/2018/07/29/winning-debate/</link>
       <pubDate>Sun, 29 Jul 2018 00:00:00 +0000</pubDate>
-      <guid>/2018/07/29/winning-debate/</guid>
+      <guid>https://dylanpotteroconnell.netlify.app/2018/07/29/winning-debate/</guid>
       <description>
 
 
-&lt;p&gt;How does one measure the winner of a debate? If the debate itself is the focus, it’s wholly unsatisfying to just tally up the opinions of the viewers, as that solely reflects the prior beliefs of the audience. “Intelligence Squared” is an excellent podcast which teaches policy through moderated debate. A resolution is proposed (e.g. “Affirmative Action does more harm than good”), and two teams of two experts argue the issue in a structured setting. Many other programs aim for balance with a halfhearted attempt to pay lip service to the opposing side (without truly believing it), so it’s refreshing to hear passionate and informed argument from both sides of the aisle. If one side cites a misleading statistic, their opponents are ready to actually call them out on it, penalizing the lazy rhetorical tactics that plague discourse in an echo chamber.&lt;/p&gt;
+&lt;p&gt;How does one measure the winner of a debate? If the debate itself is the focus, it’s wholly unsatisfying to just tally up the opinions of the viewers, as that solely reflects the prior beliefs of the audience. “Intelligence Squared” is an excellent podcast which teaches policy through moderated debate. A resolution is proposed (e.g. “Affirmative Action does more harm than good”), and two teams of two experts argue the issue in a structured setting. Many other programs aim for balance with a halfhearted attempt to pay lip service to the opposing side (without truly believing it), so it’s refreshing to hear passionate and informed argument from both sides of the aisle. If one side cites a misleading statistic, their opponents are ready to actually call them out on it, penalizing the lazy rhetorical tactics that plague discourse in an echo chamber.&lt;/p&gt;
 &lt;p&gt;The focus of the program is the debate itself, but some nominal winner must still be declared. This is determined using a simple formula. The audience is polled before and after the debate (For, Against, or Undecided on the issue), and the side which gains the most votes is the winner. To be clear, I do not think that this method of declaring a winner is a particularly important to the show, nor do I think any listeners actually consider the swings of audience opinion to be the final say on the matter. But it’s still interesting to consider whether or not this is a reasonable way to declare a debate winner. And more broadly, what can the results of a debate tell us about the way that people make up their minds on polarizing issues? Much has been written about the politically charged climate of the present, and the ways in which the media we consume is entrenching us in our positions, leading to static and polarized political views.&lt;/p&gt;
-&lt;p&gt;It turns out that Intelligence Squared doesn’t just measure the change in support for each side before and after the debate, for events since 2012 it also measured the individual shifts between each category (i.e. “Undecided before and For after”, or “For before and Against after”). This provides a small but insightful dataset looking at the ways in which minds can change on a polarizing issue in the course of an hour.&lt;/p&gt;
+&lt;p&gt;It turns out that Intelligence Squared doesn’t just measure the change in support for each side before and after the debate, for events since 2012 it also measured the individual shifts between each category (i.e. “Undecided before and For after”, or “For before and Against after”). This provides a small but insightful dataset looking at the ways in which minds can change on a polarizing issue in the course of an hour.&lt;/p&gt;
 &lt;div id=&#34;what-does-it-mean-to-win-a-debate&#34; class=&#34;section level3&#34;&gt;
 &lt;h3&gt;What does it mean to “win” a debate?&lt;/h3&gt;
 &lt;p&gt;Intelligence Squared declares their nominal winner with a simple metric, measuring whether the For or Against side had the largest absolute percentage point shift in support from the pre debate to the post debate audience poll. Thus, if the For side originally had 40% support and the Against side 35% support before the debate, and after the debate the For side had 45% support and the Against side had 43% support, the 8 percentage point increase of the Against side trumps the 5 percentage point increase of the For side, and the Against side wins the night. We will refer to this method for determining a victory as the ISM (Intelligence Squared Metric).&lt;/p&gt;
@@ -1294,9 +1242,9 @@ Three
 &lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[
 \mathbb{A} = \left(
 \begin{array}{ccc}
- 0.32 &amp;amp; 0.29 &amp;amp; 0.32 \\
- 0.36 &amp;amp; 0.42 &amp;amp; 0.36 \\
- 0.32 &amp;amp; 0.29 &amp;amp; 0.32 \\
+0.32 &amp;amp; 0.29 &amp;amp; 0.32 \\
+0.36 &amp;amp; 0.42 &amp;amp; 0.36 \\
+0.32 &amp;amp; 0.29 &amp;amp; 0.32 \\
 \end{array}
 \right).
 \]&lt;/span&gt;&lt;/p&gt;
@@ -1308,7 +1256,7 @@ Three
 &lt;/div&gt;
 &lt;div id=&#34;how-has-this-worked-in-practice&#34; class=&#34;section level3&#34;&gt;
 &lt;h3&gt;How has this worked in practice?&lt;/h3&gt;
-&lt;p&gt;Looking at the results of the Intelligence Squared debates in reality, we see that the majority of results are uncontroversial. and there is little doubt which side was more convincing. In total, we gather the results from 88 debates from the Intelligence Squared &lt;a href=&#34;https://www.intelligencesquaredus.org/debates&#34;&gt;website&lt;/a&gt;, with the process described &lt;a href=&#34;/2018/07/26/scraping-is2/&#34;&gt;here&lt;/a&gt;, and the unpolished scraped dataset &lt;a href=&#34;https://github.com/dylanpotteroconnell/IntelSquaredProject/blob/master/votingresultsfinal.csv&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Looking at the results of the Intelligence Squared debates in reality, we see that the majority of results are uncontroversial. and there is little doubt which side was more convincing. In total, we gather the results from 88 debates from the Intelligence Squared &lt;a href=&#34;https://www.intelligencesquaredus.org/debates&#34;&gt;website&lt;/a&gt;, with the process described &lt;a href=&#34;https://dylanpotteroconnell.netlify.app/2018/07/26/scraping-is2/&#34;&gt;here&lt;/a&gt;, and the unpolished scraped dataset &lt;a href=&#34;https://github.com/dylanpotteroconnell/IntelSquaredProject/blob/master/votingresultsfinal.csv&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;The first winning metric we consider is the Intelligence Squared Metric (ISM), which measures shift in absolute percentage of support. We next consider the Undisputed Metric (UDM), which uses the proportional switching outlined above, and only assigns a winner when one side &lt;em&gt;both&lt;/em&gt; convinces a greater proportion of Undecided voters to join their side, as well as a greater proportion of the other side to switch their opinion. In cases when these do not agree, no winner is declared.&lt;/p&gt;
 &lt;p&gt;Thus the first question is whether there are cases where the UDM declares a winner which is the reverse of the ISM, like the toy example outlined above by &lt;em&gt;whuber&lt;/em&gt;. It turns out that this is &lt;em&gt;not&lt;/em&gt; an idle concern, and in fact there have been six debates with this conflicting result.&lt;/p&gt;
 &lt;!-- \begin{table}[h] --&gt;
@@ -1542,9 +1490,9 @@ For
 &lt;p&gt;&lt;span class=&#34;math display&#34;&gt;\[
 \text{Trigger Warnings Debate: }\left(
 \begin{array}{ccc}
-0.67 &amp;amp; 0.44 &amp;amp; 0.39 \\ 
-0.26 &amp;amp; 0.56 &amp;amp; 0.33 \\ 
-0.07 &amp;amp; 0.00 &amp;amp; 0.28 \\ 
+0.67 &amp;amp; 0.44 &amp;amp; 0.39 \\
+0.26 &amp;amp; 0.56 &amp;amp; 0.33 \\
+0.07 &amp;amp; 0.00 &amp;amp; 0.28 \\
 \end{array}
 \right).
 \]&lt;/span&gt;&lt;/p&gt;
@@ -1592,9 +1540,9 @@ We can stick to a nonparametric test to sidestep of our lack of reasonable assum
     
     <item>
       <title>Scraping the &#34;Intelligence Squared&#34; Debate Results</title>
-      <link>/2018/07/26/scraping-is2/</link>
+      <link>https://dylanpotteroconnell.netlify.app/2018/07/26/scraping-is2/</link>
       <pubDate>Thu, 26 Jul 2018 00:00:00 +0000</pubDate>
-      <guid>/2018/07/26/scraping-is2/</guid>
+      <guid>https://dylanpotteroconnell.netlify.app/2018/07/26/scraping-is2/</guid>
       <description>&lt;p&gt;This is a brief companion to the 
 &lt;a href=&#34;https://dylanpotteroconnell.github.io/debatefinalsummary/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;post&lt;/a&gt; analyzing the methods of assigning a winner to a debate, using the Intelligence Squared dataset. I will briefly outline here how I assemble that dataset, for trasparency.&lt;/p&gt;
 &lt;h3 id=&#34;compiling-the-pages&#34;&gt;Compiling the Pages&lt;/h3&gt;
@@ -1615,32 +1563,14 @@ We can stick to a nonparametric test to sidestep of our lack of reasonable assum
     </item>
     
     <item>
-      <title>Privacy Policy</title>
-      <link>/privacy/</link>
-      <pubDate>Thu, 28 Jun 2018 00:00:00 +0100</pubDate>
-      <guid>/privacy/</guid>
-      <description>&lt;p&gt;&amp;hellip;&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Terms</title>
-      <link>/terms/</link>
-      <pubDate>Thu, 28 Jun 2018 00:00:00 +0100</pubDate>
-      <guid>/terms/</guid>
-      <description>&lt;p&gt;&amp;hellip;&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
       <title>World Cup Elo Part 3: Results of Toy Model for Group Stage</title>
-      <link>/2018/06/01/worldcup-3/</link>
+      <link>https://dylanpotteroconnell.netlify.app/2018/06/01/worldcup-3/</link>
       <pubDate>Fri, 01 Jun 2018 00:00:00 +0000</pubDate>
-      <guid>/2018/06/01/worldcup-3/</guid>
+      <guid>https://dylanpotteroconnell.netlify.app/2018/06/01/worldcup-3/</guid>
       <description>
 
 
-&lt;p&gt;&lt;em&gt;Part 1 can be found &lt;a href=&#34;/2017/12/05/worldcup-1&#34;&gt;here&lt;/a&gt;, and Part 2 &lt;a href=&#34;/2017/12/10/worldcup-2/&#34;&gt;here&lt;/a&gt;.&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;Part 1 can be found &lt;a href=&#34;https://dylanpotteroconnell.netlify.app/2017/12/05/worldcup-1&#34;&gt;here&lt;/a&gt;, and Part 2 &lt;a href=&#34;https://dylanpotteroconnell.netlify.app/2017/12/10/worldcup-2/&#34;&gt;here&lt;/a&gt;.&lt;/em&gt;&lt;/p&gt;
 &lt;p&gt;Over the winter, I built a straightforward Elo rating system to model soccer/football national teams during the World Cup. Elo rating systems are used all around us, but most people never bother to delve into the details of how they are constructed, which makes it difficult to draw precise inferences, so this is a useful exercise. Now that the group stage of the 2018 World Cup has wrapped up, I’ll take a quick look at how the Elo rating system performed if it were used as a betting system..&lt;/p&gt;
 &lt;div id=&#34;major-caveats&#34; class=&#34;section level3&#34;&gt;
 &lt;h3&gt;Major Caveats&lt;/h3&gt;
@@ -3147,9 +3077,9 @@ Japan
     
     <item>
       <title>OddsConverter Part 3: Uploading to the Chrome Store</title>
-      <link>/2018/03/01/oddsconverter-part3/</link>
+      <link>https://dylanpotteroconnell.netlify.app/2018/03/01/oddsconverter-part3/</link>
       <pubDate>Thu, 01 Mar 2018 00:00:00 +0000</pubDate>
-      <guid>/2018/03/01/oddsconverter-part3/</guid>
+      <guid>https://dylanpotteroconnell.netlify.app/2018/03/01/oddsconverter-part3/</guid>
       <description>&lt;p&gt;Brief update to the 
 &lt;a href=&#34;https://dylanpotteroconnell.github.io/bettingextension2/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;past post&lt;/a&gt;. I knew a few people who wanted to try the extension, so I thought it’d be a fun exercise to go through the process of uploading it to the Chrome store. You can view and add the extension to your own browser 
 &lt;a href=&#34;https://chrome.google.com/webstore/detail/odds-converter/klechkhopfnjihobbcfeheooaigjjgdg&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;here&lt;/a&gt;. This is far from a polished state, given that it was meant to be a quick way to explore something new. However, I do find myself using the finished product a surprising amount, so I thought it was worth keeping on the Webstore. And it’s nice to see how easy Google makes it to upload a simple app.&lt;/p&gt;
@@ -3158,9 +3088,9 @@ Japan
     
     <item>
       <title>Odds Converter Part 2: Conversion Webpage</title>
-      <link>/2018/01/25/oddsconverter-part2/</link>
+      <link>https://dylanpotteroconnell.netlify.app/2018/01/25/oddsconverter-part2/</link>
       <pubDate>Thu, 25 Jan 2018 00:00:00 +0000</pubDate>
-      <guid>/2018/01/25/oddsconverter-part2/</guid>
+      <guid>https://dylanpotteroconnell.netlify.app/2018/01/25/oddsconverter-part2/</guid>
       <description>&lt;h2 id=&#34;opening-a-new-page&#34;&gt;Opening a New Page&lt;/h2&gt;
 &lt;p&gt;Our simple extension from 
 &lt;a href=&#34;https://dylanpotteroconnell.github.io/bettingextension/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;last time&lt;/a&gt; works quite well to replace text on a page, but whenever text isn&amp;rsquo;t displayed in a nice format (which is true for many mdoern websites), it won&amp;rsquo;t do much good. The hope is to add functionality to it so that the user can easily and manually input the odds that they need. My vision was to let the user right click, and open up a page that lets them impute the odds to convert in a more detailed format.&lt;/p&gt;
@@ -3290,9 +3220,9 @@ function IPtoML(IP) {
     
     <item>
       <title>OddsConverter Part 1: Converting Plaintext</title>
-      <link>/2018/01/22/oddsconverter-part1/</link>
+      <link>https://dylanpotteroconnell.netlify.app/2018/01/22/oddsconverter-part1/</link>
       <pubDate>Mon, 22 Jan 2018 00:00:00 +0000</pubDate>
-      <guid>/2018/01/22/oddsconverter-part1/</guid>
+      <guid>https://dylanpotteroconnell.netlify.app/2018/01/22/oddsconverter-part1/</guid>
       <description>&lt;p&gt;The same betting odds are often displayed in disparate ways, depending on the context. In America, normally in terms of a Moneyline, where +200 is shorthand for &amp;ldquo;if you bet \$100, you can win an additional \$200&amp;rdquo;. In other contexts, we generally see the tradition &amp;ldquo;X/Y&amp;rdquo; fractional odds. Both of these have clear mathematical meanings, but for inexperienced bettors, they tend to be poor conveyors of intuitive meaning. We can quickly estimate what &amp;ldquo;+350&amp;rdquo; implies, but for most people, it takes a mental calculation to do so. The most useful intuitive information about betting odds comes from the &amp;ldquo;Implied Probability&amp;rdquo;, which is the probability of the event necessary for you to &amp;ldquo;break even&amp;rdquo; on the bet. Betting sites don&amp;rsquo;t particularly like Implied Probability because it makes the cut they take more obvious (when mutually exclusive and complete events have probabilities that sum up to greater than one), and more intuitively accurate information for bettors can make them realize how daunting it is to actually keep up a positive expected value.&lt;/p&gt;
 &lt;p&gt;As someone without the perfect intuition needed to convert these odds in my head, I got tired of glancing at a table of odds and trying to work out their precise value one by one. I thought it would be nice to have a very simple Google Chrome extension that could do it for me. The initial functionality is simple: click on the icon, and it converts any odds it can find on the page into Implied Probability. Click on it again, and it converts back. The challenge is that I have zero knowledge of JavaScript. Luckily, this task was simple enough that it could be cobbled together in the style of Frankenstein&amp;rsquo;s monster, with some slight modifications.&lt;/p&gt;
 &lt;h2 id=&#34;click-icon-replace-text&#34;&gt;Click Icon, Replace Text&lt;/h2&gt;
@@ -3375,13 +3305,13 @@ var replacedText = text.replace(pattern,
     
     <item>
       <title>World Cup Elo Part 2: Tuning the Model</title>
-      <link>/2017/12/10/worldcup-2/</link>
+      <link>https://dylanpotteroconnell.netlify.app/2017/12/10/worldcup-2/</link>
       <pubDate>Sun, 10 Dec 2017 00:00:00 +0000</pubDate>
-      <guid>/2017/12/10/worldcup-2/</guid>
+      <guid>https://dylanpotteroconnell.netlify.app/2017/12/10/worldcup-2/</guid>
       <description>
 
 
-&lt;p&gt;&lt;em&gt;Part 1 can be found &lt;a href=&#34;/2017/12/05/worldcup-1&#34;&gt;here&lt;/a&gt;, and a followup discussing the eventual observed World Cup results is found &lt;a href=&#34;/2018/06/01/worldcup-3&#34;&gt;here&lt;/a&gt;.&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;Part 1 can be found &lt;a href=&#34;https://dylanpotteroconnell.netlify.app/2017/12/05/worldcup-1&#34;&gt;here&lt;/a&gt;, and a followup discussing the eventual observed World Cup results is found &lt;a href=&#34;https://dylanpotteroconnell.netlify.app/2018/06/01/worldcup-3&#34;&gt;here&lt;/a&gt;.&lt;/em&gt;&lt;/p&gt;
 &lt;div id=&#34;elo-rating-system-choices&#34; class=&#34;section level3&#34;&gt;
 &lt;h3&gt;Elo Rating System Choices&lt;/h3&gt;
 &lt;p&gt;As previously described, the Elo rating system is a broad and flexible framework, rather than a monolithic model. In fact, the primary draw of this project was to better understand the subjective choices that any person constructing such a model must make, and how we can use our intuition and domain knowledge to make plausible choices. In this post, I’ll briefly outline how one might approach some of those choices in the context of the World Cup.&lt;/p&gt;
@@ -3701,15 +3631,15 @@ Panama
     
     <item>
       <title>World Cup Elo Part 1; Predictive Efficacy of Prior Results </title>
-      <link>/2017/12/05/worldcup-1/</link>
+      <link>https://dylanpotteroconnell.netlify.app/2017/12/05/worldcup-1/</link>
       <pubDate>Tue, 05 Dec 2017 00:00:00 +0000</pubDate>
-      <guid>/2017/12/05/worldcup-1/</guid>
+      <guid>https://dylanpotteroconnell.netlify.app/2017/12/05/worldcup-1/</guid>
       <description>
 
 
-&lt;p&gt;&lt;em&gt;Part 2 can be found &lt;a href=&#34;/2017/12/10/worldcup-2/&#34;&gt;here&lt;/a&gt;, and a followup discussing the eventual observed World Cup results is found &lt;a href=&#34;/2018/06/01/worldcup-3&#34;&gt;here&lt;/a&gt;.&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;Part 2 can be found &lt;a href=&#34;https://dylanpotteroconnell.netlify.app/2017/12/10/worldcup-2/&#34;&gt;here&lt;/a&gt;, and a followup discussing the eventual observed World Cup results is found &lt;a href=&#34;https://dylanpotteroconnell.netlify.app/2018/06/01/worldcup-3&#34;&gt;here&lt;/a&gt;.&lt;/em&gt;&lt;/p&gt;
 &lt;p&gt;The FIFA World Cup is the biggest biggest spectacle of the sports and entertainment, world. With tens of billions of dollars bet on its results, it presents a fascinating predictive challenge. Its structure defies that of regular domestic sports leagues, which offer regular and consistent competitive results which we can use to gauge future performance. National teams play each other infrequently, and there are frequently large shifts in roster between each meaningful competition. True World Cup predictions have to go far beyond standard sabermetric models, and have to consider a wide array of input information.&lt;/p&gt;
-&lt;p&gt;This provides an interesting opportunity to consider the practical limits of an analytical model in such a challenging situation. We consider the efficacy of predicting national team strength using solely the World Cup results of the past 20 years. The core of this short project was originally written in five days as part of a curricular project (knowing little about international football), hence some of the initial restrictions, but it has been expanded since. The original paper goes into some detail &lt;a href=&#34;/pdfs/doconnell_practicalexamreport.pdf&#34;&gt;here&lt;/a&gt;, but we highlight some of the points here. This post will describe the setup, challenge, and data setting, and &lt;a href=&#34;/2017/12/10/worldcup-2/&#34;&gt;Part 2&lt;/a&gt; will describe some of the choices made in tuning the model (with Part 3 to come).&lt;/p&gt;
+&lt;p&gt;This provides an interesting opportunity to consider the practical limits of an analytical model in such a challenging situation. We consider the efficacy of predicting national team strength using solely the World Cup results of the past 20 years. The core of this short project was originally written in five days as part of a curricular project (knowing little about international football), hence some of the initial restrictions, but it has been expanded since. The original paper goes into some detail &lt;a href=&#34;https://dylanpotteroconnell.netlify.app/pdfs/doconnell_practicalexamreport.pdf&#34;&gt;here&lt;/a&gt;, but we highlight some of the points here. This post will describe the setup, challenge, and data setting, and &lt;a href=&#34;https://dylanpotteroconnell.netlify.app/2017/12/10/worldcup-2/&#34;&gt;Part 2&lt;/a&gt; will describe some of the choices made in tuning the model (with Part 3 to come).&lt;/p&gt;
 &lt;div id=&#34;challenges&#34; class=&#34;section level3&#34;&gt;
 &lt;h3&gt;Challenges&lt;/h3&gt;
 &lt;p&gt;We start with a brief overview of why common statistical approaches are poorly suited to this problem. This will be fairly obvious to most, but these challenges inform any more successful approach, and need to be kept in mind. A naive approach to predict the outcome of a match might be to consider the past results between the two teams in question. However, the sparsity of the dataset makes this impossible. Of the 48 matches played in the 2018 group stage, only 14 of them involve a pair of teams which have a single game played in our dataset. This is not solely due to the vast number of national teams and the infrequency of scheduled matches, but becuase the qualifying and group selection process specifically encourages matchup diversity. Qualfication is done by region, so a large number of a team’s total games will be against the same consistent competition, while group selection encourages a variety of regional representation.&lt;/p&gt;
@@ -3883,7 +3813,7 @@ Thus, we can see that there are elements of Elo rating assumptions that are not 
 &lt;/div&gt;
 &lt;div id=&#34;the-dataset&#34; class=&#34;section level3&#34;&gt;
 &lt;h3&gt;The Dataset&lt;/h3&gt;
-&lt;p&gt;We consider World Cup results (group stage, knockout, and qualifying) from 2002-2018, with the data compiled by the &lt;a href=&#34;www.rsssf.com&#34;&gt;Rec.Sport.Soccer Statistics Foundation&lt;/a&gt;. After removing an assortment of matches without results (qualifying matches are occasionally canceled or annuled for various reasons), we are left with 2964 complete match results. The primary data cleaning challenge is creating a complete mapping from these matches, to the national teams involved. Not only does the dataset use a variety of abbreviations for each country, many political borders have shifted during the course of this dataset. Luckily, this largely applies to teams who are not qualified for the 2018 World Cup, but we surely cannot ignore these because our model will be predicated on an accurate assessment of not just the teams directly qualified, but for the teams which they played in order to qualify (to give tehir results context). Thus, there is no solution for this but a laborious manual inspection of this messy situation. Ultimately, we compile a list of 115 mappings (applying to 42 different countries), with certain selections being routine (the different ways a country can be abbreviated), and others being more impactful (when countries split). Details can be found in the &lt;a href=&#34;/pdfs/doconnell_practicalexamreport.pdf&#34;&gt;paper&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;We consider World Cup results (group stage, knockout, and qualifying) from 2002-2018, with the data compiled by the &lt;a href=&#34;www.rsssf.com&#34;&gt;Rec.Sport.Soccer Statistics Foundation&lt;/a&gt;. After removing an assortment of matches without results (qualifying matches are occasionally canceled or annuled for various reasons), we are left with 2964 complete match results. The primary data cleaning challenge is creating a complete mapping from these matches, to the national teams involved. Not only does the dataset use a variety of abbreviations for each country, many political borders have shifted during the course of this dataset. Luckily, this largely applies to teams who are not qualified for the 2018 World Cup, but we surely cannot ignore these because our model will be predicated on an accurate assessment of not just the teams directly qualified, but for the teams which they played in order to qualify (to give tehir results context). Thus, there is no solution for this but a laborious manual inspection of this messy situation. Ultimately, we compile a list of 115 mappings (applying to 42 different countries), with certain selections being routine (the different ways a country can be abbreviated), and others being more impactful (when countries split). Details can be found in the &lt;a href=&#34;https://dylanpotteroconnell.netlify.app/pdfs/doconnell_practicalexamreport.pdf&#34;&gt;paper&lt;/a&gt;.&lt;/p&gt;
 &lt;p&gt;The most significant choice involves the Serbian national team, which is qualified for the 2018 World Cup. Up through 2006, it competed as the joint Serbia &amp;amp; Montenegro national team, until Montenegro declared independence. As the majority of players stayed on the Serbian national team, we simply count that as a singular unified team, and consider the Montenegro national team to be “newly formed” in 2006. While the dataset is overall sparse (due to the vast number of teams in FIFA), thankfully the 32 teams for the 2018 World Cup are reasonably well represented. The least prolific is Iceland (with 31 matches recorded), but most countries have 40 to 60 that we cn use.&lt;/p&gt;
 &lt;p&gt;In the next post, we will outline the myriad choices required in constructing this model.&lt;/p&gt;
 &lt;/div&gt;
@@ -3892,17 +3822,17 @@ Thus, we can see that there are elements of Elo rating assumptions that are not 
     
     <item>
       <title>External Project</title>
-      <link>/project/external-project/</link>
+      <link>https://dylanpotteroconnell.netlify.app/project/external-project/</link>
       <pubDate>Wed, 27 Apr 2016 00:00:00 +0000</pubDate>
-      <guid>/project/external-project/</guid>
+      <guid>https://dylanpotteroconnell.netlify.app/project/external-project/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Internal Project</title>
-      <link>/project/internal-project/</link>
+      <link>https://dylanpotteroconnell.netlify.app/project/internal-project/</link>
       <pubDate>Wed, 27 Apr 2016 00:00:00 +0000</pubDate>
-      <guid>/project/internal-project/</guid>
+      <guid>https://dylanpotteroconnell.netlify.app/project/internal-project/</guid>
       <description>&lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis posuere tellus ac convallis placerat. Proin tincidunt magna sed ex sollicitudin condimentum. Sed ac faucibus dolor, scelerisque sollicitudin nisi. Cras purus urna, suscipit quis sapien eu, pulvinar tempor diam. Quisque risus orci, mollis id ante sit amet, gravida egestas nisl. Sed ac tempus magna. Proin in dui enim. Donec condimentum, sem id dapibus fringilla, tellus enim condimentum arcu, nec volutpat est felis vel metus. Vestibulum sit amet erat at nulla eleifend gravida.&lt;/p&gt;
 &lt;p&gt;Nullam vel molestie justo. Curabitur vitae efficitur leo. In hac habitasse platea dictumst. Sed pulvinar mauris dui, eget varius purus congue ac. Nulla euismod, lorem vel elementum dapibus, nunc justo porta mi, sed tempus est est vel tellus. Nam et enim eleifend, laoreet sem sit amet, elementum sem. Morbi ut leo congue, maximus velit ut, finibus arcu. In et libero cursus, rutrum risus non, molestie leo. Nullam congue quam et volutpat malesuada. Sed risus tortor, pulvinar et dictum nec, sodales non mi. Phasellus lacinia commodo laoreet. Nam mollis, erat in feugiat consectetur, purus eros egestas tellus, in auctor urna odio at nibh. Mauris imperdiet nisi ac magna convallis, at rhoncus ligula cursus.&lt;/p&gt;
 &lt;p&gt;Cras aliquam rhoncus ipsum, in hendrerit nunc mattis vitae. Duis vitae efficitur metus, ac tempus leo. Cras nec fringilla lacus. Quisque sit amet risus at ipsum pharetra commodo. Sed aliquam mauris at consequat eleifend. Praesent porta, augue sed viverra bibendum, neque ante euismod ante, in vehicula justo lorem ac eros. Suspendisse augue libero, venenatis eget tincidunt ut, malesuada at lorem. Donec vitae bibendum arcu. Aenean maximus nulla non pretium iaculis. Quisque imperdiet, nulla in pulvinar aliquet, velit quam ultrices quam, sit amet fringilla leo sem vel nunc. Mauris in lacinia lacus.&lt;/p&gt;
@@ -3913,9 +3843,9 @@ Thus, we can see that there are elements of Elo rating assumptions that are not 
     
     <item>
       <title>An example journal article</title>
-      <link>/publication/journal-article/</link>
+      <link>https://dylanpotteroconnell.netlify.app/publication/journal-article/</link>
       <pubDate>Tue, 01 Sep 2015 00:00:00 +0000</pubDate>
-      <guid>/publication/journal-article/</guid>
+      <guid>https://dylanpotteroconnell.netlify.app/publication/journal-article/</guid>
       <description>&lt;div class=&#34;alert alert-note&#34;&gt;
   &lt;div&gt;
     Click the &lt;em&gt;Cite&lt;/em&gt; button above to demo the feature to enable visitors to import publication metadata into their reference management software.
@@ -3933,9 +3863,9 @@ Thus, we can see that there are elements of Elo rating assumptions that are not 
     
     <item>
       <title>An example conference paper</title>
-      <link>/publication/conference-paper/</link>
+      <link>https://dylanpotteroconnell.netlify.app/publication/conference-paper/</link>
       <pubDate>Mon, 01 Jul 2013 00:00:00 +0000</pubDate>
-      <guid>/publication/conference-paper/</guid>
+      <guid>https://dylanpotteroconnell.netlify.app/publication/conference-paper/</guid>
       <description>&lt;div class=&#34;alert alert-note&#34;&gt;
   &lt;div&gt;
     Click the &lt;em&gt;Cite&lt;/em&gt; button above to demo the feature to enable visitors to import publication metadata into their reference management software.
